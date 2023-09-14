@@ -1,0 +1,61 @@
+biocutils package
+=================
+
+Submodules
+----------
+
+biocutils.factor module
+-----------------------
+
+.. automodule:: biocutils.factor
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+biocutils.intersect module
+--------------------------
+
+.. automodule:: biocutils.intersect
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+biocutils.map\_to\_index module
+-------------------------------
+
+.. automodule:: biocutils.map_to_index
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+biocutils.match module
+----------------------
+
+.. automodule:: biocutils.match
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+biocutils.subset module
+-----------------------
+
+.. automodule:: biocutils.subset
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+biocutils.union module
+----------------------
+
+.. automodule:: biocutils.union
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: biocutils
+   :members:
+   :undoc-members:
+   :show-inheritance:

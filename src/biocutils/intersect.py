@@ -37,8 +37,8 @@ def intersect(*x: Sequence, duplicate_method: DUPLICATE_METHOD = "first") -> lis
             for f in first:
                 handler(f)
         else:
-            for i in range(len(first) - 1, -1, -1):
-                handler(first[i])
+            for f in reversed(first):
+                handler(f)
             output.reverse()
 
         return output
@@ -74,8 +74,8 @@ def intersect(*x: Sequence, duplicate_method: DUPLICATE_METHOD = "first") -> lis
         for f in first:
             handler(f)
     else:
-        for i in range(len(first) - 1, -1, -1):
-            handler(first[i])
+        for f in reversed(first):
+            handler(f)
         output.reverse()
 
     return output

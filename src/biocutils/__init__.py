@@ -18,3 +18,4 @@ finally:
 from .factor import factor
 from .match import match
 from .map_to_index import map_to_index
+from .intersect import intersect

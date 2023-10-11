@@ -68,3 +68,16 @@ y = np.array([10, 20, 30, 40, 50])
 biocutils.subset(y, [0, 2, 4])
 ## array([10, 30, 50])
 ```
+
+### `is_list_of_type`
+
+Checks if all elements of a list or tuple are of the same type.
+
+```python
+import biocutils
+import numpy as np
+
+x = [np.random.rand(3), np.random.rand(3, 2)]
+biocutils.is_list_of_type(x, np.ndarray)
+## True
+```

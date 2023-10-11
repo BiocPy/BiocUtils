@@ -21,4 +21,4 @@ from .map_to_index import map_to_index
 from .intersect import intersect
 from .union import union
 from .subset import subset
-from .utils import is_list_of_type
+from .is_list_of_type import is_list_of_type

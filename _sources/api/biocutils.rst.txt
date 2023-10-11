@@ -20,6 +20,14 @@ biocutils.intersect module
    :undoc-members:
    :show-inheritance:
 
+biocutils.is\_list\_of\_type module
+-----------------------------------
+
+.. automodule:: biocutils.is_list_of_type
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 biocutils.map\_to\_index module
 -------------------------------
 

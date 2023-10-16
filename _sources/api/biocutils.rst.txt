@@ -44,6 +44,14 @@ biocutils.match module
    :undoc-members:
    :show-inheritance:
 
+biocutils.package\_utils module
+-------------------------------
+
+.. automodule:: biocutils.package_utils
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 biocutils.subset module
 -----------------------
 

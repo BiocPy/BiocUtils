@@ -1,13 +1,13 @@
-from typing import Sequence, Tuple, Union
+from typing import List, Sequence, Union
 
-from .map_to_index import map_to_index, DUPLICATE_METHOD
+from .map_to_index import DUPLICATE_METHOD, map_to_index
 
 
 def match(
     x: Sequence,
     targets: Union[dict, Sequence],
     duplicate_method: DUPLICATE_METHOD = "first",
-) -> list[Union[int, None]]:
+) -> List[Union[int, None]]:
     """Find a matching value of each element of ``x`` in ``target``.
 
     Args:

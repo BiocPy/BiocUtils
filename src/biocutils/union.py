@@ -1,4 +1,4 @@
-from typing import Sequence, Tuple
+from typing import Sequence
 
 from .map_to_index import DUPLICATE_METHOD
 

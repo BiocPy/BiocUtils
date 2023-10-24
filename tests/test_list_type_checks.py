@@ -14,6 +14,10 @@ def test_simple_list():
     xt = (1, 2, 3)
     assert is_list_of_type(xt, int)
 
+    xt = (1, 2, None)
+    assert not is_list_of_type(xt, int)
+    assert is_list_of_type(xt, int, ignore_none = True)
+
 
 def test_should_fail():
     x = [1, [2, 3, 4], 6]

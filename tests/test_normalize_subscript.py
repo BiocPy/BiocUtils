@@ -99,3 +99,14 @@ def test_normalize_subscript_numpy():
 
     # Now the trickiest part - are booleans converted correctly?
     assert normalize_subscript(numpy.array([True, False, True, False, True]), 5) == ([0, 2, 4], False)
+
+
+def test_normalize_subscript_allow_negative():
+    assert normalize_subscript(-50, 100, non_negative_only=False) == ([-50], True)
+    assert normalize_subscript(range(50, -10, -1), 100, non_negative_only=False) == (range(50, -10, -1), False)
+    assert normalize_subscript(range(-10, -50, -1), 100, non_negative_only=False) == (range(-10, -50, -1), False)
+    assert normalize_subscript([0,-1,2,-3,4,-5,6,-7,8], 50, non_negative_only=False) == ([0,-1,2,-3,4,-5,6,-7,8], False)
+
+    with pytest.raises(IndexError) as ex:
+        normalize_subscript([0,-1,2,-3,4,-51,6,-7,8], 50, non_negative_only=False)
+    assert str(ex.value).find("subscript (-51) out of range") >= 0

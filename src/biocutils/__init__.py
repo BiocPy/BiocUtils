@@ -22,3 +22,4 @@ from .intersect import intersect
 from .union import union
 from .subset import subset
 from .is_list_of_type import is_list_of_type
+from .normalize_subscript import normalize_subscript

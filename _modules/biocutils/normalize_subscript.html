@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>biocutils.normalize_subscript &#8212; biocutils 0.0.6 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css?v=233b9934" />
+    <script src="../../_static/documentation_options.js?v=1fd71caa"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for biocutils.normalize_subscript</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span>
+
+
+<span class="k">def</span> <span class="nf">_raise_int</span><span class="p">(</span><span class="n">idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">length</span><span class="p">):</span>
+    <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span><span class="s2">&quot;subscript (&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;) out of range for vector-like object of length &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">length</span><span class="p">))</span>
+
+
+<span class="n">has_numpy</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">numpy</span>
+    <span class="n">has_numpy</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="k">pass</span>
+
+
+<div class="viewcode-block" id="normalize_subscript">
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.normalize_subscript.normalize_subscript">[docs]</a>
+<span class="k">def</span> <span class="nf">normalize_subscript</span><span class="p">(</span><span class="n">sub</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">slice</span><span class="p">,</span> <span class="nb">range</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">bool</span><span class="p">],</span> <span class="n">length</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">names</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">non_negative_only</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Normalize a subscript for ``__getitem__`` or friends into a sequence of</span>
+<span class="sd">    integer indices, for consistent downstream use.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        sub: </span>
+<span class="sd">            The subscript. This can be any of the following:</span>
+
+<span class="sd">            - A slice of elements. </span>
+<span class="sd">            - A range containing indices to elements. Negative values are</span>
+<span class="sd">              allowed. An error is raised if the indices are out of range.</span>
+<span class="sd">            - A single integer specifying the index of an element. A negative</span>
+<span class="sd">              value is allowed. An error is raised if the index is out of range.</span>
+<span class="sd">            - A single string that can be found in ``names``, which is</span>
+<span class="sd">              converted to the index of the first occurrence of that string in</span>
+<span class="sd">              ``names``. An error is raised if the string cannot be found.</span>
+<span class="sd">            - A single boolean, which is converted into a list containing the</span>
+<span class="sd">              first element if true, and an empty list if false.</span>
+<span class="sd">            - A sequence of strings, integers and/or booleans. Strings are</span>
+<span class="sd">              converted to indices based on first occurrence in ``names``,</span>
+<span class="sd">              as described above. Integers should be indices to an element.</span>
+<span class="sd">              Each truthy boolean is converted to an index equal to its</span>
+<span class="sd">              position in ``sub``, and each Falsey boolean is ignored.</span>
+
+<span class="sd">        length:</span>
+<span class="sd">            Length of the object.</span>
+
+<span class="sd">        names:</span>
+<span class="sd">            List of names for each entry in the object. If not None, this</span>
+<span class="sd">            should have length equal to ``length``.</span>
+
+<span class="sd">        non_negative_only:</span>
+<span class="sd">            Whether negative indices must be converted into non-negative</span>
+<span class="sd">            equivalents. Setting this to `False` may improve efficiency.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A tuple containing (i) a sequence of integer indices in ``[0, length)``</span>
+<span class="sd">        specifying the subscript elements, and (ii) a boolean indicating whether</span>
+<span class="sd">        ``sub`` was a scalar.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">sub</span><span class="p">,</span> <span class="nb">bool</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">has_numpy</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">sub</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">bool_</span><span class="p">)):</span> <span class="c1"># before ints, as bools are ints.</span>
+        <span class="k">if</span> <span class="n">sub</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="kc">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[],</span> <span class="kc">False</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">sub</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">has_numpy</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">sub</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">generic</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="n">sub</span> <span class="o">&lt;</span> <span class="o">-</span><span class="n">length</span> <span class="ow">or</span> <span class="n">sub</span> <span class="o">&gt;=</span> <span class="n">length</span><span class="p">:</span>
+            <span class="n">_raise_int</span><span class="p">(</span><span class="n">sub</span><span class="p">,</span> <span class="n">length</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">sub</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">non_negative_only</span><span class="p">:</span>
+            <span class="n">sub</span> <span class="o">+=</span> <span class="n">length</span>
+        <span class="k">return</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">sub</span><span class="p">)],</span> <span class="kc">True</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">sub</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">names</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span><span class="s2">&quot;failed to find subscript &#39;&quot;</span> <span class="o">+</span> <span class="n">sub</span> <span class="o">+</span> <span class="s2">&quot;&#39; for vector-like object with no names&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">names</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">sub</span><span class="p">)],</span> <span class="kc">True</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">sub</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">range</span><span class="p">(</span><span class="o">*</span><span class="n">sub</span><span class="o">.</span><span class="n">indices</span><span class="p">(</span><span class="n">length</span><span class="p">)),</span> <span class="kc">False</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">sub</span><span class="p">,</span> <span class="nb">range</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sub</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[],</span> <span class="kc">False</span>
+
+        <span class="n">first</span> <span class="o">=</span> <span class="n">sub</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">last</span> <span class="o">=</span> <span class="n">sub</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">first</span> <span class="o">&gt;=</span> <span class="n">length</span><span class="p">:</span>
+            <span class="n">_raise_int</span><span class="p">(</span><span class="n">first</span><span class="p">,</span> <span class="n">length</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">last</span> <span class="o">&gt;=</span> <span class="n">length</span><span class="p">:</span>
+            <span class="n">_raise_int</span><span class="p">(</span><span class="n">last</span><span class="p">,</span> <span class="n">length</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">first</span> <span class="o">&lt;</span> <span class="o">-</span><span class="n">length</span><span class="p">:</span>
+            <span class="n">_raise_int</span><span class="p">(</span><span class="n">first</span><span class="p">,</span> <span class="n">length</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">last</span> <span class="o">&lt;</span> <span class="o">-</span><span class="n">length</span><span class="p">:</span>
+            <span class="n">_raise_int</span><span class="p">(</span><span class="n">last</span><span class="p">,</span> <span class="n">length</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">non_negative_only</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">sub</span><span class="p">,</span> <span class="kc">False</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">sub</span><span class="o">.</span><span class="n">start</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">sub</span><span class="o">.</span><span class="n">stop</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="nb">range</span><span class="p">(</span><span class="n">length</span> <span class="o">+</span> <span class="n">sub</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">length</span> <span class="o">+</span> <span class="n">sub</span><span class="o">.</span><span class="n">stop</span><span class="p">,</span> <span class="n">sub</span><span class="o">.</span><span class="n">step</span><span class="p">),</span> <span class="kc">False</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="p">[</span> <span class="p">(</span><span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="n">length</span> <span class="o">+</span> <span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">sub</span><span class="p">],</span> <span class="kc">False</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">sub</span><span class="o">.</span><span class="n">stop</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="p">[</span> <span class="p">(</span><span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="n">length</span> <span class="o">+</span> <span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">sub</span><span class="p">],</span> <span class="kc">False</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">sub</span><span class="p">,</span> <span class="kc">False</span>
+
+    <span class="n">can_return_early</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">sub</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">bool</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">has_numpy</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">bool_</span><span class="p">))</span> <span class="ow">or</span> <span class="p">(</span><span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">non_negative_only</span><span class="p">):</span>
+            <span class="n">can_return_early</span> <span class="o">=</span> <span class="kc">False</span><span class="p">;</span>
+            <span class="k">break</span>
+
+    <span class="k">if</span> <span class="n">can_return_early</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">sub</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="n">length</span> <span class="ow">or</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="o">-</span><span class="n">length</span><span class="p">:</span>
+                <span class="n">_raise_int</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">length</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">sub</span><span class="p">,</span> <span class="kc">False</span>
+
+    <span class="n">output</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">has_strings</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="n">string_positions</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sub</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">has_strings</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+            <span class="n">string_positions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">output</span><span class="p">))</span>
+            <span class="n">output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">bool</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">has_numpy</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">bool_</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">x</span><span class="p">:</span>
+                <span class="n">output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="o">-</span><span class="n">length</span><span class="p">:</span>
+                <span class="n">_raise_int</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">length</span><span class="p">)</span>
+            <span class="n">output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="n">length</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="n">length</span><span class="p">:</span>
+                <span class="n">_raise_int</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">length</span><span class="p">)</span>
+            <span class="n">output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">has_strings</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">names</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span><span class="s2">&quot;cannot find string subscripts for vector-like object with no names&quot;</span><span class="p">)</span>
+
+        <span class="n">mapping</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">names</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">has_strings</span><span class="p">:</span>
+                <span class="n">mapping</span><span class="p">[</span><span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span>
+                <span class="n">has_strings</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="c1"># remove it so we only consider the first.</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">string_positions</span><span class="p">:</span>
+            <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">mapping</span><span class="p">[</span><span class="n">sub</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span>
+
+    <span class="k">return</span> <span class="n">output</span><span class="p">,</span> <span class="kc">False</span></div>
+
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">biocutils</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../readme.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributions &amp; Help</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../authors.html">Authors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/modules.html">Module Reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Aaron Lun.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.2.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

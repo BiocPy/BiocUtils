@@ -44,10 +44,26 @@ biocutils.match module
    :undoc-members:
    :show-inheritance:
 
+biocutils.normalize\_subscript module
+-------------------------------------
+
+.. automodule:: biocutils.normalize_subscript
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 biocutils.package\_utils module
 -------------------------------
 
 .. automodule:: biocutils.package_utils
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+biocutils.print\_truncated\_list module
+---------------------------------------
+
+.. automodule:: biocutils.print_truncated_list
    :members:
    :undoc-members:
    :show-inheritance:

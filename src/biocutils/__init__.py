@@ -23,5 +23,5 @@ from .union import union
 from .subset import subset
 from .is_list_of_type import is_list_of_type
 from .normalize_subscript import normalize_subscript
-from .print_truncated_list import print_truncated_list
+from .print_truncated import print_truncated, print_truncated_list, print_truncated_dict
 from .print_wrapped_table import print_wrapped_table, create_floating_names, truncate_strings, print_type

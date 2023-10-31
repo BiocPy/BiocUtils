@@ -60,10 +60,18 @@ biocutils.package\_utils module
    :undoc-members:
    :show-inheritance:
 
-biocutils.print\_truncated\_list module
----------------------------------------
+biocutils.print\_truncated module
+---------------------------------
 
-.. automodule:: biocutils.print_truncated_list
+.. automodule:: biocutils.print_truncated
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+biocutils.print\_wrapped\_table module
+--------------------------------------
+
+.. automodule:: biocutils.print_wrapped_table
    :members:
    :undoc-members:
    :show-inheritance:

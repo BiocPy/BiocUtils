@@ -1,7 +1,14 @@
-from typing import Optional, Sequence, Callable
+from typing import Callable, Optional, Sequence
 
 
-def print_truncated_list(x: Sequence, truncated_to = 3, full_threshold = 10, transform: Optional[Callable] = None, sep: str = ", ", include_brackets: bool = True) -> str:
+def print_truncated_list(
+    x: Sequence,
+    truncated_to=3,
+    full_threshold=10,
+    transform: Optional[Callable] = None,
+    sep: str = ", ",
+    include_brackets: bool = True,
+) -> str:
     """
     Pretty-print a truncated list, replacing the middle elements with an
     ellipsis if there are too many. This provides a useful preview of an
@@ -29,11 +36,11 @@ def print_truncated_list(x: Sequence, truncated_to = 3, full_threshold = 10, tra
             Whether to include the start/end brackets.
 
     Returns:
-        String containing the pretty-printed truncated list. 
+        String containing the pretty-printed truncated list.
     """
     collected = []
     if transform is None:
-        transform = lambda y : y
+        transform = lambda y: y
 
     if len(x) > full_threshold and len(x) > truncated_to * 2:
         for i in range(truncated_to):

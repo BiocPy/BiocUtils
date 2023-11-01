@@ -8,10 +8,10 @@ def union(*x: Sequence, duplicate_method: DUPLICATE_METHOD = "first") -> list:
     order of the first (or last) occurence of each value.
 
     Args:
-        x (Sequence): 
+        x (Sequence):
             Zero, one or more sequences of interest.
 
-        duplicate_method (DUPLICATE_METHOD): 
+        duplicate_method (DUPLICATE_METHOD):
             Whether to take the first or last occurrence of each value in the
             ordering of the output. If first, the first occurrence in the
             earliest sequence of ``x`` is reported; if last, the last
@@ -27,6 +27,7 @@ def union(*x: Sequence, duplicate_method: DUPLICATE_METHOD = "first") -> list:
 
     output = []
     present = set()
+
     def handler(f):
         if f is not None and f not in present:
             output.append(f)

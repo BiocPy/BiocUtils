@@ -1,11 +1,13 @@
-from typing import Any, Callable, Union
+from typing import Callable, Union
 
 __author__ = "jkanche"
 __copyright__ = "jkanche"
 __license__ = "MIT"
 
 
-def is_list_of_type(x: Union[list, tuple], target_type: Callable, ignore_none: bool = False) -> bool:
+def is_list_of_type(
+    x: Union[list, tuple], target_type: Callable, ignore_none: bool = False
+) -> bool:
     """Checks if ``x`` is a list, and whether all elements of the list are of the same type.
 
     Args:

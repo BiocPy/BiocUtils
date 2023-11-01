@@ -1,10 +1,8 @@
-from typing import Sequence, Tuple, Optional
+from typing import Optional, Sequence, Tuple
 
 
 def factor(
-    x: Sequence, 
-    levels: Optional[Sequence] = None, 
-    sort_levels: bool = False 
+    x: Sequence, levels: Optional[Sequence] = None, sort_levels: bool = False
 ) -> Tuple[list, list]:
     """
     Convert a sequence of hashable values into a factor.
@@ -25,7 +23,7 @@ def factor(
     Returns:
         Tuple[list, list]: Tuple where the first list contains the unique levels
         and the second list contains the integer index into the first list.
-        Indexing the first list by the second list will recover ``x``, except 
+        Indexing the first list by the second list will recover ``x``, except
         for any None values in ``x``, which will be None in the second list.
     """
 

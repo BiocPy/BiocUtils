@@ -1,4 +1,5 @@
-from typing import Sequence, List, Optional
+from typing import List, Optional, Sequence
+
 from .subset import subset
 
 
@@ -10,12 +11,17 @@ def _get_max_width(col: List[str]):
     return width
 
 
-def print_wrapped_table(columns: List[Sequence[str]], floating_names: Optional[Sequence[str]] = None, sep: str = " ", window: Optional[int] = None) -> str:
+def print_wrapped_table(
+    columns: List[Sequence[str]],
+    floating_names: Optional[Sequence[str]] = None,
+    sep: str = " ",
+    window: Optional[int] = None,
+) -> str:
     """
     Pretty-print a table with aligned and wrapped columns. All column contents
     are padded so that they are right-justified. Wrapping is performed whenever
     a new column would exceed the window width, in which case the entire column
-    (and all subsequent columns) are printed below the previous columns. 
+    (and all subsequent columns) are printed below the previous columns.
 
     Args:
         columns:
@@ -31,7 +37,7 @@ def print_wrapped_table(columns: List[Sequence[str]], floating_names: Optional[S
             List of strings to be added to the left of the table. This is
             printed repeatedly for each set of wrapped columns.
 
-            See also :py:meth:`~create_floating_names`. 
+            See also :py:meth:`~create_floating_names`.
 
         sep:
             Separator between columns.
@@ -96,7 +102,9 @@ def print_wrapped_table(columns: List[Sequence[str]], floating_names: Optional[S
     return output
 
 
-def create_floating_names(names: Optional[List[str]], indices: Sequence[int]) -> List[str]:
+def create_floating_names(
+    names: Optional[List[str]], indices: Sequence[int]
+) -> List[str]:
     """
     Create the floating names to use in :py:meth:`~print_wrapped_table`. If no
     names are present, positional indices are used instead.
@@ -109,7 +117,7 @@ def create_floating_names(names: Optional[List[str]], indices: Sequence[int]) ->
             Integer indices for which to obtain the names.
 
     Returns:
-        List of strings containing floating names. 
+        List of strings containing floating names.
     """
     if names is not None:
         return subset(names, indices)
@@ -153,6 +161,7 @@ def print_type(x) -> str:
     cls = type(x).__name__
 
     import sys
+
     if "numpy" in sys.modules:
         numpy = sys.modules["numpy"]
         if isinstance(x, numpy.ndarray):

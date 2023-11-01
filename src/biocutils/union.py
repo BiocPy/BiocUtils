@@ -4,8 +4,8 @@ from .map_to_index import DUPLICATE_METHOD
 
 
 def union(*x: Sequence, duplicate_method: DUPLICATE_METHOD = "first") -> list:
-    """Identify the union of values in multiple sequences, while preserving the
-    order of the first (or last) occurence of each value.
+    """Identify the union of values in multiple sequences, while preserving the order of the first (or last) occurence
+    of each value.
 
     Args:
         x (Sequence):

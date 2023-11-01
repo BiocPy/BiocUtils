@@ -4,8 +4,8 @@ from .map_to_index import DUPLICATE_METHOD
 
 
 def intersect(*x: Sequence, duplicate_method: DUPLICATE_METHOD = "first") -> list:
-    """Identify the intersection of values in multiple sequences, while
-    preserving the order of values in the first sequence.
+    """Identify the intersection of values in multiple sequences, while preserving the order of values in the first
+    sequence.
 
     Args:
         x (Sequence):

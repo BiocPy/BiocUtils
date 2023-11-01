@@ -11,6 +11,7 @@ def test_match_simple():
     mm2 = match(x, map_to_index(levels))
     assert mm == mm2
 
+
 def test_match_duplicates():
     x = [5, 1, 2, 3, 5, 6, 7, 7, 2, 1]
     mm = match(x, [1, 2, 3, 3, 5, 6, 1, 7, 6])
@@ -18,6 +19,7 @@ def test_match_duplicates():
 
     mm = match(x, [1, 2, 3, 3, 5, 6, 1, 7, 6], duplicate_method="last")
     assert mm == [4, 6, 1, 3, 4, 8, 7, 7, 1, 6]
+
 
 def test_match_none():
     mm = match(["A", None, "B", "D", None, "A", "C", None, "B"], ["D", "C", "B", "A"])

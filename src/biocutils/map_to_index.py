@@ -1,7 +1,7 @@
-from typing import Sequence, Literal
-
+from typing import Literal, Sequence
 
 DUPLICATE_METHOD = Literal["first", "last"]
+
 
 def map_to_index(x: Sequence, duplicate_method: DUPLICATE_METHOD = "first") -> dict:
     """Create a dictionary to map the values of a sequence to its positional indices.

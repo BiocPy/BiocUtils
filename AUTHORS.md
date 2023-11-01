@@ -1,3 +1,4 @@
 # Contributors
 
-* Aaron Lun [lun.aaron@gene.com](mailto:lun.aaron@gene.com)
+* Aaron Lun [infinite.monkeys.with.keyboards@gmail.com](mailto:infinite.monkeys.with.keyboards@gmail.com)
+* Jayaram Kancherla [jayaram.kancherla@gmail.com](mailto:jayaram.kancherla@gmail.com)

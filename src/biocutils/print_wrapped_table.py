@@ -1,4 +1,5 @@
-from typing import Sequence, List, Optional
+from typing import List, Optional, Sequence
+
 from .subset import subset
 
 
@@ -10,12 +11,15 @@ def _get_max_width(col: List[str]):
     return width
 
 
-def print_wrapped_table(columns: List[Sequence[str]], floating_names: Optional[Sequence[str]] = None, sep: str = " ", window: Optional[int] = None) -> str:
-    """
-    Pretty-print a table with aligned and wrapped columns. All column contents
-    are padded so that they are right-justified. Wrapping is performed whenever
-    a new column would exceed the window width, in which case the entire column
-    (and all subsequent columns) are printed below the previous columns. 
+def print_wrapped_table(
+    columns: List[Sequence[str]],
+    floating_names: Optional[Sequence[str]] = None,
+    sep: str = " ",
+    window: Optional[int] = None,
+) -> str:
+    """Pretty-print a table with aligned and wrapped columns. All column contents are padded so that they are right-
+    justified. Wrapping is performed whenever a new column would exceed the window width, in which case the entire
+    column (and all subsequent columns) are printed below the previous columns.
 
     Args:
         columns:
@@ -31,7 +35,7 @@ def print_wrapped_table(columns: List[Sequence[str]], floating_names: Optional[S
             List of strings to be added to the left of the table. This is
             printed repeatedly for each set of wrapped columns.
 
-            See also :py:meth:`~create_floating_names`. 
+            See also :py:meth:`~create_floating_names`.
 
         sep:
             Separator between columns.
@@ -48,7 +52,7 @@ def print_wrapped_table(columns: List[Sequence[str]], floating_names: Optional[S
 
         try:
             window = os.get_terminal_size().columns
-        except:
+        except Exception:
             window = 150
 
     if len(columns) == 0:
@@ -96,10 +100,11 @@ def print_wrapped_table(columns: List[Sequence[str]], floating_names: Optional[S
     return output
 
 
-def create_floating_names(names: Optional[List[str]], indices: Sequence[int]) -> List[str]:
-    """
-    Create the floating names to use in :py:meth:`~print_wrapped_table`. If no
-    names are present, positional indices are used instead.
+def create_floating_names(
+    names: Optional[List[str]], indices: Sequence[int]
+) -> List[str]:
+    """Create the floating names to use in :py:meth:`~print_wrapped_table`. If no names are present, positional indices
+    are used instead.
 
     Args:
         names:
@@ -109,7 +114,7 @@ def create_floating_names(names: Optional[List[str]], indices: Sequence[int]) ->
             Integer indices for which to obtain the names.
 
     Returns:
-        List of strings containing floating names. 
+        List of strings containing floating names.
     """
     if names is not None:
         return subset(names, indices)
@@ -118,8 +123,7 @@ def create_floating_names(names: Optional[List[str]], indices: Sequence[int]) ->
 
 
 def truncate_strings(values: List[str], width: int = 40) -> List[str]:
-    """
-    Truncate long strings for printing in :py:meth:`~print_wrapped_table`.
+    """Truncate long strings for printing in :py:meth:`~print_wrapped_table`.
 
     Args:
         values:
@@ -139,10 +143,8 @@ def truncate_strings(values: List[str], width: int = 40) -> List[str]:
 
 
 def print_type(x) -> str:
-    """
-    Print the type of an object, with some special behavior for certain classes
-    (e.g., to add the data type of NumPy arrays). This is intended for display
-    at the top of the columns of :py:meth:`~print_wrapped_table`.
+    """Print the type of an object, with some special behavior for certain classes (e.g., to add the data type of NumPy
+    arrays). This is intended for display at the top of the columns of :py:meth:`~print_wrapped_table`.
 
     Args:
         x: Some object.
@@ -153,6 +155,7 @@ def print_type(x) -> str:
     cls = type(x).__name__
 
     import sys
+
     if "numpy" in sys.modules:
         numpy = sys.modules["numpy"]
         if isinstance(x, numpy.ndarray):

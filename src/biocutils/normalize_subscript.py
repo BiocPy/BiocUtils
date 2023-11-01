@@ -1,28 +1,38 @@
-from typing import Union, Sequence, Optional, Tuple
+from typing import Optional, Sequence, Tuple, Union
 
 
 def _raise_int(idx: int, length):
-    raise IndexError("subscript (" + str(idx) + ") out of range for vector-like object of length " + str(length))
+    raise IndexError(
+        "subscript ("
+        + str(idx)
+        + ") out of range for vector-like object of length "
+        + str(length)
+    )
 
 
 has_numpy = False
 try:
     import numpy
+
     has_numpy = True
-except:
+except Exception:
     pass
 
 
-def normalize_subscript(sub: Union[slice, range, Sequence, int, str, bool], length: int, names: Optional[Sequence[str]] = None, non_negative_only: bool = True) -> Tuple:
-    """
-    Normalize a subscript for ``__getitem__`` or friends into a sequence of
-    integer indices, for consistent downstream use.
+def normalize_subscript(
+    sub: Union[slice, range, Sequence, int, str, bool],
+    length: int,
+    names: Optional[Sequence[str]] = None,
+    non_negative_only: bool = True,
+) -> Tuple:
+    """Normalize a subscript for ``__getitem__`` or friends into a sequence of integer indices, for consistent
+    downstream use.
 
     Args:
-        sub: 
+        sub:
             The subscript. This can be any of the following:
 
-            - A slice of elements. 
+            - A slice of elements.
             - A range containing indices to elements. Negative values are
               allowed. An error is raised if the indices are out of range.
             - A single integer specifying the index of an element. A negative
@@ -54,7 +64,9 @@ def normalize_subscript(sub: Union[slice, range, Sequence, int, str, bool], leng
         specifying the subscript elements, and (ii) a boolean indicating whether
         ``sub`` was a scalar.
     """
-    if isinstance(sub, bool) or (has_numpy and isinstance(sub, numpy.bool_)): # before ints, as bools are ints.
+    if isinstance(sub, bool) or (
+        has_numpy and isinstance(sub, numpy.bool_)
+    ):  # before ints, as bools are ints.
         if sub:
             return [0], True
         else:
@@ -69,7 +81,11 @@ def normalize_subscript(sub: Union[slice, range, Sequence, int, str, bool], leng
 
     if isinstance(sub, str):
         if names is None:
-            raise IndexError("failed to find subscript '" + sub + "' for vector-like object with no names")
+            raise IndexError(
+                "failed to find subscript '"
+                + sub
+                + "' for vector-like object with no names"
+            )
         return [names.index(sub)], True
 
     if isinstance(sub, slice):
@@ -96,17 +112,22 @@ def normalize_subscript(sub: Union[slice, range, Sequence, int, str, bool], leng
                 if sub.stop < 0:
                     return range(length + sub.start, length + sub.stop, sub.step), False
                 else:
-                    return [ (x < 0) * length + x for x in sub], False
+                    return [(x < 0) * length + x for x in sub], False
             else:
                 if sub.stop < 0:
-                    return [ (x < 0) * length + x for x in sub], False
+                    return [(x < 0) * length + x for x in sub], False
                 else:
                     return sub, False
 
     can_return_early = True
     for x in sub:
-        if isinstance(x, str) or isinstance(x, bool) or (has_numpy and isinstance(x, numpy.bool_)) or (x < 0 and non_negative_only):
-            can_return_early = False;
+        if (
+            isinstance(x, str)
+            or isinstance(x, bool)
+            or (has_numpy and isinstance(x, numpy.bool_))
+            or (x < 0 and non_negative_only)
+        ):
+            can_return_early = False
             break
 
     if can_return_early:
@@ -137,13 +158,15 @@ def normalize_subscript(sub: Union[slice, range, Sequence, int, str, bool], leng
 
     if len(has_strings):
         if names is None:
-            raise IndexError("cannot find string subscripts for vector-like object with no names")
+            raise IndexError(
+                "cannot find string subscripts for vector-like object with no names"
+            )
 
         mapping = {}
         for i, y in enumerate(names):
             if y in has_strings:
                 mapping[y] = i
-                has_strings.remove(y) # remove it so we only consider the first.
+                has_strings.remove(y)  # remove it so we only consider the first.
 
         for i in string_positions:
             output[i] = mapping[sub[i]]

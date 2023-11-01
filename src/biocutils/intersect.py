@@ -4,14 +4,14 @@ from .map_to_index import DUPLICATE_METHOD
 
 
 def intersect(*x: Sequence, duplicate_method: DUPLICATE_METHOD = "first") -> list:
-    """Identify the intersection of values in multiple sequences, while
-    preserving the order of values in the first sequence.
+    """Identify the intersection of values in multiple sequences, while preserving the order of values in the first
+    sequence.
 
     Args:
-        x (Sequence): 
+        x (Sequence):
             Zero, one or more sequences of interest.
 
-        duplicate_method (DUPLICATE_METHOD): 
+        duplicate_method (DUPLICATE_METHOD):
             Whether to keep the first or last occurrence of duplicated values
             when preserving order in the first sequence.
 
@@ -61,8 +61,9 @@ def intersect(*x: Sequence, duplicate_method: DUPLICATE_METHOD = "first") -> lis
                     state[0] += 1
                     state[1] = i
 
-    # Going through the first vector again to preserve order. 
+    # Going through the first vector again to preserve order.
     output = []
+
     def handler(f):
         if f is not None and f in occurrences:
             state = occurrences[f]

@@ -17,32 +17,26 @@ def test_intersect_simple():
 
 def test_intersect_duplicates():
     # Doesn't report B, D, or F, despite the fact they have multiple counts.
-    out = intersect(
-        ["B", "B", "C", "A", "D", "D", "E"], ["A", "A", "C", "E", "F", "F"]
-    )
+    out = intersect(["B", "B", "C", "A", "D", "D", "E"], ["A", "A", "C", "E", "F", "F"])
     assert out == ["C", "A", "E"]
 
     # Doesn't report A multiple times.
-    out = intersect(
-        ["C", "A", "D", "A", "E", "A"], ["A", "C", "E", "F"]
-    )
+    out = intersect(["C", "A", "D", "A", "E", "A"], ["A", "C", "E", "F"])
     assert out == ["C", "A", "E"]
 
     # Switches the order of A being reported.
     out = intersect(
-        ["C", "A", "D", "A", "E", "A"], 
-        ["A", "C", "E", "F"], 
-        duplicate_method = "last"
+        ["C", "A", "D", "A", "E", "A"], ["A", "C", "E", "F"], duplicate_method="last"
     )
     assert out == ["C", "E", "A"]
 
     # Handles the single case correctly.
     single = ["A", "B", "A", "C", "D", "E", "D", "C"]
     out = intersect(single)
-    assert out == [ "A", "B", "C", "D", "E" ]
+    assert out == ["A", "B", "C", "D", "E"]
 
-    out = intersect(single, duplicate_method = "last")
-    assert out == [ "B", "A", "E", "D", "C" ]
+    out = intersect(single, duplicate_method="last")
+    assert out == ["B", "A", "E", "D", "C"]
 
 
 def test_intersect_none():

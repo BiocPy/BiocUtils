@@ -4,8 +4,7 @@ from typing import Optional, Sequence, Tuple
 def factor(
     x: Sequence, levels: Optional[Sequence] = None, sort_levels: bool = False
 ) -> Tuple[list, list]:
-    """
-    Convert a sequence of hashable values into a factor.
+    """Convert a sequence of hashable values into a factor.
 
     Args:
         x (Sequence): A sequence of hashable values.

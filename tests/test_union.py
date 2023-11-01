@@ -7,7 +7,7 @@ def test_union_simple():
     y = ["B", "C", "A", "D", "E"]
     assert union(y) == y
 
-    out = union(y, [ "A", "C", "E", "F" ])
+    out = union(y, ["A", "C", "E", "F"])
     assert out == ["B", "C", "A", "D", "E", "F"]
 
     out = union(["B", "C", "A", "D", "E"], ["A", "C", "K", "E"], ["G", "K"])
@@ -21,13 +21,10 @@ def test_union_duplicates():
     out = union(y1, y2)
     assert out == ["B", "C", "A", "D", "E", "F"]
 
-    out = union(y1, y2, duplicate_method = "last")
+    out = union(y1, y2, duplicate_method="last")
     assert out == ["B", "D", "A", "C", "E", "F"]
 
 
 def test_union_none():
-    out = union(
-        ["B", None, "C", "A", None, "D", "E"], 
-        ["A", None, "C", "E", None, "F"]
-    )
+    out = union(["B", None, "C", "A", None, "D", "E"], ["A", None, "C", "E", None, "F"])
     assert out == ["B", "C", "A", "D", "E", "F"]

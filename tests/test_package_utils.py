@@ -16,6 +16,7 @@ def test_for_scipy():
 
     assert pkg is False
 
+
 def test_for_numpy():
     pkg = is_package_installed("numpy")
 

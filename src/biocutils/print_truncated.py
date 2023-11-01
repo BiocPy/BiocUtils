@@ -2,10 +2,8 @@ from typing import Callable, Dict, List, Optional
 
 
 def print_truncated(x, truncated_to: int = 3, full_threshold: int = 10) -> str:
-    """
-    Pretty-print an object, replacing the middle elements of lists/dictionaries
-    with an ellipsis if there are too many. This provides a useful preview of
-    an object without spewing out all of its contents on the screen.
+    """Pretty-print an object, replacing the middle elements of lists/dictionaries with an ellipsis if there are too
+    many. This provides a useful preview of an object without spewing out all of its contents on the screen.
 
     Args:
         x: Object to be printed.
@@ -22,18 +20,27 @@ def print_truncated(x, truncated_to: int = 3, full_threshold: int = 10) -> str:
         String containing the pretty-printed contents.
     """
     if isinstance(x, dict):
-        return print_truncated_dict(x, truncated_to=truncated_to, full_threshold=full_threshold)
+        return print_truncated_dict(
+            x, truncated_to=truncated_to, full_threshold=full_threshold
+        )
     elif isinstance(x, list):
-        return print_truncated_list(x, truncated_to=truncated_to, full_threshold=full_threshold)
+        return print_truncated_list(
+            x, truncated_to=truncated_to, full_threshold=full_threshold
+        )
     else:
         return repr(x)
 
 
-def print_truncated_list(x: List, truncated_to: int = 3, full_threshold: int = 10, transform: Optional[Callable] = None, sep: str = ", ", include_brackets: bool = True) -> str:
-    """
-    Pretty-print a list, replacing the middle elements with an ellipsis if
-    there are too many. This provides a useful preview of an object without
-    spewing out all of its contents on the screen.
+def print_truncated_list(
+    x: List,
+    truncated_to: int = 3,
+    full_threshold: int = 10,
+    transform: Optional[Callable] = None,
+    sep: str = ", ",
+    include_brackets: bool = True,
+) -> str:
+    """Pretty-print a list, replacing the middle elements with an ellipsis if there are too many. This provides a useful
+    preview of an object without spewing out all of its contents on the screen.
 
     Args:
         x: List to be printed.
@@ -58,7 +65,7 @@ def print_truncated_list(x: List, truncated_to: int = 3, full_threshold: int = 1
             Whether to include the start/end brackets.
 
     Returns:
-        String containing the pretty-printed truncated list. 
+        String containing the pretty-printed truncated list.
     """
     collected = []
     if transform is None:
@@ -81,11 +88,16 @@ def print_truncated_list(x: List, truncated_to: int = 3, full_threshold: int = 1
     return output
 
 
-def print_truncated_dict(x: Dict, truncated_to: int = 3, full_threshold: int = 10, transform: Optional[Callable] = None, sep: str = ", ", include_brackets: bool = True) -> str:
-    """
-    Pretty-print a dictionary, replacing the middle elements with an ellipsis
-    if there are too many. This provides a useful preview of an object without
-    spewing out all of its contents on the screen.
+def print_truncated_dict(
+    x: Dict,
+    truncated_to: int = 3,
+    full_threshold: int = 10,
+    transform: Optional[Callable] = None,
+    sep: str = ", ",
+    include_brackets: bool = True,
+) -> str:
+    """Pretty-print a dictionary, replacing the middle elements with an ellipsis if there are too many. This provides a
+    useful preview of an object without spewing out all of its contents on the screen.
 
     Args:
         x: Dictionary to be printed.

@@ -25,9 +25,8 @@ def normalize_subscript(
     names: Optional[Sequence[str]] = None,
     non_negative_only: bool = True,
 ) -> Tuple:
-    """
-    Normalize a subscript for ``__getitem__`` or friends into a sequence of
-    integer indices, for consistent downstream use.
+    """Normalize a subscript for ``__getitem__`` or friends into a sequence of integer indices, for consistent
+    downstream use.
 
     Args:
         sub:

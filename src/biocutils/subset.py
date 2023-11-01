@@ -2,9 +2,8 @@ from typing import Any, Sequence, Union
 
 
 def subset(x: Any, indices: Union[Sequence[int], slice]) -> Any:
-    """Subset ``x`` by ``indices`` to obtain a new object with the desired
-    subset of elements. This attempts to use ``x``'s ``__getitem__`` method, if
-    available; otherwise it falls back to iteration over the indices.
+    """Subset ``x`` by ``indices`` to obtain a new object with the desired subset of elements. This attempts to use
+    ``x``'s ``__getitem__`` method, if available; otherwise it falls back to iteration over the indices.
 
     If ``x`` has a ``shape`` method that returns a tuple (a la NumPy arrays),
     subsetting is only attempted on the first dimension via the ``__getitem__``

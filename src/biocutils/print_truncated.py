@@ -69,8 +69,11 @@ def print_truncated_list(
     """
     collected = []
     if transform is None:
+
         def transform(y):
-            return print_truncated(y, truncated_to=truncated_to, full_threshold=full_threshold)
+            return print_truncated(
+                y, truncated_to=truncated_to, full_threshold=full_threshold
+            )
 
     if len(x) > full_threshold and len(x) > truncated_to * 2:
         for i in range(truncated_to):
@@ -126,8 +129,11 @@ def print_truncated_dict(
     """
     collected = []
     if transform is None:
+
         def transform(y):
-            return print_truncated(y, truncated_to=truncated_to, full_threshold=full_threshold)
+            return print_truncated(
+                y, truncated_to=truncated_to, full_threshold=full_threshold
+            )
 
     all_keys = x.keys()
     if len(x) > full_threshold and len(x) > truncated_to * 2:

@@ -23,3 +23,5 @@ from .match import match
 from .normalize_subscript import normalize_subscript
 from .print_truncated import print_truncated, print_truncated_dict, print_truncated_list
 from .print_wrapped_table import create_floating_names, print_type, print_wrapped_table, truncate_strings
+from .subset import subset
+from .union import union

@@ -33,7 +33,7 @@ def subset(x: Any, indices: Union[Sequence[int], slice]) -> Any:
                 return x[(*expanded,)]
             else:
                 return x[indices]
-        except:
+        except Exception:
             pass
 
     if isinstance(indices, slice):

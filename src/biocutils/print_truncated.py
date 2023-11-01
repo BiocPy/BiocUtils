@@ -1,4 +1,4 @@
-from typing import Optional, List, Callable, Dict
+from typing import Callable, Dict, List, Optional
 
 
 def print_truncated(x, truncated_to: int = 3, full_threshold: int = 10) -> str:
@@ -62,7 +62,8 @@ def print_truncated_list(x: List, truncated_to: int = 3, full_threshold: int = 1
     """
     collected = []
     if transform is None:
-        transform = lambda y : print_truncated(y, truncated_to=truncated_to, full_threshold=full_threshold)
+        def transform(y):
+            return print_truncated(y, truncated_to=truncated_to, full_threshold=full_threshold)
 
     if len(x) > full_threshold and len(x) > truncated_to * 2:
         for i in range(truncated_to):
@@ -113,7 +114,8 @@ def print_truncated_dict(x: Dict, truncated_to: int = 3, full_threshold: int = 1
     """
     collected = []
     if transform is None:
-        transform = lambda y : print_truncated(y, truncated_to=truncated_to, full_threshold=full_threshold)
+        def transform(y):
+            return print_truncated(y, truncated_to=truncated_to, full_threshold=full_threshold)
 
     all_keys = x.keys()
     if len(x) > full_threshold and len(x) > truncated_to * 2:

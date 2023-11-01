@@ -54,7 +54,7 @@ def print_wrapped_table(
 
         try:
             window = os.get_terminal_size().columns
-        except:
+        except Exception:
             window = 150
 
     if len(columns) == 0:

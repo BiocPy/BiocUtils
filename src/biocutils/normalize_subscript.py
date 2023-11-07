@@ -1,22 +1,13 @@
 from typing import Optional, Sequence, Tuple, Union
+import numpy
 
 
 def _raise_int(idx: int, length):
-    raise IndexError(
-        "subscript ("
-        + str(idx)
-        + ") out of range for vector-like object of length "
-        + str(length)
-    )
+    raise IndexError("subscript (" + str(idx) + ") out of range for vector-like object of length " + str(length))
 
 
-has_numpy = False
-try:
-    import numpy
-
-    has_numpy = True
-except Exception:
-    pass
+def _is_scalar_bool(sub): 
+    return isinstance(sub, bool) or isinstance(sub, numpy.bool_)
 
 
 def normalize_subscript(
@@ -64,15 +55,13 @@ def normalize_subscript(
         specifying the subscript elements, and (ii) a boolean indicating whether
         ``sub`` was a scalar.
     """
-    if isinstance(sub, bool) or (
-        has_numpy and isinstance(sub, numpy.bool_)
-    ):  # before ints, as bools are ints.
+    if _is_scalar_bool(sub): # before ints, as bools are ints.
         if sub:
             return [0], True
         else:
             return [], False
 
-    if isinstance(sub, int) or (has_numpy and isinstance(sub, numpy.generic)):
+    if isinstance(sub, int) or isinstance(sub, numpy.integer):
         if sub < -length or sub >= length:
             _raise_int(sub, length)
         if sub < 0 and non_negative_only:
@@ -81,11 +70,7 @@ def normalize_subscript(
 
     if isinstance(sub, str):
         if names is None:
-            raise IndexError(
-                "failed to find subscript '"
-                + sub
-                + "' for vector-like object with no names"
-            )
+            raise IndexError("failed to find subscript '" + sub + "' for vector-like object with no names")
         return [names.index(sub)], True
 
     if isinstance(sub, slice):
@@ -121,12 +106,7 @@ def normalize_subscript(
 
     can_return_early = True
     for x in sub:
-        if (
-            isinstance(x, str)
-            or isinstance(x, bool)
-            or (has_numpy and isinstance(x, numpy.bool_))
-            or (x < 0 and non_negative_only)
-        ):
+        if isinstance(x, str) or _is_scalar_bool(x) or (x < 0 and non_negative_only):
             can_return_early = False
             break
 
@@ -144,7 +124,7 @@ def normalize_subscript(
             has_strings.add(x)
             string_positions.append(len(output))
             output.append(None)
-        elif isinstance(x, bool) or (has_numpy and isinstance(x, numpy.bool_)):
+        elif _is_scalar_bool(x):
             if x:
                 output.append(i)
         elif x < 0:
@@ -158,9 +138,7 @@ def normalize_subscript(
 
     if len(has_strings):
         if names is None:
-            raise IndexError(
-                "cannot find string subscripts for vector-like object with no names"
-            )
+            raise IndexError("cannot find string subscripts for vector-like object with no names")
 
         mapping = {}
         for i, y in enumerate(names):

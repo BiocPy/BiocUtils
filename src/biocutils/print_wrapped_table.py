@@ -1,4 +1,5 @@
 from typing import List, Optional, Sequence
+import numpy
 
 from .subset import subset
 
@@ -153,12 +154,6 @@ def print_type(x) -> str:
         String containing the class of the object.
     """
     cls = type(x).__name__
-
-    import sys
-
-    if "numpy" in sys.modules:
-        numpy = sys.modules["numpy"]
-        if isinstance(x, numpy.ndarray):
-            return cls + "[" + x.dtype.name + "]"
-
+    if isinstance(x, numpy.ndarray):
+        return cls + "[" + x.dtype.name + "]"
     return cls

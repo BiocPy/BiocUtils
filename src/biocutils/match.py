@@ -1,13 +1,10 @@
 from typing import List, Sequence, Union
+import numpy
 
 from .map_to_index import DUPLICATE_METHOD, map_to_index
 
 
-def match(
-    x: Sequence,
-    targets: Union[dict, Sequence],
-    duplicate_method: DUPLICATE_METHOD = "first",
-) -> List[Union[int, None]]:
+def match(x: Sequence, targets: Union[dict, Sequence], duplicate_method: DUPLICATE_METHOD = "first") -> numpy.ndarray:
     """Find a matching value of each element of ``x`` in ``target``.
 
     Args:
@@ -25,10 +22,12 @@ def match(
     """
     if isinstance(targets, Sequence):
         targets = map_to_index(targets, duplicate_method=duplicate_method)
-    indices = []
+
+    indices = numpy.zeros(len(x), dtype=numpy.min_scalar_type(-len(targets))) # get a signed type
     for i, y in enumerate(x):
-        if y is None or y not in targets:
-            indices.append(None)
+        if y not in targets:
+            indices[i] = -1
         else:
-            indices.append(targets[y])
+            indices[i] = targets[y]
+
     return indices

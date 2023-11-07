@@ -15,7 +15,8 @@ except PackageNotFoundError:  # pragma: no cover
 finally:
     del version, PackageNotFoundError
 
-from .factor import factor
+from .Factor import Factor
+from .factorize import factorize
 from .intersect import intersect
 from .is_list_of_type import is_list_of_type
 from .map_to_index import map_to_index

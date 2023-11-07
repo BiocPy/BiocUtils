@@ -5,12 +5,13 @@ import numpy
 
 from .match import match
 from .factorize import factorize
+from .normalize_subscript import normalize_subscript
 from .is_missing_scalar import is_missing_scalar
 from .print_truncated_list import print_truncated_list
 
 
 def _check_levels_type(levels: numpy.ndarray):
-    if not issubdtype(levels.dtype, numpy.str_):
+    if not numpy.issubdtype(levels.dtype, numpy.str_):
         raise TypeError("all entries of 'levels' should be strings")
     if numpy.ma.is_masked(levels):
         raise TypeError("all entries of 'levels' should be non-missing")
@@ -45,7 +46,7 @@ class Factor:
                 Whether to validate the arguments. Internal use only.
         """
         if not isinstance(codes, numpy.ndarray):
-            replacement = numpy.ndarray(len(levels), dtype=numpy.min_scalar_type(-len(levels))) # get a signed type.
+            replacement = numpy.ndarray(len(codes), dtype=numpy.min_scalar_type(-len(levels))) # get a signed type.
             for i, x in enumerate(codes):
                 if is_missing_scalar(x) or x < 0:
                     replacement[i] = -1
@@ -61,7 +62,7 @@ class Factor:
         self._ordered = bool(ordered)
 
         if validate:
-            if not issubdtype(self._codes.dtype, numpy.signedinteger):
+            if not numpy.issubdtype(self._codes.dtype, numpy.signedinteger):
                 raise TypeError("all entries of 'codes' should be signed integers")
             if len(self._codes.shape) != 1:
                 raise TypeError("'codes' should be a 1-dimensional array")
@@ -145,31 +146,31 @@ class Factor:
         message += "ordered: " + str(self._ordered)
         return message
 
-    def __getitem__(self, args: Union[int, bool, Sequence]) -> Union[str, "Factor"]:
+    def __getitem__(self, sub: Union[int, bool, Sequence]) -> Union[str, "Factor"]:
         """Subset the ``Factor`` to the specified subset of indices.
 
         Args:
-            args:
+            sub:
                 Sequence of integers or booleans specifying the elements of
                 interest. Alternatively, an integer/boolean scalar specifying a
                 single element.
 
         Returns:
-            If ``args`` is a sequence, returns same type as caller (a new
-            ``Factor``) containing only the elements of interest from ``args``.
+            If ``sub`` is a sequence, returns same type as caller (a new
+            ``Factor``) containing only the elements of interest from ``sub``.
 
-            If ``args`` is a scalar, a string is returned containing the
-            level corresponding to the code at position ``args``. This may
+            If ``sub`` is a scalar, a string is returned containing the
+            level corresponding to the code at position ``sub``. This may
             also be None if the code is missing.
         """
-        args, scalar = normalize_subscript(args, len(self), None)
+        sub, scalar = normalize_subscript(sub, len(self), None)
         if scalar:
-            x = self._codes[args[0]]
+            x = self._codes[sub[0]]
             if x >= 0:
                 return self._levels[x]
             else:
                 return None 
-        return type(self)(self._codes[args], self._levels, self._ordered, validate=False)
+        return type(self)(self._codes[sub], self._levels, self._ordered, validate=False)
 
     def replace(self, sub: Sequence, value: Union[str, "Factor"], in_place: bool = False):
         """
@@ -181,7 +182,7 @@ class Factor:
         level. If there is no matching level, a missing value is inserted.
 
         Args:
-            args: 
+            sub: 
                 Sequence of integers or booleans specifying the items to be
                 replaced.
 
@@ -210,7 +211,7 @@ class Factor:
                 codes[x] = value._codes[i]
         else:
             mapping = match(value._levels, self._levels)
-            for i, x in enumerate(args):
+            for i, x in enumerate(sub):
                 v = value._codes[i]
                 if v >= 0:
                     codes[x] = mapping[v]
@@ -259,7 +260,7 @@ class Factor:
         new_levels = numpy.array(new_levels)
 
         for i, x in enumerate(self._codes):
-            if not x >= 0:
+            if x >= 0:
                 new_codes[i] = reindex[x]
 
         if in_place:
@@ -310,9 +311,9 @@ class Factor:
                     "string 'levels' should already be present among object levels"
                 )
         else:
-            _check_levels_type(levels)
-            new_levels = levels
-            for i, x in enumerate(levels):
+            new_levels = numpy.array(levels)
+            _check_levels_type(new_levels)
+            for i, x in enumerate(new_levels):
                 if x in lmapping:
                     raise ValueError("levels should be unique")
                 lmapping[x] = i
@@ -405,5 +406,5 @@ class Factor:
         Returns:
             A ``Factor`` object.
         """
-        levels, indices = factorize(values, levels=levels, sort_levels=sort_levels)
+        levels, indices = factorize(x, levels=levels, sort_levels=sort_levels)
         return Factor(indices, levels=levels, ordered=ordered)

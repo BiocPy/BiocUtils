@@ -20,7 +20,7 @@ def match(x: Sequence, targets: Union[dict, Sequence], duplicate_method: DUPLICA
         integer position of each entry of ``x`` inside ``target``; or None,
         if the entry of ``x`` is None or cannot be found in ``target``.
     """
-    if isinstance(targets, Sequence):
+    if not isinstance(targets, dict):
         targets = map_to_index(targets, duplicate_method=duplicate_method)
 
     indices = numpy.zeros(len(x), dtype=numpy.min_scalar_type(-len(targets))) # get a signed type

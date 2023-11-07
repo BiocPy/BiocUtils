@@ -1,10 +1,11 @@
 from copy import deepcopy
-from typing import List, Sequence, Union
+from typing import List, Sequence, Union, Optional
 from warnings import warn
 import numpy
 
 from .match import match
 from .factorize import factorize
+from .is_missing_scalar import is_missing_scalar
 from .print_truncated_list import print_truncated_list
 
 
@@ -46,7 +47,7 @@ class Factor:
         if not isinstance(codes, numpy.ndarray):
             replacement = numpy.ndarray(len(levels), dtype=numpy.min_scalar_type(-len(levels))) # get a signed type.
             for i, x in enumerate(codes):
-                if x < 0 or x is None or numpy.ma.is_masked(x):
+                if is_missing_scalar(x) or x < 0:
                     replacement[i] = -1
                 else:
                     replacement[i] = x
@@ -70,7 +71,6 @@ class Factor:
             for x in codes:
                 if x >= len(self._levels):
                     raise ValueError("all entries of 'codes' should refer to an entry of 'levels'")
-                else if 
 
             if len(set(self._levels)) < len(self._levels):
                 raise ValueError("all entries of 'levels' should be unique")
@@ -125,7 +125,7 @@ class Factor:
         Returns:
             A stringified representation of this object.
         """
-        tmp = "Factor(codes=" + print_truncated_list(self._codes) + ", levels=" + print_truncated_list(self._levels))
+        tmp = "Factor(codes=" + print_truncated_list(self._codes) + ", levels=" + print_truncated_list(self._levels)
         if self._ordered:
             tmp += ", ordered=True"
         tmp += ")"

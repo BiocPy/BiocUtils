@@ -2,6 +2,7 @@ from typing import Optional, Sequence, Tuple
 import numpy
 
 from .match import match
+from .is_missing_scalar import is_missing_scalar
 
 
 def factorize(x: Sequence, levels: Optional[Sequence] = None, sort_levels: bool = False) -> Tuple[list, numpy.ndarray]:
@@ -25,14 +26,14 @@ def factorize(x: Sequence, levels: Optional[Sequence] = None, sort_levels: bool 
         Tuple where the first list contains the unique levels and the second
         array contains the integer index into the first list. Indexing the
         first list by the second array will recover ``x``; except for any None
-        values in ``x``, which will be -1 in the second array.
+        or masked values in ``x``, which will be -1 in the second array.
     """
 
     if levels is None:
         present = set()
         levels = []
         for val in x:
-            if val is not None and val not in present:
+            if not is_missing_scalar(val) and val not in present:
                 levels.append(val)
                 present.add(val)
         if sort_levels:

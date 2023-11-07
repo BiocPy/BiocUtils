@@ -32,9 +32,11 @@ class Factor:
 
         Args:
             codes:
-                Sequence of codes. Each value should be a non-negative integer
-                that refers to an entry ``levels``. Negative or None entries
-                are assumed to refer to missing values.
+                Sequence of codes. Each valid code should be a non-negative
+                integer that refers to an entry ``levels``. Codes may be
+                negative or correspond to a missing scalar (as defined by
+                :py:meth:`~biocutils.is_missing_scalar.is_missing_scalar`),
+                in which case they are assumed to represent missing values.
 
             levels:
                 List of levels containing unique strings.

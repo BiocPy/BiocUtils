@@ -1,24 +1,28 @@
 from typing import Sequence
 
 from .map_to_index import DUPLICATE_METHOD
+from .is_missing_scalar import is_missing_scalar
 
 
 def union(*x: Sequence, duplicate_method: DUPLICATE_METHOD = "first") -> list:
-    """Identify the union of values in multiple sequences, while preserving the order of the first (or last) occurence
-    of each value.
+    """
+    Identify the union of values in multiple sequences, while preserving the
+    order of the first (or last) occurence of each value.
 
     Args:
-        x (Sequence):
-            Zero, one or more sequences of interest.
+        x:
+            Zero, one or more sequences of interest containing hashable values.
+            We ignore missing values as defined by
+            :py:meth:`~biocutils.is_missing_scalar.is_missing_scalar`.
 
-        duplicate_method (DUPLICATE_METHOD):
+        duplicate_method:
             Whether to take the first or last occurrence of each value in the
             ordering of the output. If first, the first occurrence in the
             earliest sequence of ``x`` is reported; if last, the last
             occurrence in the latest sequence of ``x`` is reported.
 
     Returns:
-        list: Union of values across all ``x``. None values are ignored.
+        Union of values across all ``x``.
     """
 
     nargs = len(x)
@@ -29,7 +33,7 @@ def union(*x: Sequence, duplicate_method: DUPLICATE_METHOD = "first") -> list:
     present = set()
 
     def handler(f):
-        if f is not None and f not in present:
+        if not is_missing_scalar(f) and f not in present:
             output.append(f)
             present.add(f)
 

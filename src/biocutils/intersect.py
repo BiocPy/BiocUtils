@@ -1,22 +1,26 @@
 from typing import Sequence
 
 from .map_to_index import DUPLICATE_METHOD
+from .is_missing_scalar import is_missing_scalar
 
 
 def intersect(*x: Sequence, duplicate_method: DUPLICATE_METHOD = "first") -> list:
-    """Identify the intersection of values in multiple sequences, while preserving the order of values in the first
-    sequence.
+    """
+    Identify the intersection of values in multiple sequences, while preserving
+    the order of values in the first sequence.
 
     Args:
-        x (Sequence):
-            Zero, one or more sequences of interest.
+        x:
+            Zero, one or more sequences of interest containing hashable values.
+            We ignore missing values as defined by
+            :py:meth:`~biocutils.is_missing_scalar.is_missing_scalar`.
 
-        duplicate_method (DUPLICATE_METHOD):
+        duplicate_method:
             Whether to keep the first or last occurrence of duplicated values
             when preserving order in the first sequence.
 
     Returns:
-        list: Intersection of values across all ``x``. None values are ignored.
+        Intersection of values across all ``x``.
     """
     nargs = len(x)
     if nargs == 0:
@@ -29,7 +33,7 @@ def intersect(*x: Sequence, duplicate_method: DUPLICATE_METHOD = "first") -> lis
         output = []
 
         def handler(f):
-            if f is not None and f not in present:
+            if not is_missing_scalar(f) and f not in present:
                 output.append(f)
                 present.add(f)
 
@@ -50,12 +54,12 @@ def intersect(*x: Sequence, duplicate_method: DUPLICATE_METHOD = "first") -> lis
     # single sequence.
     occurrences = {}
     for f in first:
-        if f is not None and f not in occurrences:
+        if not is_missing_scalar(f) and f not in occurrences:
             occurrences[f] = [1, 0]
 
     for i in range(1, nargs):
         for f in x[i]:
-            if f is not None and f in occurrences:
+            if not is_missing_scalar(f) and f in occurrences:
                 state = occurrences[f]
                 if state[1] < i:
                     state[0] += 1
@@ -65,7 +69,7 @@ def intersect(*x: Sequence, duplicate_method: DUPLICATE_METHOD = "first") -> lis
     output = []
 
     def handler(f):
-        if f is not None and f in occurrences:
+        if not is_missing_scalar(f) and f in occurrences:
             state = occurrences[f]
             if state[0] == nargs and state[1] >= 0:
                 output.append(f)

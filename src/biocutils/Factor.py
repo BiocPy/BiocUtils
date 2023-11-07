@@ -7,7 +7,7 @@ from .match import match
 from .factorize import factorize
 from .normalize_subscript import normalize_subscript
 from .is_missing_scalar import is_missing_scalar
-from .print_truncated_list import print_truncated_list
+from .print_truncated import print_truncated_list
 
 
 def _check_levels_type(levels: numpy.ndarray):

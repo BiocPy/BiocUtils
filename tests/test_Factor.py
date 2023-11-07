@@ -1,7 +1,6 @@
 from biocutils import Factor
 import pytest
 import copy
-import pandas as pd
 
 
 def test_Factor_basics():
@@ -179,6 +178,7 @@ def test_Factor_copy():
 
 
 def test_Factor_pandas():
+    import pandas as pd
     f1 = Factor([0, 2, 4, 2, 0], levels=["A", "B", "C", "D", "E"])
     pcat = f1.to_pandas()
     assert pcat is not None

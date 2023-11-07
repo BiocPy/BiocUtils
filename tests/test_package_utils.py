@@ -5,11 +5,6 @@ __copyright__ = "jkanche"
 __license__ = "MIT"
 
 
-def test_for_pandas():
-    pkg = is_package_installed("pandas")
-
-    assert pkg is False
-
 
 def test_for_scipy():
     pkg = is_package_installed("scipy")

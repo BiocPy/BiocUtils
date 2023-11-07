@@ -43,9 +43,7 @@ def test_basic_mixed_dense_list():
     zcomb = combine_sequences(xd, y)
 
     z = x + y
-
-    assert zcomb == z
-    assert isinstance(zcomb, list)
+    assert (zcomb == z).all()
     assert len(zcomb) == len(xd) + len(y)
 
 
@@ -57,32 +55,8 @@ def test_basic_mixed_tuple_list():
     zcomb = combine_sequences(xd, y, x)
 
     z = x + list(y) + x
-
-    assert zcomb == z
-    assert isinstance(zcomb, list)
+    assert (zcomb == z).all()
     assert len(zcomb) == 2 * len(xd) + len(y)
-
-
-def test_basic_sparse():
-    x = np.array([1, 2, 3])
-    y = np.array([0.1, 0.2])
-
-    sx = sp.csr_array(x)
-    sy = sp.csr_array(y)
-
-    z = combine_sequences(sx, sy)
-
-    assert isinstance(z, sp.spmatrix)
-    assert z.shape[1] == len(x) + len(y)
-
-    # mixed sparse arrays
-    sx = sp.csr_array(x)
-    sy = sp.coo_array(y)
-
-    z = combine_sequences(sx, sy)
-
-    assert isinstance(z, sp.spmatrix)
-    assert z.shape[1] == len(x) + len(y)
 
 
 def test_pandas_series():

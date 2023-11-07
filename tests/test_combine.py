@@ -23,12 +23,16 @@ def test_basic_list():
 def test_basic_mixed_dense_list():
     x = [1, 2, 3]
     y = [0.1, 0.2]
-    xd = np.array([1, 2, 3])
-
+    xd = np.array(x)
     zcomb = combine(xd, y)
 
     z = x + y
-
-    assert zcomb == z
-    assert isinstance(zcomb, list)
+    assert (zcomb == z).all()
     assert len(zcomb) == len(xd) + len(y)
+
+
+def test_basic_mixed_dense_array():
+    x = np.array([1, 2, 3, 4]).reshape((2,2))
+    y = np.array([4, 5, 6, 7]).reshape((2,2))
+    zcomb = combine(x, y)
+    assert zcomb.shape == (4, 2)

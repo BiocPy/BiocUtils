@@ -34,11 +34,11 @@ if is_package_installed("scipy"):
         return x.todense()
 
     try:
-        convert_to_dense.register(sp.sparray, _convert_sparse_to_dense)
+        convert_to_dense.register(sp.spmatrix, _convert_sparse_to_dense)
     except Exception:
         pass
 
     try:
-        combine_rows.register(sp.spmatrix, _convert_sparse_to_dense)
+        convert_to_dense.register(sp.sparray, _convert_sparse_to_dense)
     except Exception:
         pass

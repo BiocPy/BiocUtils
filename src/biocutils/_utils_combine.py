@@ -4,9 +4,8 @@ def _check_array_dimensions(x, active: int) -> bool:
         current = x[i].shape
         if len(first) != len(current):
             raise ValueError("inconsistent dimensions for combining arrays (expected " + str(len(first)) + ", got " + str(len(current)) + " for array " + str(i) + ")")
-        
-        for j in enumerate(first):
-            if j != active and first[active] != current[active]:
+        for j in range(len(first)):
+            if j != active and first[j] != current[j]:
                 raise ValueError("inconsistent dimension extents for combining arrays on dimension " + str(active) + " (expected " + str(first[active]) + ", got " + str(current[active]) + " for array " + str(i) + ")")
 
 

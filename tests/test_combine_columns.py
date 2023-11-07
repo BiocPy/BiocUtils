@@ -36,6 +36,7 @@ def test_combine_columns_mixed():
     x = np.ones(shape=(num_rows, 10))
     y = sp.identity(num_rows)
 
+    print(x, y)
     z = combine_columns(x, y)
 
     assert isinstance(z, np.ndarray)

@@ -57,6 +57,8 @@ class Factor:
                 else:
                     replacement[i] = x
             codes = replacement
+        elif not numpy.issubdtype(codes.dtype, numpy.signedinteger): # force it to be signed.
+            codes = codes.astype(numpy.min_scalar_type(-len(levels)))
         self._codes = codes
 
         if not isinstance(levels, numpy.ndarray):
@@ -66,8 +68,6 @@ class Factor:
         self._ordered = bool(ordered)
 
         if validate:
-            if not numpy.issubdtype(self._codes.dtype, numpy.signedinteger):
-                raise TypeError("all entries of 'codes' should be signed integers")
             if len(self._codes.shape) != 1:
                 raise TypeError("'codes' should be a 1-dimensional array")
 

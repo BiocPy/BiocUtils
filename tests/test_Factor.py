@@ -1,37 +1,42 @@
 from biocutils import Factor, combine
 import pytest
 import copy
+import numpy
 
 
 def test_Factor_basics():
     f = Factor([0, 1, 2, 0, 2, 4], levels=["A", "B", "C", "D", "E"])
     assert len(f) == 6
     assert list(f) == ["A", "B", "C", "A", "C", "E"]
-    assert f.get_codes() == [0, 1, 2, 0, 2, 4]
-    assert f.get_levels() == ["A", "B", "C", "D", "E"]
+    assert list(f.get_codes()) == [0, 1, 2, 0, 2, 4]
+    assert list(f.get_levels()) == ["A", "B", "C", "D", "E"]
     assert not f.get_ordered()
 
-    with pytest.raises(TypeError) as ex:
-        Factor([0, "WHEE"], ["A", "B"])
-    assert str(ex.value).find("should be integers") >= 0
+    # Works with missing values.
+    f = Factor([0, 1, None, 0, numpy.ma.masked, 4], levels=["A", "B", "C", "D", "E"])
+    assert len(f) == 6
+    assert list(f) == ["A", "B", None, "A", None, "E"]
+    assert list(f.get_codes()) == [0, 1, -1, 0, -1, 4]
+    
+    f = Factor([None] * 10, levels=["A", "B", "C", "D", "E"])
+    assert list(f) == [None] * 10
 
-    with pytest.raises(TypeError) as ex:
-        Factor([0, 1], ["A", None, "B"])
-    assert str(ex.value).find("non-missing strings") >= 0
+    # Works with NumPy inputs.
+    f = Factor(numpy.array([4,3,2,1,0], dtype=numpy.uint8), levels=numpy.array(["A", "B", "C", "D", "E"]))
+    assert len(f) == 5 
+    assert f.get_codes().dtype == numpy.int8
+    assert numpy.issubdtype(f.get_levels().dtype, numpy.str_)
 
     with pytest.raises(ValueError) as ex:
-        Factor([0, 1, -1], ["A"])
+        Factor([0, 1, 100], ["A"])
     assert str(ex.value).find("refer to an entry") >= 0
 
     with pytest.raises(ValueError) as ex:
         Factor([0, 1], ["A", "B", "A"])
     assert str(ex.value).find("should be unique") >= 0
 
-    f = Factor([None] * 10, levels=["A", "B", "C", "D", "E"])
-    assert list(f) == [None] * 10
 
-
-def test_Factor_basics():
+def test_Factor_print():
     f = Factor([0, 1, 2, 0, 2, 4], levels=["A", "B", "C", "D", "E"])
     assert repr(f).startswith("Factor(")
     assert str(f).startswith("Factor of length")

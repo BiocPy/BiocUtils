@@ -39,7 +39,7 @@ def combine_sequences(*x: Any):
 
 @combine_sequences.register(list)
 def _combine_sequences_lists(*x: list):
-    return list(chain(*x))
+    return type(x[0])(chain(*x))
 
 
 @combine_sequences.register(numpy.ndarray)

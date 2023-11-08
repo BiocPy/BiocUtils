@@ -25,4 +25,4 @@ def subset_sequence(x: Any, indices: Sequence) -> Any:
 
 @subset_sequence.register
 def _subset_sequence_list(x: list, indices: Sequence) -> list:
-    return [x[i] for i in indices]
+    return type(x)(x[i] for i in indices)

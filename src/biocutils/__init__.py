@@ -16,6 +16,8 @@ finally:
     del version, PackageNotFoundError
 
 from .Factor import Factor
+from .StringList import StringList
+
 from .factorize import factorize
 from .intersect import intersect
 from .is_list_of_type import is_list_of_type

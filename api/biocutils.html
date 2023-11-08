@@ -5,10 +5,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>biocutils package &#8212; biocutils 0.0.7 documentation</title>
+    <title>biocutils package &#8212; biocutils 0.1.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=233b9934" />
-    <script src="../_static/documentation_options.js?v=bbaf98b3"></script>
+    <script src="../_static/documentation_options.js?v=01f34227"></script>
     <script src="../_static/doctools.js?v=888ff710"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -35,32 +35,642 @@
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">¶</a></h2>
 </section>
-<section id="module-biocutils.factor">
-<span id="biocutils-factor-module"></span><h2>biocutils.factor module<a class="headerlink" href="#module-biocutils.factor" title="Link to this heading">¶</a></h2>
-<dl class="py function">
-<dt class="sig sig-object py" id="biocutils.factor.factor">
-<span class="sig-prename descclassname"><span class="pre">biocutils.factor.</span></span><span class="sig-name descname"><span class="pre">factor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Sequence" title="(in Python v3.9)"><span class="pre">Sequence</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">levels</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Sequence" title="(in Python v3.9)"><span class="pre">Sequence</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort_levels</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Tuple" title="(in Python v3.9)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)"><span class="pre">list</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)"><span class="pre">list</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/biocutils/factor.html#factor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.factor.factor" title="Link to this definition">¶</a></dt>
+<section id="module-biocutils.Factor">
+<span id="biocutils-factor-module"></span><h2>biocutils.Factor module<a class="headerlink" href="#module-biocutils.Factor" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="biocutils.Factor.Factor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">biocutils.Factor.</span></span><span class="sig-name descname"><span class="pre">Factor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">codes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">levels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ordered</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">validate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/Factor.html#Factor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.Factor.Factor" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.9/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Factor class, equivalent to R’s <code class="docutils literal notranslate"><span class="pre">factor</span></code>.</p>
+<p>This is a vector of integer codes, each of which is an index into a list of
+unique strings. The aim is to encode a list of strings as integers for
+easier numerical analysis.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="biocutils.Factor.Factor.__copy__">
+<span class="sig-name descname"><span class="pre">__copy__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/Factor.html#Factor.__copy__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.Factor.Factor.__copy__" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#biocutils.Factor.Factor" title="biocutils.Factor.Factor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Factor</span></code></a></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A shallow copy of the <code class="docutils literal notranslate"><span class="pre">Factor</span></code> object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="biocutils.Factor.Factor.__deepcopy__">
+<span class="sig-name descname"><span class="pre">__deepcopy__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">memo</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/Factor.html#Factor.__deepcopy__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.Factor.Factor.__deepcopy__" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#biocutils.Factor.Factor" title="biocutils.Factor.Factor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Factor</span></code></a></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A deep copy of the <code class="docutils literal notranslate"><span class="pre">Factor</span></code> object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="biocutils.Factor.Factor.__getitem__">
+<span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sub</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/Factor.html#Factor.__getitem__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.Factor.Factor.__getitem__" title="Link to this definition">¶</a></dt>
+<dd><p>Subset the <code class="docutils literal notranslate"><span class="pre">Factor</span></code> to the specified subset of indices.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>sub</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Union" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code></a>[<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>, <a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>, <a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Sequence" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code></a>]) – Sequence of integers or booleans specifying the elements of
+interest. Alternatively, an integer/boolean scalar specifying a
+single element.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Union" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code></a>[<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference internal" href="#biocutils.Factor.Factor" title="biocutils.Factor.Factor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Factor</span></code></a>]</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><p>If <code class="docutils literal notranslate"><span class="pre">sub</span></code> is a sequence, returns same type as caller (a new
+<code class="docutils literal notranslate"><span class="pre">Factor</span></code>) containing only the elements of interest from <code class="docutils literal notranslate"><span class="pre">sub</span></code>.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">sub</span></code> is a scalar, a string is returned containing the
+level corresponding to the code at position <code class="docutils literal notranslate"><span class="pre">sub</span></code>. This may
+also be None if the code is missing.</p>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="biocutils.Factor.Factor.__len__">
+<span class="sig-name descname"><span class="pre">__len__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/Factor.html#Factor.__len__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.Factor.Factor.__len__" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Length of the factor in terms of the number of codes.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="biocutils.Factor.Factor.__repr__">
+<span class="sig-name descname"><span class="pre">__repr__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/Factor.html#Factor.__repr__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.Factor.Factor.__repr__" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A stringified representation of this object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="biocutils.Factor.Factor.__setitem__">
+<span class="sig-name descname"><span class="pre">__setitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/Factor.html#Factor.__setitem__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.Factor.Factor.__setitem__" title="Link to this definition">¶</a></dt>
+<dd><p>See <a class="reference internal" href="#biocutils.Factor.Factor.replace" title="biocutils.Factor.Factor.replace"><code class="xref py py-attr docutils literal notranslate"><span class="pre">replace</span></code></a> for details.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="biocutils.Factor.Factor.codes">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">codes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.26)"><span class="pre">ndarray</span></a></em><a class="headerlink" href="#biocutils.Factor.Factor.codes" title="Link to this definition">¶</a></dt>
+<dd><p>See <a class="reference internal" href="#biocutils.Factor.Factor.get_codes" title="biocutils.Factor.Factor.get_codes"><code class="xref py py-attr docutils literal notranslate"><span class="pre">get_codes</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="biocutils.Factor.Factor.drop_unused_levels">
+<span class="sig-name descname"><span class="pre">drop_unused_levels</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_place</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/Factor.html#Factor.drop_unused_levels"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.Factor.Factor.drop_unused_levels" title="Link to this definition">¶</a></dt>
+<dd><p>Drop unused levels.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>in_place</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – Whether to perform this modification in-place.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#biocutils.Factor.Factor" title="biocutils.Factor.Factor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Factor</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><p>If <code class="docutils literal notranslate"><span class="pre">in_place</span> <span class="pre">=</span> <span class="pre">False</span></code>, returns same type as caller (a new <code class="docutils literal notranslate"><span class="pre">Factor</span></code> object)
+where all unused levels have been removed.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">in_place</span> <span class="pre">=</span> <span class="pre">True</span></code>, unused levels are removed from the
+current object; a reference to the current object is returned.</p>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="biocutils.Factor.Factor.from_sequence">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_sequence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">levels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort_levels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ordered</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/Factor.html#Factor.from_sequence"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.Factor.Factor.from_sequence" title="Link to this definition">¶</a></dt>
 <dd><p>Convert a sequence of hashable values into a factor.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<em>Sequence</em>) – A sequence of hashable values.
-Any value may be None to indicate missingness.</p></li>
-<li><p><strong>levels</strong> (<em>Sequence</em><em>, </em><em>optional</em>) – Sequence of reference levels, against which the entries in <code class="docutils literal notranslate"><span class="pre">x</span></code> are compared.
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Sequence" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code></a>[<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]) – A sequence of strings. Any value may be None to indicate
+missingness.</p></li>
+<li><p><strong>levels</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Sequence" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code></a>[<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]]) – Sequence of reference levels, against which the entries in <code class="docutils literal notranslate"><span class="pre">x</span></code> are compared.
 If None, this defaults to all unique values of <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p></li>
-<li><p><strong>sort_levels</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Whether to sort the automatically-determined levels.
+<li><p><strong>sort_levels</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – Whether to sort the automatically-determined levels. If False,
+the levels are kept in order of their appearance in <code class="docutils literal notranslate"><span class="pre">x</span></code>.  Not
+used if <code class="docutils literal notranslate"><span class="pre">levels</span></code> is explicitly supplied.</p></li>
+<li><p><strong>ordered</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Whether the levels should be assumed to be ordered.  Note that
+this refers to their importance and has nothing to do with
+their sorting order or with the setting of <code class="docutils literal notranslate"><span class="pre">sort_levels</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#biocutils.Factor.Factor" title="biocutils.Factor.Factor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Factor</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A <code class="docutils literal notranslate"><span class="pre">Factor</span></code> object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="biocutils.Factor.Factor.get_codes">
+<span class="sig-name descname"><span class="pre">get_codes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/Factor.html#Factor.get_codes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.Factor.Factor.get_codes" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.26)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Array of integer codes, used as indices into the levels from
+<a class="reference internal" href="#biocutils.Factor.Factor.get_levels" title="biocutils.Factor.Factor.get_levels"><code class="xref py py-attr docutils literal notranslate"><span class="pre">get_levels</span></code></a>. A masked array may also be returned if
+any of the entries are missing.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="biocutils.Factor.Factor.get_levels">
+<span class="sig-name descname"><span class="pre">get_levels</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/Factor.html#Factor.get_levels"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.Factor.Factor.get_levels" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#biocutils.StringList.StringList" title="biocutils.StringList.StringList"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringList</span></code></a></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of strings containing the factor levels.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="biocutils.Factor.Factor.get_ordered">
+<span class="sig-name descname"><span class="pre">get_ordered</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/Factor.html#Factor.get_ordered"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.Factor.Factor.get_ordered" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the levels are ordered, otherwise False.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="biocutils.Factor.Factor.levels">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">levels</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#biocutils.StringList.StringList" title="biocutils.StringList.StringList"><span class="pre">StringList</span></a></em><a class="headerlink" href="#biocutils.Factor.Factor.levels" title="Link to this definition">¶</a></dt>
+<dd><p>See <a class="reference internal" href="#biocutils.Factor.Factor.get_levels" title="biocutils.Factor.Factor.get_levels"><code class="xref py py-attr docutils literal notranslate"><span class="pre">get_levels</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="biocutils.Factor.Factor.ordered">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ordered</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><span class="pre">bool</span></a></em><a class="headerlink" href="#biocutils.Factor.Factor.ordered" title="Link to this definition">¶</a></dt>
+<dd><p>See <a class="reference internal" href="#biocutils.Factor.Factor.get_ordered" title="biocutils.Factor.Factor.get_ordered"><code class="xref py py-attr docutils literal notranslate"><span class="pre">get_ordered</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="biocutils.Factor.Factor.replace">
+<span class="sig-name descname"><span class="pre">replace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sub</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_place</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/Factor.html#Factor.replace"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.Factor.Factor.replace" title="Link to this definition">¶</a></dt>
+<dd><p>Replace items in the <code class="docutils literal notranslate"><span class="pre">Factor</span></code> list.  The <code class="docutils literal notranslate"><span class="pre">subs</span></code> elements in the
+current object are replaced with the corresponding values in <code class="docutils literal notranslate"><span class="pre">value</span></code>.
+This is performed by finding the level for each entry of the
+replacement <code class="docutils literal notranslate"><span class="pre">value</span></code>, matching it to a level in the current object,
+and replacing the entry of <code class="docutils literal notranslate"><span class="pre">codes</span></code> with the code of the matched
+level. If there is no matching level, a missing value is inserted.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sub</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Sequence" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code></a>) – Sequence of integers or booleans specifying the items to be
+replaced.</p></li>
+<li><p><strong>value</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Union" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code></a>[<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference internal" href="#biocutils.Factor.Factor" title="biocutils.Factor.Factor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Factor</span></code></a>]) – If <code class="docutils literal notranslate"><span class="pre">sub</span></code> is a sequence, a <code class="docutils literal notranslate"><span class="pre">Factor</span></code> of the same length
+containing the replacement values.</p></li>
+<li><p><strong>in_place</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – Whether the replacement should be performed on the current
+object.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>If <code class="docutils literal notranslate"><span class="pre">in_place</span> <span class="pre">=</span> <span class="pre">False</span></code>, a new <code class="docutils literal notranslate"><span class="pre">Factor</span></code> is returned containing the
+contents of the current object after replacement by <code class="docutils literal notranslate"><span class="pre">value</span></code>.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">in_place</span> <span class="pre">=</span> <span class="pre">True</span></code>, the current object is returned after its
+items have been replaced.</p>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="biocutils.Factor.Factor.set_levels">
+<span class="sig-name descname"><span class="pre">set_levels</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">levels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_place</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/Factor.html#Factor.set_levels"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.Factor.Factor.set_levels" title="Link to this definition">¶</a></dt>
+<dd><p>Set or replace levels.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>levels</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Union" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code></a>[<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Sequence" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code></a>[<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]]) – <p>A sequence of replacement levels. These should be unique
+strings with no missing values.</p>
+<p>Alternatively a single string containing an existing level in
+this object. The new levels are defined as a permutation of the
+existing levels where the provided string is now the first
+level. The order of all other levels is preserved.</p>
+</p></li>
+<li><p><strong>in_place</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – Whether to perform this modification in-place.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#biocutils.Factor.Factor" title="biocutils.Factor.Factor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Factor</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><p>If <code class="docutils literal notranslate"><span class="pre">in_place</span> <span class="pre">=</span> <span class="pre">False</span></code>, returns same type as caller (a new
+<code class="docutils literal notranslate"><span class="pre">Factor</span></code> object) where the levels have been replaced. This will
+automatically update the codes so that they still refer to the same
+string in the new <code class="docutils literal notranslate"><span class="pre">levels</span></code>. If a code refers to a level that is
+not present in the new <code class="docutils literal notranslate"><span class="pre">levels</span></code>, it is replaced with None.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">in_place</span> <span class="pre">=</span> <span class="pre">True</span></code>, the levels are replaced in the current
+object, and a reference to the current object is returned.</p>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="biocutils.Factor.Factor.to_pandas">
+<span class="sig-name descname"><span class="pre">to_pandas</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/Factor.html#Factor.to_pandas"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.Factor.Factor.to_pandas" title="Link to this definition">¶</a></dt>
+<dd><p>Coerce to <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Categorical.html#pandas.Categorical" title="(in pandas v2.1.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Categorical</span></code></a> object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Categorical.html#pandas.Categorical" title="(in pandas v2.1.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Categorical</span></code></a> object.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Categorical</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-biocutils.StringList">
+<span id="biocutils-stringlist-module"></span><h2>biocutils.StringList module<a class="headerlink" href="#module-biocutils.StringList" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="biocutils.StringList.StringList">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">biocutils.StringList.</span></span><span class="sig-name descname"><span class="pre">StringList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iterable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coerce</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/StringList.html#StringList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.StringList.StringList" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a></p>
+<p>Python list of strings. This is the same as a regular Python list except
+that anything added to it will be coerced into a string. None values are
+also acceptable and are treated as missing strings.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="biocutils.StringList.StringList.__add__">
+<span class="sig-name descname"><span class="pre">__add__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/StringList.html#StringList.__add__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.StringList.StringList.__add__" title="Link to this definition">¶</a></dt>
+<dd><p>Add a list to the right of a <code class="docutils literal notranslate"><span class="pre">StringList</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>other</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>) – A list of items that can be coerced to strings or are None.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#biocutils.StringList.StringList" title="biocutils.StringList.StringList"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringList</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A new <code class="docutils literal notranslate"><span class="pre">StringList</span></code> containing the concatenation of the
+current object’s items and those of <code class="docutils literal notranslate"><span class="pre">other</span></code>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="biocutils.StringList.StringList.__getitem__">
+<span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/StringList.html#StringList.__getitem__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.StringList.StringList.__getitem__" title="Link to this definition">¶</a></dt>
+<dd><p>Obtain one or more elements from a <code class="docutils literal notranslate"><span class="pre">StringList</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Union" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code></a>[<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>, <a class="reference external" href="https://docs.python.org/3.9/library/functions.html#slice" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">slice</span></code></a>]) – An integer index containing a position to extract, or a slice
+specifying multiple positions to extract.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Union" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code></a>[<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference internal" href="#biocutils.StringList.StringList" title="biocutils.StringList.StringList"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringList</span></code></a>]</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><p>If <code class="docutils literal notranslate"><span class="pre">index</span></code> is an integer, a string or None is returned at the
+specified position.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">index</span></code> is a slice, a new <code class="docutils literal notranslate"><span class="pre">StringList</span></code> is returned
+containing the items at the specified positions.</p>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="biocutils.StringList.StringList.__iadd__">
+<span class="sig-name descname"><span class="pre">__iadd__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/StringList.html#StringList.__iadd__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.StringList.StringList.__iadd__" title="Link to this definition">¶</a></dt>
+<dd><p>Extend an existing <code class="docutils literal notranslate"><span class="pre">StringList</span></code> with a new list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>other</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>) – A list of items that can be coerced to strings or are None.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The current object is extended with the contents of <code class="docutils literal notranslate"><span class="pre">other</span></code>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="biocutils.StringList.StringList.__setitem__">
+<span class="sig-name descname"><span class="pre">__setitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">item</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/StringList.html#StringList.__setitem__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.StringList.StringList.__setitem__" title="Link to this definition">¶</a></dt>
+<dd><p>Set one or more items in the <code class="docutils literal notranslate"><span class="pre">StringList</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Union" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code></a>[<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>, <a class="reference external" href="https://docs.python.org/3.9/library/functions.html#slice" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">slice</span></code></a>]) – An integer index containing a position to set, or a slice
+specifying multiple positions to set.</p></li>
+<li><p><strong>item</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Any" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>) – <p>If <code class="docutils literal notranslate"><span class="pre">index</span></code> is an integer, a scalar that can be coerced into a
+string, or None.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">index</span></code> is a slice, an iterable of the same length
+containing values that can be coerced to strings or None.</p>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>In the current object, the specified item(s) at <code class="docutils literal notranslate"><span class="pre">index</span></code> are
+replaced with the contents of <code class="docutils literal notranslate"><span class="pre">item</span></code>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="biocutils.StringList.StringList.append">
+<span class="sig-name descname"><span class="pre">append</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/StringList.html#StringList.append"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.StringList.StringList.append" title="Link to this definition">¶</a></dt>
+<dd><p>Append an item to the end of a <code class="docutils literal notranslate"><span class="pre">StringList</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>item</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Any" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>) – A scalar that can be coerced into a string, or None.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">item</span></code> is added to the end of the current object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="biocutils.StringList.StringList.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/StringList.html#StringList.copy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.StringList.StringList.copy" title="Link to this definition">¶</a></dt>
+<dd><p>Make a copy of a <code class="docutils literal notranslate"><span class="pre">StringList</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#biocutils.StringList.StringList" title="biocutils.StringList.StringList"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringList</span></code></a></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A new <code class="docutils literal notranslate"><span class="pre">StringList</span></code> with the same contents.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="biocutils.StringList.StringList.extend">
+<span class="sig-name descname"><span class="pre">extend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iterable</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/StringList.html#StringList.extend"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.StringList.StringList.extend" title="Link to this definition">¶</a></dt>
+<dd><p>Extend the end of a <code class="docutils literal notranslate"><span class="pre">StringList</span></code> with more items.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>iterable</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/collections.abc.html#collections.abc.Iterable" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Iterable</span></code></a>) – Some iterable object where all values can be coerced to strings
+or are None.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Items in <code class="docutils literal notranslate"><span class="pre">iterable</span></code> are added to the end of the current object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="biocutils.StringList.StringList.insert">
+<span class="sig-name descname"><span class="pre">insert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">item</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/StringList.html#StringList.insert"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.StringList.StringList.insert" title="Link to this definition">¶</a></dt>
+<dd><p>Insert an item in the <code class="docutils literal notranslate"><span class="pre">StringList</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – An integer index containing a position to insert at.</p></li>
+<li><p><strong>item</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Any" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>) – A scalar that can be coerced into a string, or None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">item</span></code> is inserted at <code class="docutils literal notranslate"><span class="pre">index</span></code> in the current object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-biocutils.combine">
+<span id="biocutils-combine-module"></span><h2>biocutils.combine module<a class="headerlink" href="#module-biocutils.combine" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="biocutils.combine.combine">
+<span class="sig-prename descclassname"><span class="pre">biocutils.combine.</span></span><span class="sig-name descname"><span class="pre">combine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/combine.html#combine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.combine.combine" title="Link to this definition">¶</a></dt>
+<dd><p>Generic combine that checks if the objects are n-dimensional for n &gt; 1
+(i.e. has a <code class="docutils literal notranslate"><span class="pre">shape</span></code> property of length greater than 1); if so, it calls
+<a class="reference internal" href="#biocutils.combine_rows.combine_rows" title="biocutils.combine_rows.combine_rows"><code class="xref py py-func docutils literal notranslate"><span class="pre">combine_rows()</span></code></a> to combine them by the
+first dimension, otherwise it assumes that they are vector-like and calls
+<a class="reference internal" href="#biocutils.combine_sequences.combine_sequences" title="biocutils.combine_sequences.combine_sequences"><code class="xref py py-func docutils literal notranslate"><span class="pre">combine_sequences()</span></code></a> instead.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Any" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>) – Objects to combine.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A combined object, typically the same type as the first element in <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-biocutils.combine_columns">
+<span id="biocutils-combine-columns-module"></span><h2>biocutils.combine_columns module<a class="headerlink" href="#module-biocutils.combine_columns" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="biocutils.combine_columns.combine_columns">
+<span class="sig-prename descclassname"><span class="pre">biocutils.combine_columns.</span></span><span class="sig-name descname"><span class="pre">combine_columns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/combine_columns.html#combine_columns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.combine_columns.combine_columns" title="Link to this definition">¶</a></dt>
+<dd><p>Combine n-dimensional objects along the second dimension.</p>
+<p>If all elements are <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.26)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a>,
+we combine them using numpy’s <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.concatenate.html#numpy.concatenate" title="(in NumPy v1.26)"><code class="xref py py-func docutils literal notranslate"><span class="pre">concatenate()</span></code></a>.</p>
+<p>If all elements are either <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.spmatrix.html#scipy.sparse.spmatrix" title="(in SciPy v1.11.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">spmatrix</span></code></a> or
+<a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.sparray.html#scipy.sparse.sparray" title="(in SciPy v1.11.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">sparray</span></code></a>, these objects are combined
+using scipy’s <code class="xref py py-class docutils literal notranslate"><span class="pre">hstack</span></code>.</p>
+<p>If all elements are <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.1.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></a> objects, they are
+combined using <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.concat.html#pandas.concat" title="(in pandas v2.1.2)"><code class="xref py py-func docutils literal notranslate"><span class="pre">concat()</span></code></a> along the second axis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Any" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>) – n-dimensional objects to combine. All elements of x are expected
+to be the same class.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Combined object, typically the same type as the first entry of <code class="docutils literal notranslate"><span class="pre">x</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-biocutils.combine_rows">
+<span id="biocutils-combine-rows-module"></span><h2>biocutils.combine_rows module<a class="headerlink" href="#module-biocutils.combine_rows" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="biocutils.combine_rows.combine_rows">
+<span class="sig-prename descclassname"><span class="pre">biocutils.combine_rows.</span></span><span class="sig-name descname"><span class="pre">combine_rows</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/combine_rows.html#combine_rows"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.combine_rows.combine_rows" title="Link to this definition">¶</a></dt>
+<dd><p>Combine n-dimensional objects along their first dimension.</p>
+<p>If all elements are <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.26)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a>, we combine them using
+numpy’s <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.concatenate.html#numpy.concatenate" title="(in NumPy v1.26)"><code class="xref py py-func docutils literal notranslate"><span class="pre">concatenate()</span></code></a>.</p>
+<p>If all elements are either <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.spmatrix.html#scipy.sparse.spmatrix" title="(in SciPy v1.11.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">spmatrix</span></code></a> or
+<a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.sparray.html#scipy.sparse.sparray" title="(in SciPy v1.11.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">sparray</span></code></a>, these objects are combined using scipy’s
+<code class="xref py py-class docutils literal notranslate"><span class="pre">vstack</span></code>.</p>
+<p>If all elements are <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.1.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></a> objects, they are
+combined using <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.concat.html#pandas.concat" title="(in pandas v2.1.2)"><code class="xref py py-func docutils literal notranslate"><span class="pre">concat()</span></code></a> along the first axis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Any" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>) – One or more n-dimensional objects to combine. All elements of x
+are expected to be the same class.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Combined object, typically the same type as the first entry of <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-biocutils.combine_sequences">
+<span id="biocutils-combine-sequences-module"></span><h2>biocutils.combine_sequences module<a class="headerlink" href="#module-biocutils.combine_sequences" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="biocutils.combine_sequences.combine_sequences">
+<span class="sig-prename descclassname"><span class="pre">biocutils.combine_sequences.</span></span><span class="sig-name descname"><span class="pre">combine_sequences</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/combine_sequences.html#combine_sequences"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.combine_sequences.combine_sequences" title="Link to this definition">¶</a></dt>
+<dd><p>Combine vector-like objects (1-dimensional arrays).</p>
+<p>If all elements are <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.26)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a>,
+we combine them using numpy’s <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.concatenate.html#numpy.concatenate" title="(in NumPy v1.26)"><code class="xref py py-func docutils literal notranslate"><span class="pre">concatenate()</span></code></a>.</p>
+<p>If all elements are <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v2.1.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Series</span></code></a> objects, they are combined
+using <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.concat.html#pandas.concat" title="(in pandas v2.1.2)"><code class="xref py py-func docutils literal notranslate"><span class="pre">concat()</span></code></a>.</p>
+<p>For all other scenarios, all elements are coerced to a <a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>
+and combined.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Any" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>) – Vector-like objects to combine.
+All elements of <code class="docutils literal notranslate"><span class="pre">x</span></code> are expected to be the same class or
+atleast compatible with each other.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A combined object, ideally of the same type as the first element in <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-biocutils.convert_to_dense">
+<span id="biocutils-convert-to-dense-module"></span><h2>biocutils.convert_to_dense module<a class="headerlink" href="#module-biocutils.convert_to_dense" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="biocutils.convert_to_dense.convert_to_dense">
+<span class="sig-prename descclassname"><span class="pre">biocutils.convert_to_dense.</span></span><span class="sig-name descname"><span class="pre">convert_to_dense</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/convert_to_dense.html#convert_to_dense"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.convert_to_dense.convert_to_dense" title="Link to this definition">¶</a></dt>
+<dd><p>Convert something to a NumPy dense array of the same shape.
+This is typically used a fallback for the various combining
+methods when there are lots of different array types that
+<code class="docutils literal notranslate"><span class="pre">numpy.concatenate</span></code> doesn’t understand.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Any" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>) – Some array-like object to be stored as a NumPy array.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.26)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A NumPy array.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-biocutils.extract_column_names">
+<span id="biocutils-extract-column-names-module"></span><h2>biocutils.extract_column_names module<a class="headerlink" href="#module-biocutils.extract_column_names" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="biocutils.extract_column_names.extract_column_names">
+<span class="sig-prename descclassname"><span class="pre">biocutils.extract_column_names.</span></span><span class="sig-name descname"><span class="pre">extract_column_names</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/extract_column_names.html#extract_column_names"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.extract_column_names.extract_column_names" title="Link to this definition">¶</a></dt>
+<dd><p>Access column names from 2-dimensional representations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Any" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>) – Any object.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.26)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Array of strings containing column names.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-biocutils.extract_row_names">
+<span id="biocutils-extract-row-names-module"></span><h2>biocutils.extract_row_names module<a class="headerlink" href="#module-biocutils.extract_row_names" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="biocutils.extract_row_names.extract_row_names">
+<span class="sig-prename descclassname"><span class="pre">biocutils.extract_row_names.</span></span><span class="sig-name descname"><span class="pre">extract_row_names</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/extract_row_names.html#extract_row_names"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.extract_row_names.extract_row_names" title="Link to this definition">¶</a></dt>
+<dd><p>Access row names from 2-dimensional representations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Any" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>) – Any object.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.26)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Array of strings containing row names.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-biocutils.factorize">
+<span id="biocutils-factorize-module"></span><h2>biocutils.factorize module<a class="headerlink" href="#module-biocutils.factorize" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="biocutils.factorize.factorize">
+<span class="sig-prename descclassname"><span class="pre">biocutils.factorize.</span></span><span class="sig-name descname"><span class="pre">factorize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">levels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort_levels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/factorize.html#factorize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.factorize.factorize" title="Link to this definition">¶</a></dt>
+<dd><p>Convert a sequence of hashable values into a factor.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Sequence" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code></a>) – A sequence of hashable values.
+Any value may be None to indicate missingness.</p></li>
+<li><p><strong>levels</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Sequence" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code></a>]) – Sequence of reference levels, against which the entries in <code class="docutils literal notranslate"><span class="pre">x</span></code> are compared.
+If None, this defaults to all unique values of <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p></li>
+<li><p><strong>sort_levels</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – Whether to sort the automatically-determined levels.
 If False, the levels are kept in order of their appearance in <code class="docutils literal notranslate"><span class="pre">x</span></code>.
 Not used if <code class="docutils literal notranslate"><span class="pre">levels</span></code> is explicitly supplied.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Tuple where the first list contains the unique levels
-and the second list contains the integer index into the first list.
-Indexing the first list by the second list will recover <code class="docutils literal notranslate"><span class="pre">x</span></code>, except
-for any None values in <code class="docutils literal notranslate"><span class="pre">x</span></code>, which will be None in the second list.</p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Tuple" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a>[<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>, <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.26)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a>]</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Tuple[<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)">list</a>, <a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)">list</a>]</p>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple where the first list contains the unique levels and the second
+array contains the integer index into the first list. Indexing the
+first list by the second array will recover <code class="docutils literal notranslate"><span class="pre">x</span></code>; except for any None
+or masked values in <code class="docutils literal notranslate"><span class="pre">x</span></code>, which will be -1 in the second array.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-biocutils.get_height">
+<span id="biocutils-get-height-module"></span><h2>biocutils.get_height module<a class="headerlink" href="#module-biocutils.get_height" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="biocutils.get_height.get_height">
+<span class="sig-prename descclassname"><span class="pre">biocutils.get_height.</span></span><span class="sig-name descname"><span class="pre">get_height</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/get_height.html#get_height"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.get_height.get_height" title="Link to this definition">¶</a></dt>
+<dd><p>Get the “height” of an object, i.e., as if it were a column of a data frame
+or a similar container. This defaults to <code class="docutils literal notranslate"><span class="pre">len</span></code> for vector-like objects,
+or the first dimension for high-dimensional objects with a <code class="docutils literal notranslate"><span class="pre">shape</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Any" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>) – Some kind of object.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The height of the object.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -70,22 +680,42 @@ for any None values in <code class="docutils literal notranslate"><span class="p
 <span id="biocutils-intersect-module"></span><h2>biocutils.intersect module<a class="headerlink" href="#module-biocutils.intersect" title="Link to this heading">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="biocutils.intersect.intersect">
-<span class="sig-prename descclassname"><span class="pre">biocutils.intersect.</span></span><span class="sig-name descname"><span class="pre">intersect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Sequence" title="(in Python v3.9)"><span class="pre">Sequence</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">duplicate_method</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Literal" title="(in Python v3.9)"><span class="pre">Literal</span></a><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'first'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'last'</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'first'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)"><span class="pre">list</span></a></span></span><a class="reference internal" href="../_modules/biocutils/intersect.html#intersect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.intersect.intersect" title="Link to this definition">¶</a></dt>
-<dd><p>Identify the intersection of values in multiple sequences, while
-preserving the order of values in the first sequence.</p>
+<span class="sig-prename descclassname"><span class="pre">biocutils.intersect.</span></span><span class="sig-name descname"><span class="pre">intersect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duplicate_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'first'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/intersect.html#intersect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.intersect.intersect" title="Link to this definition">¶</a></dt>
+<dd><p>Identify the intersection of values in multiple sequences, while preserving
+the order of values in the first sequence.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<em>Sequence</em>) – Zero, one or more sequences of interest.</p></li>
-<li><p><strong>duplicate_method</strong> (<em>DUPLICATE_METHOD</em>) – Whether to keep the first or last occurrence of duplicated values
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Sequence" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code></a>) – Zero, one or more sequences of interest containing hashable values.
+We ignore missing values as defined by
+<a class="reference internal" href="#biocutils.is_missing_scalar.is_missing_scalar" title="biocutils.is_missing_scalar.is_missing_scalar"><code class="xref py py-meth docutils literal notranslate"><span class="pre">is_missing_scalar()</span></code></a>.</p></li>
+<li><p><strong>duplicate_method</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Literal" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code></a>[<code class="docutils literal notranslate"><span class="pre">'first'</span></code>, <code class="docutils literal notranslate"><span class="pre">'last'</span></code>]) – Whether to keep the first or last occurrence of duplicated values
 when preserving order in the first sequence.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Intersection of values across all <code class="docutils literal notranslate"><span class="pre">x</span></code>. None values are ignored.</p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a></p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)">list</a></p>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Intersection of values across all <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-biocutils.is_high_dimensional">
+<span id="biocutils-is-high-dimensional-module"></span><h2>biocutils.is_high_dimensional module<a class="headerlink" href="#module-biocutils.is_high_dimensional" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="biocutils.is_high_dimensional.is_high_dimensional">
+<span class="sig-prename descclassname"><span class="pre">biocutils.is_high_dimensional.</span></span><span class="sig-name descname"><span class="pre">is_high_dimensional</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/is_high_dimensional.html#is_high_dimensional"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.is_high_dimensional.is_high_dimensional" title="Link to this definition">¶</a></dt>
+<dd><p>Whether an object is high-dimensional, i.e., has a <code class="docutils literal notranslate"><span class="pre">shape</span></code>
+attribute that is of length greater than 1.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>x</strong> – Some kind of object.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Whether <code class="docutils literal notranslate"><span class="pre">x</span></code> is high-dimensional.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -95,19 +725,41 @@ when preserving order in the first sequence.</p></li>
 <span id="biocutils-is-list-of-type-module"></span><h2>biocutils.is_list_of_type module<a class="headerlink" href="#module-biocutils.is_list_of_type" title="Link to this heading">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="biocutils.is_list_of_type.is_list_of_type">
-<span class="sig-prename descclassname"><span class="pre">biocutils.is_list_of_type.</span></span><span class="sig-name descname"><span class="pre">is_list_of_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)"><span class="pre">list</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#tuple" title="(in Python v3.9)"><span class="pre">tuple</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Callable" title="(in Python v3.9)"><span class="pre">Callable</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_none</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><span class="pre">bool</span></a></span></span><a class="reference internal" href="../_modules/biocutils/is_list_of_type.html#is_list_of_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.is_list_of_type.is_list_of_type" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">biocutils.is_list_of_type.</span></span><span class="sig-name descname"><span class="pre">is_list_of_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_none</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/is_list_of_type.html#is_list_of_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.is_list_of_type.is_list_of_type" title="Link to this definition">¶</a></dt>
 <dd><p>Checks if <code class="docutils literal notranslate"><span class="pre">x</span></code> is a list, and whether all elements of the list are of the same type.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> – A list or tuple of values.</p></li>
-<li><p><strong>target_type</strong> – Type to check for, e.g. <code class="docutils literal notranslate"><span class="pre">str</span></code>, <code class="docutils literal notranslate"><span class="pre">int</span></code>.</p></li>
-<li><p><strong>ignore_none</strong> – Whether to ignore Nones when comparing to <code class="docutils literal notranslate"><span class="pre">target_type</span></code>.</p></li>
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Union" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code></a>[<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>, <a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#tuple" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a>]) – A list or tuple of values.</p></li>
+<li><p><strong>target_type</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Callable" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code></a>) – Type to check for, e.g. <code class="docutils literal notranslate"><span class="pre">str</span></code>, <code class="docutils literal notranslate"><span class="pre">int</span></code>.</p></li>
+<li><p><strong>ignore_none</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – Whether to ignore Nones when comparing to <code class="docutils literal notranslate"><span class="pre">target_type</span></code>.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>True if <code class="docutils literal notranslate"><span class="pre">x</span></code> is a list or tuple and all elements are of the target
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if <code class="docutils literal notranslate"><span class="pre">x</span></code> is a list or tuple and all elements are of the target
 type (or None, if <code class="docutils literal notranslate"><span class="pre">ignore_none</span> <span class="pre">=</span> <span class="pre">True</span></code>). Otherwise, false.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-biocutils.is_missing_scalar">
+<span id="biocutils-is-missing-scalar-module"></span><h2>biocutils.is_missing_scalar module<a class="headerlink" href="#module-biocutils.is_missing_scalar" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="biocutils.is_missing_scalar.is_missing_scalar">
+<span class="sig-prename descclassname"><span class="pre">biocutils.is_missing_scalar.</span></span><span class="sig-name descname"><span class="pre">is_missing_scalar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/is_missing_scalar.html#is_missing_scalar"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.is_missing_scalar.is_missing_scalar" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>x</strong> – Any scalar value.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Whether <code class="docutils literal notranslate"><span class="pre">x</span></code> is None or a NumPy masked constant.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -117,12 +769,13 @@ type (or None, if <code class="docutils literal notranslate"><span class="pre">i
 <span id="biocutils-map-to-index-module"></span><h2>biocutils.map_to_index module<a class="headerlink" href="#module-biocutils.map_to_index" title="Link to this heading">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="biocutils.map_to_index.map_to_index">
-<span class="sig-prename descclassname"><span class="pre">biocutils.map_to_index.</span></span><span class="sig-name descname"><span class="pre">map_to_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Sequence" title="(in Python v3.9)"><span class="pre">Sequence</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">duplicate_method</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Literal" title="(in Python v3.9)"><span class="pre">Literal</span></a><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'first'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'last'</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'first'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><span class="pre">dict</span></a></span></span><a class="reference internal" href="../_modules/biocutils/map_to_index.html#map_to_index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.map_to_index.map_to_index" title="Link to this definition">¶</a></dt>
-<dd><p>Create a dictionary to map the values of a sequence to its positional indices.</p>
+<span class="sig-prename descclassname"><span class="pre">biocutils.map_to_index.</span></span><span class="sig-name descname"><span class="pre">map_to_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duplicate_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'first'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/map_to_index.html#map_to_index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.map_to_index.map_to_index" title="Link to this definition">¶</a></dt>
+<dd><p>Create a dictionary to map values of a sequence to positional indices.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<em>Sequence</em>) – Sequence of hashable values.</p></li>
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Sequence" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code></a>) – Sequence of hashable values. We ignore missing values defined by
+<a class="reference internal" href="#biocutils.is_missing_scalar.is_missing_scalar" title="biocutils.is_missing_scalar.is_missing_scalar"><code class="xref py py-meth docutils literal notranslate"><span class="pre">is_missing_scalar()</span></code></a>.</p></li>
 <li><p><strong>duplicate_method</strong> (<em>DUPLICATE_METHOD</em>) – Whether to consider the first or
 last occurrence of a duplicated value in <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p></li>
 </ul>
@@ -141,7 +794,7 @@ last occurrence of a duplicated value in <code class="docutils literal notransla
 <span id="biocutils-match-module"></span><h2>biocutils.match module<a class="headerlink" href="#module-biocutils.match" title="Link to this heading">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="biocutils.match.match">
-<span class="sig-prename descclassname"><span class="pre">biocutils.match.</span></span><span class="sig-name descname"><span class="pre">match</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Sequence" title="(in Python v3.9)"><span class="pre">Sequence</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">targets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><span class="pre">dict</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Sequence" title="(in Python v3.9)"><span class="pre">Sequence</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">duplicate_method</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Literal" title="(in Python v3.9)"><span class="pre">Literal</span></a><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'first'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'last'</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'first'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.List" title="(in Python v3.9)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#int" title="(in Python v3.9)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><span class="pre">None</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/biocutils/match.html#match"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.match.match" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">biocutils.match.</span></span><span class="sig-name descname"><span class="pre">match</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">targets</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duplicate_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'first'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/match.html#match"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.match.match" title="Link to this definition">¶</a></dt>
 <dd><p>Find a matching value of each element of <code class="docutils literal notranslate"><span class="pre">x</span></code> in <code class="docutils literal notranslate"><span class="pre">target</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -168,13 +821,13 @@ if the entry of <code class="docutils literal notranslate"><span class="pre">x</
 <span id="biocutils-normalize-subscript-module"></span><h2>biocutils.normalize_subscript module<a class="headerlink" href="#module-biocutils.normalize_subscript" title="Link to this heading">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="biocutils.normalize_subscript.normalize_subscript">
-<span class="sig-prename descclassname"><span class="pre">biocutils.normalize_subscript.</span></span><span class="sig-name descname"><span class="pre">normalize_subscript</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sub</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#slice" title="(in Python v3.9)"><span class="pre">slice</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#range" title="(in Python v3.9)"><span class="pre">range</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Sequence" title="(in Python v3.9)"><span class="pre">Sequence</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#int" title="(in Python v3.9)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#int" title="(in Python v3.9)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Sequence" title="(in Python v3.9)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">non_negative_only</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Tuple" title="(in Python v3.9)"><span class="pre">Tuple</span></a></span></span><a class="reference internal" href="../_modules/biocutils/normalize_subscript.html#normalize_subscript"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.normalize_subscript.normalize_subscript" title="Link to this definition">¶</a></dt>
-<dd><p>Normalize a subscript for <code class="docutils literal notranslate"><span class="pre">__getitem__</span></code> or friends into a sequence of
-integer indices, for consistent downstream use.</p>
+<span class="sig-prename descclassname"><span class="pre">biocutils.normalize_subscript.</span></span><span class="sig-name descname"><span class="pre">normalize_subscript</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sub</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">non_negative_only</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/normalize_subscript.html#normalize_subscript"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.normalize_subscript.normalize_subscript" title="Link to this definition">¶</a></dt>
+<dd><p>Normalize a subscript for <code class="docutils literal notranslate"><span class="pre">__getitem__</span></code> or friends into a sequence of integer indices, for consistent
+downstream use.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>sub</strong> – <p>The subscript. This can be any of the following:</p>
+<li><p><strong>sub</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Union" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code></a>[<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#slice" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">slice</span></code></a>, <a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#range" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">range</span></code></a>, <a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Sequence" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code></a>, <a class="reference external" href="https://docs.python.org/3.9/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>, <a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>]) – <p>The subscript. This can be any of the following:</p>
 <ul>
 <li><p>A slice of elements.</p></li>
 <li><p>A range containing indices to elements. Negative values are
@@ -193,15 +846,18 @@ Each truthy boolean is converted to an index equal to its
 position in <code class="docutils literal notranslate"><span class="pre">sub</span></code>, and each Falsey boolean is ignored.</p></li>
 </ul>
 </p></li>
-<li><p><strong>length</strong> – Length of the object.</p></li>
-<li><p><strong>names</strong> – List of names for each entry in the object. If not None, this
+<li><p><strong>length</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – Length of the object.</p></li>
+<li><p><strong>names</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Sequence" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code></a>[<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]]) – List of names for each entry in the object. If not None, this
 should have length equal to <code class="docutils literal notranslate"><span class="pre">length</span></code>.</p></li>
-<li><p><strong>non_negative_only</strong> – Whether negative indices must be converted into non-negative
+<li><p><strong>non_negative_only</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – Whether negative indices must be converted into non-negative
 equivalents. Setting this to <cite>False</cite> may improve efficiency.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A tuple containing (i) a sequence of integer indices in <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">length)</span></code>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Tuple" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A tuple containing (i) a sequence of integer indices in <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">length)</span></code>
 specifying the subscript elements, and (ii) a boolean indicating whether
 <code class="docutils literal notranslate"><span class="pre">sub</span></code> was a scalar.</p>
 </dd>
@@ -213,7 +869,7 @@ specifying the subscript elements, and (ii) a boolean indicating whether
 <span id="biocutils-package-utils-module"></span><h2>biocutils.package_utils module<a class="headerlink" href="#module-biocutils.package_utils" title="Link to this heading">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="biocutils.package_utils.is_package_installed">
-<span class="sig-prename descclassname"><span class="pre">biocutils.package_utils.</span></span><span class="sig-name descname"><span class="pre">is_package_installed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">package_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><span class="pre">bool</span></a></span></span><a class="reference internal" href="../_modules/biocutils/package_utils.html#is_package_installed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.package_utils.is_package_installed" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">biocutils.package_utils.</span></span><span class="sig-name descname"><span class="pre">is_package_installed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">package_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/package_utils.html#is_package_installed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.package_utils.is_package_installed" title="Link to this definition">¶</a></dt>
 <dd><p>Check if the package is installed.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -233,76 +889,82 @@ specifying the subscript elements, and (ii) a boolean indicating whether
 <span id="biocutils-print-truncated-module"></span><h2>biocutils.print_truncated module<a class="headerlink" href="#module-biocutils.print_truncated" title="Link to this heading">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="biocutils.print_truncated.print_truncated">
-<span class="sig-prename descclassname"><span class="pre">biocutils.print_truncated.</span></span><span class="sig-name descname"><span class="pre">print_truncated</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">truncated_to</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#int" title="(in Python v3.9)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#int" title="(in Python v3.9)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../_modules/biocutils/print_truncated.html#print_truncated"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.print_truncated.print_truncated" title="Link to this definition">¶</a></dt>
-<dd><p>Pretty-print an object, replacing the middle elements of lists/dictionaries
-with an ellipsis if there are too many. This provides a useful preview of
-an object without spewing out all of its contents on the screen.</p>
+<span class="sig-prename descclassname"><span class="pre">biocutils.print_truncated.</span></span><span class="sig-name descname"><span class="pre">print_truncated</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">truncated_to</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/print_truncated.html#print_truncated"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.print_truncated.print_truncated" title="Link to this definition">¶</a></dt>
+<dd><p>Pretty-print an object, replacing the middle elements of lists/dictionaries with an ellipsis if there are too
+many. This provides a useful preview of an object without spewing out all of its contents on the screen.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>x</strong> – Object to be printed.</p></li>
-<li><p><strong>truncated_to</strong> – Number of elements to truncate to, at the start and end of the list
+<li><p><strong>truncated_to</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – Number of elements to truncate to, at the start and end of the list
 or dictionary. This should be less than half of <code class="docutils literal notranslate"><span class="pre">full_threshold</span></code>.</p></li>
-<li><p><strong>full_threshold</strong> – Threshold on the number of elements, below which the list or
+<li><p><strong>full_threshold</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – Threshold on the number of elements, below which the list or
 dictionary is shown in its entirety.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>String containing the pretty-printed contents.</p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>String containing the pretty-printed contents.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="biocutils.print_truncated.print_truncated_dict">
-<span class="sig-prename descclassname"><span class="pre">biocutils.print_truncated.</span></span><span class="sig-name descname"><span class="pre">print_truncated_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Dict" title="(in Python v3.9)"><span class="pre">Dict</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">truncated_to</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#int" title="(in Python v3.9)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#int" title="(in Python v3.9)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Callable" title="(in Python v3.9)"><span class="pre">Callable</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">',</span> <span class="pre">'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_brackets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../_modules/biocutils/print_truncated.html#print_truncated_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.print_truncated.print_truncated_dict" title="Link to this definition">¶</a></dt>
-<dd><p>Pretty-print a dictionary, replacing the middle elements with an ellipsis
-if there are too many. This provides a useful preview of an object without
-spewing out all of its contents on the screen.</p>
+<span class="sig-prename descclassname"><span class="pre">biocutils.print_truncated.</span></span><span class="sig-name descname"><span class="pre">print_truncated_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">truncated_to</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">',</span> <span class="pre">'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_brackets</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/print_truncated.html#print_truncated_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.print_truncated.print_truncated_dict" title="Link to this definition">¶</a></dt>
+<dd><p>Pretty-print a dictionary, replacing the middle elements with an ellipsis if there are too many. This provides a
+useful preview of an object without spewing out all of its contents on the screen.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> – Dictionary to be printed.</p></li>
-<li><p><strong>truncated_to</strong> – Number of elements to truncate to, at the start and end of the
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Dict" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a>) – Dictionary to be printed.</p></li>
+<li><p><strong>truncated_to</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – Number of elements to truncate to, at the start and end of the
 sequence. This should be less than half of <code class="docutils literal notranslate"><span class="pre">full_threshold</span></code>.</p></li>
-<li><p><strong>full_threshold</strong> – Threshold on the number of elements, below which the list is
+<li><p><strong>full_threshold</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – Threshold on the number of elements, below which the list is
 shown in its entirety.</p></li>
-<li><p><strong>transform</strong> – Optional transformation to apply to the values of <code class="docutils literal notranslate"><span class="pre">x</span></code> after
+<li><p><strong>transform</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Callable" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code></a>]) – Optional transformation to apply to the values of <code class="docutils literal notranslate"><span class="pre">x</span></code> after
 truncation but before printing. Defaults to
 <a class="reference internal" href="#biocutils.print_truncated.print_truncated" title="biocutils.print_truncated.print_truncated"><code class="xref py py-meth docutils literal notranslate"><span class="pre">print_truncated()</span></code></a> if not supplied.</p></li>
-<li><p><strong>sep</strong> – Separator between elements in the printed list.</p></li>
-<li><p><strong>include_brackets</strong> – Whether to include the start/end brackets.</p></li>
+<li><p><strong>sep</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – Separator between elements in the printed list.</p></li>
+<li><p><strong>include_brackets</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – Whether to include the start/end brackets.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>String containing the pretty-printed truncated dict.</p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>String containing the pretty-printed truncated dict.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="biocutils.print_truncated.print_truncated_list">
-<span class="sig-prename descclassname"><span class="pre">biocutils.print_truncated.</span></span><span class="sig-name descname"><span class="pre">print_truncated_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.List" title="(in Python v3.9)"><span class="pre">List</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">truncated_to</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#int" title="(in Python v3.9)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#int" title="(in Python v3.9)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Callable" title="(in Python v3.9)"><span class="pre">Callable</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">',</span> <span class="pre">'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_brackets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../_modules/biocutils/print_truncated.html#print_truncated_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.print_truncated.print_truncated_list" title="Link to this definition">¶</a></dt>
-<dd><p>Pretty-print a list, replacing the middle elements with an ellipsis if
-there are too many. This provides a useful preview of an object without
-spewing out all of its contents on the screen.</p>
+<span class="sig-prename descclassname"><span class="pre">biocutils.print_truncated.</span></span><span class="sig-name descname"><span class="pre">print_truncated_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">truncated_to</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">',</span> <span class="pre">'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_brackets</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/print_truncated.html#print_truncated_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.print_truncated.print_truncated_list" title="Link to this definition">¶</a></dt>
+<dd><p>Pretty-print a list, replacing the middle elements with an ellipsis if there are too many. This provides a useful
+preview of an object without spewing out all of its contents on the screen.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> – List to be printed.</p></li>
-<li><p><strong>truncated_to</strong> – Number of elements to truncate to, at the start and end of the
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.List" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a>) – List to be printed.</p></li>
+<li><p><strong>truncated_to</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – Number of elements to truncate to, at the start and end of the
 list. This should be less than half of <code class="docutils literal notranslate"><span class="pre">full_threshold</span></code>.</p></li>
-<li><p><strong>full_threshold</strong> – Threshold on the number of elements, below which the list is
+<li><p><strong>full_threshold</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – Threshold on the number of elements, below which the list is
 shown in its entirety.</p></li>
-<li><p><strong>transform</strong> – Optional transformation to apply to the elements of <code class="docutils literal notranslate"><span class="pre">x</span></code>
+<li><p><strong>transform</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Callable" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code></a>]) – Optional transformation to apply to the elements of <code class="docutils literal notranslate"><span class="pre">x</span></code>
 after truncation but before printing. Defaults to
 <a class="reference internal" href="#biocutils.print_truncated.print_truncated" title="biocutils.print_truncated.print_truncated"><code class="xref py py-meth docutils literal notranslate"><span class="pre">print_truncated()</span></code></a> if not supplied.</p></li>
-<li><p><strong>sep</strong> – Separator between elements in the printed list.</p></li>
-<li><p><strong>include_brackets</strong> – Whether to include the start/end brackets.</p></li>
+<li><p><strong>sep</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – Separator between elements in the printed list.</p></li>
+<li><p><strong>include_brackets</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – Whether to include the start/end brackets.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>String containing the pretty-printed truncated list.</p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>String containing the pretty-printed truncated list.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -312,83 +974,119 @@ after truncation but before printing. Defaults to
 <span id="biocutils-print-wrapped-table-module"></span><h2>biocutils.print_wrapped_table module<a class="headerlink" href="#module-biocutils.print_wrapped_table" title="Link to this heading">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="biocutils.print_wrapped_table.create_floating_names">
-<span class="sig-prename descclassname"><span class="pre">biocutils.print_wrapped_table.</span></span><span class="sig-name descname"><span class="pre">create_floating_names</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.List" title="(in Python v3.9)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><span class="pre">None</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">indices</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Sequence" title="(in Python v3.9)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#int" title="(in Python v3.9)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.List" title="(in Python v3.9)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/biocutils/print_wrapped_table.html#create_floating_names"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.print_wrapped_table.create_floating_names" title="Link to this definition">¶</a></dt>
-<dd><p>Create the floating names to use in <a class="reference internal" href="#biocutils.print_wrapped_table.print_wrapped_table" title="biocutils.print_wrapped_table.print_wrapped_table"><code class="xref py py-meth docutils literal notranslate"><span class="pre">print_wrapped_table()</span></code></a>. If no
-names are present, positional indices are used instead.</p>
+<span class="sig-prename descclassname"><span class="pre">biocutils.print_wrapped_table.</span></span><span class="sig-name descname"><span class="pre">create_floating_names</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">names</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indices</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/print_wrapped_table.html#create_floating_names"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.print_wrapped_table.create_floating_names" title="Link to this definition">¶</a></dt>
+<dd><p>Create the floating names to use in <a class="reference internal" href="#biocutils.print_wrapped_table.print_wrapped_table" title="biocutils.print_wrapped_table.print_wrapped_table"><code class="xref py py-meth docutils literal notranslate"><span class="pre">print_wrapped_table()</span></code></a>. If no names are present, positional indices
+are used instead.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>names</strong> – List of row names, or None if no row names are available.</p></li>
-<li><p><strong>indices</strong> – Integer indices for which to obtain the names.</p></li>
+<li><p><strong>names</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.List" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a>[<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]]) – List of row names, or None if no row names are available.</p></li>
+<li><p><strong>indices</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Sequence" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code></a>[<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>]) – Integer indices for which to obtain the names.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>List of strings containing floating names.</p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.List" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a>[<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of strings containing floating names.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="biocutils.print_wrapped_table.print_type">
-<span class="sig-prename descclassname"><span class="pre">biocutils.print_wrapped_table.</span></span><span class="sig-name descname"><span class="pre">print_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../_modules/biocutils/print_wrapped_table.html#print_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.print_wrapped_table.print_type" title="Link to this definition">¶</a></dt>
-<dd><p>Print the type of an object, with some special behavior for certain classes
-(e.g., to add the data type of NumPy arrays). This is intended for display
-at the top of the columns of <a class="reference internal" href="#biocutils.print_wrapped_table.print_wrapped_table" title="biocutils.print_wrapped_table.print_wrapped_table"><code class="xref py py-meth docutils literal notranslate"><span class="pre">print_wrapped_table()</span></code></a>.</p>
+<span class="sig-prename descclassname"><span class="pre">biocutils.print_wrapped_table.</span></span><span class="sig-name descname"><span class="pre">print_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/print_wrapped_table.html#print_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.print_wrapped_table.print_type" title="Link to this definition">¶</a></dt>
+<dd><p>Print the type of an object, with some special behavior for certain classes (e.g., to add the data type of NumPy
+arrays). This is intended for display at the top of the columns of <a class="reference internal" href="#biocutils.print_wrapped_table.print_wrapped_table" title="biocutils.print_wrapped_table.print_wrapped_table"><code class="xref py py-meth docutils literal notranslate"><span class="pre">print_wrapped_table()</span></code></a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>x</strong> – Some object.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>String containing the class of the object.</p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>String containing the class of the object.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="biocutils.print_wrapped_table.print_wrapped_table">
-<span class="sig-prename descclassname"><span class="pre">biocutils.print_wrapped_table.</span></span><span class="sig-name descname"><span class="pre">print_wrapped_table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">columns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.List" title="(in Python v3.9)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Sequence" title="(in Python v3.9)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">floating_names</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Sequence" title="(in Python v3.9)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'</span> <span class="pre">'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">window</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#int" title="(in Python v3.9)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../_modules/biocutils/print_wrapped_table.html#print_wrapped_table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.print_wrapped_table.print_wrapped_table" title="Link to this definition">¶</a></dt>
-<dd><p>Pretty-print a table with aligned and wrapped columns. All column contents
-are padded so that they are right-justified. Wrapping is performed whenever
-a new column would exceed the window width, in which case the entire column
-(and all subsequent columns) are printed below the previous columns.</p>
+<span class="sig-prename descclassname"><span class="pre">biocutils.print_wrapped_table.</span></span><span class="sig-name descname"><span class="pre">print_wrapped_table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">columns</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">floating_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'</span> <span class="pre">'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">window</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/print_wrapped_table.html#print_wrapped_table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.print_wrapped_table.print_wrapped_table" title="Link to this definition">¶</a></dt>
+<dd><p>Pretty-print a table with aligned and wrapped columns. All column contents are padded so that they are right-
+justified. Wrapping is performed whenever a new column would exceed the window width, in which case the entire
+column (and all subsequent columns) are printed below the previous columns.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>columns</strong> – <p>List of list of strings, where each inner list is the same length
+<li><p><strong>columns</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.List" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a>[<a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Sequence" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code></a>[<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]]) – <p>List of list of strings, where each inner list is the same length
 and contains the visible contents of a column. Strings are
 typically generated by calling <cite>repr()</cite> on data column values.</p>
 <p>Callers are responsible for inserting ellipses, adding column type
 information (e.g., with <a class="reference internal" href="#biocutils.print_wrapped_table.print_type" title="biocutils.print_wrapped_table.print_type"><code class="xref py py-meth docutils literal notranslate"><span class="pre">print_type()</span></code></a>) or truncating long
 strings (e.g., with <a class="reference internal" href="#biocutils.print_wrapped_table.truncate_strings" title="biocutils.print_wrapped_table.truncate_strings"><code class="xref py py-meth docutils literal notranslate"><span class="pre">truncate_strings()</span></code></a>).</p>
 </p></li>
-<li><p><strong>floating_names</strong> – <p>List of strings to be added to the left of the table. This is
+<li><p><strong>floating_names</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Sequence" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code></a>[<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]]) – <p>List of strings to be added to the left of the table. This is
 printed repeatedly for each set of wrapped columns.</p>
 <p>See also <a class="reference internal" href="#biocutils.print_wrapped_table.create_floating_names" title="biocutils.print_wrapped_table.create_floating_names"><code class="xref py py-meth docutils literal notranslate"><span class="pre">create_floating_names()</span></code></a>.</p>
 </p></li>
-<li><p><strong>sep</strong> – Separator between columns.</p></li>
-<li><p><strong>window</strong> – Size of the terminal window, in characters. We attempt to determine
+<li><p><strong>sep</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – Separator between columns.</p></li>
+<li><p><strong>window</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>]) – Size of the terminal window, in characters. We attempt to determine
 this automatically, otherwise it is set to 150.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>String containing the pretty-printed table.</p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>String containing the pretty-printed table.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="biocutils.print_wrapped_table.truncate_strings">
-<span class="sig-prename descclassname"><span class="pre">biocutils.print_wrapped_table.</span></span><span class="sig-name descname"><span class="pre">truncate_strings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.List" title="(in Python v3.9)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#int" title="(in Python v3.9)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">40</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.List" title="(in Python v3.9)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/biocutils/print_wrapped_table.html#truncate_strings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.print_wrapped_table.truncate_strings" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">biocutils.print_wrapped_table.</span></span><span class="sig-name descname"><span class="pre">truncate_strings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">40</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/print_wrapped_table.html#truncate_strings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.print_wrapped_table.truncate_strings" title="Link to this definition">¶</a></dt>
 <dd><p>Truncate long strings for printing in <a class="reference internal" href="#biocutils.print_wrapped_table.print_wrapped_table" title="biocutils.print_wrapped_table.print_wrapped_table"><code class="xref py py-meth docutils literal notranslate"><span class="pre">print_wrapped_table()</span></code></a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>values</strong> – List of strings to be printed.</p></li>
-<li><p><strong>width</strong> – Width beyond which to truncate the string.</p></li>
+<li><p><strong>values</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.List" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a>[<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]) – List of strings to be printed.</p></li>
+<li><p><strong>width</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – Width beyond which to truncate the string.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>List containing truncated strings.</p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.List" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a>[<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List containing truncated strings.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-biocutils.show_as_cell">
+<span id="biocutils-show-as-cell-module"></span><h2>biocutils.show_as_cell module<a class="headerlink" href="#module-biocutils.show_as_cell" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="biocutils.show_as_cell.show_as_cell">
+<span class="sig-prename descclassname"><span class="pre">biocutils.show_as_cell.</span></span><span class="sig-name descname"><span class="pre">show_as_cell</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indices</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/show_as_cell.html#show_as_cell"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.show_as_cell.show_as_cell" title="Link to this definition">¶</a></dt>
+<dd><p>Show the contents of <code class="docutils literal notranslate"><span class="pre">x</span></code> as a cell of a table, typically for use in the
+<code class="docutils literal notranslate"><span class="pre">__str__</span></code> method of a class that contains <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Any" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>) – Any object. By default, we assume that it can be treated as
+a sequence, with a valid <code class="docutils literal notranslate"><span class="pre">__getitem__</span></code> method for an index.</p></li>
+<li><p><strong>indices</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Sequence" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code></a>[<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>]) – List of indices to be extracted.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.List" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a>[<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of strings of length equal to <code class="docutils literal notranslate"><span class="pre">indices</span></code>, containing a
+string summary of each of the specified elements of <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -398,30 +1096,68 @@ this automatically, otherwise it is set to 150.</p></li>
 <span id="biocutils-subset-module"></span><h2>biocutils.subset module<a class="headerlink" href="#module-biocutils.subset" title="Link to this heading">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="biocutils.subset.subset">
-<span class="sig-prename descclassname"><span class="pre">biocutils.subset.</span></span><span class="sig-name descname"><span class="pre">subset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Any" title="(in Python v3.9)"><span class="pre">Any</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">indices</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Sequence" title="(in Python v3.9)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#int" title="(in Python v3.9)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#slice" title="(in Python v3.9)"><span class="pre">slice</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Any" title="(in Python v3.9)"><span class="pre">Any</span></a></span></span><a class="reference internal" href="../_modules/biocutils/subset.html#subset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.subset.subset" title="Link to this definition">¶</a></dt>
-<dd><p>Subset <code class="docutils literal notranslate"><span class="pre">x</span></code> by <code class="docutils literal notranslate"><span class="pre">indices</span></code> to obtain a new object with the desired
-subset of elements. This attempts to use <code class="docutils literal notranslate"><span class="pre">x</span></code>’s <code class="docutils literal notranslate"><span class="pre">__getitem__</span></code> method, if
-available; otherwise it falls back to iteration over the indices.</p>
-<p>If <code class="docutils literal notranslate"><span class="pre">x</span></code> has a <code class="docutils literal notranslate"><span class="pre">shape</span></code> method that returns a tuple (a la NumPy arrays),
-subsetting is only attempted on the first dimension via the <code class="docutils literal notranslate"><span class="pre">__getitem__</span></code>
-method. The full extents of all other dimensions are retained.</p>
+<span class="sig-prename descclassname"><span class="pre">biocutils.subset.</span></span><span class="sig-name descname"><span class="pre">subset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indices</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/subset.html#subset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.subset.subset" title="Link to this definition">¶</a></dt>
+<dd><p>Generic subset that checks if the objects are n-dimensional for n &gt; 1 (i.e.
+has a <code class="docutils literal notranslate"><span class="pre">shape</span></code> property of length greater than 1); if so, it calls
+<a class="reference internal" href="#biocutils.subset_rows.subset_rows" title="biocutils.subset_rows.subset_rows"><code class="xref py py-func docutils literal notranslate"><span class="pre">subset_rows()</span></code></a> to subset them along the
+first dimension, otherwise it assumes that they are vector-like and calls
+<a class="reference internal" href="#biocutils.subset_sequence.subset_sequence" title="biocutils.subset_sequence.subset_sequence"><code class="xref py py-func docutils literal notranslate"><span class="pre">subset_sequence()</span></code></a> instead.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Any" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>) – Object to be subsetted.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The subsetted object, typically the same type as <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-biocutils.subset_rows">
+<span id="biocutils-subset-rows-module"></span><h2>biocutils.subset_rows module<a class="headerlink" href="#module-biocutils.subset_rows" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="biocutils.subset_rows.subset_rows">
+<span class="sig-prename descclassname"><span class="pre">biocutils.subset_rows.</span></span><span class="sig-name descname"><span class="pre">subset_rows</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indices</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/subset_rows.html#subset_rows"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.subset_rows.subset_rows" title="Link to this definition">¶</a></dt>
+<dd><p>Subset <code class="docutils literal notranslate"><span class="pre">x</span></code> by <code class="docutils literal notranslate"><span class="pre">indices</span></code> on the first dimension. The default
+method attempts to use <code class="docutils literal notranslate"><span class="pre">x</span></code>’s <code class="docutils literal notranslate"><span class="pre">__getitem__</span></code> method,</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> – Any object that supports <code class="docutils literal notranslate"><span class="pre">__getitem__</span></code> with a single index;
-or with a slice and an arbitrary sequence of integer indices.</p></li>
-<li><p><strong>indices</strong> (<em>Union</em><em>[</em><em>Sequence</em><em>[</em><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#slice" title="(in Python v3.9)"><em>slice</em></a>) – Sequence of integers or a slice, specifying the set of elements
-of <code class="docutils literal notranslate"><span class="pre">x</span></code> to extract.</p></li>
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Any" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>) – Any high-dimensional object.</p></li>
+<li><p><strong>indices</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Sequence" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code></a>[<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>]) – Sequence of non-negative integers specifying the integers of interest.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The result of slicing <code class="docutils literal notranslate"><span class="pre">x</span></code> by <code class="docutils literal notranslate"><span class="pre">indices</span></code>. The exact type
-depends on what <code class="docutils literal notranslate"><span class="pre">x</span></code>’s <code class="docutils literal notranslate"><span class="pre">__getitem__</span></code> method returns, if it
-accepts a slice and/or sequence of indices. Otherwise, a list is
-returned containing the desired entries of <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Any" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a></p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Any</p>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The result of slicing <code class="docutils literal notranslate"><span class="pre">x</span></code> by <code class="docutils literal notranslate"><span class="pre">indices</span></code>. The exact type
+depends on what <code class="docutils literal notranslate"><span class="pre">x</span></code>’s <code class="docutils literal notranslate"><span class="pre">__getitem__</span></code> method returns.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-biocutils.subset_sequence">
+<span id="biocutils-subset-sequence-module"></span><h2>biocutils.subset_sequence module<a class="headerlink" href="#module-biocutils.subset_sequence" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="biocutils.subset_sequence.subset_sequence">
+<span class="sig-prename descclassname"><span class="pre">biocutils.subset_sequence.</span></span><span class="sig-name descname"><span class="pre">subset_sequence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indices</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/subset_sequence.html#subset_sequence"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.subset_sequence.subset_sequence" title="Link to this definition">¶</a></dt>
+<dd><p>Subset <code class="docutils literal notranslate"><span class="pre">x</span></code> by <code class="docutils literal notranslate"><span class="pre">indices</span></code> to obtain a new object. The default method
+attempts to use <code class="docutils literal notranslate"><span class="pre">x</span></code>’s <code class="docutils literal notranslate"><span class="pre">__getitem__</span></code> method.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Any" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>) – Any object that supports <code class="docutils literal notranslate"><span class="pre">__getitem__</span></code> with an integer sequence.</p></li>
+<li><p><strong>indices</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Sequence" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code></a>[<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>]) – Sequence of non-negative integers specifying the integers of interest.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Any" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The result of slicing <code class="docutils literal notranslate"><span class="pre">x</span></code> by <code class="docutils literal notranslate"><span class="pre">indices</span></code>. The exact type
+depends on what <code class="docutils literal notranslate"><span class="pre">x</span></code>’s <code class="docutils literal notranslate"><span class="pre">__getitem__</span></code> method returns.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -431,24 +1167,26 @@ returned containing the desired entries of <code class="docutils literal notrans
 <span id="biocutils-union-module"></span><h2>biocutils.union module<a class="headerlink" href="#module-biocutils.union" title="Link to this heading">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="biocutils.union.union">
-<span class="sig-prename descclassname"><span class="pre">biocutils.union.</span></span><span class="sig-name descname"><span class="pre">union</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Sequence" title="(in Python v3.9)"><span class="pre">Sequence</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">duplicate_method</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Literal" title="(in Python v3.9)"><span class="pre">Literal</span></a><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'first'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'last'</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'first'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)"><span class="pre">list</span></a></span></span><a class="reference internal" href="../_modules/biocutils/union.html#union"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.union.union" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">biocutils.union.</span></span><span class="sig-name descname"><span class="pre">union</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duplicate_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'first'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/union.html#union"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.union.union" title="Link to this definition">¶</a></dt>
 <dd><p>Identify the union of values in multiple sequences, while preserving the
 order of the first (or last) occurence of each value.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<em>Sequence</em>) – Zero, one or more sequences of interest.</p></li>
-<li><p><strong>duplicate_method</strong> (<em>DUPLICATE_METHOD</em>) – Whether to take the first or last occurrence of each value in the
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Sequence" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code></a>) – Zero, one or more sequences of interest containing hashable values.
+We ignore missing values as defined by
+<a class="reference internal" href="#biocutils.is_missing_scalar.is_missing_scalar" title="biocutils.is_missing_scalar.is_missing_scalar"><code class="xref py py-meth docutils literal notranslate"><span class="pre">is_missing_scalar()</span></code></a>.</p></li>
+<li><p><strong>duplicate_method</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Literal" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code></a>[<code class="docutils literal notranslate"><span class="pre">'first'</span></code>, <code class="docutils literal notranslate"><span class="pre">'last'</span></code>]) – Whether to take the first or last occurrence of each value in the
 ordering of the output. If first, the first occurrence in the
 earliest sequence of <code class="docutils literal notranslate"><span class="pre">x</span></code> is reported; if last, the last
 occurrence in the latest sequence of <code class="docutils literal notranslate"><span class="pre">x</span></code> is reported.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Union of values across all <code class="docutils literal notranslate"><span class="pre">x</span></code>. None values are ignored.</p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a></p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)">list</a></p>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Union of values across all <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
 </dd>
 </dl>
 </dd></dl>

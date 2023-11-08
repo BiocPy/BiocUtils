@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>biocutils.is_list_of_type &#8212; biocutils 0.1.0 documentation</title>
+    <title>biocutils.extract_row_names &#8212; biocutils 0.1.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css?v=233b9934" />
     <script src="../../_static/documentation_options.js?v=01f34227"></script>
@@ -28,40 +28,40 @@
 
           <div class="body" role="main">
             
-  <h1>Source code for biocutils.is_list_of_type</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Union</span>
+  <h1>Source code for biocutils.extract_row_names</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">singledispatch</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
+<span class="kn">import</span> <span class="nn">numpy</span>
+
+<span class="kn">from</span> <span class="nn">.package_utils</span> <span class="kn">import</span> <span class="n">is_package_installed</span>
 
 <span class="n">__author__</span> <span class="o">=</span> <span class="s2">&quot;jkanche&quot;</span>
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="s2">&quot;jkanche&quot;</span>
 <span class="n">__license__</span> <span class="o">=</span> <span class="s2">&quot;MIT&quot;</span>
 
 
-<div class="viewcode-block" id="is_list_of_type">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.is_list_of_type.is_list_of_type">[docs]</a>
-<span class="k">def</span> <span class="nf">is_list_of_type</span><span class="p">(</span>
-    <span class="n">x</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">],</span> <span class="n">target_type</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">ignore_none</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Checks if ``x`` is a list, and whether all elements of the list are of the same type.</span>
+<div class="viewcode-block" id="extract_row_names">
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.extract_row_names.extract_row_names">[docs]</a>
+<span class="nd">@singledispatch</span>
+<span class="k">def</span> <span class="nf">extract_row_names</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Access row names from 2-dimensional representations.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        x: A list or tuple of values.</span>
-
-<span class="sd">        target_type: Type to check for, e.g. ``str``, ``int``.</span>
-
-<span class="sd">        ignore_none: Whether to ignore Nones when comparing to ``target_type``.</span>
+<span class="sd">        x: Any object.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        True if ``x`` is a list or tuple and all elements are of the target</span>
-<span class="sd">        type (or None, if ``ignore_none = True``). Otherwise, false.</span>
+<span class="sd">        Array of strings containing row names.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)):</span>
-        <span class="k">return</span> <span class="kc">False</span>
+    <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;`rownames` do not exist for class: &#39;</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="si">}</span><span class="s2">&#39;.&quot;</span><span class="p">)</span></div>
 
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">ignore_none</span><span class="p">:</span>
-        <span class="k">return</span> <span class="nb">all</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">target_type</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">x</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="nb">all</span><span class="p">((</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">target_type</span><span class="p">)</span> <span class="ow">or</span> <span class="n">item</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">x</span><span class="p">)</span></div>
 
+<span class="k">if</span> <span class="n">is_package_installed</span><span class="p">(</span><span class="s2">&quot;pandas&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">DataFrame</span>
+
+    <span class="nd">@extract_row_names</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">DataFrame</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_rownames_dataframe</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">str</span><span class="p">)</span>
 </pre></div>
 
           </div>

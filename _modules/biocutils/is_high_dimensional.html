@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>biocutils.subset &#8212; biocutils 0.1.0 documentation</title>
+    <title>biocutils.is_high_dimensional &#8212; biocutils 0.1.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css?v=233b9934" />
     <script src="../../_static/documentation_options.js?v=01f34227"></script>
@@ -28,34 +28,26 @@
 
           <div class="body" role="main">
             
-  <h1>Source code for biocutils.subset</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Sequence</span>
-
-<span class="kn">from</span> <span class="nn">.subset_rows</span> <span class="kn">import</span> <span class="n">subset_rows</span>
-<span class="kn">from</span> <span class="nn">.subset_sequence</span> <span class="kn">import</span> <span class="n">subset_sequence</span>
-<span class="kn">from</span> <span class="nn">.is_high_dimensional</span> <span class="kn">import</span> <span class="n">is_high_dimensional</span>
+  <h1>Source code for biocutils.is_high_dimensional</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">singledispatch</span>
 
 
-<div class="viewcode-block" id="subset">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.subset.subset">[docs]</a>
-<span class="k">def</span> <span class="nf">subset</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">indices</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">]):</span>
+<div class="viewcode-block" id="is_high_dimensional">
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.is_high_dimensional.is_high_dimensional">[docs]</a>
+<span class="nd">@singledispatch</span>
+<span class="k">def</span> <span class="nf">is_high_dimensional</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Generic subset that checks if the objects are n-dimensional for n &gt; 1 (i.e.</span>
-<span class="sd">    has a ``shape`` property of length greater than 1); if so, it calls</span>
-<span class="sd">    :py:func:`~biocutils.subset_rows.subset_rows` to subset them along the</span>
-<span class="sd">    first dimension, otherwise it assumes that they are vector-like and calls</span>
-<span class="sd">    :py:func:`~biocutils.subset_sequence.subset_sequence` instead.</span>
+<span class="sd">    Whether an object is high-dimensional, i.e., has a ``shape``</span>
+<span class="sd">    attribute that is of length greater than 1.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        x: Object to be subsetted.</span>
+<span class="sd">        x:</span>
+<span class="sd">            Some kind of object.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        The subsetted object, typically the same type as ``x``.</span>
+<span class="sd">        Whether ``x`` is high-dimensional.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">is_high_dimensional</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">subset_rows</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">indices</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">subset_sequence</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">indices</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s2">&quot;shape&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span></div>
 
 </pre></div>
 

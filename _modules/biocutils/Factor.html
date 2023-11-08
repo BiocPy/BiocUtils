@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>biocutils.Factor &#8212; biocutils 0.1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css?v=233b9934" />
+    <script src="../../_static/documentation_options.js?v=01f34227"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for biocutils.Factor</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Optional</span>
+<span class="kn">from</span> <span class="nn">warnings</span> <span class="kn">import</span> <span class="n">warn</span>
+<span class="kn">import</span> <span class="nn">numpy</span>
+
+<span class="kn">from</span> <span class="nn">.StringList</span> <span class="kn">import</span> <span class="n">StringList</span>
+<span class="kn">from</span> <span class="nn">.match</span> <span class="kn">import</span> <span class="n">match</span>
+<span class="kn">from</span> <span class="nn">.factorize</span> <span class="kn">import</span> <span class="n">factorize</span>
+<span class="kn">from</span> <span class="nn">.normalize_subscript</span> <span class="kn">import</span> <span class="n">normalize_subscript</span>
+<span class="kn">from</span> <span class="nn">.is_missing_scalar</span> <span class="kn">import</span> <span class="n">is_missing_scalar</span>
+<span class="kn">from</span> <span class="nn">.print_truncated</span> <span class="kn">import</span> <span class="n">print_truncated_list</span>
+<span class="kn">from</span> <span class="nn">.combine_sequences</span> <span class="kn">import</span> <span class="n">combine_sequences</span>
+<span class="kn">from</span> <span class="nn">.is_list_of_type</span> <span class="kn">import</span> <span class="n">is_list_of_type</span>
+
+
+<div class="viewcode-block" id="Factor">
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Factor.Factor">[docs]</a>
+<span class="k">class</span> <span class="nc">Factor</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Factor class, equivalent to R&#39;s ``factor``.</span>
+
+<span class="sd">    This is a vector of integer codes, each of which is an index into a list of</span>
+<span class="sd">    unique strings. The aim is to encode a list of strings as integers for</span>
+<span class="sd">    easier numerical analysis.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">codes</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">levels</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">ordered</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">validate</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize a Factor object.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            codes:</span>
+<span class="sd">                Sequence of codes. Each valid code should be a non-negative</span>
+<span class="sd">                integer that refers to an entry ``levels``. Codes may be</span>
+<span class="sd">                negative or correspond to a missing scalar (as defined by</span>
+<span class="sd">                :py:meth:`~biocutils.is_missing_scalar.is_missing_scalar`),</span>
+<span class="sd">                in which case they are assumed to represent missing values.</span>
+
+<span class="sd">            levels:</span>
+<span class="sd">                List of levels containing unique strings.</span>
+
+<span class="sd">            ordered:</span>
+<span class="sd">                Whether the levels are ordered.</span>
+
+<span class="sd">            validate:</span>
+<span class="sd">                Whether to validate the arguments. Internal use only.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">codes</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+            <span class="n">replacement</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">codes</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">min_scalar_type</span><span class="p">(</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="n">levels</span><span class="p">)))</span> <span class="c1"># get a signed type.</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">codes</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">is_missing_scalar</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="ow">or</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">replacement</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">replacement</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span>
+            <span class="n">codes</span> <span class="o">=</span> <span class="n">replacement</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">codes</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;&#39;codes&#39; should be a 1-dimensional array&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">numpy</span><span class="o">.</span><span class="n">issubdtype</span><span class="p">(</span><span class="n">codes</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">signedinteger</span><span class="p">):</span> <span class="c1"># force it to be signed.</span>
+                <span class="n">codes</span> <span class="o">=</span> <span class="n">codes</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">min_scalar_type</span><span class="p">(</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="n">levels</span><span class="p">)))</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">levels</span><span class="p">,</span> <span class="n">StringList</span><span class="p">):</span>
+            <span class="n">levels</span> <span class="o">=</span> <span class="n">StringList</span><span class="p">(</span><span class="n">levels</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_codes</span> <span class="o">=</span> <span class="n">codes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_levels</span> <span class="o">=</span> <span class="n">levels</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ordered</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">ordered</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">validate</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">x</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">levels</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;all entries of &#39;levels&#39; should be non-missing&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">levels</span><span class="p">))</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">levels</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;all entries of &#39;levels&#39; should be unique&quot;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">codes</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">1</span> <span class="ow">or</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_levels</span><span class="p">):</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;all entries of &#39;codes&#39; should refer to an entry of &#39;levels&#39;&quot;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="Factor.get_codes">
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Factor.Factor.get_codes">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_codes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Array of integer codes, used as indices into the levels from</span>
+<span class="sd">            :py:attr:`~get_levels`. A masked array may also be returned if</span>
+<span class="sd">            any of the entries are missing.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_codes</span></div>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">codes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;See :py:attr:`~get_codes`.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_codes</span><span class="p">()</span>
+
+<div class="viewcode-block" id="Factor.get_levels">
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Factor.Factor.get_levels">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_levels</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">StringList</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            List of strings containing the factor levels.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_levels</span></div>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">levels</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">StringList</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;See :py:attr:`~get_levels`.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_levels</span><span class="p">()</span>
+
+<div class="viewcode-block" id="Factor.get_ordered">
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Factor.Factor.get_ordered">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_ordered</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            True if the levels are ordered, otherwise False.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ordered</span></div>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">ordered</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;See :py:attr:`~get_ordered`.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_ordered</span><span class="p">()</span>
+
+<div class="viewcode-block" id="Factor.__len__">
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Factor.Factor.__len__">[docs]</a>
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Length of the factor in terms of the number of codes.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_codes</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Factor.__repr__">
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Factor.Factor.__repr__">[docs]</a>
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            A stringified representation of this object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">tmp</span> <span class="o">=</span> <span class="s2">&quot;Factor(codes=&quot;</span> <span class="o">+</span> <span class="n">print_truncated_list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_codes</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;, levels=&quot;</span> <span class="o">+</span> <span class="n">print_truncated_list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_levels</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ordered</span><span class="p">:</span>
+            <span class="n">tmp</span> <span class="o">+=</span> <span class="s2">&quot;, ordered=True&quot;</span>
+        <span class="n">tmp</span> <span class="o">+=</span> <span class="s2">&quot;)&quot;</span>
+        <span class="k">return</span> <span class="n">tmp</span></div>
+
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            A pretty-printed representation of this object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;Factor of length &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_codes</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot; with &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_levels</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot; level&quot;</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_levels</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">message</span> <span class="o">+=</span> <span class="s2">&quot;s&quot;</span>
+        <span class="n">message</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="n">message</span> <span class="o">+=</span> <span class="s2">&quot;values: &quot;</span> <span class="o">+</span> <span class="n">print_truncated_list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_codes</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_levels</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="n">message</span> <span class="o">+=</span> <span class="s2">&quot;levels: &quot;</span> <span class="o">+</span> <span class="n">print_truncated_list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_levels</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="n">message</span> <span class="o">+=</span> <span class="s2">&quot;ordered: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ordered</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">message</span>
+
+<div class="viewcode-block" id="Factor.__getitem__">
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Factor.Factor.__getitem__">[docs]</a>
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sub</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s2">&quot;Factor&quot;</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Subset the ``Factor`` to the specified subset of indices.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            sub:</span>
+<span class="sd">                Sequence of integers or booleans specifying the elements of</span>
+<span class="sd">                interest. Alternatively, an integer/boolean scalar specifying a</span>
+<span class="sd">                single element.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            If ``sub`` is a sequence, returns same type as caller (a new</span>
+<span class="sd">            ``Factor``) containing only the elements of interest from ``sub``.</span>
+
+<span class="sd">            If ``sub`` is a scalar, a string is returned containing the</span>
+<span class="sd">            level corresponding to the code at position ``sub``. This may</span>
+<span class="sd">            also be None if the code is missing.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">sub</span><span class="p">,</span> <span class="n">scalar</span> <span class="o">=</span> <span class="n">normalize_subscript</span><span class="p">(</span><span class="n">sub</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">scalar</span><span class="p">:</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_codes</span><span class="p">[</span><span class="n">sub</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+            <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_levels</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">None</span> 
+        <span class="k">return</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)(</span><span class="bp">self</span><span class="o">.</span><span class="n">_codes</span><span class="p">[</span><span class="n">sub</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_levels</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ordered</span><span class="p">,</span> <span class="n">validate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Factor.replace">
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Factor.Factor.replace">[docs]</a>
+    <span class="k">def</span> <span class="nf">replace</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sub</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s2">&quot;Factor&quot;</span><span class="p">],</span> <span class="n">in_place</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Replace items in the ``Factor`` list.  The ``subs`` elements in the</span>
+<span class="sd">        current object are replaced with the corresponding values in ``value``.</span>
+<span class="sd">        This is performed by finding the level for each entry of the</span>
+<span class="sd">        replacement ``value``, matching it to a level in the current object,</span>
+<span class="sd">        and replacing the entry of ``codes`` with the code of the matched</span>
+<span class="sd">        level. If there is no matching level, a missing value is inserted.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            sub: </span>
+<span class="sd">                Sequence of integers or booleans specifying the items to be</span>
+<span class="sd">                replaced.</span>
+
+<span class="sd">            value: </span>
+<span class="sd">                If ``sub`` is a sequence, a ``Factor`` of the same length</span>
+<span class="sd">                containing the replacement values.</span>
+
+<span class="sd">            in_place:</span>
+<span class="sd">                Whether the replacement should be performed on the current</span>
+<span class="sd">                object.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            If ``in_place = False``, a new ``Factor`` is returned containing the</span>
+<span class="sd">            contents of the current object after replacement by ``value``.</span>
+
+<span class="sd">            If ``in_place = True``, the current object is returned after its</span>
+<span class="sd">            items have been replaced.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">sub</span><span class="p">,</span> <span class="n">scalar</span> <span class="o">=</span> <span class="n">normalize_subscript</span><span class="p">(</span><span class="n">sub</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">codes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_codes</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">in_place</span><span class="p">:</span>
+            <span class="n">codes</span> <span class="o">=</span> <span class="n">codes</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_levels</span> <span class="o">==</span> <span class="n">value</span><span class="o">.</span><span class="n">_levels</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sub</span><span class="p">):</span>
+                <span class="n">codes</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">_codes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">mapping</span> <span class="o">=</span> <span class="n">match</span><span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">_levels</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_levels</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sub</span><span class="p">):</span>
+                <span class="n">v</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">_codes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">v</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">codes</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">mapping</span><span class="p">[</span><span class="n">v</span><span class="p">]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">codes</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+
+        <span class="k">if</span> <span class="n">in_place</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_codes</span> <span class="o">=</span> <span class="n">codes</span>
+            <span class="k">return</span> <span class="bp">self</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)(</span><span class="n">codes</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_levels</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ordered</span><span class="p">,</span> <span class="n">validate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Factor.__setitem__">
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Factor.Factor.__setitem__">[docs]</a>
+    <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">value</span><span class="p">:</span> <span class="s2">&quot;Factor&quot;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;See :py:attr:`~replace` for details.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">in_place</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Factor.drop_unused_levels">
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Factor.Factor.drop_unused_levels">[docs]</a>
+    <span class="k">def</span> <span class="nf">drop_unused_levels</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">in_place</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Factor&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Drop unused levels.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            in_place: Whether to perform this modification in-place.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            If ``in_place = False``, returns same type as caller (a new ``Factor`` object)</span>
+<span class="sd">            where all unused levels have been removed.</span>
+
+<span class="sd">            If ``in_place = True``, unused levels are removed from the</span>
+<span class="sd">            current object; a reference to the current object is returned.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">in_place</span><span class="p">:</span>
+            <span class="n">new_codes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_codes</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">new_codes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_codes</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+        <span class="n">in_use</span> <span class="o">=</span> <span class="p">[</span><span class="kc">False</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_levels</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_codes</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">in_use</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="n">new_levels</span> <span class="o">=</span> <span class="n">StringList</span><span class="p">([])</span>
+        <span class="n">reindex</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">in_use</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">in_use</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">x</span><span class="p">:</span>
+                <span class="n">reindex</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">new_levels</span><span class="p">)</span>
+                <span class="n">new_levels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_levels</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_codes</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">new_codes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">reindex</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">in_place</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_codes</span> <span class="o">=</span> <span class="n">new_codes</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_levels</span> <span class="o">=</span> <span class="n">new_levels</span>
+            <span class="k">return</span> <span class="bp">self</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">current_class_const</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">current_class_const</span><span class="p">(</span><span class="n">new_codes</span><span class="p">,</span> <span class="n">new_levels</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ordered</span><span class="p">,</span> <span class="n">validate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Factor.set_levels">
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Factor.Factor.set_levels">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_levels</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">levels</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]],</span> <span class="n">in_place</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Factor&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set or replace levels.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            levels:</span>
+<span class="sd">                A sequence of replacement levels. These should be unique</span>
+<span class="sd">                strings with no missing values.</span>
+
+<span class="sd">                Alternatively a single string containing an existing level in</span>
+<span class="sd">                this object. The new levels are defined as a permutation of the</span>
+<span class="sd">                existing levels where the provided string is now the first</span>
+<span class="sd">                level. The order of all other levels is preserved.</span>
+
+<span class="sd">            in_place:</span>
+<span class="sd">                Whether to perform this modification in-place.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            If ``in_place = False``, returns same type as caller (a new</span>
+<span class="sd">            ``Factor`` object) where the levels have been replaced. This will</span>
+<span class="sd">            automatically update the codes so that they still refer to the same</span>
+<span class="sd">            string in the new ``levels``. If a code refers to a level that is</span>
+<span class="sd">            not present in the new ``levels``, it is replaced with None.</span>
+
+<span class="sd">            If ``in_place = True``, the levels are replaced in the current</span>
+<span class="sd">            object, and a reference to the current object is returned.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">lmapping</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">levels</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">new_levels</span> <span class="o">=</span> <span class="p">[</span><span class="n">levels</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_levels</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="n">levels</span><span class="p">:</span>
+                    <span class="n">lmapping</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">lmapping</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">new_levels</span><span class="p">)</span>
+                    <span class="n">new_levels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">levels</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">lmapping</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">&quot;string &#39;levels&#39; should already be present among object levels&quot;</span>
+                <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">new_levels</span> <span class="o">=</span> <span class="n">levels</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">new_levels</span><span class="p">,</span> <span class="n">StringList</span><span class="p">):</span>
+                <span class="n">new_levels</span> <span class="o">=</span> <span class="n">StringList</span><span class="p">(</span><span class="n">levels</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">new_levels</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">x</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;all entries of &#39;levels&#39; should be non-missing&quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">lmapping</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;all entries of &#39;levels&#39; should be unique&quot;</span><span class="p">)</span>
+                <span class="n">lmapping</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span>
+
+        <span class="n">mapping</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_levels</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_levels</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">lmapping</span><span class="p">:</span>
+                <span class="n">mapping</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">lmapping</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">in_place</span><span class="p">:</span>
+            <span class="n">new_codes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_codes</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">new_codes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_codes</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">new_codes</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">new_codes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">mapping</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">new_codes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+
+        <span class="k">if</span> <span class="n">in_place</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_codes</span> <span class="o">=</span> <span class="n">new_codes</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_levels</span> <span class="o">=</span> <span class="n">new_levels</span>
+            <span class="k">return</span> <span class="bp">self</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">current_class_const</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">current_class_const</span><span class="p">(</span><span class="n">new_codes</span><span class="p">,</span> <span class="n">new_levels</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ordered</span><span class="p">,</span> <span class="n">validate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
+
+
+    <span class="nd">@levels</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">levels</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">levels</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;See :py:attr:`~set_levels`.&quot;&quot;&quot;</span>
+        <span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Setting property &#39;levels&#39;is an in-place operation, use &#39;set_levels&#39; instead&quot;</span><span class="p">,</span> <span class="ne">UserWarning</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_levels</span><span class="p">(</span><span class="n">levels</span><span class="p">,</span> <span class="n">in_place</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Factor.__copy__">
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Factor.Factor.__copy__">[docs]</a>
+    <span class="k">def</span> <span class="nf">__copy__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Factor&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            A shallow copy of the ``Factor`` object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">current_class_const</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">current_class_const</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_codes</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_levels</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ordered</span><span class="p">,</span> <span class="n">validate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Factor.__deepcopy__">
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Factor.Factor.__deepcopy__">[docs]</a>
+    <span class="k">def</span> <span class="nf">__deepcopy__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">memo</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Factor&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            A deep copy of the ``Factor`` object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">current_class_const</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">current_class_const</span><span class="p">(</span>
+            <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_codes</span><span class="p">,</span> <span class="n">memo</span><span class="p">),</span>
+            <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_levels</span><span class="p">,</span> <span class="n">memo</span><span class="p">),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_ordered</span><span class="p">,</span>
+            <span class="n">validate</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Factor.to_pandas">
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Factor.Factor.to_pandas">[docs]</a>
+    <span class="k">def</span> <span class="nf">to_pandas</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Coerce to :py:class:`~pandas.Categorical` object.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Categorical: A :py:class:`~pandas.Categorical` object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">Categorical</span>
+        <span class="k">return</span> <span class="n">Categorical</span><span class="p">(</span>
+            <span class="n">values</span><span class="o">=</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_levels</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_codes</span><span class="p">],</span>
+            <span class="n">ordered</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_ordered</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Factor.from_sequence">
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Factor.Factor.from_sequence">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">from_sequence</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">levels</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">sort_levels</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">ordered</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Factor&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert a sequence of hashable values into a factor.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            x: </span>
+<span class="sd">                A sequence of strings. Any value may be None to indicate</span>
+<span class="sd">                missingness.</span>
+
+<span class="sd">            levels:</span>
+<span class="sd">                Sequence of reference levels, against which the entries in ``x`` are compared.</span>
+<span class="sd">                If None, this defaults to all unique values of ``x``.</span>
+
+<span class="sd">            sort_levels:</span>
+<span class="sd">                Whether to sort the automatically-determined levels. If False,</span>
+<span class="sd">                the levels are kept in order of their appearance in ``x``.  Not</span>
+<span class="sd">                used if ``levels`` is explicitly supplied.</span>
+
+<span class="sd">            ordered (bool):</span>
+<span class="sd">                Whether the levels should be assumed to be ordered.  Note that</span>
+<span class="sd">                this refers to their importance and has nothing to do with</span>
+<span class="sd">                their sorting order or with the setting of ``sort_levels``.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A ``Factor`` object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">levels</span><span class="p">,</span> <span class="n">indices</span> <span class="o">=</span> <span class="n">factorize</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="n">levels</span><span class="p">,</span> <span class="n">sort_levels</span><span class="o">=</span><span class="n">sort_levels</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Factor</span><span class="p">(</span><span class="n">indices</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="n">levels</span><span class="p">,</span> <span class="n">ordered</span><span class="o">=</span><span class="n">ordered</span><span class="p">)</span></div>
+</div>
+
+
+
+<span class="nd">@combine_sequences</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">Factor</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">_combine_factors</span><span class="p">(</span><span class="o">*</span><span class="n">x</span><span class="p">:</span> <span class="n">Factor</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">is_list_of_type</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">Factor</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;all elements to `combine` must be `Factor` objects&quot;</span><span class="p">)</span>
+
+    <span class="n">first</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">first_levels</span> <span class="o">=</span> <span class="n">first</span><span class="o">.</span><span class="n">_levels</span>
+    <span class="n">all_same</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+        <span class="n">cur_levels</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">_levels</span>
+        <span class="k">if</span> <span class="n">cur_levels</span> <span class="o">!=</span> <span class="n">first_levels</span> <span class="ow">or</span> <span class="n">f</span><span class="o">.</span><span class="n">_ordered</span> <span class="o">!=</span> <span class="n">first</span><span class="o">.</span><span class="n">_ordered</span><span class="p">:</span>
+            <span class="n">all_same</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">break</span>
+
+    <span class="n">new_codes</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="n">all_same</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">x</span><span class="p">:</span>
+            <span class="n">new_codes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">_codes</span><span class="p">)</span>
+        <span class="n">new_levels</span> <span class="o">=</span> <span class="n">first</span><span class="o">.</span><span class="n">_levels</span>
+        <span class="n">new_ordered</span> <span class="o">=</span> <span class="n">first</span><span class="o">.</span><span class="n">_ordered</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">all_levels_map</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">new_levels</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">x</span><span class="p">:</span>
+            <span class="n">mapping</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">_levels</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">y</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">all_levels_map</span><span class="p">:</span>
+                    <span class="n">all_levels_map</span><span class="p">[</span><span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">new_levels</span><span class="p">)</span>
+                    <span class="n">new_levels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+                <span class="n">mapping</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">all_levels_map</span><span class="p">[</span><span class="n">y</span><span class="p">])</span>
+
+            <span class="n">curout</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">f</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">min_scalar_type</span><span class="p">(</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="n">new_levels</span><span class="p">)))</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">_codes</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">curout</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">j</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">curout</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">mapping</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+            <span class="n">new_codes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">curout</span><span class="p">)</span>
+        <span class="n">new_ordered</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">return</span> <span class="n">Factor</span><span class="p">(</span><span class="n">combine_sequences</span><span class="p">(</span><span class="o">*</span><span class="n">new_codes</span><span class="p">),</span> <span class="n">new_levels</span><span class="p">,</span> <span class="n">new_ordered</span><span class="p">,</span> <span class="n">validate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">biocutils</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../readme.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributions &amp; Help</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../authors.html">Authors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/modules.html">Module Reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Aaron Lun.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.2.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

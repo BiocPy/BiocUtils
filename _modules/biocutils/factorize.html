@@ -4,10 +4,10 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>biocutils.factor &#8212; biocutils 0.0.7 documentation</title>
+    <title>biocutils.factorize &#8212; biocutils 0.1.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css?v=233b9934" />
-    <script src="../../_static/documentation_options.js?v=bbaf98b3"></script>
+    <script src="../../_static/documentation_options.js?v=01f34227"></script>
     <script src="../../_static/doctools.js?v=888ff710"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -28,63 +28,52 @@
 
           <div class="body" role="main">
             
-  <h1>Source code for biocutils.factor</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Optional</span>
+  <h1>Source code for biocutils.factorize</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Tuple</span>
+<span class="kn">import</span> <span class="nn">numpy</span>
+
+<span class="kn">from</span> <span class="nn">.match</span> <span class="kn">import</span> <span class="n">match</span>
+<span class="kn">from</span> <span class="nn">.is_missing_scalar</span> <span class="kn">import</span> <span class="n">is_missing_scalar</span>
 
 
-<div class="viewcode-block" id="factor">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.factor.factor">[docs]</a>
-<span class="k">def</span> <span class="nf">factor</span><span class="p">(</span>
-    <span class="n">x</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">,</span> 
-    <span class="n">levels</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> 
-    <span class="n">sort_levels</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span> 
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">list</span><span class="p">,</span> <span class="nb">list</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Convert a sequence of hashable values into a factor.</span>
+<div class="viewcode-block" id="factorize">
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.factorize.factorize">[docs]</a>
+<span class="k">def</span> <span class="nf">factorize</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">levels</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">sort_levels</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">list</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert a sequence of hashable values into a factor.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        x (Sequence): A sequence of hashable values.</span>
+<span class="sd">        x: </span>
+<span class="sd">            A sequence of hashable values.</span>
 <span class="sd">            Any value may be None to indicate missingness.</span>
 
-<span class="sd">        levels (Sequence, optional):</span>
+<span class="sd">        levels:</span>
 <span class="sd">            Sequence of reference levels, against which the entries in ``x`` are compared.</span>
 <span class="sd">            If None, this defaults to all unique values of ``x``.</span>
 
-<span class="sd">        sort_levels (bool):</span>
+<span class="sd">        sort_levels:</span>
 <span class="sd">            Whether to sort the automatically-determined levels.</span>
 <span class="sd">            If False, the levels are kept in order of their appearance in ``x``.</span>
 <span class="sd">            Not used if ``levels`` is explicitly supplied.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        Tuple[list, list]: Tuple where the first list contains the unique levels</span>
-<span class="sd">        and the second list contains the integer index into the first list.</span>
-<span class="sd">        Indexing the first list by the second list will recover ``x``, except </span>
-<span class="sd">        for any None values in ``x``, which will be None in the second list.</span>
+<span class="sd">        Tuple where the first list contains the unique levels and the second</span>
+<span class="sd">        array contains the integer index into the first list. Indexing the</span>
+<span class="sd">        first list by the second array will recover ``x``; except for any None</span>
+<span class="sd">        or masked values in ``x``, which will be -1 in the second array.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="n">levels</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">present</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
         <span class="n">levels</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">x</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">val</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">val</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">present</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">is_missing_scalar</span><span class="p">(</span><span class="n">val</span><span class="p">)</span> <span class="ow">and</span> <span class="n">val</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">present</span><span class="p">:</span>
                 <span class="n">levels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
                 <span class="n">present</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">sort_levels</span><span class="p">:</span>
             <span class="n">levels</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
 
-    <span class="n">mapping</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">lev</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">levels</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">lev</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">lev</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">mapping</span><span class="p">:</span>
-            <span class="n">mapping</span><span class="p">[</span><span class="n">lev</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span>
-
-    <span class="n">indices</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">val</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">val</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">mapping</span><span class="p">:</span>
-            <span class="n">indices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">indices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mapping</span><span class="p">[</span><span class="n">val</span><span class="p">])</span>
-
-    <span class="k">return</span> <span class="n">levels</span><span class="p">,</span> <span class="n">indices</span></div>
+    <span class="n">codes</span> <span class="o">=</span> <span class="n">match</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">levels</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">levels</span><span class="p">,</span> <span class="n">codes</span></div>
 
 </pre></div>
 

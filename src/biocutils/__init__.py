@@ -27,3 +27,10 @@ from .print_truncated import print_truncated, print_truncated_dict, print_trunca
 from .print_wrapped_table import create_floating_names, print_type, print_wrapped_table, truncate_strings
 from .subset import subset
 from .union import union
+
+from .combine import combine
+from .combine_rows import combine_rows
+from .combine_columns import combine_columns
+from .combine_sequences import combine_sequences
+
+from .convert_to_dense import convert_to_dense

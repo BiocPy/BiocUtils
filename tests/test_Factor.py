@@ -1,4 +1,4 @@
-from biocutils import Factor
+from biocutils import Factor, combine
 import pytest
 import copy
 
@@ -147,34 +147,34 @@ def test_Factor_copy():
     assert (f.get_levels() == out.get_levels()).all()
 
 
-#def test_Factor_combine():
-#    # Same levels.
-#    f1 = Factor([0, 2, 4, 2, 0], levels=["A", "B", "C", "D", "E"])
-#    f2 = Factor([1, 3, 1], levels=["A", "B", "C", "D", "E"])
-#    out = combine(f1, f2)
-#    assert out.get_levels() == f2.get_levels()
-#    assert out.get_codes() == [0, 2, 4, 2, 0, 1, 3, 1]
-#
-#    # Different levels.
-#    f1 = Factor([0, 2, 4, 2, 0], levels=["A", "B", "C", "D", "E"])
-#    f2 = Factor([1, 3, 1], levels=["D", "E", "F", "G"])
-#    out = combine(f1, f2)
-#    assert out.get_levels() == ["A", "B", "C", "D", "E", "F", "G"]
-#    assert out.get_codes() == [0, 2, 4, 2, 0, 4, 6, 4]
-#
-#    f2 = Factor([1, 3, None], levels=["D", "E", "F", "G"])
-#    out = combine(f1, f2)
-#    assert out.get_codes() == [0, 2, 4, 2, 0, 4, 6, None]
-#
-#    # Ordering is preserved for the same levels, lost otherwise.
-#    f1 = Factor([0, 2, 4, 2, 0], levels=["A", "B", "C", "D", "E"], ordered=True)
-#    f2 = Factor([1, 3, 1], levels=["A", "B", "C", "D", "E"], ordered=True)
-#    out = combine(f1, f2)
-#    assert out.get_ordered()
-#
-#    f2 = Factor([1, 3, 2], levels=["D", "E", "F", "G"], ordered=True)
-#    out = combine(f1, f2)
-#    assert not out.get_ordered()
+def test_Factor_combine():
+    # Same levels.
+    f1 = Factor([0, 2, 4, 2, 0], levels=["A", "B", "C", "D", "E"])
+    f2 = Factor([1, 3, 1], levels=["A", "B", "C", "D", "E"])
+    out = combine(f1, f2)
+    assert (out.get_levels() == f2.get_levels()).all()
+    assert list(out.get_codes()) == [0, 2, 4, 2, 0, 1, 3, 1]
+
+    # Different levels.
+    f1 = Factor([0, 2, 4, 2, 0], levels=["A", "B", "C", "D", "E"])
+    f2 = Factor([1, 3, 1], levels=["D", "E", "F", "G"])
+    out = combine(f1, f2)
+    assert list(out.get_levels()) == ["A", "B", "C", "D", "E", "F", "G"]
+    assert list(out.get_codes()) == [0, 2, 4, 2, 0, 4, 6, 4]
+
+    f2 = Factor([1, 3, None], levels=["D", "E", "F", "G"])
+    out = combine(f1, f2)
+    assert list(out.get_codes()) == [0, 2, 4, 2, 0, 4, 6, -1]
+
+    # Ordering is preserved for the same levels, lost otherwise.
+    f1 = Factor([0, 2, 4, 2, 0], levels=["A", "B", "C", "D", "E"], ordered=True)
+    f2 = Factor([1, 3, 1], levels=["A", "B", "C", "D", "E"], ordered=True)
+    out = combine(f1, f2)
+    assert out.get_ordered()
+
+    f2 = Factor([1, 3, 2], levels=["D", "E", "F", "G"], ordered=True)
+    out = combine(f1, f2)
+    assert not out.get_ordered()
 
 
 def test_Factor_pandas():

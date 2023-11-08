@@ -8,6 +8,8 @@ from .factorize import factorize
 from .normalize_subscript import normalize_subscript
 from .is_missing_scalar import is_missing_scalar
 from .print_truncated import print_truncated_list
+from .combine_sequences import combine_sequences
+from .is_list_of_type import is_list_of_type
 
 
 def _check_levels_type(levels: numpy.ndarray):
@@ -410,3 +412,46 @@ class Factor:
         """
         levels, indices = factorize(x, levels=levels, sort_levels=sort_levels)
         return Factor(indices, levels=levels, ordered=ordered)
+
+
+@combine_sequences.register(Factor)
+def _combine_factors(*x: Factor):
+    if not is_list_of_type(x, Factor):
+        raise ValueError("all elements to `combine` must be `Factor` objects")
+
+    first = x[0]
+    first_levels = first._levels
+    all_same = True
+    for f in x[1:]:
+        cur_levels = f._levels
+        if len(cur_levels) != len(first_levels) or (cur_levels != first_levels).any() or f._ordered != first._ordered:
+            all_same = False
+            break
+
+    new_codes = []
+    if all_same:
+        for f in x:
+            new_codes.append(f._codes)
+        new_levels = first._levels
+        new_ordered = first._ordered
+    else:
+        all_levels_map = {}
+        new_levels = []
+        for f in x:
+            mapping = []
+            for i, y in enumerate(f._levels):
+                if y not in all_levels_map:
+                    all_levels_map[y] = len(new_levels)
+                    new_levels.append(y)
+                mapping.append(all_levels_map[y])
+
+            curout = numpy.ndarray(len(f), dtype=numpy.min_scalar_type(-len(new_levels)))
+            for i, j in enumerate(f._codes):
+                if j < 0:
+                    curout[i] = j
+                else:
+                    curout[i] = mapping[j]
+            new_codes.append(curout)
+        new_ordered = False
+
+    return Factor(combine_sequences(*new_codes), new_levels, new_ordered, validate=False)

@@ -1,7 +1,7 @@
 from typing import List, Optional, Sequence
 import numpy
 
-from .subset import subset
+from .subset_sequence import subset_sequence
 
 
 def _get_max_width(col: List[str]):
@@ -118,7 +118,7 @@ def create_floating_names(
         List of strings containing floating names.
     """
     if names is not None:
-        return subset(names, indices)
+        return subset_sequence(names, indices)
     else:
         return ["[" + str(i) + "]" for i in indices]
 

@@ -25,7 +25,6 @@ from .match import match
 from .normalize_subscript import normalize_subscript
 from .print_truncated import print_truncated, print_truncated_dict, print_truncated_list
 from .print_wrapped_table import create_floating_names, print_type, print_wrapped_table, truncate_strings
-from .subset import subset
 from .union import union
 
 from .combine import combine
@@ -35,5 +34,8 @@ from .combine_sequences import combine_sequences
 
 from .extract_row_names import extract_row_names
 from .extract_column_names import extract_column_names
+
+from .subset_sequence import subset_sequence
+
 from .show_as_cell import show_as_cell
 from .convert_to_dense import convert_to_dense

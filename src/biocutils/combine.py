@@ -18,7 +18,17 @@ def combine(*x: Any):
     Returns:
         A combined object, typically the same type as the first element in ``x``.
     """
-    if hasattr(x[0], "shape") and len(x[0].shape) > 1:
+    has_1d = False
+    has_nd = False
+    for y in x:
+        if hasattr(y, "shape") and len(y.shape) > 1:
+            has_nd = True
+        else:
+            has_1d = True
+
+    if has_nd and has_1d:
+        raise ValueError("cannot mix 1-dimensional and higher-dimensional objects in `combine`")
+    if has_nd:
         return combine_rows(*x)
     else:
         return combine_sequences(*x)

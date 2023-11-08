@@ -36,3 +36,7 @@ def test_basic_mixed_dense_array():
     y = np.array([4, 5, 6, 7]).reshape((2,2))
     zcomb = combine(x, y)
     assert zcomb.shape == (4, 2)
+
+    with pytest.raises(ValueError) as ex:
+        combine(x, [1,2,3,4])
+    assert str(ex.value).find("cannot mix") >= 0

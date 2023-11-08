@@ -33,4 +33,7 @@ from .combine_rows import combine_rows
 from .combine_columns import combine_columns
 from .combine_sequences import combine_sequences
 
+from .extract_row_names import extract_row_names
+from .extract_column_names import extract_column_names
+from .show_as_cell import show_as_cell
 from .convert_to_dense import convert_to_dense

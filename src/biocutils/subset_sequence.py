@@ -1,13 +1,12 @@
 from typing import Any, Sequence, Union
 from functools import singledispatch
-import numpy
 
 
 @singledispatch
-def subset_sequence(x: Any, indices: Sequence) -> Any:
+def subset_sequence(x: Any, indices: Sequence[int]) -> Any:
     """
-    Subset ``x`` by ``indices`` to obtain a new object with the desired
-    subset of elements. This attempts to use ``x``'s ``__getitem__`` method.
+    Subset ``x`` by ``indices`` to obtain a new object. The default method
+    attempts to use ``x``'s ``__getitem__`` method.
 
     Args:
         x:

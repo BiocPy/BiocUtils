@@ -37,7 +37,12 @@ from .combine_sequences import combine_sequences
 from .extract_row_names import extract_row_names
 from .extract_column_names import extract_column_names
 
+from .subset import subset
+from .subset_rows import subset_rows
 from .subset_sequence import subset_sequence
 
 from .show_as_cell import show_as_cell
 from .convert_to_dense import convert_to_dense
+
+from .get_height import get_height
+from .is_high_dimensional import is_high_dimensional

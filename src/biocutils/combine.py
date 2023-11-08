@@ -2,15 +2,16 @@ from typing import Any
 
 from .combine_rows import combine_rows
 from .combine_sequences import combine_sequences
+from .is_high_dimensional import is_high_dimensional
 
 
 def combine(*x: Any):
     """
     Generic combine that checks if the objects are n-dimensional for n > 1
     (i.e. has a ``shape`` property of length greater than 1); if so, it calls
-    :py:func:`~biocgenerics.combine_rows.combine_rows` to combine them by
-    the first dimension, otherwise it assumes that they are vector-like and
-    calls :py:func:`~biocgenerics.combine_seqs.combine_seqs` instead.
+    :py:func:`~biocutils.combine_rows.combine_rows` to combine them by the
+    first dimension, otherwise it assumes that they are vector-like and calls
+    :py:func:`~biocutils.combine_sequences.combine_sequences` instead.
 
     Args:
         x: Objects to combine.
@@ -21,7 +22,7 @@ def combine(*x: Any):
     has_1d = False
     has_nd = False
     for y in x:
-        if hasattr(y, "shape") and len(y.shape) > 1:
+        if is_high_dimensional(y):
             has_nd = True
         else:
             has_1d = True

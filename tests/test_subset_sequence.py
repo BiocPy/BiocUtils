@@ -19,3 +19,9 @@ def test_subset_numpy():
 
     y = np.random.rand(10, 20)
     assert (subset_sequence(y, range(5)) == y[0:5, :]).all()
+
+
+def test_subset_range():
+    x = range(10, 20)
+    assert subset_sequence(x, range(2, 8, 2)) == range(12, 18, 2)
+    assert subset_sequence(x, [0, 1, 5, 9]) == [10, 11, 15, 19]

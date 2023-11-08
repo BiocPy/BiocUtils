@@ -73,3 +73,22 @@ def test_pandas_series():
     z = combine_sequences(s1, x)
     assert isinstance(z, pd.Series)
     assert len(z) == 4
+
+
+def test_ranges():
+    assert combine_sequences(range(0, 10), range(10, 54)) == range(0, 54)
+    assert combine_sequences(range(2, 5), range(5, 9), range(9, 20)) == range(2, 20)
+    assert combine_sequences(range(2, 9, 2), range(10, 54, 2)) == range(2, 54, 2)
+    assert combine_sequences(range(10, 5, -1), range(5, -1, -1)) == range(10, -1, -1)
+
+    # Trigger a fallback.
+    assert combine_sequences(range(0, 10), [10, 11, 12, 13]) == list(range(0, 14))
+    assert combine_sequences(range(0, 10), range(20, 54)) == list(range(0, 10)) + list(range(20, 54))
+
+    # Empty ranges are handled correctly.
+    assert combine_sequences(range(10, 10), range(50, 50), range(20, 20)) == range(10, 10)
+    assert combine_sequences(range(0, 10), range(50, 50), range(10, 20)) == range(0, 20)
+
+    # Different steps trigger a fallback, unless it's of length 1.
+    assert combine_sequences(range(0, 10), range(10, 50, 2)) == list(range(0, 10)) + list(range(10, 50, 2))
+    assert combine_sequences(range(0, 10), range(10, 11, 5), range(11, 19)) == range(0, 19)

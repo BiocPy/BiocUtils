@@ -47,6 +47,40 @@ def _combine_sequences_dense_arrays(*x: numpy.ndarray):
     return numpy.concatenate(x, axis=None)
 
 
+@combine_sequences.register
+def _combine_sequences_ranges(*x: range):
+    for current in x:
+        if not isinstance(current, range):
+            return list(chain(*x))
+
+    found = None
+    for i, current in enumerate(x):
+        if len(current) != 0:
+            found = i
+            start = current.start
+            step = current.step
+            stop = current.stop
+            last = current[-1]
+            break
+
+    if found is None:
+        return x[0]
+
+    failed = False
+    for i in range(found + 1, len(x)):
+        current = x[i]
+        if len(current) != 0:
+            if current[0] != last + step or (len(current) > 1 and step != current.step):
+                failed = True
+                break
+            last = current[-1]
+            stop = current.stop
+
+    if not failed:
+        return range(start, stop, step)
+    return list(chain(*x))
+
+
 if is_package_installed("pandas") is True:
     from pandas import Series, concat
 

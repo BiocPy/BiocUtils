@@ -25,3 +25,11 @@ def subset_sequence(x: Any, indices: Sequence[int]) -> Any:
 @subset_sequence.register
 def _subset_sequence_list(x: list, indices: Sequence) -> list:
     return type(x)(x[i] for i in indices)
+
+
+@subset_sequence.register
+def _subset_sequence_range(x: range, indices: Sequence) -> Union[list, range]:
+    if isinstance(indices, range):
+        return x[slice(indices.start, indices.stop, indices.step)]
+    else:
+        return [x[i] for i in indices]

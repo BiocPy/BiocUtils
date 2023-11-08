@@ -3,6 +3,7 @@ from typing import List, Sequence, Union, Optional
 from warnings import warn
 import numpy
 
+from .StringList import StringList
 from .match import match
 from .factorize import factorize
 from .normalize_subscript import normalize_subscript
@@ -10,15 +11,6 @@ from .is_missing_scalar import is_missing_scalar
 from .print_truncated import print_truncated_list
 from .combine_sequences import combine_sequences
 from .is_list_of_type import is_list_of_type
-
-
-def _check_levels_type(levels: numpy.ndarray):
-    if not numpy.issubdtype(levels.dtype, numpy.str_):
-        raise TypeError("all entries of 'levels' should be strings")
-    if numpy.ma.is_masked(levels):
-        raise TypeError("all entries of 'levels' should be non-missing")
-    if len(levels.shape) != 1:
-        raise TypeError("'codes' should be a 1-dimensional array")
 
 
 class Factor:
@@ -57,28 +49,28 @@ class Factor:
                 else:
                     replacement[i] = x
             codes = replacement
-        elif not numpy.issubdtype(codes.dtype, numpy.signedinteger): # force it to be signed.
-            codes = codes.astype(numpy.min_scalar_type(-len(levels)))
+        else:
+            if len(codes.shape) != 1:
+                raise ValueError("'codes' should be a 1-dimensional array")
+            if not numpy.issubdtype(codes.dtype, numpy.signedinteger): # force it to be signed.
+                codes = codes.astype(numpy.min_scalar_type(-len(levels)))
+
+        if not isinstance(levels, StringList):
+            levels = StringList(levels)
+
         self._codes = codes
-
-        if not isinstance(levels, numpy.ndarray):
-            levels = numpy.array(levels, dtype=str)
         self._levels = levels
-
         self._ordered = bool(ordered)
 
         if validate:
-            if len(self._codes.shape) != 1:
-                raise TypeError("'codes' should be a 1-dimensional array")
-
-            _check_levels_type(self._levels)
-
+            if any(x is None for x in levels):
+                raise TypeError("all entries of 'levels' should be non-missing")
+            if len(set(levels)) < len(levels):
+                raise ValueError("all entries of 'levels' should be unique")
             for x in codes:
-                if x >= len(self._levels):
+                if x < -1 or x >= len(self._levels):
                     raise ValueError("all entries of 'codes' should refer to an entry of 'levels'")
 
-            if len(set(self._levels)) < len(self._levels):
-                raise ValueError("all entries of 'levels' should be unique")
 
     def get_codes(self) -> numpy.ndarray:
         """
@@ -94,15 +86,15 @@ class Factor:
         """See :py:attr:`~get_codes`."""
         return self.get_codes()
 
-    def get_levels(self) -> numpy.ndarray:
+    def get_levels(self) -> StringList:
         """
         Returns:
-            Array of strings containing the factor levels.
+            List of strings containing the factor levels.
         """
         return self._levels
 
     @property
-    def levels(self) -> numpy.ndarray:
+    def levels(self) -> StringList:
         """See :py:attr:`~get_levels`."""
         return self.get_levels()
 
@@ -210,7 +202,7 @@ class Factor:
         if not in_place:
             codes = codes.copy()
 
-        if len(self._levels) == len(value._levels) and (self._levels == value._levels).all():
+        if self._levels == value._levels:
             for i, x in enumerate(sub):
                 codes[x] = value._codes[i]
         else:
@@ -255,13 +247,12 @@ class Factor:
             if x >= 0:
                 in_use[x] = True
 
-        new_levels = []
+        new_levels = StringList([])
         reindex = [-1] * len(in_use)
         for i, x in enumerate(in_use):
             if x:
                 reindex[i] = len(new_levels)
                 new_levels.append(self._levels[i])
-        new_levels = numpy.array(new_levels)
 
         for i, x in enumerate(self._codes):
             if x >= 0:
@@ -275,13 +266,13 @@ class Factor:
             current_class_const = type(self)
             return current_class_const(new_codes, new_levels, self._ordered, validate=False)
 
-    def set_levels(self, levels: Union[str, List[str]], in_place: bool = False) -> "Factor":
+    def set_levels(self, levels: Union[str, Sequence[str]], in_place: bool = False) -> "Factor":
         """Set or replace levels.
 
         Args:
             levels:
-                A list of replacement levels. These should be unique strings
-                with no missing values.
+                A sequence of replacement levels. These should be unique
+                strings with no missing values.
 
                 Alternatively a single string containing an existing level in
                 this object. The new levels are defined as a permutation of the
@@ -315,11 +306,14 @@ class Factor:
                     "string 'levels' should already be present among object levels"
                 )
         else:
-            new_levels = numpy.array(levels)
-            _check_levels_type(new_levels)
+            new_levels = levels
+            if not isinstance(new_levels, StringList):
+                new_levels = StringList(levels)
             for i, x in enumerate(new_levels):
+                if x is None:
+                    raise TypeError("all entries of 'levels' should be non-missing")
                 if x in lmapping:
-                    raise ValueError("levels should be unique")
+                    raise ValueError("all entries of 'levels' should be unique")
                 lmapping[x] = i
 
         mapping = [-1] * len(self._levels)
@@ -424,7 +418,7 @@ def _combine_factors(*x: Factor):
     all_same = True
     for f in x[1:]:
         cur_levels = f._levels
-        if len(cur_levels) != len(first_levels) or (cur_levels != first_levels).any() or f._ordered != first._ordered:
+        if cur_levels != first_levels or f._ordered != first._ordered:
             all_same = False
             break
 

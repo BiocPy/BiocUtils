@@ -1,4 +1,4 @@
-from biocutils import Factor, combine
+from biocutils import Factor, combine, StringList
 import pytest
 import copy
 import numpy
@@ -9,7 +9,7 @@ def test_Factor_basics():
     assert len(f) == 6
     assert list(f) == ["A", "B", "C", "A", "C", "E"]
     assert list(f.get_codes()) == [0, 1, 2, 0, 2, 4]
-    assert list(f.get_levels()) == ["A", "B", "C", "D", "E"]
+    assert f.get_levels() == ["A", "B", "C", "D", "E"]
     assert not f.get_ordered()
 
     # Works with missing values.
@@ -25,7 +25,7 @@ def test_Factor_basics():
     f = Factor(numpy.array([4,3,2,1,0], dtype=numpy.uint8), levels=numpy.array(["A", "B", "C", "D", "E"]))
     assert len(f) == 5 
     assert f.get_codes().dtype == numpy.int8
-    assert numpy.issubdtype(f.get_levels().dtype, numpy.str_)
+    assert isinstance(f.get_levels(), StringList)
 
     with pytest.raises(ValueError) as ex:
         Factor([0, 1, 100], ["A"])
@@ -66,15 +66,15 @@ def test_Factor_getitem():
 
     f2 = f[2:4]
     assert list(f2.get_codes()) == [2, 0]
-    assert (f2.get_levels() == f.get_levels()).all()
+    assert f2.get_levels() == f.get_levels()
 
     f2 = f[[1, 3, 5]]
     assert list(f2.get_codes()) == [1, 0, 4]
-    assert (f2.get_levels() == f.get_levels()).all()
+    assert f2.get_levels() == f.get_levels()
 
     f2 = f[[-1, -2, -3]]
     assert list(f2.get_codes()) == [4, 2, 0]
-    assert (f2.get_levels() == f.get_levels()).all()
+    assert f2.get_levels() == f.get_levels()
 
 
 def test_Factor_setitem():
@@ -83,48 +83,48 @@ def test_Factor_setitem():
 
     f[0:2] = f2[2:4]
     assert list(f.get_codes()) == [2, 3, 2, 3, 2, 1]
-    assert list(f.get_levels()) == ["A", "B", "C", "D", "E"]
+    assert f.get_levels() == ["A", "B", "C", "D", "E"]
 
     f = Factor([0, 1, 2, 3, 2, 1], levels=["A", "B", "C", "D", "E"])
     f2 = Factor([0, 1, 2, 3, 2, 1], levels=["E", "D", "C", "B", "A"])
     f[[-3, -2, -1]] = f2[0:3]
     assert list(f.get_codes()) == [0, 1, 2, 4, 3, 2]
-    assert list(f.get_levels()) == ["A", "B", "C", "D", "E"]
+    assert f.get_levels() == ["A", "B", "C", "D", "E"]
 
     f = Factor([0, 1, 2, 3, 2, 1], levels=["A", "B", "C", "D", "E"])
     f2 = Factor([0, 1, 2, 3, 2, 1], levels=["e", "d", "c", "b", "a"])
     f[:] = f2[:]
     assert list(f.get_codes()) == [-1] * 6
-    assert list(f.get_levels()) == ["A", "B", "C", "D", "E"]
+    assert f.get_levels() == ["A", "B", "C", "D", "E"]
 
 
 def test_Factor_drop_unused_levels():
     f = Factor([0, 1, 2, 0, 2, 4], levels=["A", "B", "C", "D", "E"])
     f2 = f.drop_unused_levels()
-    assert list(f2.get_levels()) == ["A", "B", "C", "E"]
+    assert f2.get_levels() == ["A", "B", "C", "E"]
     assert list(f2) == list(f)
 
     f = Factor([3, 4, 2, 3, 2, 4], levels=["A", "B", "C", "D", "E"])
     f2 = f.drop_unused_levels(in_place=True)
-    assert list(f2.get_levels()) == ["C", "D", "E"]
+    assert f2.get_levels() == ["C", "D", "E"]
     assert list(f2) == ["D", "E", "C", "D", "C", "E"]
 
 
 def test_Factor_set_levels():
     f = Factor([0, 1, 2, 0, 2, 4], levels=["A", "B", "C", "D", "E"])
     f2 = f.set_levels(["E", "D", "C", "B", "A"])
-    assert list(f2.get_levels()) == ["E", "D", "C", "B", "A"]
+    assert f2.get_levels() == ["E", "D", "C", "B", "A"]
     assert list(f2.get_codes()) == [4, 3, 2, 4, 2, 0]
     assert list(f2) == list(f)
 
     f = Factor([0, 1, 2, 0, 2, 4], levels=["A", "B", "C", "D", "E"])
     f2 = f.set_levels(["E", "C", "A"], in_place=True)
-    assert list(f2.get_levels()) == ["E", "C", "A"]
+    assert f2.get_levels() == ["E", "C", "A"]
     assert list(f2.get_codes()) == [2, -1, 1, 2, 1, 0]
 
     f = Factor([0, 1, 2, 0, 2, 4], levels=["A", "B", "C", "D", "E"])
     f2 = f.set_levels("E")  # reorders
-    assert list(f2.get_levels()) == ["E", "A", "B", "C", "D"]
+    assert f2.get_levels() == ["E", "A", "B", "C", "D"]
     assert list(f2.get_codes()) == [1, 2, 3, 1, 3, 0]
 
     with pytest.raises(ValueError) as ex:
@@ -133,7 +133,7 @@ def test_Factor_set_levels():
 
     with pytest.raises(TypeError) as ex:
         f.set_levels([None, "A"])
-    assert str(ex.value).find("should be strings") >= 0
+    assert str(ex.value).find("non-missing") >= 0
 
     with pytest.raises(ValueError) as ex:
         f.set_levels(["A", "A"])
@@ -144,12 +144,12 @@ def test_Factor_copy():
     f = Factor([0, 1, 2, 0, 2, 4], levels=["A", "B", "C", "D", "E"])
     out = copy.copy(f)
     assert (f.get_codes() == out.get_codes()).all()
-    assert (f.get_levels() == out.get_levels()).all()
+    assert f.get_levels() == out.get_levels()
 
     f = Factor([0, 1, 2, 0, 2, 4], levels=["A", "B", "C", "D", "E"])
     out = copy.deepcopy(f)
     assert (f.get_codes() == out.get_codes()).all()
-    assert (f.get_levels() == out.get_levels()).all()
+    assert f.get_levels() == out.get_levels()
 
 
 def test_Factor_combine():
@@ -157,14 +157,14 @@ def test_Factor_combine():
     f1 = Factor([0, 2, 4, 2, 0], levels=["A", "B", "C", "D", "E"])
     f2 = Factor([1, 3, 1], levels=["A", "B", "C", "D", "E"])
     out = combine(f1, f2)
-    assert (out.get_levels() == f2.get_levels()).all()
+    assert out.get_levels() == f2.get_levels()
     assert list(out.get_codes()) == [0, 2, 4, 2, 0, 1, 3, 1]
 
     # Different levels.
     f1 = Factor([0, 2, 4, 2, 0], levels=["A", "B", "C", "D", "E"])
     f2 = Factor([1, 3, 1], levels=["D", "E", "F", "G"])
     out = combine(f1, f2)
-    assert list(out.get_levels()) == ["A", "B", "C", "D", "E", "F", "G"]
+    assert out.get_levels() == ["A", "B", "C", "D", "E", "F", "G"]
     assert list(out.get_codes()) == [0, 2, 4, 2, 0, 4, 6, 4]
 
     f2 = Factor([1, 3, None], levels=["D", "E", "F", "G"])

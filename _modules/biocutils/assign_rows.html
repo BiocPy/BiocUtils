@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>biocutils.subset_rows &#8212; biocutils 0.1.1 documentation</title>
+    <title>biocutils.assign_rows &#8212; biocutils 0.1.1 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css?v=233b9934" />
     <script src="../../_static/documentation_options.js?v=a58bc63e"></script>
@@ -28,34 +28,52 @@
 
           <div class="body" role="main">
             
-  <h1>Source code for biocutils.subset_rows</h1><div class="highlight"><pre>
+  <h1>Source code for biocutils.assign_rows</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Union</span>
 <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">singledispatch</span>
+<span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
+<span class="kn">import</span> <span class="nn">numpy</span>
 
 
-<div class="viewcode-block" id="subset_rows">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.subset_rows.subset_rows">[docs]</a>
+<div class="viewcode-block" id="assign_rows">
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.assign_rows.assign_rows">[docs]</a>
 <span class="nd">@singledispatch</span>
-<span class="k">def</span> <span class="nf">subset_rows</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">indices</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">assign_rows</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">indices</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">replacement</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Subset ``x`` by ``indices`` on the first dimension. The default</span>
-<span class="sd">    method attempts to use ``x``&#39;s ``__getitem__`` method, </span>
+<span class="sd">    Assign ``replacement`` values to a copy of ``x`` at the rows specified by</span>
+<span class="sd">    ``indices``. This defaults to creating a deep copy of ``x`` and then</span>
+<span class="sd">    assigning ``replacement`` to the first dimension of the copy.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        x:</span>
 <span class="sd">            Any high-dimensional object.</span>
 
-<span class="sd">        indices:</span>
-<span class="sd">            Sequence of non-negative integers specifying the integers of interest.</span>
+<span class="sd">        indices: </span>
+<span class="sd">            Sequence of non-negative integers specifying rows of ``x``.</span>
+
+<span class="sd">        replacement:</span>
+<span class="sd">            Replacement values to be assigned to ``x``. This should have the</span>
+<span class="sd">            same number of rows as the length of ``indices``. Typically</span>
+<span class="sd">            ``replacement`` will have the same dimensionality as ``x``.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        The result of slicing ``x`` by ``indices``. The exact type</span>
-<span class="sd">        depends on what ``x``&#39;s ``__getitem__`` method returns.</span>
+<span class="sd">        A copy of ``x`` with the rows replaced at ``indices``.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
     <span class="n">tmp</span> <span class="o">=</span> <span class="p">[</span><span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">)]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
     <span class="n">tmp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">indices</span> 
-    <span class="k">return</span> <span class="n">x</span><span class="p">[(</span><span class="o">*</span><span class="n">tmp</span><span class="p">,)]</span></div>
+    <span class="n">output</span><span class="p">[(</span><span class="o">*</span><span class="n">tmp</span><span class="p">,)]</span> <span class="o">=</span> <span class="n">replacement</span>
+    <span class="k">return</span> <span class="n">output</span></div>
 
+
+
+<span class="nd">@assign_rows</span><span class="o">.</span><span class="n">register</span>
+<span class="k">def</span> <span class="nf">_assign_rows_numpy</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">indices</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">replacement</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+    <span class="n">tmp</span> <span class="o">=</span> <span class="p">[</span><span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">)]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+    <span class="n">tmp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">indices</span> 
+    <span class="n">output</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">output</span><span class="p">[(</span><span class="o">*</span><span class="n">tmp</span><span class="p">,)]</span> <span class="o">=</span> <span class="n">replacement</span>
+    <span class="k">return</span> <span class="n">output</span>
 </pre></div>
 
           </div>

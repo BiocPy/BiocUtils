@@ -20,6 +20,30 @@ biocutils.StringList module
    :undoc-members:
    :show-inheritance:
 
+biocutils.assign module
+-----------------------
+
+.. automodule:: biocutils.assign
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+biocutils.assign\_rows module
+-----------------------------
+
+.. automodule:: biocutils.assign_rows
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+biocutils.assign\_sequence module
+---------------------------------
+
+.. automodule:: biocutils.assign_sequence
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 biocutils.combine module
 ------------------------
 

@@ -41,6 +41,10 @@ from .subset import subset
 from .subset_rows import subset_rows
 from .subset_sequence import subset_sequence
 
+from .assign import assign
+from .assign_rows import assign_rows
+from .assign_sequence import assign_sequence
+
 from .show_as_cell import show_as_cell
 from .convert_to_dense import convert_to_dense
 

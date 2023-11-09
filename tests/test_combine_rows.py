@@ -19,6 +19,18 @@ def test_combine_rows_dense():
     assert z.shape == (15, 20)
 
 
+def test_combine_rows_masked():
+    num_cols = 20
+    x = np.ones(shape=(10, num_cols))
+    y0 = np.zeros((5, num_cols))
+    y = np.ma.array(y0, mask=True)
+
+    z = combine_rows(x, y)
+    expected = np.concatenate([x, y0]) == 0
+    assert (z.mask == expected).all()
+    assert z.shape == (15, 20)
+
+
 def test_combine_rows_sparse():
     num_cols = 20
 

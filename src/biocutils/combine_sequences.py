@@ -44,6 +44,9 @@ def _combine_sequences_lists(*x: list):
 
 @combine_sequences.register(numpy.ndarray)
 def _combine_sequences_dense_arrays(*x: numpy.ndarray):
+    for y in x:
+        if numpy.ma.is_masked(y):
+            return numpy.ma.concatenate(x, axis=None)
     return numpy.concatenate(x, axis=None)
 
 

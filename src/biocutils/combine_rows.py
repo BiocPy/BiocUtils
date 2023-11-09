@@ -42,6 +42,9 @@ def combine_rows(*x: Any):
 def _combine_rows_dense_arrays(*x: numpy.ndarray):
     _check_array_dimensions(x, active=0)
     x = [convert_to_dense(y) for y in x]
+    for y in x:
+        if numpy.ma.is_masked(y):
+            return numpy.ma.concatenate(x)
     return numpy.concatenate(x)
 
 

@@ -22,17 +22,26 @@ def test_basic_list():
 def test_basic_dense():
     x = [1, 2, 3]
     y = [0.1, 0.2]
-    xd = np.array([1, 2, 3])
-    yd = np.array([0.1, 0.2], dtype=float)
+    xd = np.array(x)
+    yd = np.array(y)
 
     zcomb = combine_sequences(xd, yd)
-
     z = x + y
     zd = np.array(z)
+    assert (zcomb == zd).all()
 
-    assert all(np.isclose(zcomb, zd)) is True
-    assert isinstance(zcomb, np.ndarray)
-    assert len(zcomb) == len(zd)
+
+def test_basic_dense_masked():
+    x = [1, 2, 3]
+    y = [0.1, 0.2]
+    xd = np.array(x)
+    yd = np.ma.array(y, mask=[True]*2) 
+
+    zcomb = combine_sequences(xd, yd)
+    z = x + y
+    zd = np.ma.array(z, mask=[False]*3 + [True]*2)
+    assert (zcomb == zd).all()
+    assert (zcomb.mask == zd.mask).all()
 
 
 def test_basic_mixed_dense_list():

@@ -1,4 +1,4 @@
-from typing import Sequence, Optional, Iterable, Union, Any
+from typing import Sequence, Optional, Iterable, Union, Any, Dict
 from copy import deepcopy
 
 from .Names import Names
@@ -15,16 +15,28 @@ class NamedList(list):
     a list, so it can be indexed as usual by integer positions or slices.
     """
 
-    def __init__(self, iterable: Optional[Iterable] = None, names: Optional[Names] = None):
+    def __init__(self, iterable: Optional[Union[Iterable, Dict]] = None, names: Optional[Names] = None):
         """
         Args:
             iterable:
-                Some iterable object. Alternatively None, for an empty list.
+                Some iterable object. 
+
+                Alternatively, a dictionary where the keys are strings.
+
+                Alternatively None, for an empty list.
 
             names:
                 List of names. This should have same length as ``iterable``.
                 If None, defaults to an empty list.
+
+                Ignored if ``iterable`` is a dictionary, in which case the
+                keys are used directly as the names.
         """
+        if isinstance(iterable, dict):
+            original = iterable
+            iterable = original.values()
+            names = (str(y) for y in original.keys())
+
         if iterable is None:
             super().__init__()
         else:
@@ -251,6 +263,18 @@ class NamedList(list):
             A deep copy of a ``NamedList`` with the same contents.
         """
         return NamedList(deepcopy(self, memo, _nil), names=deepcopy(self_names, memo, _nil))
+
+    def as_dict(self) -> dict[str, Any]:
+        """
+        Returns:
+            A dictionary where the keys are the names and the values are the
+            list elements. Only the first occurrence of each name is returned.
+        """
+        output = {}
+        for i, n in enumerate(self._names):
+            if n not in output:
+                output[n] = self[i]
+        return output
 
 
 @subset_sequence.register

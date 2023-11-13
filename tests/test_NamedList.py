@@ -39,6 +39,15 @@ def test_NamedList_basics():
     assert z.get_names() == [ "a", "b", "c", "d" ]
 
 
+def test_NamedList_dict():
+    x = NamedList([1,2,3,4], names=['a', 'b', 'c', 'd'])
+    assert x.as_dict() == { "a": 1, "b": 2, "c": 3, "d": 4 }
+
+    x = NamedList({ "c": 4, "d": 5, 23: 99 })
+    assert x.get_names() == [ "c", "d", "23" ]
+    assert x == [ 4, 5, 99 ]
+
+
 def test_NamedList_setitem():
     x = NamedList([1,2,3,4], names=["A", "B", "C", "D"])
     x[0] = None

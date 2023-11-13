@@ -17,6 +17,7 @@ finally:
 
 from .Factor import Factor
 from .StringList import StringList
+from .Names import Names
 
 from .factorize import factorize
 from .intersect import intersect

@@ -26,13 +26,19 @@ class Names(list):
         self._reverse = None
 
     # Enable fast indexing by name, but only on demand. This reverse mapping
-    # field is strictly internal.
+    # field is strictly internal and should be completely transparent to the
+    # user; so, calls to map() can be considered as 'non-mutating', as it
+    # shouldn't manifest in any visible changes to the Names object. I guess
+    # that things become a little hairy in multi-threaded contexts where I
+    # should probably protect the final assignment to _reverse. But then
+    # again, Python is single-threaded anyway, so maybe it doesn't matter.
     def _populate_reverse_index(self):
         if self._reverse is None:
-            self._reverse = {}
+            revmap = {}
             for i, n in enumerate(self):
-                if n not in self._reverse:
-                    self._reverse[n] = i
+                if n not in revmap:
+                    revmap[n] = i
+            self._reverse = revmap
 
     def _wipe_reverse_index(self):
         self._reverse = None

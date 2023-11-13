@@ -1,6 +1,8 @@
 from typing import Optional, Sequence, Tuple, Union
 import numpy
 
+from .Names import Names
+
 
 def _raise_int(idx: int, length):
     raise IndexError("subscript (" + str(idx) + ") out of range for vector-like object of length " + str(length))
@@ -119,11 +121,16 @@ def normalize_subscript(
     output = []
     has_strings = set()
     string_positions = []
+    are_names_indexed = isinstance(names, Names)
+
     for i, x in enumerate(sub):
         if isinstance(x, str):
-            has_strings.add(x)
-            string_positions.append(len(output))
-            output.append(None)
+            if are_names_indexed:
+                output.append(names.map(x))
+            else:
+                has_strings.add(x)
+                string_positions.append(len(output))
+                output.append(None)
         elif _is_scalar_bool(x):
             if x:
                 output.append(i)

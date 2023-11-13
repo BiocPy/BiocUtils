@@ -1,4 +1,4 @@
-from biocutils import normalize_subscript
+from biocutils import normalize_subscript, Names
 import pytest
 import numpy
 
@@ -92,6 +92,10 @@ def test_normalize_subscript_chaos():
 
     names = ["A", "B", "C", "D", "E", "F"]
     assert normalize_subscript(["B", 1, "D", 2, "F", 3, "A"], 6, names) == (
+        [1, 1, 3, 2, 5, 3, 0],
+        False,
+    )
+    assert normalize_subscript(["B", 1, "D", 2, "F", 3, "A"], 6, Names(names)) == (
         [1, 1, 3, 2, 5, 3, 0],
         False,
     )

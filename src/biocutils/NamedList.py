@@ -10,8 +10,9 @@ from .assign_sequence import assign_sequence
 class NamedList(list):
     """
     A Python list with a name for each element, equivalent to R's named list.
-    This provides some dict-like behavior, with methods to index by name in
-    addition to the usual indexing by integer positions or slices.
+    This provides some dict-like behavior - namely, getting or setting entries
+    by an existing name, adding entries with a new name. Of course, it's still
+    a list, so it can be indexed as usual by integer positions or slices.
     """
 
     def __init__(self, iterable: Optional[Iterable] = None, names: Optional[Names] = None):

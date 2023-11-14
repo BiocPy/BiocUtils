@@ -172,7 +172,7 @@ class NamedList:
                 :py:func:`~biocutils.normalize_subscript.normalize_subscript`
                 for details. Strings are matched to names in the current
                 object, using the first occurrence if duplicate names are
-                present.  Scalars are treated as length-1 vectors.
+                present. Scalars are treated as length-1 sequences.
 
         Returns:
             A ``NamedList`` is returned containing the specified subset.
@@ -186,7 +186,7 @@ class NamedList:
 
     def __getitem__(self, index: SubscriptTypes) -> Union["NamedList", Any]:
         """
-        If ``index`` is a scalar, this is an alias for :py:attr:`~get_item`.
+        If ``index`` is a scalar, this is an alias for :py:attr:`~get_value`.
 
         If ``index`` is a sequence, this is an alias for :py:attr:`~get_slice`.
         """
@@ -251,7 +251,7 @@ class NamedList:
                 :py:func:`~biocutils.normalize_subscript.normalize_subscript`
                 for details. Strings are matched to names in the current
                 object, using the first occurrence if duplicate names are
-                present. 
+                present. Scalars are treated as length-1 sequences.
 
             value:
                 If ``index`` is a sequence, a sequence of the same length
@@ -287,10 +287,10 @@ class NamedList:
 
     def __setitem__(self, index: SubscriptTypes, value: Any):
         """
-        If ``index`` is a scalar, this is an alias for :py:attr:`~set_item`
+        If ``index`` is a scalar, this is an alias for :py:attr:`~set_value`
         with ``in_place = True``.
 
-        If ``index`` is a sequence, this is an alias for :py:attr:`~get_slice`
+        If ``index`` is a sequence, this is an alias for :py:attr:`~set_slice`
         with ``in_place = True``.
         """
         if isinstance(index, str):
@@ -368,7 +368,7 @@ class NamedList:
         """Alias for :py:attr:`~safe_append` with `in_place = True`."""
         self.safe_append(value, in_place=True)
 
-    def safe_extend(self, other: Iterable, in_place: bool = False):
+    def safe_extend(self, other: Iterable, in_place: bool = False) -> "NamedList":
         """
         Args:
             iterable: 

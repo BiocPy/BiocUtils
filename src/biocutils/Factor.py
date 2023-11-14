@@ -10,6 +10,8 @@ from .factorize import factorize
 from .normalize_subscript import normalize_subscript, SubscriptTypes
 from .is_missing_scalar import is_missing_scalar
 from .print_truncated import print_truncated_list
+
+from .subset_sequence import subset_sequence
 from .combine_sequences import combine_sequences
 from .is_list_of_type import is_list_of_type
 
@@ -101,7 +103,7 @@ class Factor:
         if in_place:
             return self
         else:
-            return type(self)(self._codes, levels=self._levels, ordered=self._ordered, names=self._names, _validate=False)
+            return copy(self)
 
     def get_codes(self) -> numpy.ndarray:
         """
@@ -283,16 +285,11 @@ class Factor:
             A ``Factor`` is returned containing the specified subset.
         """
         index, scalar = normalize_subscript(index, len(self), self._names)
-        outnames = None
-        if self._names is not None:
-            outnames = subset_sequence(self._names, index)
-        return type(self)(
-            self._codes[index],
-            levels=self._levels,
-            ordered=self._ordered,
-            names=outnames,
-            _validate=False,
-        )
+        output = copy(self)
+        output._codes = self._codes[index]
+        if output._names is not None:
+            output._names = subset_sequence(self._names, index)
+        return output
 
     def __getitem__(self, index: SubscriptTypes) -> Union[str, "Factor"]:
         """
@@ -379,18 +376,20 @@ class Factor:
             output = copy(self)
             output._codes = copy(self._codes)
 
-        index, scalar = normalize_subscript(index, len(self), None)
+        new_codes = output._codes
+
+        index, scalar = normalize_subscript(index, len(self), self._names)
         if self._levels == value._levels:
             for i, x in enumerate(index):
-                output._codes[x] = value._codes[i]
+                new_codes[x] = value._codes[i]
         else:
             mapping = match(value._levels, self._levels)
             for i, x in enumerate(index):
                 v = value._codes[i]
                 if v >= 0:
-                    output._codes[x] = mapping[v]
+                    new_codes[x] = mapping[v]
                 else:
-                    output._codes[x] = -1
+                    new_codes[x] = -1
 
         return output
 
@@ -424,9 +423,10 @@ class Factor:
             current object; a reference to the current object is returned.
         """
         if in_place:
-            new_codes = self._codes
+            output = self
         else:
-            new_codes = self._codes.copy()
+            output = copy(self)
+            output._codes = copy(self._codes)
 
         in_use = [False] * len(self._levels)
         for x in self._codes:
@@ -440,17 +440,13 @@ class Factor:
                 reindex[i] = len(new_levels)
                 new_levels.append(self._levels[i])
 
+        new_codes = output._codes
         for i, x in enumerate(self._codes):
             if x >= 0:
                 new_codes[i] = reindex[x]
 
-        if in_place:
-            self._codes = new_codes
-            self._levels = new_levels
-            return self
-        else:
-            current_class_const = type(self)
-            return current_class_const(new_codes, new_levels, self._ordered, _validate=False)
+        output._levels = new_levels
+        return output
 
     def set_levels(self, levels: Union[str, Sequence[str]], in_place: bool = False) -> "Factor":
         """Set or replace levels.
@@ -478,6 +474,12 @@ class Factor:
             If ``in_place = True``, the levels are replaced in the current
             object, and a reference to the current object is returned.
         """
+        if in_place:
+            output = self
+        else:
+            output = copy(self)
+            output._codes = copy(self._codes)
+
         lmapping = {}
         if isinstance(levels, str):
             new_levels = StringList([levels])
@@ -507,23 +509,15 @@ class Factor:
             if x in lmapping:
                 mapping[i] = lmapping[x]
 
-        if in_place:
-            new_codes = self._codes
-        else:
-            new_codes = self._codes.copy()
+        new_codes = output._codes
         for i, x in enumerate(new_codes):
             if x >= 0:
                 new_codes[i] = mapping[x]
             else:
                 new_codes[i] = -1
 
-        if in_place:
-            self._codes = new_codes
-            self._levels = new_levels
-            return self
-        else:
-            current_class_const = type(self)
-            return current_class_const(new_codes, new_levels, self._ordered, _validate=False)
+        output._levels = new_levels
+        return output
 
     ###########################
     #####>>>> Copying <<<<#####
@@ -534,7 +528,13 @@ class Factor:
         Returns:
             A shallow copy of the ``Factor`` object.
         """
-        return self._define_output(False)
+        return type(self)(
+            self._codes, 
+            levels=self._levels, 
+            ordered=self._ordered, 
+            names=self._names, 
+            _validate=False,
+        )
 
     def __deepcopy__(self, memo) -> "Factor":
         """

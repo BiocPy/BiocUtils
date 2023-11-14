@@ -6,7 +6,7 @@ import numpy
 from .StringList import StringList
 from .match import match
 from .factorize import factorize
-from .normalize_subscript import normalize_subscript
+from .normalize_subscript import normalize_subscript, SubscriptTypes
 from .is_missing_scalar import is_missing_scalar
 from .print_truncated import print_truncated_list
 from .combine_sequences import combine_sequences
@@ -144,7 +144,7 @@ class Factor:
         message += "ordered: " + str(self._ordered)
         return message
 
-    def __getitem__(self, sub: Union[int, bool, Sequence]) -> Union[str, "Factor"]:
+    def __getitem__(self, sub: SubscriptTypes) -> Union[str, "Factor"]:
         """Subset the ``Factor`` to the specified subset of indices.
 
         Args:
@@ -170,7 +170,7 @@ class Factor:
                 return None 
         return type(self)(self._codes[sub], self._levels, self._ordered, validate=False)
 
-    def replace(self, sub: Sequence, value: Union[str, "Factor"], in_place: bool = False):
+    def replace(self, sub: SubscriptTypes, value: Union[str, "Factor"], in_place: bool = False):
         """
         Replace items in the ``Factor`` list.  The ``subs`` elements in the
         current object are replaced with the corresponding values in ``value``.

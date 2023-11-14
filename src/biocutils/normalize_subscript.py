@@ -21,14 +21,15 @@ def normalize_subscript(
     names: Optional[Sequence[str]] = None,
     non_negative_only: bool = True,
 ) -> Tuple:
-    """Normalize a subscript for ``__getitem__`` or friends into a sequence of integer indices, for consistent
-    downstream use.
+    """
+    Normalize a subscript for ``__getitem__`` or friends into a sequence of
+    integer indices, for consistent downstream use.
 
     Args:
         sub:
             The subscript. This can be any of the following:
 
-            - A slice of elements.
+            - A slice.
             - A range containing indices to elements. Negative values are
               allowed. An error is raised if the indices are out of range.
             - A single integer specifying the index of an element. A negative

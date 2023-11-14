@@ -3,9 +3,7 @@ from collections.abc import Iterable
 
 from .Names import Names
 from .NamedList import NamedList
-from .subset_sequence import subset_sequence
-from .combine_sequences import combine_sequences
-from .assign_sequence import assign_sequence
+from .normalize_subscript import SubscriptTypes
 
 
 def _coerce_to_str(x: Any) -> bool:
@@ -57,7 +55,7 @@ class StringList(NamedList):
         """Calls :py:meth:`~NamedList.NamedList.set_value` after coercing ``value`` to a string."""
         return super().set_value(index, _coerce_to_str(value), in_place=in_place) 
 
-    def set_slice(self, index: Union[int, str, slice], value: Sequence, in_place: bool = False) -> "StringList":
+    def set_slice(self, index: SubscriptTypes, value: Sequence, in_place: bool = False) -> "StringList":
         """Calls :py:meth:`~NamedList.NamedList.set_slice` after coercing ``value`` to strings."""
         return super().set_slice(index, _SubscriptCoercer(value), in_place=in_place) 
 

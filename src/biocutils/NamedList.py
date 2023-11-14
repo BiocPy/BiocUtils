@@ -2,7 +2,7 @@ from typing import Sequence, Optional, Iterable, Union, Any, Dict
 from copy import deepcopy
 
 from .Names import Names
-from .normalize_subscript import normalize_subscript
+from .normalize_subscript import normalize_subscript, SubscriptTypes
 from .subset_sequence import subset_sequence
 from .combine_sequences import combine_sequences
 from .assign_sequence import assign_sequence
@@ -183,15 +183,15 @@ class NamedList:
             index = _name_to_position(self._names, index)
         return self._data[index]
 
-    def get_slice(self, index: Union[str, int, bool, Sequence]) -> "NamedList":
+    def get_slice(self, index: SubscriptTypes) -> "NamedList":
         """
         Args:
             index:
                 Subset of elements to obtain, see
-                :py:func:`~normalize_subscript.normalize_subscript` for
-                details. Strings are matched to names in the current object,
-                using the first occurrence if duplicate names are present. 
-                Scalars are treated as length-1 vectors.
+                :py:func:`~biocutils.normalize_subscript.normalize_subscript`
+                for details. Strings are matched to names in the current
+                object, using the first occurrence if duplicate names are
+                present.  Scalars are treated as length-1 vectors.
 
         Returns:
             A ``NamedList`` is returned containing the specified subset.
@@ -203,7 +203,7 @@ class NamedList:
             outnames = subset_sequence(self._names, index)
         return type(self)(outdata, outnames, _validate=False)
 
-    def __getitem__(self, index: Union[str, int, bool, Sequence]) -> Union["NamedList", Any]:
+    def __getitem__(self, index: SubscriptTypes) -> Union["NamedList", Any]:
         """
         If ``index`` is a scalar, this is an alias for :py:attr:`~get_item`.
 
@@ -262,14 +262,15 @@ class NamedList:
 
         return output
 
-    def set_slice(self, index: Union[int, str, slice], value: Sequence, in_place: bool = False) -> "NamedList":
+    def set_slice(self, index: SubscriptTypes, value: Sequence, in_place: bool = False) -> "NamedList":
         """
         Args:
             index:
                 Subset of elements to replace, see
-                :py:func:`~normalize_subscript.normalize_subscript` for
-                details. Strings are matched to names in the current object,
-                using the first occurrence if duplicate names are present. 
+                :py:func:`~biocutils.normalize_subscript.normalize_subscript`
+                for details. Strings are matched to names in the current
+                object, using the first occurrence if duplicate names are
+                present. 
 
             value:
                 If ``index`` is a sequence, a sequence of the same length
@@ -303,7 +304,7 @@ class NamedList:
                 output._data[j] = value[i]
         return output
 
-    def __setitem__(self, index: Union[int, str, slice], value: Any):
+    def __setitem__(self, index: SubscriptTypes, value: Any):
         """
         If ``index`` is a scalar, this is an alias for :py:attr:`~set_item`
         with ``in_place = True``.

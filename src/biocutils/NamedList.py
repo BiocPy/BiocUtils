@@ -2,7 +2,7 @@ from typing import Sequence, Optional, Iterable, Union, Any, Dict
 from copy import deepcopy
 
 from .Names import Names, _name_to_position, _sanitize_names
-from .normalize_subscript import normalize_subscript, SubscriptTypes
+from .normalize_subscript import normalize_subscript, SubscriptTypes, NormalizedSubscript
 from .subset_sequence import subset_sequence
 from .combine_sequences import combine_sequences
 from .assign_sequence import assign_sequence
@@ -194,7 +194,7 @@ class NamedList:
         if scalar:
             return self.get_value(index[0])
         else:
-            return self.get_slice(index)
+            return self.get_slice(NormalizedSubscript(index))
 
     def set_value(self, index: Union[str, int], value: Any, in_place: bool = False) -> "NamedList":
         """
@@ -300,7 +300,7 @@ class NamedList:
             if scalar:
                 self.set_value(index[0], value, in_place=True)
             else:
-                self.set_slice(index, value, in_place=True)
+                self.set_slice(NormalizedSubscript(index), value, in_place=True)
 
     def _define_output(self, in_place: bool) -> "NamedList":
         if in_place:
@@ -451,7 +451,7 @@ class NamedList:
 
 @subset_sequence.register
 def _subset_sequence_NamedList(x: NamedList, indices: Sequence[int]) -> NamedList:
-    return x.get_slice(indices)
+    return x.get_slice(NormalizedSubscript(indices))
 
 
 @combine_sequences.register
@@ -472,4 +472,4 @@ def _assign_sequence_NamedList(x: NamedList, indices: Sequence[int], other: Sequ
         # of names, and it would be weird for the same sequence of names to 
         # suddently become an invalid indexing vector after an assignment.
         other = other._data
-    return type(x)(assign_sequence(x._data, indices, other), names=x._names)
+    return type(x)(assign_sequence(x._data, NormalizedSubscript(indices), other), names=x._names)

@@ -7,7 +7,7 @@ from .StringList import StringList
 from .Names import Names, _name_to_position, _sanitize_names, _combine_names
 from .match import match
 from .factorize import factorize
-from .normalize_subscript import normalize_subscript, SubscriptTypes
+from .normalize_subscript import normalize_subscript, SubscriptTypes, NormalizedSubscript
 from .is_missing_scalar import is_missing_scalar
 from .print_truncated import print_truncated_list
 
@@ -302,7 +302,7 @@ class Factor:
         if scalar:
             return self.get_value(index[0])
         else:
-            return self.get_slice(index)
+            return self.get_slice(NormalizedSubscript(index))
 
     def set_value(self, index: Union[str, int], value: Union[str, None], in_place: bool = False) -> "Factor":
         """
@@ -404,7 +404,7 @@ class Factor:
         if scalar:
             self.set_value(index, value, in_place=True)
         else:
-            self.set_slice(index, value, in_place=True)
+            self.set_slice(NormalizedSubscript(index), value, in_place=True)
 
     #################################
     #####>>>> Level setting <<<<#####
@@ -598,12 +598,12 @@ class Factor:
 
 @subset_sequence.register
 def _subset_sequence_Factor(x: Factor, indices: Sequence[int]) -> Factor:
-    return x.get_slice(indices)
+    return x.get_slice(NormalizedSubscript(indices))
 
 
 @assign_sequence.register
 def _assign_sequence_Factor(x: Factor, indices: Sequence[int], other: Factor) -> Factor:
-    return x.set_slice(indices, other)
+    return x.set_slice(NormalizedSubscript(indices), other)
 
 
 @combine_sequences.register(Factor)

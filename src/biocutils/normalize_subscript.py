@@ -1,10 +1,7 @@
-from typing import Optional, Sequence, Tuple, Union
+from typing import Optional, Sequence, Tuple, Union, Any
 import numpy
 
 from .Names import Names
-
-
-SubscriptTypes = Union[slice, range, Sequence, int, str, bool]
 
 
 def _raise_int(idx: int, length):
@@ -13,6 +10,52 @@ def _raise_int(idx: int, length):
 
 def _is_scalar_bool(sub): 
     return isinstance(sub, bool) or isinstance(sub, numpy.bool_)
+
+
+class NormalizedSubscript:
+    """
+    Subscript normalized by :py:func:`~normalize_subscript`. This 
+    is used to indicate that no further normalization is required,
+    such that :py:func:`~normalize_subscript` is just a no-op.
+    """
+    def __init__(self, subscript: Sequence[int]):
+        """
+        Args:
+            subscript:
+                Sequence of integers for a normalized subscript.
+        """
+        self._subscript = subscript
+
+    @property
+    def subscript(self) -> Sequence[int]:
+        """
+        Returns:
+            The subscript, as a sequence of integer positions.
+        """
+        return self._subscript
+
+    def __getitem__(self, index: Any) -> Any:
+        """
+        Args:
+            index: 
+                Any argument accepted by the ``__getitem__`` method of the
+                :py:attr:`~subscript`.
+
+        Returns:
+            The same return value as the ``__getitem__`` method of the
+            subscript. This should be an integer if ``index`` is an integer.
+        """
+        return self._subscript[index]
+
+    def __len__(self) -> int:
+        """
+        Returns:
+            Length of the subscript.
+        """
+        return len(self._subscript)
+
+
+SubscriptTypes = Union[slice, range, Sequence, int, str, bool, NormalizedSubscript]
 
 
 def normalize_subscript(
@@ -44,6 +87,8 @@ def normalize_subscript(
               as described above. Integers should be indices to an element.
               Each truthy boolean is converted to an index equal to its
               position in ``sub``, and each Falsey boolean is ignored.
+            - A :py:class:`~NormalizedSubscript`, in which case the
+              ``subscript`` property is directly returned.
 
         length:
             Length of the object.
@@ -62,6 +107,9 @@ def normalize_subscript(
         specifying the subscript elements, and (ii) a boolean indicating whether
         ``sub`` was a scalar.
     """
+    if isinstance(sub, NormalizedSubscript):
+        return sub.subscript, False
+
     if _is_scalar_bool(sub): # before ints, as bools are ints.
         if sub:
             return [0], True

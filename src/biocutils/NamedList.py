@@ -1,4 +1,4 @@
-from typing import Sequence, Optional, Iterable, Union, Any
+from typing import Sequence, Optional, Iterable, Union, Any, Dict
 from copy import deepcopy
 
 from .Names import Names
@@ -450,7 +450,7 @@ class NamedList:
         """
         return type(self)(deepcopy(self._data, memo, _nil), names=deepcopy(self._names, memo, _nil), _validate=False)
 
-    def as_dict(self) -> dict[str, Any]:
+    def as_dict(self) -> Dict[str, Any]:
         """
         Returns:
             A dictionary where the keys are the names and the values are the

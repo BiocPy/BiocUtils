@@ -1,28 +1,38 @@
-from typing import Sequence, Optional, Iterable, Union, Any, Callable
+from typing import Sequence, Optional, Iterable, Union, Any, Callable, List
+
+from .normalize_subscript import normalize_subscript, NormalizedSubscript
+
+from .assign_sequence import assign_sequence
+from .combine_sequences import combine_sequences
 
 
-class Names(list):
+SubscriptTypes = Union[slice, range, Sequence, int, bool, NormalizedSubscript]
+
+
+class Names:
     """
     List of strings containing names. Typically used to decorate sequences,
     such that callers can get or set elements by name instead of position.
     """
 
-    def __init__(self, iterable: Optional[Iterable] = None, coerce: bool = True):
+    def __init__(self, names: Optional[Iterable] = None, _validate: bool = True):
         """
         Args:
-            iterable:
+            names:
                 Some iterable object containing strings, or values that can
                 be coerced into strings.
 
-            coerce:
-                Whether to coerce values of ``iterable`` into strings.
+            _validate:
+                Internal use only.
         """
-        if iterable is None:
-            super().__init__()
-        elif coerce and not isinstance(iterable, type(self)):
-            super().__init__(str(y) for y in iterable)
-        else:
-            super().__init__(iterable)
+        if _validate:
+            if names is None:
+                names = []
+            elif isinstance(names, Names):
+                names = names._names
+            else:
+                names = list(str(y) for y in names)
+        self._names = names
         self._reverse = None
 
     # Enable fast indexing by name, but only on demand. This reverse mapping
@@ -42,49 +52,38 @@ class Names(list):
 
     def _wipe_reverse_index(self):
         self._reverse = None
+
+    ###################################
+    #####>>>> Bits and pieces <<<<#####
+    ###################################
+
+    def __len__(self) -> int:
+        """
+        Returns:
+            Length of the list.
+        """
+        return len(self._names)
+
+    def __repr__(self) -> str:
+        """
+        Returns:
+            A stringified representation of this object.
+        """
+        return type(self).__name__ + "(" + repr(self._names) + ")"
     
-    def __getitem__(self, index: Union[int, slice]) -> Union[str, "Names"]:
+    def __str__(self) -> str:
         """
-        Args:
-            index:
-                Integer specifying the position of interest, or a slice 
-                specifying multiple such positions.
-
         Returns:
-            If ``index`` is a slice, a new ``Names`` object is returned
-            containing names from the specified positions.
-
-            If ``index`` is an integer, the name at that position is returned.
+            A pretty-printed representation of this object.
         """
-        output = super().__getitem__(index)
-        if isinstance(index, slice):
-            return Names(output, coerce=False)
-        return output
+        return str(self._names)
 
-    def __setitem__(self, index: Union[int, slice], item: Any):
+    def as_list(self) -> List[str]:
         """
-        Args:
-            index:
-                Integer specifying the position of interest, or a slice
-                specifying multiple such positions.
-
-            item:
-                If ``index`` is an integer, a string containing a name.
-
-                If ``index`` is a slice, an iterable object of the appropriate
-                length, containing strings to use as replacement names.
-
         Returns:
-            The current object is modified with the replacement names.
+            List of strings containing the names.
         """
-        self._wipe_reverse_index()
-        if isinstance(index, slice):
-            new_it = item
-            if not isinstance(item, type(self)):
-                new_it = (str(x) for x in item)
-            super().__setitem__(index, new_it)
-        else:
-            super().__setitem__(index, str(item))
+        return self._names
 
     def map(self, name: str) -> int:
         """
@@ -101,50 +100,193 @@ class Names(list):
         else:
             return -1
 
-    def append(self, name: Any):
+    ##########################################
+    #####>>>> Simple getters/setters <<<<#####
+    ##########################################
+
+    def get_value(self, index: int) -> str:
         """
         Args:
-            name: Name to be added.
+            index: Position of interest.
 
         Returns:
-            ``name`` is added to the current object.
+            The name at the specified position.
         """
-        name = str(name)
-        if self._reverse is not None and name not in self._reverse:
-            self._reverse[name] = len(self)
-        super().append(name)
+        return self._names[index]
 
-    def insert(self, index: int, name: str):
+    def get_slice(self, index: SubscriptTypes) -> "Names":
+        """
+        Args:
+            index: 
+                Positions of interest, see the allowed indices in
+                :py:func:`~biocutils.normalize_subscript.normalize_subscript`
+                for more details. Scalars are treated as length-1 sequences.
+
+        Returns:
+            A ``Names`` object containing the names at the specified positions.
+        """
+        index, scalar = normalize_subscript(index, len(self), None)
+        return type(self)(subset_sequence(self._names, index), _validate=False)
+
+    def __getitem__(self, index: SubscriptTypes) -> Union[str, "Names"]:
+        """
+        If ``index`` is a scalar, this is an alias for :py:attr:`~get_value`.
+
+        If ``index`` is a sequence, this is an alias for :py:attr:`~get_slice`.
+        """
+        index, scalar = normalize_subscript(index, len(self), None)
+        if scalar:
+            return self.get_value(index[0])
+        else:
+            return self.get_slice(NormalizedSubscript(index))
+
+    def _semi_deep_copy(self):
+        return type(self)(self._names.copy(), _validate=False)
+
+    def set_value(self, index: int, value: str, in_place: bool = False) -> "Names":
+        """
+        Args:
+            index: Position of interest.
+
+            value: Replacement name.
+
+            in_place: Whether to perform the modification in-place.
+
+        Returns:
+            A modified ``Names`` object with the replacement name, either as a
+            new object or as a reference to the current object.
+        """
+        if in_place:
+            self._wipe_reverse_index()
+            output = self
+        else:
+            output = self._semi_deep_copy()
+        output._names[index] = str(value)
+        return output
+
+    def set_slice(self, index: SubscriptTypes, value: Sequence[str], in_place: bool = False) -> "Names":
+        """
+        Args:
+            index: Positions of interest.
+
+            value: Replacement names.
+
+            in_place: Whether to perform the modification in-place.
+
+        Returns:
+            A modified ``Names`` object with the replacement name, either as a
+            new object or as a reference to the current object.
+        """
+        if in_place:
+            self._wipe_reverse_index()
+            output = self
+        else:
+            output = self._semi_deep_copy()
+
+        if isinstance(value, Names):
+            value = value.as_list()
+
+        index, scalar = normalize_subscript(index, len(self), None)
+        output._wipe_reverse_index()
+        for i, j in enumerate(index):
+            output._names[j] = str(value[i])
+        return output
+
+    def __setitem__(self, index: SubscriptTypes, value: Any):
+        """
+        If ``index`` is a scalar, this is an alias for :py:attr:`~set_value`
+        with ``in_place = True``.
+
+        If ``index`` is a sequence, this is an alias for :py:attr:`~set_slice`
+        with ``in_place = True``.
+        """
+        index, scalar = normalize_subscript(index, len(self), self._names)
+        if scalar:
+            self.set_value(index[0], value, in_place=True)
+        else:
+            self.set_slice(NormalizedSubscript(index), value, in_place=True)
+
+    ################################
+    #####>>>> List methods <<<<#####
+    ################################
+
+    def _define_output(self, in_place: bool) -> "Names":
+        if in_place:
+            return self
+        else:
+            return self._semi_deep_copy()
+
+    def safe_append(self, value: str, in_place: bool = False) -> "Names":
+        """
+        Args:
+            value: Name to be added.
+
+            in_place: Whether to perform this appending in-place.
+
+        Returns:
+            A ``Names`` object is returned with the added name. This may be a
+            new object or a reference to the current object.
+        """
+        output = self._define_output(in_place)
+        name = str(value)
+        if output._reverse is not None and name not in output._reverse:
+            output._reverse[name] = len(output)
+        output._names.append(name)
+        return output
+
+    def append(self, value: str):
+        """Alias for :py:attr:`~safe_append` with `in_place = True`."""
+        self.safe_append(value, in_place=True)
+
+    def safe_insert(self, index: int, value: str, in_place: bool = False) -> "Names":
         """
         Args:
             index: Position on the object to insert at.
 
-            name: Name to be added.
+            value: Name to be added.
+
+            in_place: Whether to perform this insertion in-place.
 
         Returns:
-            ``name`` is inserted into the current object before ``index``.
+            A ``Names`` object is returned with the inserted name. This may be
+            a new object or a reference to the current object.
         """
-        self._wipe_reverse_index()
-        super().insert(index, str(name))
+        output = self._define_output(in_place)
+        output._wipe_reverse_index()
+        output._names.insert(index, str(value))
+        return output
 
-    def extend(self, names: Sequence[str]):
+    def insert(self, index: int, value: str):
+        """Alias for :py:attr:`~safe_insert` with `in_place = True`."""
+        self.safe_insert(index, value, in_place=True)
+
+    def safe_extend(self, value: Sequence[str], in_place: bool = False) -> "Names":
         """
         Args:
-            names: Names to add to the current object.
+            value: Names to be added.
+
+            in_place: Whether to perform this extension in-place.
 
         Returns:
-            ``names`` are added to the current object.
+            A ``Names`` object is returned with the extension. This may be a
+            new object or a reference to the current object.
         """
-        if self._reverse is not None:
+        output = self._define_output(in_place)
+        if output._reverse is not None:
             for i, n in enumerate(names):
                 n = str(n)
-                if n not in self._reverse:
-                    self._reverse[n] = i + len(self)
-                self.append(n)
+                if n not in output._reverse:
+                    output._reverse[n] = len(output._names)
+                output._names.append(n)
         elif isinstance(names, Names):
-            super().extend(names)
+            output._names.extend(names._names)
         else:
-            super().extend(str(y) for y in names)
+            output._names.extend(str(y) for y in names)
+        return output
+
+    def extend(self, value: Sequence[str]):
+        """Alias for :py:attr:`~safe_extend` with `in_place = True`."""
+        self.safe_extend(index, value, in_place=True)
 
     def __add__(self, other: list):
         """
@@ -155,9 +297,7 @@ class Names(list):
             A new ``Names`` containing the combined contents
             of the current object and ``other``.
         """
-        output = self.copy()
-        output.extend(other)
-        return output
+        return self.safe_extend(other)
 
     def __iadd__(self, other: list):
         """
@@ -170,12 +310,26 @@ class Names(list):
         self.extend(other)
         return self
 
-    def copy(self):
+    def copy(self) -> "Names":
         """
         Returns:
             A copy of the current object.
         """
-        return Names(self, coerce=False)
+        return type(self)(self._names, _validate=False)
+
+    def __deepcopy__(self, memo=None, _nil=[]) -> "Names":
+        """
+        Args:
+            memo:
+                See :py:func:`~copy.deepcopy` for details.
+
+            _nil:
+                See :py:func:`~copy.deepcopy` for details.
+
+        Returns:
+            A deep copy of this ``Names`` object with the same contents.
+        """
+        return type(self)(deepcopy(self._names, memo, _nil), _validate=False)
 
 
 def _name_to_position(names: Optional[Names], index: str) -> int:

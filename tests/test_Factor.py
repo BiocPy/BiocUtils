@@ -1,4 +1,4 @@
-from biocutils import Factor, combine, StringList
+from biocutils import Factor, combine, StringList, subset_sequence
 import pytest
 import copy
 import numpy
@@ -215,6 +215,17 @@ def test_Factor_copy():
     f.set_names(["alpha", "bravo", "charlie", "delta", "echo", "foxtrot"], in_place=True)
     out = copy.copy(f)
     assert f.get_names() == out.get_names()
+
+
+def test_Factor_generics():
+    f = Factor([0,1,2,3,4], levels=["A", "B", "C", "D", "E"])
+    sub = subset_sequence(f, range(2, 4))
+    assert list(sub._codes) == [2, 3]
+    assert sub.get_levels() == f.get_levels()
+
+    ass = assign_Sequence(f, range(2, 4), f[1:3])
+    assert list(sub._codes) == [0, 1, 1, 2, 4]
+    assert sub.get_levels() == f.get_levels()
 
 
 def test_Factor_combine():

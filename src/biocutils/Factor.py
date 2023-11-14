@@ -595,6 +595,16 @@ class Factor:
         return Factor(indices, levels=levels, ordered=ordered)
 
 
+@subset_sequence.register
+def _subset_sequence_Factor(x: Factor, indices: Sequence[int]) -> NamedList:
+    return x.get_slice(indices)
+
+
+@assign_sequence.register
+def _assign_sequence_Factor(x: Factor, indices: Sequence[int], other: Factor) -> Factor:
+    return x.set_slice(indices, other)
+
+
 @combine_sequences.register(Factor)
 def _combine_factors(*x: Factor):
     if not is_list_of_type(x, Factor):

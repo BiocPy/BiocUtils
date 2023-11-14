@@ -21,7 +21,7 @@ class Factor:
     easier numerical analysis.
     """
 
-    def __init__(self, codes: Sequence[int], levels: Sequence[str], ordered: bool = False, validate: bool = True):
+    def __init__(self, codes: Sequence[int], levels: Sequence[str], ordered: bool = False, _validate: bool = True):
         """Initialize a Factor object.
 
         Args:
@@ -38,7 +38,7 @@ class Factor:
             ordered:
                 Whether the levels are ordered.
 
-            validate:
+            _validate:
                 Whether to validate the arguments. Internal use only.
         """
         if not isinstance(codes, numpy.ndarray):
@@ -57,12 +57,14 @@ class Factor:
 
         if not isinstance(levels, StringList):
             levels = StringList(levels)
+        if levels.get_names() is not None:
+            levels = levels.set_names(None)
 
         self._codes = codes
         self._levels = levels
         self._ordered = bool(ordered)
 
-        if validate:
+        if _validate:
             if any(x is None for x in levels):
                 raise TypeError("all entries of 'levels' should be non-missing")
             if len(set(levels)) < len(levels):
@@ -166,7 +168,7 @@ class Factor:
                 return self._levels[x]
             else:
                 return None 
-        return type(self)(self._codes[sub], self._levels, self._ordered, validate=False)
+        return type(self)(self._codes[sub], self._levels, self._ordered, _validate=False)
 
     def replace(self, sub: Sequence, value: Union[str, "Factor"], in_place: bool = False):
         """
@@ -218,7 +220,7 @@ class Factor:
             self._codes = codes
             return self
         else:
-            return type(self)(codes, self._levels, self._ordered, validate=False)
+            return type(self)(codes, self._levels, self._ordered, _validate=False)
 
     def __setitem__(self, args: Sequence[int], value: "Factor"):
         """See :py:attr:`~replace` for details."""
@@ -264,7 +266,7 @@ class Factor:
             return self
         else:
             current_class_const = type(self)
-            return current_class_const(new_codes, new_levels, self._ordered, validate=False)
+            return current_class_const(new_codes, new_levels, self._ordered, _validate=False)
 
     def set_levels(self, levels: Union[str, Sequence[str]], in_place: bool = False) -> "Factor":
         """Set or replace levels.
@@ -337,7 +339,7 @@ class Factor:
             return self
         else:
             current_class_const = type(self)
-            return current_class_const(new_codes, new_levels, self._ordered, validate=False)
+            return current_class_const(new_codes, new_levels, self._ordered, _validate=False)
 
     @levels.setter
     def levels(self, levels: Union[str, List[str]]):
@@ -351,7 +353,7 @@ class Factor:
             A shallow copy of the ``Factor`` object.
         """
         current_class_const = type(self)
-        return current_class_const(self._codes, self._levels, self._ordered, validate=False)
+        return current_class_const(self._codes, self._levels, self._ordered, _validate=False)
 
     def __deepcopy__(self, memo) -> "Factor":
         """
@@ -363,7 +365,7 @@ class Factor:
             deepcopy(self._codes, memo),
             deepcopy(self._levels, memo),
             self._ordered,
-            validate=False,
+            _validate=False,
         )
 
     def to_pandas(self):
@@ -448,4 +450,4 @@ def _combine_factors(*x: Factor):
             new_codes.append(curout)
         new_ordered = False
 
-    return Factor(combine_sequences(*new_codes), new_levels, new_ordered, validate=False)
+    return Factor(combine_sequences(*new_codes), new_levels, new_ordered, _validate=False)

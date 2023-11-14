@@ -68,6 +68,10 @@ class NamedList:
         return len(self._data)
 
     def __repr__(self) -> str:
+        """
+        Returns:
+            Representation of the current list.
+        """
         message = type(self).__name__ + "(data=" + repr(self._data)
         if self._names is not None:
             message += ", names=" + repr(self._names)
@@ -75,10 +79,26 @@ class NamedList:
         return message
 
     def __str__(self) -> str:
+        """
+        Returns:
+            Pretty-printed representation of the current list, along with its
+            names if any exist.
+        """
         if self._names is not None:
             return "[" + ", ".join(repr(self._names[i]) + "=" + repr(x) for i, x in enumerate(self._data)) + "]" 
         else:
             return repr(self._data)
+
+    def __eq__(self, other: "NamedList") -> bool:
+        """
+        Args:
+            other: Another ``NamedList``.
+
+        Returns:
+            Whether the current object is equal to ``other``, i.e.,
+            same data and names.
+        """
+        return self.get_data() == other.get_data() and self.get_names() == other.get_names()
 
     def get_data(self) -> list:
         """

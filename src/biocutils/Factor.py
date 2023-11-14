@@ -4,7 +4,7 @@ from warnings import warn
 import numpy
 
 from .StringList import StringList
-from .Names import Names
+from .Names import Names, _combine_names, _sanitize_names
 from .match import match
 from .factorize import factorize
 from .normalize_subscript import normalize_subscript
@@ -63,13 +63,7 @@ class Factor:
         self._codes = codes
         self._levels = levels
         self._ordered = bool(ordered)
-
-        if names is not None:
-            if not isinstance(names, Names):
-                names = Names(names)
-            if len(names) != len(codes):
-                raise ValueError("'names' and 'codes' should have the same length")
-        self._names = names
+        self._names = _sanitize_names(len(codes), names)
 
         if validate:
             if any(x is None for x in levels):
@@ -124,12 +118,33 @@ class Factor:
         Returns:
             List of names, or None if no names are available.
         """
-        return 
+        return self._names
 
     @property
     def names(self) -> Union[None, Names]:
         """See :py:attr:`~get_names`."""
         return self.get_names()
+
+    def set_names(self, names: Optional[Names], in_place: bool = False) -> "Factor":
+        """
+        Args:
+            names: 
+                Replacement names, of the same length as this object.
+                This may be None to remove all existing names.
+
+            in_place
+                Whether to perform the modification in-place.
+
+        Returns:
+            A modified ``Factor`` object, either as a new object or as a
+            reference to the currenct object.
+        """
+        names = _sanitize_names(len(self), names)
+        if in_place:
+            self._names = names
+            return self
+        else:
+            return type(self)(self.codes, levels=self._levels, ordered=self._ordered, names=names, validate=False)
 
     def __len__(self) -> int:
         """
@@ -193,7 +208,7 @@ class Factor:
                 return None 
         return type(self)(self._codes[sub], levels=self._levels, ordered=self._ordered, names=subset_sequence(self._names, sub), validate=False)
 
-    def replace(self, sub: Union[int, str, bool, Sequence], value: Union[str, "Factor"], in_place: bool = False):
+    def replace(self, sub: Sequence, value: "Factor", in_place: bool = False):
         """
         Replace items in the ``Factor`` list.  The ``sub`` elements in the
         current object are replaced with the corresponding values in ``value``.
@@ -204,15 +219,12 @@ class Factor:
 
         Args:
             sub: 
-                Sequence or scalar specifying the items to be replaced, see
+                Sequence specifying the items to be replaced, see
                 :py:func:`~normalize_subscript.normalize_subscript`.
 
             value: 
-                If ``sub`` is a sequence, a ``Factor`` of the same length
-                containing the replacement values.
-
-                If ``sub`` is a scalar, a string corresponding to one of the
-                levels, or None to represent a missing value..
+                A ``Factor`` of the same length containing the replacement
+                values.
 
             in_place:
                 Whether the replacement should be performed on the current
@@ -230,25 +242,21 @@ class Factor:
             codes = codes.copy()
 
         sub, scalar = normalize_subscript(sub, len(self), self._names)
-        if scalar:
-            chosen = -1
-            for i, x in enumerate(value._levels):
-                if x == value:
-                    chosen = i
-                    break
-            codes[sub[0]] = chosen
+        if self._levels == value._levels:
+            for i, x in enumerate(sub):
+                codes[x] = value._codes[i]
         else:
-            if self._levels == value._levels:
-                for i, x in enumerate(sub):
-                    codes[x] = value._codes[i]
-            else:
-                mapping = match(value._levels, self._levels)
-                for i, x in enumerate(sub):
-                    v = value._codes[i]
-                    if v >= 0:
-                        codes[x] = mapping[v]
-                    else:
-                        codes[x] = -1
+            mapping = match(value._levels, self._levels)
+            for i, x in enumerate(sub):
+                v = value._codes[i]
+                if v >= 0:
+                    codes[x] = mapping[v]
+                else:
+                    codes[x] = -1
+
+        # Note that names are not considered to be part of the replacement, as
+        # they could be used in the 'sub', and it would be weird to replace the
+        # names while they're being used for indexing.
 
         if in_place:
             self._codes = codes
@@ -485,6 +493,6 @@ def _combine_factors(*x: Factor):
             new_codes.append(curout)
         new_ordered = False
 
-    new_names = None
+    new_names = _combine_names(x, lambda x : x.get_names())
 
-    return Factor(combine_sequences(*new_codes), levels=new_levels, ordered=new_ordered, validate=False)
+    return Factor(combine_sequences(*new_codes), levels=new_levels, ordered=new_ordered, names=new_names, validate=False)

@@ -1,4 +1,4 @@
-from typing import Sequence, Optional, Iterable, Union, Any
+from typing import Sequence, Optional, Iterable, Union, Any, Callable
 
 
 class Names(list):
@@ -176,3 +176,45 @@ class Names(list):
             A copy of the current object.
         """
         return Names(self, coerce=False)
+
+
+def _name_to_position(names: Optional[Names], index: str) -> int:
+    i = -1
+    if names is not None:
+        i = names.map(index)
+    if i < 0:
+        raise KeyError("failed to find entry with name '" + index + "'")
+    return i
+
+
+def _sanitize_names(names: Optional[Names], length: int) -> Union[None, Names]:
+    if names is None:
+        return names
+    if not isinstance(names, Names):
+        names = Names(names)
+    if len(names) != length:
+        raise ValueError("length of 'names' must be equal to number of entries (" + str(length) + ")")
+    return names
+
+
+def _combine_names(*x: Any, get_names: Callable) -> Union[Names, None]:
+    all_names = []
+    has_names = False
+    for y in x:
+        n = get_names(y)
+        if n is None:
+            all_names.append(len(x))
+        else:
+            has_names = True
+            all_names.append(n)
+
+    if not has_names:
+        return None
+    else:
+        output = Names()
+        for i, n in enumerate(all_names):
+            if not isinstance(n, Names):
+                output.extend([""] * n)
+            else:
+                output.extend(n)
+        return output

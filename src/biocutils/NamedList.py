@@ -470,4 +470,4 @@ def _assign_sequence_NamedList(x: NamedList, indices: Sequence[int], other: Sequ
         # of names, and it would be weird for the same sequence of names to 
         # suddently become an invalid indexing vector after an assignment.
         other = other._data
-    return NamedList(assign_sequence(x._data, indices, other), names=x._names)
+    return type(x)(assign_sequence(x._data, indices, other), names=x._names)

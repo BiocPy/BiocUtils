@@ -596,7 +596,7 @@ class Factor:
 
 
 @subset_sequence.register
-def _subset_sequence_Factor(x: Factor, indices: Sequence[int]) -> NamedList:
+def _subset_sequence_Factor(x: Factor, indices: Sequence[int]) -> Factor:
     return x.get_slice(indices)
 
 

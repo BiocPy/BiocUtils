@@ -9,10 +9,8 @@ def test_normalize_subscript_scalars():
     assert normalize_subscript(True, 100) == ([0], True)
     assert normalize_subscript(False, 100) == ([], False)
     assert normalize_subscript("C", 5, ["A", "B", "C", "D", "E"]) == ([2], True)
-    assert normalize_subscript("B", 5, ["A", "B", "C", "B", "E"]) == (
-        [1],
-        True,
-    )  # takes first occurence.
+    assert normalize_subscript("B", 5, ["A", "B", "C", "B", "E"]) == ([1], True,)  # takes first occurence.
+    assert normalize_subscript("B", 5, Names(["A", "B", "C", "B", "E"])) == ([1], True,)  # takes first occurence.
 
     with pytest.raises(IndexError) as ex:
         normalize_subscript(100, 10)
@@ -26,8 +24,13 @@ def test_normalize_subscript_scalars():
         normalize_subscript("foor", 10)
     assert str(ex.value).find("subscript 'foor'") >= 0
 
-    with pytest.raises(ValueError) as ex:
+    with pytest.raises(IndexError) as ex:
         normalize_subscript("F", 5, ["A", "B", "C", "D", "E"])
+    assert str(ex.value).find("subscript 'F'") >= 0
+
+    with pytest.raises(IndexError) as ex:
+        normalize_subscript("F", 5, Names(["A", "B", "C", "D", "E"]))
+    assert str(ex.value).find("subscript 'F'") >= 0
 
 
 def test_normalize_subscript_slice():
@@ -76,42 +79,26 @@ def test_normalize_subscript_chaos():
         normalize_subscript([0, 2, 50, 6, 8], 50)
     assert str(ex.value).find("subscript (50)") >= 0
 
-    assert normalize_subscript([0, -1, 2, -3, 4, -5, 6, -7, 8], 50) == (
-        [0, 49, 2, 47, 4, 45, 6, 43, 8],
-        False,
-    )
+    assert normalize_subscript([0, -1, 2, -3, 4, -5, 6, -7, 8], 50) == ([0, 49, 2, 47, 4, 45, 6, 43, 8], False)
 
     with pytest.raises(IndexError) as ex:
         normalize_subscript([0, 2, -51, 6, 8], 50)
     assert str(ex.value).find("subscript (-51)") >= 0
 
-    assert normalize_subscript([False, 10, True, 20, False, 30, True], 50) == (
-        [10, 2, 20, 30, 6],
-        False,
-    )
+    assert normalize_subscript([False, 10, True, 20, False, 30, True], 50) == ([10, 2, 20, 30, 6], False)
 
     names = ["A", "B", "C", "D", "E", "F"]
-    assert normalize_subscript(["B", 1, "D", 2, "F", 3, "A"], 6, names) == (
-        [1, 1, 3, 2, 5, 3, 0],
-        False,
-    )
-    assert normalize_subscript(["B", 1, "D", 2, "F", 3, "A"], 6, Names(names)) == (
-        [1, 1, 3, 2, 5, 3, 0],
-        False,
-    )
-    assert normalize_subscript(
-        ["B", 1, "A", 2, "B", 3, "A"], 6, ["A", "B", "A", "B", "A", "B"]
-    ) == (
-        [1, 1, 0, 2, 1, 3, 0],
-        False,
-    )  # Takes the first occurence.
+    assert normalize_subscript(["B", 1, "D", 2, "F", 3, "A"], 6, names) == ([1, 1, 3, 2, 5, 3, 0], False)
+    assert normalize_subscript(["B", 1, "D", 2, "F", 3, "A"], 6, Names(names)) == ([1, 1, 3, 2, 5, 3, 0], False)
+    assert normalize_subscript(["B", 1, "A", 2, "B", 3, "A"], 6, ["A", "B", "A", "B", "A", "B"]) == ([1, 1, 0, 2, 1, 3, 0], False)  # Takes the first occurence.
 
     with pytest.raises(KeyError) as ex:
         normalize_subscript(["B", 1, "D", 2, "G", 3, "A"], 6, names)
+    assert str(ex.value).find("'G'") >= 0
 
     with pytest.raises(IndexError) as ex:
-        normalize_subscript(["B", 1, "D", 2, "F", 3, "A"], 6)
-    assert str(ex.value).find("vector-like object with no names") >= 0
+        normalize_subscript(["B", 1, "D", 2, "G", 3, "A"], 6, Names(names))
+    assert str(ex.value).find("subscript 'G'") >= 0
 
 
 def test_normalize_subscript_numpy():

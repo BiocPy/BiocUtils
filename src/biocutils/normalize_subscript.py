@@ -4,6 +4,9 @@ import numpy
 from .Names import Names
 
 
+SubscriptTypes = Union[slice, range, Sequence, int, str, bool]
+
+
 def _raise_int(idx: int, length):
     raise IndexError("subscript (" + str(idx) + ") out of range for vector-like object of length " + str(length))
 
@@ -13,7 +16,7 @@ def _is_scalar_bool(sub):
 
 
 def normalize_subscript(
-    sub: Union[slice, range, Sequence, int, str, bool],
+    sub: SubscriptTypes,
     length: int,
     names: Optional[Sequence[str]] = None,
     non_negative_only: bool = True,
@@ -46,7 +49,8 @@ def normalize_subscript(
 
         names:
             List of names for each entry in the object. If not None, this
-            should have length equal to ``length``.
+            should have length equal to ``length``. Some optimizations
+            are possible if this is a :py:class:`~Names.Names` object.
 
         non_negative_only:
             Whether negative indices must be converted into non-negative
@@ -73,7 +77,17 @@ def normalize_subscript(
     if isinstance(sub, str):
         if names is None:
             raise IndexError("failed to find subscript '" + sub + "' for vector-like object with no names")
-        return [names.index(sub)], True
+        i = -1
+        if isinstance(names, Names):
+            i = names.map(sub)
+        else:
+            for j, n in enumerate(names):
+                if n == sub:
+                    i = j
+                    break
+        if i < 0:
+            raise IndexError("cannot find subscript '" + sub + "' in the names") 
+        return [i], True
 
     if isinstance(sub, slice):
         return range(*sub.indices(length)), False
@@ -126,7 +140,10 @@ def normalize_subscript(
     for i, x in enumerate(sub):
         if isinstance(x, str):
             if are_names_indexed:
-                output.append(names.map(x))
+                i = names.map(x)
+                if i < 0:
+                    raise IndexError("cannot find subscript '" + x + "' in the names") 
+                output.append(i)
             else:
                 has_strings.add(x)
                 string_positions.append(len(output))

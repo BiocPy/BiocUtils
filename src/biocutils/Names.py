@@ -1,4 +1,4 @@
-from typing import Sequence, Optional, Iterable, Union, Any, Callable
+from typing import Sequence, Optional, Iterable, Union, Any
 
 
 class Names(list):
@@ -176,26 +176,3 @@ class Names(list):
             A copy of the current object.
         """
         return Names(self, coerce=False)
-
-
-def _combine_names(*x: Any, get_names: Callable) -> Union[Names, None]:
-    all_names = []
-    has_names = False
-    for y in x:
-        n = get_names(y)
-        if n is None:
-            all_names.append(len(x))
-        else:
-            has_names = True
-            all_names.append(n)
-
-    if not has_names:
-        return None
-    else:
-        output = Names()
-        for i, n in enumerate(all_names):
-            if not isinstance(n, Names):
-                output.extend([""] * n)
-            else:
-                output.extend(n)
-        return output

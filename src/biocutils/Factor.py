@@ -4,11 +4,13 @@ from warnings import warn
 import numpy
 
 from .StringList import StringList
+from .Names import Names
 from .match import match
 from .factorize import factorize
 from .normalize_subscript import normalize_subscript
 from .is_missing_scalar import is_missing_scalar
 from .print_truncated import print_truncated_list
+from .subset_sequence import subset_sequence
 from .combine_sequences import combine_sequences
 from .is_list_of_type import is_list_of_type
 
@@ -21,7 +23,7 @@ class Factor:
     easier numerical analysis.
     """
 
-    def __init__(self, codes: Sequence[int], levels: Sequence[str], ordered: bool = False, validate: bool = True):
+    def __init__(self, codes: Sequence[int], levels: Sequence[str], ordered: bool = False, names: Optional[Names] = None, validate: bool = True):
         """Initialize a Factor object.
 
         Args:
@@ -61,6 +63,13 @@ class Factor:
         self._codes = codes
         self._levels = levels
         self._ordered = bool(ordered)
+
+        if names is not None:
+            if not isinstance(names, Names):
+                names = Names(names)
+            if len(names) != len(codes):
+                raise ValueError("'names' and 'codes' should have the same length")
+        self._names = names
 
         if validate:
             if any(x is None for x in levels):
@@ -110,6 +119,18 @@ class Factor:
         """See :py:attr:`~get_ordered`."""
         return self.get_ordered()
 
+    def get_names(self) -> Union[None, Names]:
+        """
+        Returns:
+            List of names, or None if no names are available.
+        """
+        return 
+
+    @property
+    def names(self) -> Union[None, Names]:
+        """See :py:attr:`~get_names`."""
+        return self.get_names()
+
     def __len__(self) -> int:
         """
         Returns:
@@ -125,6 +146,8 @@ class Factor:
         tmp = "Factor(codes=" + print_truncated_list(self._codes) + ", levels=" + print_truncated_list(self._levels)
         if self._ordered:
             tmp += ", ordered=True"
+        if self._names is not None:
+            tmp += ", names=" + repr(self._names)
         tmp += ")"
         return tmp
 
@@ -137,19 +160,21 @@ class Factor:
         if len(self._levels) != 0:
             message += "s"
         message += "\n"
-        message += "values: " + print_truncated_list(self._codes, transform=lambda i: self._levels[i]) + "\n"
-        message += "levels: " + print_truncated_list(self._levels, transform=lambda x: x) + "\n"
+        message += "values: " + print_truncated_list(self._codes, transform=lambda i: self._levels[i], include_brackets=False) + "\n"
+        message += "levels: " + print_truncated_list(self._levels, transform=lambda x: x, include_brackets=False) + "\n"
+        if self._names is not None:
+            message += "names: " + print_truncated_list(self._names, transform=lambda x: x, include_brackets=False) + "\n"
         message += "ordered: " + str(self._ordered)
         return message
 
-    def __getitem__(self, sub: Union[int, bool, Sequence]) -> Union[str, "Factor"]:
+    def __getitem__(self, sub: Union[int, bool, str, Sequence]) -> Union[str, "Factor"]:
         """Subset the ``Factor`` to the specified subset of indices.
 
         Args:
             sub:
-                Sequence of integers or booleans specifying the elements of
-                interest. Alternatively, an integer/boolean scalar specifying a
-                single element.
+                Sequence specifying the elements of interest. Alternatively, a
+                scalar specifying a single element. For more details, see
+                :py:func:`~normalize_subscript.normalize_subscript`.
 
         Returns:
             If ``sub`` is a sequence, returns same type as caller (a new
@@ -159,18 +184,18 @@ class Factor:
             level corresponding to the code at position ``sub``. This may
             also be None if the code is missing.
         """
-        sub, scalar = normalize_subscript(sub, len(self), None)
+        sub, scalar = normalize_subscript(sub, len(self), self._names)
         if scalar:
             x = self._codes[sub[0]]
             if x >= 0:
                 return self._levels[x]
             else:
                 return None 
-        return type(self)(self._codes[sub], self._levels, self._ordered, validate=False)
+        return type(self)(self._codes[sub], levels=self._levels, ordered=self._ordered, names=subset_sequence(self._names, sub), validate=False)
 
-    def replace(self, sub: Sequence, value: Union[str, "Factor"], in_place: bool = False):
+    def replace(self, sub: Union[int, str, bool, Sequence], value: Union[str, "Factor"], in_place: bool = False):
         """
-        Replace items in the ``Factor`` list.  The ``subs`` elements in the
+        Replace items in the ``Factor`` list.  The ``sub`` elements in the
         current object are replaced with the corresponding values in ``value``.
         This is performed by finding the level for each entry of the
         replacement ``value``, matching it to a level in the current object,
@@ -179,12 +204,15 @@ class Factor:
 
         Args:
             sub: 
-                Sequence of integers or booleans specifying the items to be
-                replaced.
+                Sequence or scalar specifying the items to be replaced, see
+                :py:func:`~normalize_subscript.normalize_subscript`.
 
             value: 
                 If ``sub`` is a sequence, a ``Factor`` of the same length
                 containing the replacement values.
+
+                If ``sub`` is a scalar, a string corresponding to one of the
+                levels, or None to represent a missing value..
 
             in_place:
                 Whether the replacement should be performed on the current
@@ -197,28 +225,36 @@ class Factor:
             If ``in_place = True``, the current object is returned after its
             items have been replaced.
         """
-        sub, scalar = normalize_subscript(sub, len(self), None)
         codes = self._codes
         if not in_place:
             codes = codes.copy()
 
-        if self._levels == value._levels:
-            for i, x in enumerate(sub):
-                codes[x] = value._codes[i]
+        sub, scalar = normalize_subscript(sub, len(self), self._names)
+        if scalar:
+            chosen = -1
+            for i, x in enumerate(value._levels):
+                if x == value:
+                    chosen = i
+                    break
+            codes[sub[0]] = chosen
         else:
-            mapping = match(value._levels, self._levels)
-            for i, x in enumerate(sub):
-                v = value._codes[i]
-                if v >= 0:
-                    codes[x] = mapping[v]
-                else:
-                    codes[x] = -1
+            if self._levels == value._levels:
+                for i, x in enumerate(sub):
+                    codes[x] = value._codes[i]
+            else:
+                mapping = match(value._levels, self._levels)
+                for i, x in enumerate(sub):
+                    v = value._codes[i]
+                    if v >= 0:
+                        codes[x] = mapping[v]
+                    else:
+                        codes[x] = -1
 
         if in_place:
             self._codes = codes
             return self
         else:
-            return type(self)(codes, self._levels, self._ordered, validate=False)
+            return type(self)(codes, levels=self._levels, ordered=self._ordered, names=self._names, validate=False)
 
     def __setitem__(self, args: Sequence[int], value: "Factor"):
         """See :py:attr:`~replace` for details."""
@@ -264,7 +300,7 @@ class Factor:
             return self
         else:
             current_class_const = type(self)
-            return current_class_const(new_codes, new_levels, self._ordered, validate=False)
+            return current_class_const(new_codes, levels=new_levels, ordered=self._ordered, names=self._names, validate=False)
 
     def set_levels(self, levels: Union[str, Sequence[str]], in_place: bool = False) -> "Factor":
         """Set or replace levels.
@@ -337,7 +373,7 @@ class Factor:
             return self
         else:
             current_class_const = type(self)
-            return current_class_const(new_codes, new_levels, self._ordered, validate=False)
+            return current_class_const(new_codes, levels=new_levels, ordered=self._ordered, names=self._names, validate=False)
 
     @levels.setter
     def levels(self, levels: Union[str, List[str]]):
@@ -351,7 +387,7 @@ class Factor:
             A shallow copy of the ``Factor`` object.
         """
         current_class_const = type(self)
-        return current_class_const(self._codes, self._levels, self._ordered, validate=False)
+        return current_class_const(self._codes, levels=self._levels, ordered=self._ordered, names=self._names, validate=False)
 
     def __deepcopy__(self, memo) -> "Factor":
         """
@@ -361,8 +397,9 @@ class Factor:
         current_class_const = type(self)
         return current_class_const(
             deepcopy(self._codes, memo),
-            deepcopy(self._levels, memo),
-            self._ordered,
+            levels=deepcopy(self._levels, memo),
+            ordered=self._ordered,
+            names=deepcopy(self._names, memo),
             validate=False,
         )
 
@@ -379,7 +416,7 @@ class Factor:
         )
 
     @staticmethod
-    def from_sequence(x: Sequence[str], levels: Optional[Sequence[str]] = None, sort_levels: bool = True, ordered: bool = False) -> "Factor":
+    def from_sequence(x: Sequence[str], levels: Optional[Sequence[str]] = None, sort_levels: bool = True, ordered: bool = False, names: Optional[Names] = None) -> "Factor":
         """Convert a sequence of hashable values into a factor.
 
         Args:
@@ -405,7 +442,7 @@ class Factor:
             A ``Factor`` object.
         """
         levels, indices = factorize(x, levels=levels, sort_levels=sort_levels)
-        return Factor(indices, levels=levels, ordered=ordered)
+        return Factor(indices, levels=levels, ordered=ordered, names=names)
 
 
 @combine_sequences.register(Factor)
@@ -448,4 +485,6 @@ def _combine_factors(*x: Factor):
             new_codes.append(curout)
         new_ordered = False
 
-    return Factor(combine_sequences(*new_codes), new_levels, new_ordered, validate=False)
+    new_names = None
+
+    return Factor(combine_sequences(*new_codes), levels=new_levels, ordered=new_ordered, validate=False)

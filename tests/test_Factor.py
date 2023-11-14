@@ -1,4 +1,4 @@
-from biocutils import Factor, combine, StringList, subset_sequence
+from biocutils import Factor, combine, StringList, subset_sequence, assign_sequence
 import pytest
 import copy
 import numpy
@@ -223,9 +223,9 @@ def test_Factor_generics():
     assert list(sub._codes) == [2, 3]
     assert sub.get_levels() == f.get_levels()
 
-    ass = assign_Sequence(f, range(2, 4), f[1:3])
-    assert list(sub._codes) == [0, 1, 1, 2, 4]
-    assert sub.get_levels() == f.get_levels()
+    ass = assign_sequence(f, range(2, 4), f[1:3])
+    assert list(ass._codes) == [0, 1, 1, 2, 4]
+    assert ass.get_levels() == f.get_levels()
 
 
 def test_Factor_combine():
@@ -258,8 +258,10 @@ def test_Factor_combine():
     assert not out.get_ordered()
 
     # Checking that names are correctly combined.
+    print(f1)
     named = f2.set_names(["alpha", "bravo", "charlie"])
     out = combine(f1, named)
+    print(out)
     assert out.get_names() == ["", "", "", "", "", "alpha", "bravo", "charlie"]
 
 

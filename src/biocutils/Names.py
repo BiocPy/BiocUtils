@@ -203,7 +203,7 @@ def _combine_names(*x: Any, get_names: Callable) -> Union[Names, None]:
     for y in x:
         n = get_names(y)
         if n is None:
-            all_names.append(len(x))
+            all_names.append(len(y))
         else:
             has_names = True
             all_names.append(n)

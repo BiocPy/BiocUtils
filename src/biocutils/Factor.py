@@ -12,6 +12,7 @@ from .is_missing_scalar import is_missing_scalar
 from .print_truncated import print_truncated_list
 
 from .subset_sequence import subset_sequence
+from .assign_sequence import assign_sequence
 from .combine_sequences import combine_sequences
 from .is_list_of_type import is_list_of_type
 

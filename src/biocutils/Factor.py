@@ -57,6 +57,8 @@ class Factor:
 
         if not isinstance(levels, StringList):
             levels = StringList(levels)
+        if levels.get_names() is not None:
+            levels = levels.set_names(None)
 
         self._codes = codes
         self._levels = levels

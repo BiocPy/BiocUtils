@@ -1,169 +1,74 @@
-from typing import Any, Union, Optional
+from typing import Any, Union, Optional, Sequence, Iterable
 from collections.abc import Iterable
+
+from .Names import Names
+from .NamedList import NamedList
+from .subset_sequence import subset_sequence
+from .combine_sequences import combine_sequences
+from .assign_sequence import assign_sequence
 
 
 def _coerce_to_str(x: Any) -> bool:
     return None if x is None else str(x)
 
 
-class StringList(list):
+class _SubscriptCoercer:
+    def __init__(self, data):
+        self._data = data
+    def __getitem__(self, index):
+        return _coerce_to_str(self._data[index])
+
+
+class StringList(NamedList):
     """
-    Python list of strings. This is the same as a regular Python list except
-    that anything added to it will be coerced into a string. None values are
-    also acceptable and are treated as missing strings.
+    List of strings. This mimics a regular Python list except that anything
+    added to it will be coerced into a string. None values are also acceptable
+    and are treated as missing strings. The list may also be named (see
+    :py:class:`~NamedList`), which provides some dictionary-like functionality.
     """
 
-    def __init__(self, iterable: Optional[Iterable] = None, coerce: bool = True):
+    def __init__(self, data: Optional[Iterable] = None, names: Optional[Names] = None, _validate: bool = True):
         """
         Args:
-            iterable: 
+           data: 
                 Some iterable object where all values can be coerced to strings
                 or are None. 
 
                 Alternatively this may itself be None, which defaults to an empty list.
 
-            coerce:
-                Whether to perform the coercion to strings. This can be skipped
-                if it is known that ``iterable`` only contains strings or None.
+            names:
+                Names for the list elements, defaults to an empty list.
+
+            _validate:
+                Internal use only.
         """
-        if iterable is not None:
-            new_it = iterable
-            if coerce and not isinstance(iterable, type(self)):
-                new_it = (_coerce_to_str(item) for item in iterable)
-            super().__init__(new_it)
-        else:
-            super().__init__()
+        if _validate:
+            if data is not None:
+                if isinstance(data, StringList):
+                    data = data._data
+                else:
+                    if isinstance(data, NamedList):
+                        data = data._data
+                    original = data
+                    data = list(_coerce_to_str(item) for item in original)
+        super().__init__(data, names, _validate=_validate)
 
-    def __getitem__(self, index: Union[int, slice]) -> Union[str, "StringList"]:
-        """
-        Obtain one or more elements from a ``StringList``.
+    def set_value(self, index: Union[int, str], value: Any, in_place: bool = False) -> "StringList":
+        """Calls :py:meth:`~NamedList.NamedList.set_value` after coercing ``value`` to a string."""
+        return super().set_value(index, _coerce_to_str(value), in_place=in_place) 
 
-        Args:
-            index:
-                An integer index containing a position to extract, or a slice
-                specifying multiple positions to extract.
-            
-        Returns:
-            If ``index`` is an integer, a string or None is returned at the
-            specified position.
+    def set_slice(self, index: Union[int, str, slice], value: Sequence, in_place: bool = False) -> "StringList":
+        """Calls :py:meth:`~NamedList.NamedList.set_slice` after coercing ``value`` to strings."""
+        return super().set_slice(index, _SubscriptCoercer(value), in_place=in_place) 
 
-            If ``index`` is a slice, a new ``StringList`` is returned
-            containing the items at the specified positions.
-        """
-        output = super().__getitem__(index)
-        if isinstance(index, slice):
-            return StringList(output, coerce=False)
-        return output
+    def safe_insert(self, index: Union[int, str], value: Any, in_place: bool = False) -> "StringList":
+        """Calls :py:meth:`~NamedList.NamedList.safe_insert` after coercing ``value`` to a string."""
+        return super().safe_insert(index, _coerce_to_str(value), in_place=in_place) 
 
-    def __setitem__(self, index: Union[int, slice], item: Any):
-        """
-        Set one or more items in the ``StringList``.
+    def safe_append(self, value: Any, in_place: bool = False) -> "StringList":
+        """Calls :py:meth:`~NamedList.NamedList.safe_append` after coercing ``value`` to a string."""
+        return super().safe_append(_coerce_to_str(value), in_place=in_place)
 
-        Args:
-            index:
-                An integer index containing a position to set, or a slice
-                specifying multiple positions to set.
-
-            item:
-                If ``index`` is an integer, a scalar that can be coerced into a
-                string, or None.
-
-                If ``index`` is a slice, an iterable of the same length
-                containing values that can be coerced to strings or None.
-
-        Returns:
-            In the current object, the specified item(s) at ``index`` are
-            replaced with the contents of ``item``.
-        """
-        if isinstance(index, slice):
-            new_it = item
-            if not isinstance(item, type(self)):
-                new_it = (_coerce_to_str(x) for x in item)
-            super().__setitem__(index, new_it)
-        else:
-            super().__setitem__(index, _coerce_to_str(item))
-
-    def insert(self, index: int, item: Any):
-        """
-        Insert an item in the ``StringList``.
-
-        Args:
-            index:
-                An integer index containing a position to insert at.
-
-            item:
-                A scalar that can be coerced into a string, or None.
-
-        Returns:
-            ``item`` is inserted at ``index`` in the current object.
-        """
-        super().insert(index, _coerce_to_str(item))
-
-    def append(self, item: Any):
-        """
-        Append an item to the end of a ``StringList``.
-
-        Args:
-            item:
-                A scalar that can be coerced into a string, or None.
-
-        Returns:
-            ``item`` is added to the end of the current object.
-        """
-        super().append(_coerce_to_str(item))
-
-    def extend(self, iterable: Iterable):
-        """
-        Extend the end of a ``StringList`` with more items.
-
-        Args:
-            iterable: 
-                Some iterable object where all values can be coerced to strings
-                or are None.
-
-        Returns:
-            Items in ``iterable`` are added to the end of the current object.
-        """
-        new_it = iterable
-        if not isinstance(iterable, type(self)):
-            new_it = (_coerce_to_str(item) for item in iterable)
-        super().extend(new_it)
-
-    def __add__(self, other: list) -> "StringList":
-        """
-        Add a list to the right of a ``StringList``.
-
-        Args:
-            other:
-                A list of items that can be coerced to strings or are None.
-
-        Returns:
-            A new ``StringList`` containing the concatenation of the
-            current object's items and those of ``other``.
-        """
-        output = self.copy()
-        output.extend(other)
-        return output
-
-    def __iadd__(self, other: list):
-        """
-        Extend an existing ``StringList`` with a new list.
-
-        Args:
-            other:
-                A list of items that can be coerced to strings or are None.
-
-        Returns:
-            The current object is extended with the contents of ``other``.
-        """
-        self.extend(other)
-        return self
-
-    def copy(self) -> "StringList":
-        """
-        Make a copy of a ``StringList``.
-
-        Returns:
-            A new ``StringList`` with the same contents.
-        """
-        return StringList(self, coerce=False)
+    def safe_extend(self, other: Iterable, in_place: bool = True) -> "StringList":
+        """Calls :py:meth:`~NamedList.NamedList.safe_extend` after coercing elements of ``other`` to strings."""
+        return super().safe_extend((_coerce_to_str(y) for y in other), in_place=in_place)

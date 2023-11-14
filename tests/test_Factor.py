@@ -1,10 +1,10 @@
-from biocutils import Factor, combine, StringList
+from biocutils import Factor, combine, StringList, subset_sequence, assign_sequence
 import pytest
 import copy
 import numpy
 
 
-def test_Factor_basics():
+def test_Factor_init():
     f = Factor([0, 1, 2, 0, 2, 4], levels=["A", "B", "C", "D", "E"])
     assert len(f) == 6
     assert list(f) == ["A", "B", "C", "A", "C", "E"]
@@ -35,6 +35,10 @@ def test_Factor_basics():
         Factor([0, 1], ["A", "B", "A"])
     assert str(ex.value).find("should be unique") >= 0
 
+    # Works with names.
+    f = Factor([0, 1, 2, 0, 2, 4], levels=["A", "B", "C", "D", "E"], names=["1", "2", "3", "4", "5", "6"])
+    assert f.get_names() == ["1", "2", "3", "4", "5", "6"]
+
 
 def test_Factor_print():
     f = Factor([0, 1, 2, 0, 2, 4], levels=["A", "B", "C", "D", "E"])
@@ -58,6 +62,35 @@ def test_Factor_print():
     assert str(f).startswith("Factor of length")
 
 
+def test_Factor_get_value():
+    f = Factor([0, 1, 2, -1, 2, 4], levels=["A", "B", "C", "D", "E"])
+    assert f.get_value(0) == "A"
+    assert f.get_value(2) == "C"
+    assert f.get_value(3) == None
+
+    f.set_names(["1", "2", "3", "4", "5", "6"], in_place=True)
+    assert f.get_value("1") == "A"
+    assert f.get_value("2") == "B"
+
+
+def test_Factor_get_slice():
+    f = Factor([0, 1, 2, -1, 2, 4], levels=["A", "B", "C", "D", "E"])
+
+    sub = f.get_slice([0, 1]) 
+    assert list(sub) == ["A", "B"]
+    assert sub.get_levels() == f.get_levels()
+
+    sub = f.get_slice([True, False] * 3)
+    assert list(sub) == ["A", "C", "C"]
+    assert sub.get_levels() == f.get_levels()
+
+    f.set_names(["1", "2", "3", "4", "5", "6"], in_place=True)
+    sub = f.get_slice(["4", "3", "2", "1"])
+    assert list(sub) == [None, "C", "B", "A"]
+    assert sub.get_levels() == f.get_levels()
+    assert sub.get_names() == [ "4", "3", "2", "1" ]
+
+
 def test_Factor_getitem():
     f = Factor([0, 1, 2, 0, 2, 4], levels=["A", "B", "C", "D", "E"])
     assert f[0] == "A"
@@ -77,25 +110,53 @@ def test_Factor_getitem():
     assert f2.get_levels() == f.get_levels()
 
 
-def test_Factor_setitem():
+def test_Factor_set_value():
+    f = Factor([0, 1, 2, -1, 2, 4], levels=["A", "B", "C", "D", "E"])
+    y = f.set_value(3, "D")
+    assert y.get_value(3) == "D"
+
+    f.set_names(["1", "2", "3", "4", "5", "6"], in_place=True)
+    y = f.set_value("4", None)
+    assert f.get_value(3) == None
+    assert f.get_value("4") == None
+
+
+def test_Factor_set_slice():
     f = Factor([0, 1, 2, 3, 2, 1], levels=["A", "B", "C", "D", "E"])
     f2 = Factor([0, 1, 2, 3, 2, 1], levels=["A", "B", "C", "D", "E"])
 
-    f[0:2] = f2[2:4]
-    assert list(f.get_codes()) == [2, 3, 2, 3, 2, 1]
-    assert f.get_levels().get_data() == ["A", "B", "C", "D", "E"]
+    y = f.set_slice(slice(2), f2[2:4])
+    assert list(y.get_codes()) == [2, 3, 2, 3, 2, 1]
+    assert y.get_levels() == f.get_levels()
 
-    f = Factor([0, 1, 2, 3, 2, 1], levels=["A", "B", "C", "D", "E"])
     f2 = Factor([0, 1, 2, 3, 2, 1], levels=["E", "D", "C", "B", "A"])
-    f[[-3, -2, -1]] = f2[0:3]
-    assert list(f.get_codes()) == [0, 1, 2, 4, 3, 2]
-    assert f.get_levels().get_data() == ["A", "B", "C", "D", "E"]
+    y = f.set_slice([-3, -2, -1], f2[0:3])
+    assert list(y.get_codes()) == [0, 1, 2, 4, 3, 2]
+    assert y.get_levels() == f.get_levels()
 
-    f = Factor([0, 1, 2, 3, 2, 1], levels=["A", "B", "C", "D", "E"])
     f2 = Factor([0, 1, 2, 3, 2, 1], levels=["e", "d", "c", "b", "a"])
-    f[:] = f2[:]
-    assert list(f.get_codes()) == [-1] * 6
-    assert f.get_levels().get_data() == ["A", "B", "C", "D", "E"]
+    y = f.set_slice(range(6), f2)
+    assert list(y.get_codes()) == [-1] * 6
+    assert y.get_levels() == f.get_levels()
+
+    # Now throwing in some names.
+    f.set_names(["alpha", "bravo", "charlie", "delta", "echo", "foxtrot"], in_place=True)
+    y = f.set_slice(["bravo", "charlie", "delta"], f[3:6])
+    assert list(y.get_codes()) == [ 0, 3, 2, 1, 2, 1 ]
+    assert y.get_levels() == f.get_levels()
+    assert y.get_names() == f.get_names()
+
+
+def test_Factor_setitem():
+    f = Factor([0, 1, 2, 0, 2, 4], levels=["A", "B", "C", "D", "E"])
+    f[0] = "B"
+    f[2] = "A"
+    f[-1] = "D"
+    assert list(f.get_codes()) == [1, 1, 0, 0, 2, 3]
+
+    f[2:5] = Factor([4, 3, 1], levels=["A", "B", "C", "D", "E"]) 
+    assert list(f.get_codes()) == [1, 1, 4, 3, 1, 3]
+    assert f.get_levels() == f.get_levels()
 
 
 def test_Factor_drop_unused_levels():
@@ -151,6 +212,21 @@ def test_Factor_copy():
     assert (f.get_codes() == out.get_codes()).all()
     assert f.get_levels() == out.get_levels()
 
+    f.set_names(["alpha", "bravo", "charlie", "delta", "echo", "foxtrot"], in_place=True)
+    out = copy.copy(f)
+    assert f.get_names() == out.get_names()
+
+
+def test_Factor_generics():
+    f = Factor([0,1,2,3,4], levels=["A", "B", "C", "D", "E"])
+    sub = subset_sequence(f, range(2, 4))
+    assert list(sub._codes) == [2, 3]
+    assert sub.get_levels() == f.get_levels()
+
+    ass = assign_sequence(f, range(2, 4), f[1:3])
+    assert list(ass._codes) == [0, 1, 1, 2, 4]
+    assert ass.get_levels() == f.get_levels()
+
 
 def test_Factor_combine():
     # Same levels.
@@ -180,6 +256,13 @@ def test_Factor_combine():
     f2 = Factor([1, 3, 2], levels=["D", "E", "F", "G"], ordered=True)
     out = combine(f1, f2)
     assert not out.get_ordered()
+
+    # Checking that names are correctly combined.
+    print(f1)
+    named = f2.set_names(["alpha", "bravo", "charlie"])
+    out = combine(f1, named)
+    print(out)
+    assert out.get_names() == ["", "", "", "", "", "alpha", "bravo", "charlie"]
 
 
 def test_Factor_pandas():

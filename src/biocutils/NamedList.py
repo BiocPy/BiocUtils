@@ -1,30 +1,11 @@
 from typing import Sequence, Optional, Iterable, Union, Any, Dict
 from copy import deepcopy
 
-from .Names import Names
+from .Names import Names, _name_to_position, _sanitize_names
 from .normalize_subscript import normalize_subscript, SubscriptTypes
 from .subset_sequence import subset_sequence
 from .combine_sequences import combine_sequences
 from .assign_sequence import assign_sequence
-
-
-def _name_to_position(names: Optional[Names], index: str) -> int:
-    i = -1
-    if names is not None:
-        i = names.map(index)
-    if i < 0:
-        raise KeyError("failed to find entry with name '" + index + "'")
-    return i
-
-
-def _sanitize_names(names: Optional[Names], length: int) -> Union[None, Names]:
-    if names is None:
-        return names
-    if not isinstance(names, Names):
-        names = Names(names)
-    if len(names) != length:
-        raise ValueError("length of 'names' must be equal to number of entries (" + str(length) + ")")
-    return names
 
 
 class NamedList:
@@ -44,7 +25,7 @@ class NamedList:
 
             names:
                 List of names. This should have same length as ``data``.
-                Alternatively None, if the list has no valid names yet.
+                Alternatively None, if the list has no names yet.
 
             _validate:
                 Internal use only.

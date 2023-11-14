@@ -1,4 +1,4 @@
-from typing import Sequence, Optional, Iterable, Union, Any
+from typing import Sequence, Optional, Iterable, Union, Any, Callable
 
 
 class Names(list):

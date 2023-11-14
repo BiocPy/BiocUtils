@@ -1,4 +1,4 @@
-from typing import Any, Union, Optional
+from typing import Any, Union, Optional, Sequence, Iterable
 from collections.abc import Iterable
 
 from .Names import Names
@@ -53,4 +53,4 @@ class StringList(NamedList):
         return super().safe_append(_coerce_to_str(item), in_place=in_place)
 
     def safe_extend(self, other: Iterable, in_place: bool = True) -> "NamedList":
-        return super().safe_extend(_coerce_to_str(y) for y in other, in_place=in_place)
+        return super().safe_extend((_coerce_to_str(y) for y in other), in_place=in_place)

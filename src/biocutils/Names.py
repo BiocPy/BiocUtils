@@ -112,9 +112,9 @@ class Names:
         else:
             return -1
 
-    ##########################################
-    #####>>>> Simple getters/setters <<<<#####
-    ##########################################
+    #################################
+    #####>>>> Get/set items <<<<#####
+    #################################
 
     def get_value(self, index: int) -> str:
         """
@@ -152,9 +152,6 @@ class Names:
         else:
             return self.get_slice(NormalizedSubscript(index))
 
-    def _semi_deep_copy(self):
-        return type(self)(self._names.copy(), _validate=False)
-
     def set_value(self, index: int, value: str, in_place: bool = False) -> "Names":
         """
         Args:
@@ -172,7 +169,7 @@ class Names:
             self._wipe_reverse_index()
             output = self
         else:
-            output = self._semi_deep_copy()
+            output = self.copy()
         output._names[index] = str(value)
         return output
 
@@ -193,7 +190,7 @@ class Names:
             self._wipe_reverse_index()
             output = self
         else:
-            output = self._semi_deep_copy()
+            output = self.copy()
 
         if isinstance(value, Names):
             value = value.as_list()
@@ -226,7 +223,7 @@ class Names:
         if in_place:
             return self
         else:
-            return self._semi_deep_copy()
+            return self.copy()
 
     def safe_append(self, value: str, in_place: bool = False) -> "Names":
         """
@@ -322,6 +319,10 @@ class Names:
         self.extend(other)
         return self
 
+    ################################
+    #####>>>> Copy methods <<<<#####
+    ################################
+
     def copy(self) -> "Names":
         """
         Returns:
@@ -329,7 +330,7 @@ class Names:
             list so that any in-place operations like :py:attr:`~append`, etc.,
             on the new object will not change the original object.
         """
-        return self._semi_deep_copy()
+        return type(self)(self._names.copy(), _validate=False)
 
     def __copy__(self) -> "Names":
         """Alias for :py:attr:`~copy`."""
@@ -362,7 +363,7 @@ def _assign_sequence_Names(x: Names, indices: Sequence[int], other: Sequence) ->
 
 @combine_sequences.register
 def _combine_sequences_Names(*x: Names) -> Names:
-    output = x[0]._semi_deep_copy()
+    output = x[0].copy()
     for i in range(1, len(x)):
         output.extend(x[i])
     return output

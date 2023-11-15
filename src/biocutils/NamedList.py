@@ -98,7 +98,7 @@ class NamedList:
 
     @property
     def names(self) -> Names:
-        """Alias for :py:attr:`~get_names`."""
+        """Alias for :py:meth:`~get_names`."""
         return self.get_names()
 
     def _shallow_copy(self):
@@ -166,9 +166,9 @@ class NamedList:
 
     def __getitem__(self, index: SubscriptTypes) -> Union["NamedList", Any]:
         """
-        If ``index`` is a scalar, this is an alias for :py:attr:`~get_value`.
+        If ``index`` is a scalar, this is an alias for :py:meth:`~get_value`.
 
-        If ``index`` is a sequence, this is an alias for :py:attr:`~get_slice`.
+        If ``index`` is a sequence, this is an alias for :py:meth:`~get_slice`.
         """
         index, scalar = normalize_subscript(index, len(self), self._names)
         if scalar:
@@ -248,7 +248,7 @@ class NamedList:
             the contents of ``value``. If ``in_place = False``, this is a new
             object, otherwise it is a reference to the current object.
 
-            Unlike :py:attr:`~set_value`, this will not add new elements if
+            Unlike :py:meth:`~set_value`, this will not add new elements if
             ``index`` contains names that do not already exist in the object;
             a missing name error is raised instead.
         """
@@ -267,10 +267,10 @@ class NamedList:
 
     def __setitem__(self, index: SubscriptTypes, value: Any):
         """
-        If ``index`` is a scalar, this is an alias for :py:attr:`~set_value`
+        If ``index`` is a scalar, this is an alias for :py:meth:`~set_value`
         with ``in_place = True``.
 
-        If ``index`` is a sequence, this is an alias for :py:attr:`~set_slice`
+        If ``index`` is a sequence, this is an alias for :py:meth:`~set_slice`
         with ``in_place = True``.
         """
         if isinstance(index, str):
@@ -321,7 +321,7 @@ class NamedList:
         return output
 
     def insert(self, index: Union[int, str], value: Any):
-        """Alias for :py:attr:`~safe_insert` with `in_place = True`."""
+        """Alias for :py:meth:`~safe_insert` with ``in_place = True``."""
         self.safe_insert(index, value, in_place=True)
 
     def safe_append(self, value: Any, in_place: bool = False) -> "NamedList":
@@ -346,13 +346,13 @@ class NamedList:
         return output
 
     def append(self, value: Any):
-        """Alias for :py:attr:`~safe_append` with `in_place = True`."""
+        """Alias for :py:meth:`~safe_append` with ``in_place = True``."""
         self.safe_append(value, in_place=True)
 
     def safe_extend(self, other: Iterable, in_place: bool = False) -> "NamedList":
         """
         Args:
-            iterable: 
+            other: 
                 Some iterable object. If this is a ``NamedList``, its names are
                 used to extend the names of the current object; otherwise the
                 extended names are set to empty strings.
@@ -361,8 +361,8 @@ class NamedList:
                 Whether to perform the modification in place.
 
         Returns:
-            A ``NamedList`` where items in ``iterable`` are added to the end.
-            If ``in_place = False``, this is a new object, otherwise a reference
+            A ``NamedList`` where items in ``other`` are added to the end. If
+            ``in_place = False``, this is a new object, otherwise a reference
             to the current object is returned.
         """
         output = self._define_output(in_place)
@@ -379,15 +379,15 @@ class NamedList:
         return output
 
     def extend(self, other: Iterable):
-        """Alias for :py:attr:`~safe_extend` with ``in_place = True``."""
+        """Alias for :py:meth:`~safe_extend` with ``in_place = True``."""
         self.safe_extend(other, in_place=True)
 
     def __add__(self, other: list) -> "NamedList":
-        """Alias for :py:attr:`~safe_extend`."""
+        """Alias for :py:meth:`~safe_extend`."""
         return self.safe_extend(other)
 
     def __iadd__(self, other: list):
-        """Alias for :py:attr:`~extend`, returning a reference to the current
+        """Alias for :py:meth:`~extend`, returning a reference to the current
         object after the in-place modification."""
         self.extend(other)
         return self
@@ -401,7 +401,7 @@ class NamedList:
         Returns:
             A shallow copy of a ``NamedList`` with the same contents.  This
             will copy the underlying list (and names, if any exist) so that any
-            in-place operations like :py:attr:`~append`, etc., on the new
+            in-place operations like :py:meth:`~append`, etc., on the new
             object will not change the original object.
         """
         newnames = self._names

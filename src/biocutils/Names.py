@@ -244,7 +244,7 @@ class Names:
         return output
 
     def append(self, value: str):
-        """Alias for :py:attr:`~safe_append` with `in_place = True`."""
+        """Alias for :py:attr:`~safe_append` with ``in_place = True``."""
         self.safe_append(value, in_place=True)
 
     def safe_insert(self, index: int, value: str, in_place: bool = False) -> "Names":
@@ -266,7 +266,7 @@ class Names:
         return output
 
     def insert(self, index: int, value: str):
-        """Alias for :py:attr:`~safe_insert` with `in_place = True`."""
+        """Alias for :py:attr:`~safe_insert` with ``in_place = True``."""
         self.safe_insert(index, value, in_place=True)
 
     def safe_extend(self, value: Sequence[str], in_place: bool = False) -> "Names":
@@ -294,7 +294,7 @@ class Names:
         return output
 
     def extend(self, value: Sequence[str]):
-        """Alias for :py:attr:`~safe_extend` with `in_place = True`."""
+        """Alias for :py:attr:`~safe_extend` with ``in_place = True``."""
         self.safe_extend(value, in_place=True)
 
     def __add__(self, other: list):

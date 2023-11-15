@@ -15,8 +15,9 @@ def map_to_index(x: Sequence, duplicate_method: DUPLICATE_METHOD = "first") -> d
             Sequence of hashable values. We ignore missing values defined by 
             :py:meth:`~biocutils.is_missing_scalar.is_missing_scalar`.
 
-        duplicate_method (DUPLICATE_METHOD): Whether to consider the first or
-            last occurrence of a duplicated value in ``x``.
+        duplicate_method:
+            Whether to consider the first or last occurrence of a duplicated
+            value in ``x``.
 
     Returns:
         dict: Dictionary that maps values of ``x`` to their position inside ``x``.

@@ -83,8 +83,8 @@ class Factor:
                 List of names. This should have same length as ``codes``.
                 Alternatively None, if the factor has no names yet.
 
-            validate:
-                Whether to validate the arguments. Internal use only.
+            _validate:
+                Internal use only.
         """
         if _validate:
             levels = _sanitize_levels(levels)
@@ -110,13 +110,13 @@ class Factor:
         """
         Returns:
             Array of integer codes, used as indices into the levels from
-            :py:attr:`~get_levels`. Missing values are marked with -1.
+            :py:meth:`~get_levels`. Missing values are marked with -1.
         """
         return self._codes
 
     @property
     def codes(self) -> numpy.ndarray:
-        """Alias for :py:attr:`~get_codes`."""
+        """Alias for :py:meth:`~get_codes`."""
         return self.get_codes()
 
     def set_codes(self, codes: Sequence[int], in_place: bool = False) -> "Factor":
@@ -148,7 +148,7 @@ class Factor:
 
     @property
     def levels(self) -> StringList:
-        """Alias for :py:attr:`~get_levels`."""
+        """Alias for :py:meth:`~get_levels`."""
         return self.get_levels()
 
     def get_ordered(self) -> bool:
@@ -160,7 +160,7 @@ class Factor:
 
     @property
     def ordered(self) -> bool:
-        """Alias for :py:attr:`~get_ordered`."""
+        """Alias for :py:meth:`~get_ordered`."""
         return self.get_ordered()
 
     def set_ordered(self, ordered: bool, in_place: bool = False) -> "Factor":
@@ -189,7 +189,7 @@ class Factor:
 
     @property
     def names(self) -> Names:
-        """Alias for :py:attr:`~get_names`."""
+        """Alias for :py:meth:`~get_names`."""
         return self.get_names()
 
     def set_names(self, names: Optional[Names], in_place: bool = False) -> "NamedList":
@@ -294,9 +294,9 @@ class Factor:
 
     def __getitem__(self, index: SubscriptTypes) -> Union[str, "Factor"]:
         """
-        If ``index`` is a scalar, this is an alias for :py:attr:`~get_value`.
+        If ``index`` is a scalar, this is an alias for :py:meth:`~get_value`.
 
-        If ``index`` is a sequence, this is an alias for :py:attr:`~get_slice`.
+        If ``index`` is a sequence, this is an alias for :py:meth:`~get_slice`.
         """
         index, scalar = normalize_subscript(index, len(self), self._names)
         if scalar:
@@ -396,9 +396,9 @@ class Factor:
 
     def __setitem__(self, index: SubscriptTypes, value: Union[str, "Factor"]):
         """
-        If ``index`` is a scalar, this is an alias for :py:attr:`~set_value`.
+        If ``index`` is a scalar, this is an alias for :py:meth:`~set_value`.
 
-        If ``index`` is a sequence, this is an alias for :py:attr:`~set_slice`.
+        If ``index`` is a sequence, this is an alias for :py:meth:`~set_slice`.
         """
         index, scalar = normalize_subscript(index, len(self), self._names)
         if scalar:
@@ -584,7 +584,7 @@ class Factor:
                 the levels are kept in order of their appearance in ``x``.  Not
                 used if ``levels`` is explicitly supplied.
 
-            ordered (bool):
+            ordered:
                 Whether the levels should be assumed to be ordered.  Note that
                 this refers to their importance and has nothing to do with
                 their sorting order or with the setting of ``sort_levels``.

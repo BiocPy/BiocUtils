@@ -8,7 +8,7 @@ def test_NamedList_init():
     x = NamedList([1,2,3,4], names=['a', 'b', 'c', 'd'])
     assert isinstance(x, NamedList)
     assert x.get_data() == [ 1,2,3,4 ]
-    assert x.get_names() == ["a", "b", "c", "d"]
+    assert x.get_names().as_list() == ["a", "b", "c", "d"]
     assert len(x) == 4
 
     y = NamedList(x)

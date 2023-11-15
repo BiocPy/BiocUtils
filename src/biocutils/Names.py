@@ -1,7 +1,9 @@
 from typing import Sequence, Optional, Iterable, Union, Any, Callable, List
+from copy import deepcopy
 
 from .normalize_subscript import normalize_subscript, NormalizedSubscript
 
+from .subset_sequence import subset_sequence
 from .assign_sequence import assign_sequence
 from .combine_sequences import combine_sequences
 
@@ -77,6 +79,16 @@ class Names:
             A pretty-printed representation of this object.
         """
         return str(self._names)
+
+    def __eq__(self, other: "Names") -> bool:
+        """
+        Args:
+            other: Another ``Names`` object.
+
+        Returns:
+            Whether the current object is the same as ``other``.
+        """
+        return self._names == other._names
 
     def as_list(self) -> List[str]:
         """
@@ -273,20 +285,20 @@ class Names:
         """
         output = self._define_output(in_place)
         if output._reverse is not None:
-            for i, n in enumerate(names):
+            for i, n in enumerate(value):
                 n = str(n)
                 if n not in output._reverse:
                     output._reverse[n] = len(output._names)
                 output._names.append(n)
-        elif isinstance(names, Names):
-            output._names.extend(names._names)
+        elif isinstance(value, Names):
+            output._names.extend(value._names)
         else:
-            output._names.extend(str(y) for y in names)
+            output._names.extend(str(y) for y in value)
         return output
 
     def extend(self, value: Sequence[str]):
         """Alias for :py:attr:`~safe_extend` with `in_place = True`."""
-        self.safe_extend(index, value, in_place=True)
+        self.safe_extend(value, in_place=True)
 
     def __add__(self, other: list):
         """
@@ -330,6 +342,24 @@ class Names:
             A deep copy of this ``Names`` object with the same contents.
         """
         return type(self)(deepcopy(self._names, memo, _nil), _validate=False)
+
+
+@subset_sequence.register
+def _subset_sequence_Names(x: Names, indices: Sequence[int]) -> Names:
+    return x.get_slice(NormalizedSubscript(indices))
+
+
+@assign_sequence.register
+def _assign_sequence_Names(x: Names, indices: Sequence[int], other: Sequence) -> Names:
+    return x.set_slice(NormalizedSubscript(indices), other)
+
+
+@combine_sequences.register
+def _combine_sequences_Names(*x: Names) -> Names:
+    output = x[0]._semi_deep_copy()
+    for i in range(1, len(x)):
+        output.extend(x[i])
+    return output
 
 
 def _name_to_position(names: Optional[Names], index: str) -> int:

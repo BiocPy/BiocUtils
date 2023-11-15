@@ -60,7 +60,7 @@ def test_StringList_setitem():
     assert x.get_data() == ["True", "False", "3", "4"]
     x["E"] = 50
     assert x.get_data() == ["True", "False", "3", "4", "50"]
-    assert x.get_names() == [ "A", "B", "C", "D", "E" ]
+    assert x.get_names().as_list() == [ "A", "B", "C", "D", "E" ]
 
 
 def test_StringList_mutations():

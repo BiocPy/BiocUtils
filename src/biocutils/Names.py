@@ -325,9 +325,15 @@ class Names:
     def copy(self) -> "Names":
         """
         Returns:
-            A copy of the current object.
+            A shallow copy of the current object. This will copy the underlying
+            list so that any in-place operations like :py:attr:`~append`, etc.,
+            on the new object will not change the original object.
         """
-        return type(self)(self._names, _validate=False)
+        return self._semi_deep_copy()
+
+    def __copy__(self) -> "Names":
+        """Alias for :py:attr:`~copy`."""
+        return self.copy()
 
     def __deepcopy__(self, memo=None, _nil=[]) -> "Names":
         """

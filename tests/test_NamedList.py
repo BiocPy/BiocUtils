@@ -59,11 +59,11 @@ def test_NamedList_get_slice():
     x.set_names(["a", "b", "c", "d"], in_place=True)
     sub = x.get_slice([0, 2])
     assert sub.get_data() == [1, 3]
-    assert sub.get_names() == ["a", "c"]
+    assert sub.get_names().as_list() == ["a", "c"]
 
     sub = x.get_slice(["a", "d"])
     assert sub.get_data() == [1, 4]
-    assert sub.get_names() == ["a", "d"]
+    assert sub.get_names().as_list() == ["a", "d"]
 
 #    with pytest.raises(Exception) as ex:
 #        x.get_slice(["Aaron"])
@@ -83,8 +83,8 @@ def test_NamedList_dict():
     assert x.as_dict() == { "a": 1, "b": 2, "c": 3, "d": 4 }
 
     x = NamedList.from_dict({ "c": 4, "d": 5, 23: 99 })
-    assert x.get_names() == [ "c", "d", "23" ]
     assert x.get_data() == [ 4, 5, 99 ]
+    assert x.get_names().as_list() == [ "c", "d", "23" ]
 
 
 def test_NamedList_set_value():
@@ -96,7 +96,7 @@ def test_NamedList_set_value():
 
     y = x.set_value("Aaron", 10)
     assert y.get_data() == [1, 2, 3, 4, 10]
-    assert y.get_names() == ["", "", "", "", "Aaron"]
+    assert y.get_names().as_list() == ["", "", "", "", "Aaron"]
 
     x.set_names(["a", "b", "c", "d"], in_place=True)
     y = x.set_value("a", 10)
@@ -105,7 +105,7 @@ def test_NamedList_set_value():
     assert y.get_data() == [1, 2, 3, 40]
     y = x.set_value("Aaron", 10)
     assert y.get_data() == [1, 2, 3, 4, 10]
-    assert y.get_names() == ["a", "b", "c", "d", "Aaron"]
+    assert y.get_names().as_list() == ["a", "b", "c", "d", "Aaron"]
 
 
 def test_NamedList_set_slice():
@@ -136,7 +136,7 @@ def test_NamedList_setitem():
     assert x.get_data() == [None, None, 30, 40]
     x["E"] = "FOO"
     assert x.get_data() == [None, None, 30, 40, "FOO"]
-    assert x.get_names() == ["A", "B", "C", "D", "E"]
+    assert x.get_names().as_list() == ["A", "B", "C", "D", "E"]
 
 
 def test_NamedList_insert():
@@ -148,11 +148,11 @@ def test_NamedList_insert():
     x.set_names(["A", "B", "C", "D"], in_place=True)
     x.insert(2, "FOO")
     assert x.get_data() == [1, 2, "FOO", 3, 4]
-    assert x.get_names() == ["A", "B", "", "C", "D"]
+    assert x.get_names().as_list() == ["A", "B", "", "C", "D"]
 
     x.insert("D", None)
     assert x.get_data() == [1, 2, "FOO", 3, None, 4]
-    assert x.get_names() == [ "A", "B", "", "C", "", "D"]
+    assert x.get_names().as_list() == [ "A", "B", "", "C", "", "D"]
 
 
 def test_NamedList_extend():
@@ -163,16 +163,16 @@ def test_NamedList_extend():
 
     y = x.safe_extend(NamedList([False, 2, None], names=[ "E", "F", "G" ]))
     assert y.get_data() == [ 1, 2, 3, 4, False, 2, None ]
-    assert y.get_names() == [ "", "", "", "", "E", "F", "G" ]
+    assert y.get_names().as_list() == [ "", "", "", "", "E", "F", "G" ]
 
     x.set_names(["A", "B", "C", "D"], in_place=True)
     x.extend([None, 1, True])
     assert x.get_data() == [ 1, 2, 3, 4, None, 1, True ]
-    assert x.get_names() == [ "A", "B", "C", "D", "", "", "" ]
+    assert x.get_names().as_list() == [ "A", "B", "C", "D", "", "", "" ]
 
     x.extend(NamedList([False, 2, None], names=[ "E", "F", "G" ]))
     assert x.get_data() == [ 1, 2, 3, 4, None, 1, True, False, 2, None ]
-    assert x.get_names() == [ "A", "B", "C", "D", "", "", "", "E", "F", "G" ]
+    assert x.get_names().as_list() == [ "A", "B", "C", "D", "", "", "", "E", "F", "G" ]
 
 
 def test_NamedList_append():
@@ -184,23 +184,23 @@ def test_NamedList_append():
     x.set_names(["A", "B", "C", "D"], in_place=True)
     x.append(1)
     assert x.get_data() == [ 1,2,3,4,1 ]
-    assert x.get_names() == [ "A", "B", "C", "D", "" ]
+    assert x.get_names().as_list() == [ "A", "B", "C", "D", "" ]
 
 
 def test_NamedList_addition():
     x1 = NamedList([1,2,3,4], names=["A", "B", "C", "D"])
     summed = x1 + [5,6,7]
     assert summed.get_data() == [1, 2, 3, 4, 5, 6, 7]
-    assert summed.get_names() == [ "A", "B", "C", "D", "", "", "" ]
+    assert summed.get_names().as_list() == [ "A", "B", "C", "D", "", "", "" ]
 
     x2 = NamedList([5,6,7], names=["E", "F", "G"])
     summed = x1 + x2
     assert summed.get_data() == [1, 2, 3, 4, 5, 6, 7]
-    assert summed.get_names() == ["A", "B", "C", "D", "E", "F", "G"]
+    assert summed.get_names().as_list() == ["A", "B", "C", "D", "E", "F", "G"]
 
     x1 += x2
     assert x1.get_data() == [1, 2, 3, 4, 5, 6, 7]
-    assert x1.get_names() == ["A", "B", "C", "D", "E", "F", "G"]
+    assert x1.get_names().as_list() == ["A", "B", "C", "D", "E", "F", "G"]
 
 
 def test_NamedList_copy():
@@ -220,18 +220,18 @@ def test_NamedList_generics():
     sub = biocutils.subset_sequence(x, [0,3,2,1])
     assert isinstance(sub, NamedList)
     assert sub.get_data() == [1, 4, 3, 2]
-    assert sub.get_names() == [ "A", "D", "C", "B" ]
-    
+    assert sub.get_names().as_list() == [ "A", "D", "C", "B" ]
+
     y = ["a", "b", "c", "d"]
     com = biocutils.combine_sequences(x, y)
     assert isinstance(com, NamedList)
     assert com.get_data() == [1, 2, 3, 4, "a", "b", "c", "d"]
-    assert com.get_names() == [ "A", "B", "C", "D", "", "", "", "" ]
+    assert com.get_names().as_list() == [ "A", "B", "C", "D", "", "", "", "" ]
 
     y = biocutils.assign_sequence(x, [1, 3], [ 20, 40 ])
     assert y.get_data() == [ 1, 20, 3, 40 ]
-    assert y.get_names() == [ "A", "B", "C", "D" ]
+    assert y.get_names().as_list() == [ "A", "B", "C", "D" ]
 
     y = biocutils.assign_sequence(x, [1, 3], NamedList([ 20, 40 ], names=["b", "d" ]))
     assert y.get_data() == [ 1, 20, 3, 40 ]
-    assert y.get_names() == [ "A", "B", "C", "D" ] # doesn't set the names, as per policy.
+    assert y.get_names().as_list() == [ "A", "B", "C", "D" ] # doesn't set the names, as per policy.

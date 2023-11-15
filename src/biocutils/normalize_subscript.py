@@ -1,8 +1,6 @@
 from typing import Optional, Sequence, Tuple, Union, Any
 import numpy
 
-from .Names import Names
-
 
 def _raise_int(idx: int, length):
     raise IndexError("subscript (" + str(idx) + ") out of range for vector-like object of length " + str(length))
@@ -127,6 +125,7 @@ def normalize_subscript(
         if names is None:
             raise IndexError("failed to find subscript '" + sub + "' for vector-like object with no names")
         i = -1
+        from .Names import Names
         if isinstance(names, Names):
             i = names.map(sub)
         else:
@@ -184,6 +183,7 @@ def normalize_subscript(
     output = []
     has_strings = set()
     string_positions = []
+    from .Names import Names
     are_names_indexed = isinstance(names, Names)
 
     for i, x in enumerate(sub):

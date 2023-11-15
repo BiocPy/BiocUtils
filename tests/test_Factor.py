@@ -37,7 +37,7 @@ def test_Factor_init():
 
     # Works with names.
     f = Factor([0, 1, 2, 0, 2, 4], levels=["A", "B", "C", "D", "E"], names=["1", "2", "3", "4", "5", "6"])
-    assert f.get_names() == ["1", "2", "3", "4", "5", "6"]
+    assert f.get_names().as_list() == ["1", "2", "3", "4", "5", "6"]
 
 
 def test_Factor_print():
@@ -88,7 +88,7 @@ def test_Factor_get_slice():
     sub = f.get_slice(["4", "3", "2", "1"])
     assert list(sub) == [None, "C", "B", "A"]
     assert sub.get_levels() == f.get_levels()
-    assert sub.get_names() == [ "4", "3", "2", "1" ]
+    assert sub.get_names().as_list() == [ "4", "3", "2", "1" ]
 
 
 def test_Factor_getitem():
@@ -261,8 +261,7 @@ def test_Factor_combine():
     print(f1)
     named = f2.set_names(["alpha", "bravo", "charlie"])
     out = combine(f1, named)
-    print(out)
-    assert out.get_names() == ["", "", "", "", "", "alpha", "bravo", "charlie"]
+    assert out.get_names().as_list() == ["", "", "", "", "", "alpha", "bravo", "charlie"]
 
 
 def test_Factor_pandas():

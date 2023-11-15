@@ -41,6 +41,10 @@ class NamedList:
         self._data = data
         self._names = names
 
+    ###################################
+    #####>>>> Bits and pieces <<<<#####
+    ###################################
+
     def __len__(self) -> int:
         """
         Returns:
@@ -79,42 +83,11 @@ class NamedList:
             Whether the current object is equal to ``other``, i.e.,
             same data and names.
         """
-        return self.get_data() == other.get_data() and self.get_names() == other.get_names()
+        return self._data == other._data and self._names == other._names
 
-    def get_data(self) -> list:
-        """
-        Returns:
-            The underlying list of elements.
-        """
-        return self._data
-
-    @property
-    def data(self) -> list:
-        """Alias for :py:attr:`~get_data`."""
-        return self.get_data()
-
-    def set_data(self, data: Sequence, in_place: bool = False) -> "NamedList":
-        """
-        Args:
-            data:
-                Replacement list of elements. This should have the same length
-                as the current object.
-
-            in_place:
-                Whether to modify the current object in place.
-
-        Returns:
-            A modified ``NamedList``, either as a new object or a reference to
-            the current object.
-        """ 
-        if len(data) != len(self):
-            raise ValueError("replacement 'data' must be of the same length")
-        if in_place:
-            output = self
-        else:
-            output = self.copy()
-        output._data = data
-        return output
+    #################################
+    #####>>>> Get/set names <<<<#####
+    #################################
 
     def get_names(self) -> Names:
         """
@@ -127,6 +100,9 @@ class NamedList:
     def names(self) -> Names:
         """Alias for :py:attr:`~get_names`."""
         return self.get_names()
+
+    def _shallow_copy(self):
+        return type(self)(self._data, self._names, _validate=False)
 
     def set_names(self, names: Optional[Names], in_place: bool = False) -> "NamedList":
         """
@@ -145,9 +121,13 @@ class NamedList:
         if in_place:
             output = self
         else:
-            output = self.copy()
+            output = self._shallow_copy()
         output._names = _sanitize_names(names, len(self)) 
         return output
+
+    #################################
+    #####>>>> Get/set items <<<<#####
+    #################################
 
     def get_value(self, index: Union[str, int]) -> Any:
         """
@@ -222,7 +202,7 @@ class NamedList:
         if in_place:
             output = self
         else:
-            output = self.copy()
+            output = self._shallow_copy()
             output._data = output._data.copy()
 
         if isinstance(index, str):
@@ -276,7 +256,7 @@ class NamedList:
         if in_place:
             output = self
         else:
-            output = self.copy()
+            output = self._shallow_copy()
             output._data = output._data.copy()
         if scalar:
             output._data[index[0]] = value
@@ -302,14 +282,15 @@ class NamedList:
             else:
                 self.set_slice(NormalizedSubscript(index), value, in_place=True)
 
+    ################################
+    #####>>>> List methods <<<<#####
+    ################################
+
     def _define_output(self, in_place: bool) -> "NamedList":
         if in_place:
             return self
-        newdata = self._data.copy()
-        newnames = None
-        if self._names is not None:
-            newnames = self._names.copy()
-        return type(self)(newdata, names=newnames, _validate=False)
+        else:
+            return self.copy()
 
     def safe_insert(self, index: Union[int, str], value: Any, in_place: bool = False) -> "NamedList":
         """
@@ -411,12 +392,26 @@ class NamedList:
         self.extend(other)
         return self
 
+    ################################
+    #####>>>> Copy methods <<<<#####
+    ################################
+
     def copy(self) -> "NamedList":
         """
         Returns:
-            A shallow copy of a ``NamedList`` with the same contents.
+            A shallow copy of a ``NamedList`` with the same contents.  This
+            will copy the underlying list (and names, if any exist) so that any
+            in-place operations like :py:attr:`~append`, etc., on the new
+            object will not change the original object.
         """
-        return type(self)(self._data, names=self._names, _validate=False)
+        newnames = self._names
+        if newnames is not None:
+            newnames = newnames.copy()
+        return type(self)(self._data.copy(), names=newnames, _validate=False)
+
+    def __copy__(self) -> "NamedList":
+        """Alias for :py:meth:`~copy`."""
+        return self.copy()
 
     def __deepcopy__(self, memo=None, _nil=[]) -> "NamedList":
         """
@@ -432,6 +427,17 @@ class NamedList:
         """
         return type(self)(deepcopy(self._data, memo, _nil), names=deepcopy(self._names, memo, _nil), _validate=False)
 
+    ############################
+    #####>>>> Coercion <<<<#####
+    ############################
+
+    def as_list(self) -> list:
+        """
+        Returns:
+            The underlying list of elements.
+        """
+        return self._data
+
     def as_dict(self) -> Dict[str, Any]:
         """
         Returns:
@@ -445,7 +451,26 @@ class NamedList:
         return output
 
     @staticmethod
+    def from_list(x: list) -> "NamedList":
+        """
+        Args:
+            x: List of data elements.
+
+        Returns:
+            A ``NamedList`` instance with the contents of ``x`` and no names.
+        """
+        return NamedList(x)
+
+    @staticmethod
     def from_dict(x: dict) -> "NamedList":
+        """
+        Args:
+            x: Dictionary where keys are strings (or can be coerced to them).
+
+        Returns:
+            A ``NamedList`` instance where the list elements are the values of
+            ``x`` and the names are the stringified keys.
+        """
         return NamedList(list(x.values()), names=Names(str(y) for y in x.keys()))
 
 
@@ -456,7 +481,7 @@ def _subset_sequence_NamedList(x: NamedList, indices: Sequence[int]) -> NamedLis
 
 @combine_sequences.register
 def _combine_sequences_NamedList(*x: NamedList) -> NamedList:
-    output = x[0]._define_output(in_place=False)
+    output = x[0].copy()
     for i in range(1, len(x)):
         output.extend(x[i])
     return output

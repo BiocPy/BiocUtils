@@ -9,7 +9,7 @@ def test_Factor_init():
     assert len(f) == 6
     assert list(f) == ["A", "B", "C", "A", "C", "E"]
     assert list(f.get_codes()) == [0, 1, 2, 0, 2, 4]
-    assert f.get_levels().get_data() == ["A", "B", "C", "D", "E"]
+    assert f.get_levels().as_list() == ["A", "B", "C", "D", "E"]
     assert not f.get_ordered()
 
     # Works with missing values.
@@ -162,30 +162,30 @@ def test_Factor_setitem():
 def test_Factor_drop_unused_levels():
     f = Factor([0, 1, 2, 0, 2, 4], levels=["A", "B", "C", "D", "E"])
     f2 = f.drop_unused_levels()
-    assert f2.get_levels().get_data() == ["A", "B", "C", "E"]
+    assert f2.get_levels().as_list() == ["A", "B", "C", "E"]
     assert list(f2) == list(f)
 
     f = Factor([3, 4, 2, 3, 2, 4], levels=["A", "B", "C", "D", "E"])
     f2 = f.drop_unused_levels(in_place=True)
-    assert f2.get_levels().get_data() == ["C", "D", "E"]
+    assert f2.get_levels().as_list() == ["C", "D", "E"]
     assert list(f2) == ["D", "E", "C", "D", "C", "E"]
 
 
 def test_Factor_set_levels():
     f = Factor([0, 1, 2, 0, 2, 4], levels=["A", "B", "C", "D", "E"])
     f2 = f.set_levels(["E", "D", "C", "B", "A"])
-    assert f2.get_levels().get_data() == ["E", "D", "C", "B", "A"]
+    assert f2.get_levels().as_list() == ["E", "D", "C", "B", "A"]
     assert list(f2.get_codes()) == [4, 3, 2, 4, 2, 0]
     assert list(f2) == list(f)
 
     f = Factor([0, 1, 2, 0, 2, 4], levels=["A", "B", "C", "D", "E"])
     f2 = f.set_levels(["E", "C", "A"], in_place=True)
-    assert f2.get_levels().get_data() == ["E", "C", "A"]
+    assert f2.get_levels().as_list() == ["E", "C", "A"]
     assert list(f2.get_codes()) == [2, -1, 1, 2, 1, 0]
 
     f = Factor([0, 1, 2, 0, 2, 4], levels=["A", "B", "C", "D", "E"])
     f2 = f.set_levels("E")  # reorders
-    assert f2.get_levels().get_data() == ["E", "A", "B", "C", "D"]
+    assert f2.get_levels().as_list() == ["E", "A", "B", "C", "D"]
     assert list(f2.get_codes()) == [1, 2, 3, 1, 3, 0]
 
     with pytest.raises(ValueError) as ex:
@@ -240,7 +240,7 @@ def test_Factor_combine():
     f1 = Factor([0, 2, 4, 2, 0], levels=["A", "B", "C", "D", "E"])
     f2 = Factor([1, 3, 1], levels=["D", "E", "F", "G"])
     out = combine(f1, f2)
-    assert out.get_levels().get_data() == ["A", "B", "C", "D", "E", "F", "G"]
+    assert out.get_levels().as_list() == ["A", "B", "C", "D", "E", "F", "G"]
     assert list(out.get_codes()) == [0, 2, 4, 2, 0, 4, 6, 4]
 
     f2 = Factor([1, 3, None], levels=["D", "E", "F", "G"])

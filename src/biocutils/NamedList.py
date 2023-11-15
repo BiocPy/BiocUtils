@@ -52,6 +52,13 @@ class NamedList:
         """
         return len(self._data)
 
+    def __iter__(self) -> "list_iterator":
+        """
+        Returns:
+            An iterator on the underlying list of data.
+        """
+        return iter(self._data)
+
     def __repr__(self) -> str:
         """
         Returns:

@@ -25,6 +25,14 @@ def test_NamedList_init():
     assert x.get_names() is None
 
 
+def test_Names_iter():
+    x = NamedList([1,2,3,4])
+    output = []
+    for y in x:
+        output.append(y)
+    assert output == [1,2,3,4]
+
+
 def test_NamedList_get_value():
     x = NamedList([1,2,3,4])
     assert x.get_value(0) == 1

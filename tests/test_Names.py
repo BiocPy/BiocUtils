@@ -21,6 +21,14 @@ def test_Names_init():
     assert isinstance(empty, Names)
 
 
+def test_Names_iter():
+    x = Names([1,2,3,4])
+    output = []
+    for y in x:
+        output.append(y)
+    assert output == ["1", "2", "3", "4"]
+
+
 def test_Names_getters():
     x = Names([1,2,3,4])
     assert x.get_value(0) == "1"

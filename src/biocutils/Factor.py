@@ -54,6 +54,38 @@ def _sanitize_levels(levels: Sequence[str], check: bool = True) -> StringList:
     return levels
 
 
+class FactorIterator:
+    """Iterator for a :py:class:`~Factor` object."""
+
+    def __init__(self, parent: "Factor"):
+        """
+        Args:
+            parent: The parent :py:class:`~Factor` object.
+        """
+        self._parent = parent
+        self._position = 0
+
+    def __iter__(self) -> "FactorIterator":
+        """
+        Returns:
+            The iterator.
+        """
+        return self
+
+    def __next__(self) -> Union[str, None]:
+        """
+        Returns:
+            Level corresponding to the code at the current position, or None
+            for missing codes.
+        """
+        if self._position >= len(self._parent):
+            raise StopIteration
+        else:
+            val = self._parent.get_value(self._position)
+            self._position += 1
+            return val
+
+
 class Factor:
     """Factor class, equivalent to R's ``factor``.
 
@@ -219,6 +251,14 @@ class Factor:
             Length of the factor in terms of the number of codes.
         """
         return len(self._codes)
+
+    def __iter__(self) -> FactorIterator:
+        """
+        Returns:
+            An iterator over the factor. This will iterate over the codes and
+            report the corresponding level (or None).
+        """
+        return FactorIterator(self)
 
     def __repr__(self) -> str:
         """

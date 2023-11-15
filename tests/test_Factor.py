@@ -4,7 +4,7 @@ import copy
 import numpy
 
 
-def test_Factor_init():
+def test_factor_init():
     f = Factor([0, 1, 2, 0, 2, 4], levels=["A", "B", "C", "D", "E"])
     assert len(f) == 6
     assert list(f) == ["A", "B", "C", "A", "C", "E"]
@@ -38,6 +38,14 @@ def test_Factor_init():
     # Works with names.
     f = Factor([0, 1, 2, 0, 2, 4], levels=["A", "B", "C", "D", "E"], names=["1", "2", "3", "4", "5", "6"])
     assert f.get_names().as_list() == ["1", "2", "3", "4", "5", "6"]
+
+
+def test_factor_iter():
+    f = Factor([0, 1, 2, -1, 2, 4], levels=["A", "B", "C", "D", "E"])
+    output = []
+    for y in f:
+        output.append(y)
+    assert output == ["A", "B", "C", None, "C", "E"]
 
 
 def test_Factor_print():

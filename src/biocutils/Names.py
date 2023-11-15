@@ -66,6 +66,13 @@ class Names:
         """
         return len(self._names)
 
+    def __iter__(self) -> "list_iterator":
+        """
+        Returns:
+            An iterator on the underlying list of names.
+        """
+        return iter(self._names)
+
     def __repr__(self) -> str:
         """
         Returns:

@@ -1,6 +1,7 @@
-from typing import Any, Sequence, Union
-from functools import singledispatch
 from copy import deepcopy
+from functools import singledispatch
+from typing import Any, Sequence
+
 import numpy
 
 
@@ -15,7 +16,7 @@ def assign_rows(x: Any, indices: Sequence[int], replacement: Any) -> Any:
         x:
             Any high-dimensional object.
 
-        indices: 
+        indices:
             Sequence of non-negative integers specifying rows of ``x``.
 
         replacement:
@@ -28,15 +29,17 @@ def assign_rows(x: Any, indices: Sequence[int], replacement: Any) -> Any:
     """
     output = deepcopy(x)
     tmp = [slice(None)] * len(x.shape)
-    tmp[0] = indices 
+    tmp[0] = indices
     output[(*tmp,)] = replacement
     return output
 
 
 @assign_rows.register
-def _assign_rows_numpy(x: numpy.ndarray, indices: Sequence[int], replacement: Any) -> numpy.ndarray:
+def _assign_rows_numpy(
+    x: numpy.ndarray, indices: Sequence[int], replacement: Any
+) -> numpy.ndarray:
     tmp = [slice(None)] * len(x.shape)
-    tmp[0] = indices 
+    tmp[0] = indices
     output = numpy.copy(x)
     output[(*tmp,)] = replacement
     return output

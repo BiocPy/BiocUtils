@@ -1,12 +1,17 @@
 from functools import singledispatch
 from typing import Any
 from warnings import warn
+
 import numpy
 
-from ._utils_combine import _check_array_dimensions, _coerce_sparse_matrix, _coerce_sparse_array
+from ._utils_combine import (
+    _check_array_dimensions,
+    _coerce_sparse_array,
+    _coerce_sparse_matrix,
+)
+from .convert_to_dense import convert_to_dense
 from .is_list_of_type import is_list_of_type
 from .package_utils import is_package_installed
-from .convert_to_dense import convert_to_dense
 
 __author__ = "jkanche"
 __copyright__ = "jkanche"
@@ -28,14 +33,18 @@ def combine_columns(*x: Any):
     combined using :py:func:`~pandas.concat` along the second axis.
 
     Args:
-        x: 
+        x:
             n-dimensional objects to combine. All elements of x are expected
             to be the same class.
 
     Returns:
         Combined object, typically the same type as the first entry of ``x``
     """
-    raise NotImplementedError("no `combine_columns` method implemented for '" + type(x[0]).__name__ + "' objects")
+    raise NotImplementedError(
+        "no `combine_columns` method implemented for '"
+        + type(x[0]).__name__
+        + "' objects"
+    )
 
 
 @combine_columns.register

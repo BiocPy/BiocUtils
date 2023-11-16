@@ -1,12 +1,11 @@
-from typing import Sequence, Optional, Iterable, Union, Any, Callable, List
 from copy import deepcopy
+from typing import Any, Callable, Iterable, List, Optional, Sequence, Union
 
-from .normalize_subscript import normalize_subscript, NormalizedSubscript
-
-from .subset_sequence import subset_sequence
 from .assign_sequence import assign_sequence
 from .combine_sequences import combine_sequences
-
+from .normalize_subscript import NormalizedSubscript, normalize_subscript
+from .reverse_index import build_reverse_index
+from .subset_sequence import subset_sequence
 
 SubscriptTypes = Union[slice, range, Sequence, int, bool, NormalizedSubscript]
 
@@ -46,11 +45,7 @@ class Names:
     # again, Python is single-threaded anyway, so maybe it doesn't matter.
     def _populate_reverse_index(self):
         if self._reverse is None:
-            revmap = {}
-            for i, n in enumerate(self):
-                if n not in revmap:
-                    revmap[n] = i
-            self._reverse = revmap
+            self._reverse = build_reverse_index(self._names)
 
     def _wipe_reverse_index(self):
         self._reverse = None
@@ -79,7 +74,7 @@ class Names:
             A stringified representation of this object.
         """
         return type(self).__name__ + "(" + repr(self._names) + ")"
-    
+
     def __str__(self) -> str:
         """
         Returns:
@@ -136,7 +131,7 @@ class Names:
     def get_slice(self, index: SubscriptTypes) -> "Names":
         """
         Args:
-            index: 
+            index:
                 Positions of interest, see the allowed indices in
                 :py:func:`~biocutils.normalize_subscript.normalize_subscript`
                 for more details. Scalars are treated as length-1 sequences.
@@ -180,7 +175,9 @@ class Names:
         output._names[index] = str(value)
         return output
 
-    def set_slice(self, index: SubscriptTypes, value: Sequence[str], in_place: bool = False) -> "Names":
+    def set_slice(
+        self, index: SubscriptTypes, value: Sequence[str], in_place: bool = False
+    ) -> "Names":
         """
         Args:
             index: Positions of interest.
@@ -391,7 +388,9 @@ def _sanitize_names(names: Optional[Names], length: int) -> Union[None, Names]:
     if not isinstance(names, Names):
         names = Names(names)
     if len(names) != length:
-        raise ValueError("length of 'names' must be equal to number of entries (" + str(length) + ")")
+        raise ValueError(
+            "length of 'names' must be equal to number of entries (" + str(length) + ")"
+        )
     return names
 
 

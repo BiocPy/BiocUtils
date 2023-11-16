@@ -1,5 +1,6 @@
 from functools import singledispatch
 from typing import Any
+
 import numpy
 
 from .package_utils import is_package_installed

@@ -1,5 +1,5 @@
-from typing import Sequence, List, Any, Optional
 from functools import singledispatch
+from typing import Any, List, Sequence
 
 
 @singledispatch

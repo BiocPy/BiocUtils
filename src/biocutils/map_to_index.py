@@ -2,7 +2,6 @@ from typing import Literal, Sequence
 
 from .is_missing_scalar import is_missing_scalar
 
-
 DUPLICATE_METHOD = Literal["first", "last"]
 
 
@@ -12,7 +11,7 @@ def map_to_index(x: Sequence, duplicate_method: DUPLICATE_METHOD = "first") -> d
 
     Args:
         x:
-            Sequence of hashable values. We ignore missing values defined by 
+            Sequence of hashable values. We ignore missing values defined by
             :py:meth:`~biocutils.is_missing_scalar.is_missing_scalar`.
 
         duplicate_method:

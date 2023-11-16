@@ -1,21 +1,28 @@
-from typing import Optional, Sequence, Tuple, Union, Any
+from typing import Any, Optional, Sequence, Tuple, Union
+
 import numpy
 
 
 def _raise_int(idx: int, length):
-    raise IndexError("subscript (" + str(idx) + ") out of range for vector-like object of length " + str(length))
+    raise IndexError(
+        "subscript ("
+        + str(idx)
+        + ") out of range for vector-like object of length "
+        + str(length)
+    )
 
 
-def _is_scalar_bool(sub): 
+def _is_scalar_bool(sub):
     return isinstance(sub, bool) or isinstance(sub, numpy.bool_)
 
 
 class NormalizedSubscript:
     """
-    Subscript normalized by :py:func:`~normalize_subscript`. This 
+    Subscript normalized by :py:func:`~normalize_subscript`. This
     is used to indicate that no further normalization is required,
     such that :py:func:`~normalize_subscript` is just a no-op.
     """
+
     def __init__(self, subscript: Sequence[int]):
         """
         Args:
@@ -35,7 +42,7 @@ class NormalizedSubscript:
     def __getitem__(self, index: Any) -> Any:
         """
         Args:
-            index: 
+            index:
                 Any argument accepted by the ``__getitem__`` method of the
                 :py:attr:`~subscript`.
 
@@ -108,7 +115,7 @@ def normalize_subscript(
     if isinstance(sub, NormalizedSubscript):
         return sub.subscript, False
 
-    if _is_scalar_bool(sub): # before ints, as bools are ints.
+    if _is_scalar_bool(sub):  # before ints, as bools are ints.
         if sub:
             return [0], True
         else:
@@ -123,9 +130,14 @@ def normalize_subscript(
 
     if isinstance(sub, str):
         if names is None:
-            raise IndexError("failed to find subscript '" + sub + "' for vector-like object with no names")
+            raise IndexError(
+                "failed to find subscript '"
+                + sub
+                + "' for vector-like object with no names"
+            )
         i = -1
         from .Names import Names
+
         if isinstance(names, Names):
             i = names.map(sub)
         else:
@@ -134,7 +146,7 @@ def normalize_subscript(
                     i = j
                     break
         if i < 0:
-            raise IndexError("cannot find subscript '" + sub + "' in the names") 
+            raise IndexError("cannot find subscript '" + sub + "' in the names")
         return [i], True
 
     if isinstance(sub, slice):
@@ -184,6 +196,7 @@ def normalize_subscript(
     has_strings = set()
     string_positions = []
     from .Names import Names
+
     are_names_indexed = isinstance(names, Names)
 
     for i, x in enumerate(sub):
@@ -191,7 +204,7 @@ def normalize_subscript(
             if are_names_indexed:
                 i = names.map(x)
                 if i < 0:
-                    raise IndexError("cannot find subscript '" + x + "' in the names") 
+                    raise IndexError("cannot find subscript '" + x + "' in the names")
                 output.append(i)
             else:
                 has_strings.add(x)
@@ -211,7 +224,9 @@ def normalize_subscript(
 
     if len(has_strings):
         if names is None:
-            raise IndexError("cannot find string subscripts for vector-like object with no names")
+            raise IndexError(
+                "cannot find string subscripts for vector-like object with no names"
+            )
 
         mapping = {}
         for i, y in enumerate(names):

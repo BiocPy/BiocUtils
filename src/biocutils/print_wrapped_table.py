@@ -1,4 +1,5 @@
 from typing import List, Optional, Sequence
+
 import numpy
 
 from .subset_sequence import subset_sequence

@@ -1,25 +1,30 @@
 from copy import copy, deepcopy
-from typing import List, Sequence, Union, Optional
-from warnings import warn
+from typing import Optional, Sequence, Union
+
 import numpy
 
-from .StringList import StringList
-from .Names import Names, _name_to_position, _sanitize_names, _combine_names
-from .match import match
-from .factorize import factorize
-from .normalize_subscript import normalize_subscript, SubscriptTypes, NormalizedSubscript
-from .is_missing_scalar import is_missing_scalar
-from .print_truncated import print_truncated_list
-
-from .subset_sequence import subset_sequence
 from .assign_sequence import assign_sequence
 from .combine_sequences import combine_sequences
+from .factorize import factorize
 from .is_list_of_type import is_list_of_type
+from .is_missing_scalar import is_missing_scalar
+from .match import match
+from .Names import Names, _combine_names, _name_to_position, _sanitize_names
+from .normalize_subscript import (
+    NormalizedSubscript,
+    SubscriptTypes,
+    normalize_subscript,
+)
+from .print_truncated import print_truncated_list
+from .StringList import StringList
+from .subset_sequence import subset_sequence
 
 
 def _sanitize_codes(codes: Sequence[int], num_levels: int) -> numpy.ndarray:
     if not isinstance(codes, numpy.ndarray):
-        replacement = numpy.ndarray(len(codes), dtype=numpy.min_scalar_type(-num_levels)) # get a signed type.
+        replacement = numpy.ndarray(
+            len(codes), dtype=numpy.min_scalar_type(-num_levels)
+        )  # get a signed type.
         for i, x in enumerate(codes):
             if is_missing_scalar(x) or x < 0:
                 replacement[i] = -1
@@ -29,12 +34,16 @@ def _sanitize_codes(codes: Sequence[int], num_levels: int) -> numpy.ndarray:
     else:
         if len(codes.shape) != 1:
             raise ValueError("'codes' should be a 1-dimensional array")
-        if not numpy.issubdtype(codes.dtype, numpy.signedinteger): # force it to be signed.
+        if not numpy.issubdtype(
+            codes.dtype, numpy.signedinteger
+        ):  # force it to be signed.
             codes = codes.astype(numpy.min_scalar_type(-num_levels))
 
     for x in codes:
         if x < -1 or x >= num_levels:
-            raise ValueError("all entries of 'codes' should refer to an entry of 'levels'")
+            raise ValueError(
+                "all entries of 'codes' should refer to an entry of 'levels'"
+            )
 
     return codes
 
@@ -94,7 +103,14 @@ class Factor:
     easier numerical analysis.
     """
 
-    def __init__(self, codes: Sequence[int], levels: Sequence[str], ordered: bool = False, names: Optional[Names] = None, _validate: bool = True):
+    def __init__(
+        self,
+        codes: Sequence[int],
+        levels: Sequence[str],
+        ordered: bool = False,
+        names: Optional[Names] = None,
+        _validate: bool = True,
+    ):
         """Initialize a Factor object.
 
         Args:
@@ -162,12 +178,14 @@ class Factor:
                 Whether to modify this object in-place.
 
         Returns:
-            A modified ``Factor`` object with the new codes, either as a 
+            A modified ``Factor`` object with the new codes, either as a
             new object or as a reference to the current object.
         """
         output = self._define_output(in_place)
         if len(codes) != len(self):
-            raise ValueError("length of 'codes' should be equal to that of the current object")
+            raise ValueError(
+                "length of 'codes' should be equal to that of the current object"
+            )
         output._codes = _sanitize_codes(codes, len(self._levels))
         return output
 
@@ -238,7 +256,7 @@ class Factor:
             as a reference to the current object.
         """
         output = self._define_output(in_place)
-        output._names = _sanitize_names(names, len(self)) 
+        output._names = _sanitize_names(names, len(self))
         return output
 
     #################################
@@ -265,7 +283,12 @@ class Factor:
         Returns:
             A stringified representation of this object.
         """
-        tmp = "Factor(codes=" + print_truncated_list(self._codes) + ", levels=" + print_truncated_list(self._levels)
+        tmp = (
+            "Factor(codes="
+            + print_truncated_list(self._codes)
+            + ", levels="
+            + print_truncated_list(self._levels)
+        )
         if self._ordered:
             tmp += ", ordered=True"
         if self._names:
@@ -278,14 +301,38 @@ class Factor:
         Returns:
             A pretty-printed representation of this object.
         """
-        message = "Factor of length " + str(len(self._codes)) + " with " + str(len(self._levels)) + " level"
+        message = (
+            "Factor of length "
+            + str(len(self._codes))
+            + " with "
+            + str(len(self._levels))
+            + " level"
+        )
         if len(self._levels) != 0:
             message += "s"
         message += "\n"
-        message += "values: " + print_truncated_list(self._codes, transform=lambda i: self._levels[i], include_brackets=False) + "\n"
+        message += (
+            "values: "
+            + print_truncated_list(
+                self._codes, transform=lambda i: self._levels[i], include_brackets=False
+            )
+            + "\n"
+        )
         if self._names is not None:
-            message += "names: " + print_truncated_list(self._names, transform=lambda x: x, include_brackets=False) + "\n"
-        message += "levels: " + print_truncated_list(self._levels, transform=lambda x: x, include_brackets=False) + "\n"
+            message += (
+                "names: "
+                + print_truncated_list(
+                    self._names, transform=lambda x: x, include_brackets=False
+                )
+                + "\n"
+            )
+        message += (
+            "levels: "
+            + print_truncated_list(
+                self._levels, transform=lambda x: x, include_brackets=False
+            )
+            + "\n"
+        )
         message += "ordered: " + str(self._ordered)
         return message
 
@@ -299,7 +346,7 @@ class Factor:
             index:
                 Integer index of the element to obtain. Alternatively, a string
                 containing the name of the element, using the first occurrence
-                if duplicate names are present. 
+                if duplicate names are present.
 
         Returns:
             The factor level for the code at the specified position, or None if
@@ -344,13 +391,15 @@ class Factor:
         else:
             return self.get_slice(NormalizedSubscript(index))
 
-    def set_value(self, index: Union[str, int], value: Union[str, None], in_place: bool = False) -> "Factor":
+    def set_value(
+        self, index: Union[str, int], value: Union[str, None], in_place: bool = False
+    ) -> "Factor":
         """
         Args:
             index:
                 Integer index of the element to replace. Alternatively, a string
                 containing the name of the element, using the first occurrence
-                if duplicate names are present. 
+                if duplicate names are present.
 
             value:
                 Replacement value. This should be a string corresponding to a
@@ -393,14 +442,14 @@ class Factor:
         level. If there is no matching level, a missing value is inserted.
 
         Args:
-            index: 
+            index:
                 Subset of elements to replace, see
                 :py:func:`~biocutils.normalize_subscript.normalize_subscript`
                 for details. Strings are matched to names in the current
                 object, using the first occurrence if duplicate names are
                 present. Scalars are treated as length-1 sequences.
 
-            value: 
+            value:
                 A ``Factor`` of the same length containing the replacement values.
 
             in_place:
@@ -489,7 +538,9 @@ class Factor:
         output._levels = new_levels
         return output
 
-    def set_levels(self, levels: Union[str, Sequence[str]], in_place: bool = False) -> "Factor":
+    def set_levels(
+        self, levels: Union[str, Sequence[str]], in_place: bool = False
+    ) -> "Factor":
         """Set or replace levels.
 
         Args:
@@ -570,10 +621,10 @@ class Factor:
             A shallow copy of the ``Factor`` object.
         """
         return type(self)(
-            self._codes, 
-            levels=self._levels, 
-            ordered=self._ordered, 
-            names=self._names, 
+            self._codes,
+            levels=self._levels,
+            ordered=self._ordered,
+            names=self._names,
             _validate=False,
         )
 
@@ -601,17 +652,23 @@ class Factor:
             Categorical: A :py:class:`~pandas.Categorical` object.
         """
         from pandas import Categorical
+
         return Categorical(
             values=[self._levels[c] for c in self._codes],
             ordered=self._ordered,
         )
 
     @staticmethod
-    def from_sequence(x: Sequence[str], levels: Optional[Sequence[str]] = None, sort_levels: bool = True, ordered: bool = False) -> "Factor":
+    def from_sequence(
+        x: Sequence[str],
+        levels: Optional[Sequence[str]] = None,
+        sort_levels: bool = True,
+        ordered: bool = False,
+    ) -> "Factor":
         """Convert a sequence of hashable values into a factor.
 
         Args:
-            x: 
+            x:
                 A sequence of strings. Any value may be None to indicate
                 missingness.
 
@@ -677,7 +734,9 @@ def _combine_factors(*x: Factor):
                     new_levels.append(y)
                 mapping.append(all_levels_map[y])
 
-            curout = numpy.ndarray(len(f), dtype=numpy.min_scalar_type(-len(new_levels)))
+            curout = numpy.ndarray(
+                len(f), dtype=numpy.min_scalar_type(-len(new_levels))
+            )
             for i, j in enumerate(f._codes):
                 if j < 0:
                     curout[i] = j
@@ -687,9 +746,9 @@ def _combine_factors(*x: Factor):
         new_ordered = False
 
     return type(x[0])(
-        codes=combine_sequences(*new_codes), 
-        levels=new_levels, 
-        ordered=new_ordered, 
-        names=_combine_names(*x, get_names=lambda x : x.get_names()),
+        codes=combine_sequences(*new_codes),
+        levels=new_levels,
+        ordered=new_ordered,
+        names=_combine_names(*x, get_names=lambda x: x.get_names()),
         _validate=False,
     )

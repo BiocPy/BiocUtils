@@ -1,15 +1,18 @@
 from typing import Optional, Sequence, Tuple
+
 import numpy
 
-from .match import match
 from .is_missing_scalar import is_missing_scalar
+from .match import match
 
 
-def factorize(x: Sequence, levels: Optional[Sequence] = None, sort_levels: bool = False) -> Tuple[list, numpy.ndarray]:
+def factorize(
+    x: Sequence, levels: Optional[Sequence] = None, sort_levels: bool = False
+) -> Tuple[list, numpy.ndarray]:
     """Convert a sequence of hashable values into a factor.
 
     Args:
-        x: 
+        x:
             A sequence of hashable values.
             Any value may be None to indicate missingness.
 
@@ -32,10 +35,12 @@ def factorize(x: Sequence, levels: Optional[Sequence] = None, sort_levels: bool 
     if levels is None:
         present = set()
         levels = []
+
         for val in x:
             if not is_missing_scalar(val) and val not in present:
                 levels.append(val)
                 present.add(val)
+
         if sort_levels:
             levels.sort()
 

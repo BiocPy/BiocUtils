@@ -1,7 +1,7 @@
 from functools import singledispatch
 from itertools import chain
 from typing import Any
-from warnings import warn
+
 import numpy
 
 from .is_list_of_type import is_list_of_type
@@ -26,7 +26,7 @@ def combine_sequences(*x: Any):
     and combined.
 
     Args:
-        x: 
+        x:
             Vector-like objects to combine.
             All elements of ``x`` are expected to be the same class or
             atleast compatible with each other.
@@ -34,7 +34,11 @@ def combine_sequences(*x: Any):
     Returns:
         A combined object, ideally of the same type as the first element in ``x``.
     """
-    raise NotImplementedError("no `combine_sequences` method implemented for '" + type(x[0]).__name__ + "' objects")
+    raise NotImplementedError(
+        "no `combine_sequences` method implemented for '"
+        + type(x[0]).__name__
+        + "' objects"
+    )
 
 
 @combine_sequences.register(list)

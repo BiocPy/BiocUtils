@@ -28,7 +28,9 @@ def combine(*x: Any):
             has_1d = True
 
     if has_nd and has_1d:
-        raise ValueError("cannot mix 1-dimensional and higher-dimensional objects in `combine`")
+        raise ValueError(
+            "cannot mix 1-dimensional and higher-dimensional objects in `combine`"
+        )
     if has_nd:
         return combine_rows(*x)
     else:

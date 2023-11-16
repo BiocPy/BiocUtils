@@ -1,6 +1,7 @@
-from typing import Any, Sequence, Union
-from functools import singledispatch
 from copy import deepcopy
+from functools import singledispatch
+from typing import Any, Sequence, Union
+
 import numpy
 
 
@@ -12,10 +13,10 @@ def assign_sequence(x: Any, indices: Sequence[int], replacement: Any) -> Any:
     ``indices`` to assign the values of ``replacement``.
 
     Args:
-        x: 
+        x:
             Any sequence-like object that can be assigned.
 
-        indices: 
+        indices:
             Sequence of non-negative integers specifying positions on ``x``.
 
         replacement:
@@ -40,15 +41,23 @@ def _assign_sequence_list(x: list, indices: Sequence[int], replacement: Any) -> 
 
 
 @assign_sequence.register
-def _assign_sequence_numpy(x: numpy.ndarray, indices: Sequence[int], replacement: Any) -> numpy.ndarray:
+def _assign_sequence_numpy(
+    x: numpy.ndarray, indices: Sequence[int], replacement: Any
+) -> numpy.ndarray:
     output = numpy.copy(x)
     output[indices] = replacement
     return output
 
 
 @assign_sequence.register
-def _assign_sequence_range(x: range, indices: Sequence[int], replacement: Any) -> Union[range, list]:
-    if isinstance(replacement, range) and isinstance(indices, range) and x[slice(indices.start, indices.stop, indices.step)] == replacement:
+def _assign_sequence_range(
+    x: range, indices: Sequence[int], replacement: Any
+) -> Union[range, list]:
+    if (
+        isinstance(replacement, range)
+        and isinstance(indices, range)
+        and x[slice(indices.start, indices.stop, indices.step)] == replacement
+    ):
         return x
 
     output = list(x)

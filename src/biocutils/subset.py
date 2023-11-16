@@ -1,8 +1,8 @@
 from typing import Any, Sequence
 
+from .is_high_dimensional import is_high_dimensional
 from .subset_rows import subset_rows
 from .subset_sequence import subset_sequence
-from .is_high_dimensional import is_high_dimensional
 
 
 def subset(x: Any, indices: Sequence[int]):

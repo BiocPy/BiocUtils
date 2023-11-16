@@ -1,12 +1,12 @@
-from typing import Any, Sequence, Union
 from functools import singledispatch
+from typing import Any, Sequence
 
 
 @singledispatch
 def subset_rows(x: Any, indices: Sequence[int]) -> Any:
     """
     Subset ``x`` by ``indices`` on the first dimension. The default
-    method attempts to use ``x``'s ``__getitem__`` method, 
+    method attempts to use ``x``'s ``__getitem__`` method,
 
     Args:
         x:
@@ -20,5 +20,5 @@ def subset_rows(x: Any, indices: Sequence[int]) -> Any:
         depends on what ``x``'s ``__getitem__`` method returns.
     """
     tmp = [slice(None)] * len(x.shape)
-    tmp[0] = indices 
+    tmp[0] = indices
     return x[(*tmp,)]

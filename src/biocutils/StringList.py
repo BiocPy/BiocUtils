@@ -1,8 +1,7 @@
-from typing import Any, Union, Optional, Sequence, Iterable
-from collections.abc import Iterable
+from typing import Any, Iterable, Optional, Sequence, Union
 
-from .Names import Names
 from .NamedList import NamedList
+from .Names import Names
 from .normalize_subscript import SubscriptTypes
 
 
@@ -13,6 +12,7 @@ def _coerce_to_str(x: Any) -> bool:
 class _SubscriptCoercer:
     def __init__(self, data):
         self._data = data
+
     def __getitem__(self, index):
         return _coerce_to_str(self._data[index])
 
@@ -25,12 +25,17 @@ class StringList(NamedList):
     :py:class:`~NamedList`), which provides some dictionary-like functionality.
     """
 
-    def __init__(self, data: Optional[Iterable] = None, names: Optional[Names] = None, _validate: bool = True):
+    def __init__(
+        self,
+        data: Optional[Iterable] = None,
+        names: Optional[Names] = None,
+        _validate: bool = True,
+    ):
         """
         Args:
-           data: 
+           data:
                 Some iterable object where all values can be coerced to strings
-                or are None. 
+                or are None.
 
                 Alternatively this may itself be None, which defaults to an empty list.
 
@@ -51,17 +56,23 @@ class StringList(NamedList):
                     data = list(_coerce_to_str(item) for item in original)
         super().__init__(data, names, _validate=_validate)
 
-    def set_value(self, index: Union[int, str], value: Any, in_place: bool = False) -> "StringList":
+    def set_value(
+        self, index: Union[int, str], value: Any, in_place: bool = False
+    ) -> "StringList":
         """Calls :py:meth:`~biocutils.NamedList.NamedList.set_value` after coercing ``value`` to a string."""
-        return super().set_value(index, _coerce_to_str(value), in_place=in_place) 
+        return super().set_value(index, _coerce_to_str(value), in_place=in_place)
 
-    def set_slice(self, index: SubscriptTypes, value: Sequence, in_place: bool = False) -> "StringList":
+    def set_slice(
+        self, index: SubscriptTypes, value: Sequence, in_place: bool = False
+    ) -> "StringList":
         """Calls :py:meth:`~biocutils.NamedList.NamedList.set_slice` after coercing ``value`` to strings."""
-        return super().set_slice(index, _SubscriptCoercer(value), in_place=in_place) 
+        return super().set_slice(index, _SubscriptCoercer(value), in_place=in_place)
 
-    def safe_insert(self, index: Union[int, str], value: Any, in_place: bool = False) -> "StringList":
+    def safe_insert(
+        self, index: Union[int, str], value: Any, in_place: bool = False
+    ) -> "StringList":
         """Calls :py:meth:`~biocutils.NamedList.NamedList.safe_insert` after coercing ``value`` to a string."""
-        return super().safe_insert(index, _coerce_to_str(value), in_place=in_place) 
+        return super().safe_insert(index, _coerce_to_str(value), in_place=in_place)
 
     def safe_append(self, value: Any, in_place: bool = False) -> "StringList":
         """Calls :py:meth:`~biocutils.NamedList.NamedList.safe_append` after coercing ``value`` to a string."""
@@ -69,4 +80,6 @@ class StringList(NamedList):
 
     def safe_extend(self, other: Iterable, in_place: bool = True) -> "StringList":
         """Calls :py:meth:`~biocutils.NamedList.NamedList.safe_extend` after coercing elements of ``other`` to strings."""
-        return super().safe_extend((_coerce_to_str(y) for y in other), in_place=in_place)
+        return super().safe_extend(
+            (_coerce_to_str(y) for y in other), in_place=in_place
+        )

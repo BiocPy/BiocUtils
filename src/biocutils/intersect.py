@@ -1,7 +1,7 @@
 from typing import Sequence
 
-from .map_to_index import DUPLICATE_METHOD
 from .is_missing_scalar import is_missing_scalar
+from .map_to_index import DUPLICATE_METHOD
 
 
 def intersect(*x: Sequence, duplicate_method: DUPLICATE_METHOD = "first") -> list:

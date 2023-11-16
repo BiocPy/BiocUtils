@@ -1,11 +1,11 @@
-from typing import Sequence, Optional, Iterable, Union, Any, Dict
 from copy import deepcopy
+from typing import Any, Dict, Iterable, Optional, Sequence, Union
 
-from .Names import Names, _name_to_position, _sanitize_names
-from .normalize_subscript import normalize_subscript, SubscriptTypes, NormalizedSubscript
-from .subset_sequence import subset_sequence
-from .combine_sequences import combine_sequences
 from .assign_sequence import assign_sequence
+from .combine_sequences import combine_sequences
+from .Names import Names, _name_to_position, _sanitize_names
+from .normalize_subscript import NormalizedSubscript, SubscriptTypes, normalize_subscript
+from .subset_sequence import subset_sequence
 
 
 class NamedList:

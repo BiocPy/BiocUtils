@@ -1,651 +1,1010 @@
-<!DOCTYPE html>
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="./">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="#" /><link rel="search" title="Search" href="search.html" />
 
-<html lang="en" data-content_root="./">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Index &#8212; biocutils 0.1.1 documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=233b9934" />
-    <script src="_static/documentation_options.js?v=a58bc63e"></script>
-    <script src="_static/doctools.js?v=888ff710"></script>
-    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-    <link rel="index" title="Index" href="#" />
-    <link rel="search" title="Search" href="search.html" />
-   
-  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+    <!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 --><title>Index - biocutils 0.1.2 documentation</title>
+<link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=36a5483c" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #eeffcc;
+  --color-code-foreground: black;
   
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
-
-  </head><body>
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
   
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
 
-          <div class="body" role="main">
-            
-
-<h1 id="index">Index</h1>
-
-<div class="genindex-jumpbox">
- <a href="#_"><strong>_</strong></a>
- | <a href="#A"><strong>A</strong></a>
- | <a href="#B"><strong>B</strong></a>
- | <a href="#C"><strong>C</strong></a>
- | <a href="#D"><strong>D</strong></a>
- | <a href="#E"><strong>E</strong></a>
- | <a href="#F"><strong>F</strong></a>
- | <a href="#G"><strong>G</strong></a>
- | <a href="#I"><strong>I</strong></a>
- | <a href="#L"><strong>L</strong></a>
- | <a href="#M"><strong>M</strong></a>
- | <a href="#N"><strong>N</strong></a>
- | <a href="#O"><strong>O</strong></a>
- | <a href="#P"><strong>P</strong></a>
- | <a href="#R"><strong>R</strong></a>
- | <a href="#S"><strong>S</strong></a>
- | <a href="#T"><strong>T</strong></a>
- | <a href="#U"><strong>U</strong></a>
- 
-</div>
-<h2 id="_">_</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/biocutils.html#biocutils.StringList.StringList.__add__">__add__() (biocutils.StringList.StringList method)</a>
-</li>
-      <li><a href="api/biocutils.html#biocutils.Factor.Factor.__copy__">__copy__() (biocutils.Factor.Factor method)</a>
-</li>
-      <li><a href="api/biocutils.html#biocutils.Factor.Factor.__deepcopy__">__deepcopy__() (biocutils.Factor.Factor method)</a>
-</li>
-      <li><a href="api/biocutils.html#biocutils.Factor.Factor.__getitem__">__getitem__() (biocutils.Factor.Factor method)</a>
-
-      <ul>
-        <li><a href="api/biocutils.html#biocutils.StringList.StringList.__getitem__">(biocutils.StringList.StringList method)</a>
-</li>
-      </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/biocutils.html#biocutils.StringList.StringList.__iadd__">__iadd__() (biocutils.StringList.StringList method)</a>
-</li>
-      <li><a href="api/biocutils.html#biocutils.Factor.Factor.__len__">__len__() (biocutils.Factor.Factor method)</a>
-</li>
-      <li><a href="api/biocutils.html#biocutils.Factor.Factor.__repr__">__repr__() (biocutils.Factor.Factor method)</a>
-</li>
-      <li><a href="api/biocutils.html#biocutils.Factor.Factor.__setitem__">__setitem__() (biocutils.Factor.Factor method)</a>
-
-      <ul>
-        <li><a href="api/biocutils.html#biocutils.StringList.StringList.__setitem__">(biocutils.StringList.StringList method)</a>
-</li>
-      </ul></li>
-  </ul></td>
-</tr></table>
-
-<h2 id="A">A</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/biocutils.html#biocutils.StringList.StringList.append">append() (biocutils.StringList.StringList method)</a>
-</li>
-      <li><a href="api/biocutils.html#biocutils.assign.assign">assign() (in module biocutils.assign)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/biocutils.html#biocutils.assign_rows.assign_rows">assign_rows() (in module biocutils.assign_rows)</a>
-</li>
-      <li><a href="api/biocutils.html#biocutils.assign_sequence.assign_sequence">assign_sequence() (in module biocutils.assign_sequence)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="B">B</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li>
-    biocutils
-
-      <ul>
-        <li><a href="api/biocutils.html#module-biocutils">module</a>
-</li>
-      </ul></li>
-      <li>
-    biocutils.assign
-
-      <ul>
-        <li><a href="api/biocutils.html#module-biocutils.assign">module</a>
-</li>
-      </ul></li>
-      <li>
-    biocutils.assign_rows
-
-      <ul>
-        <li><a href="api/biocutils.html#module-biocutils.assign_rows">module</a>
-</li>
-      </ul></li>
-      <li>
-    biocutils.assign_sequence
-
-      <ul>
-        <li><a href="api/biocutils.html#module-biocutils.assign_sequence">module</a>
-</li>
-      </ul></li>
-      <li>
-    biocutils.combine
-
-      <ul>
-        <li><a href="api/biocutils.html#module-biocutils.combine">module</a>
-</li>
-      </ul></li>
-      <li>
-    biocutils.combine_columns
-
-      <ul>
-        <li><a href="api/biocutils.html#module-biocutils.combine_columns">module</a>
-</li>
-      </ul></li>
-      <li>
-    biocutils.combine_rows
-
-      <ul>
-        <li><a href="api/biocutils.html#module-biocutils.combine_rows">module</a>
-</li>
-      </ul></li>
-      <li>
-    biocutils.combine_sequences
-
-      <ul>
-        <li><a href="api/biocutils.html#module-biocutils.combine_sequences">module</a>
-</li>
-      </ul></li>
-      <li>
-    biocutils.convert_to_dense
-
-      <ul>
-        <li><a href="api/biocutils.html#module-biocutils.convert_to_dense">module</a>
-</li>
-      </ul></li>
-      <li>
-    biocutils.extract_column_names
-
-      <ul>
-        <li><a href="api/biocutils.html#module-biocutils.extract_column_names">module</a>
-</li>
-      </ul></li>
-      <li>
-    biocutils.extract_row_names
-
-      <ul>
-        <li><a href="api/biocutils.html#module-biocutils.extract_row_names">module</a>
-</li>
-      </ul></li>
-      <li>
-    biocutils.Factor
-
-      <ul>
-        <li><a href="api/biocutils.html#module-biocutils.Factor">module</a>
-</li>
-      </ul></li>
-      <li>
-    biocutils.factorize
-
-      <ul>
-        <li><a href="api/biocutils.html#module-biocutils.factorize">module</a>
-</li>
-      </ul></li>
-      <li>
-    biocutils.get_height
-
-      <ul>
-        <li><a href="api/biocutils.html#module-biocutils.get_height">module</a>
-</li>
-      </ul></li>
-      <li>
-    biocutils.intersect
-
-      <ul>
-        <li><a href="api/biocutils.html#module-biocutils.intersect">module</a>
-</li>
-      </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li>
-    biocutils.is_high_dimensional
-
-      <ul>
-        <li><a href="api/biocutils.html#module-biocutils.is_high_dimensional">module</a>
-</li>
-      </ul></li>
-      <li>
-    biocutils.is_list_of_type
-
-      <ul>
-        <li><a href="api/biocutils.html#module-biocutils.is_list_of_type">module</a>
-</li>
-      </ul></li>
-      <li>
-    biocutils.is_missing_scalar
-
-      <ul>
-        <li><a href="api/biocutils.html#module-biocutils.is_missing_scalar">module</a>
-</li>
-      </ul></li>
-      <li>
-    biocutils.map_to_index
-
-      <ul>
-        <li><a href="api/biocutils.html#module-biocutils.map_to_index">module</a>
-</li>
-      </ul></li>
-      <li>
-    biocutils.match
-
-      <ul>
-        <li><a href="api/biocutils.html#module-biocutils.match">module</a>
-</li>
-      </ul></li>
-      <li>
-    biocutils.normalize_subscript
-
-      <ul>
-        <li><a href="api/biocutils.html#module-biocutils.normalize_subscript">module</a>
-</li>
-      </ul></li>
-      <li>
-    biocutils.package_utils
-
-      <ul>
-        <li><a href="api/biocutils.html#module-biocutils.package_utils">module</a>
-</li>
-      </ul></li>
-      <li>
-    biocutils.print_truncated
-
-      <ul>
-        <li><a href="api/biocutils.html#module-biocutils.print_truncated">module</a>
-</li>
-      </ul></li>
-      <li>
-    biocutils.print_wrapped_table
-
-      <ul>
-        <li><a href="api/biocutils.html#module-biocutils.print_wrapped_table">module</a>
-</li>
-      </ul></li>
-      <li>
-    biocutils.show_as_cell
-
-      <ul>
-        <li><a href="api/biocutils.html#module-biocutils.show_as_cell">module</a>
-</li>
-      </ul></li>
-      <li>
-    biocutils.StringList
-
-      <ul>
-        <li><a href="api/biocutils.html#module-biocutils.StringList">module</a>
-</li>
-      </ul></li>
-      <li>
-    biocutils.subset
-
-      <ul>
-        <li><a href="api/biocutils.html#module-biocutils.subset">module</a>
-</li>
-      </ul></li>
-      <li>
-    biocutils.subset_rows
-
-      <ul>
-        <li><a href="api/biocutils.html#module-biocutils.subset_rows">module</a>
-</li>
-      </ul></li>
-      <li>
-    biocutils.subset_sequence
-
-      <ul>
-        <li><a href="api/biocutils.html#module-biocutils.subset_sequence">module</a>
-</li>
-      </ul></li>
-      <li>
-    biocutils.union
-
-      <ul>
-        <li><a href="api/biocutils.html#module-biocutils.union">module</a>
-</li>
-      </ul></li>
-  </ul></td>
-</tr></table>
-
-<h2 id="C">C</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/biocutils.html#biocutils.Factor.Factor.codes">codes (biocutils.Factor.Factor property)</a>
-</li>
-      <li><a href="api/biocutils.html#biocutils.combine.combine">combine() (in module biocutils.combine)</a>
-</li>
-      <li><a href="api/biocutils.html#biocutils.combine_columns.combine_columns">combine_columns() (in module biocutils.combine_columns)</a>
-</li>
-      <li><a href="api/biocutils.html#biocutils.combine_rows.combine_rows">combine_rows() (in module biocutils.combine_rows)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/biocutils.html#biocutils.combine_sequences.combine_sequences">combine_sequences() (in module biocutils.combine_sequences)</a>
-</li>
-      <li><a href="api/biocutils.html#biocutils.convert_to_dense.convert_to_dense">convert_to_dense() (in module biocutils.convert_to_dense)</a>
-</li>
-      <li><a href="api/biocutils.html#biocutils.StringList.StringList.copy">copy() (biocutils.StringList.StringList method)</a>
-</li>
-      <li><a href="api/biocutils.html#biocutils.print_wrapped_table.create_floating_names">create_floating_names() (in module biocutils.print_wrapped_table)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="D">D</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/biocutils.html#biocutils.Factor.Factor.drop_unused_levels">drop_unused_levels() (biocutils.Factor.Factor method)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="E">E</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/biocutils.html#biocutils.StringList.StringList.extend">extend() (biocutils.StringList.StringList method)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/biocutils.html#biocutils.extract_column_names.extract_column_names">extract_column_names() (in module biocutils.extract_column_names)</a>
-</li>
-      <li><a href="api/biocutils.html#biocutils.extract_row_names.extract_row_names">extract_row_names() (in module biocutils.extract_row_names)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="F">F</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/biocutils.html#biocutils.Factor.Factor">Factor (class in biocutils.Factor)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/biocutils.html#biocutils.factorize.factorize">factorize() (in module biocutils.factorize)</a>
-</li>
-      <li><a href="api/biocutils.html#biocutils.Factor.Factor.from_sequence">from_sequence() (biocutils.Factor.Factor static method)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="G">G</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/biocutils.html#biocutils.Factor.Factor.get_codes">get_codes() (biocutils.Factor.Factor method)</a>
-</li>
-      <li><a href="api/biocutils.html#biocutils.get_height.get_height">get_height() (in module biocutils.get_height)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/biocutils.html#biocutils.Factor.Factor.get_levels">get_levels() (biocutils.Factor.Factor method)</a>
-</li>
-      <li><a href="api/biocutils.html#biocutils.Factor.Factor.get_ordered">get_ordered() (biocutils.Factor.Factor method)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="I">I</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/biocutils.html#biocutils.StringList.StringList.insert">insert() (biocutils.StringList.StringList method)</a>
-</li>
-      <li><a href="api/biocutils.html#biocutils.intersect.intersect">intersect() (in module biocutils.intersect)</a>
-</li>
-      <li><a href="api/biocutils.html#biocutils.is_high_dimensional.is_high_dimensional">is_high_dimensional() (in module biocutils.is_high_dimensional)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/biocutils.html#biocutils.is_list_of_type.is_list_of_type">is_list_of_type() (in module biocutils.is_list_of_type)</a>
-</li>
-      <li><a href="api/biocutils.html#biocutils.is_missing_scalar.is_missing_scalar">is_missing_scalar() (in module biocutils.is_missing_scalar)</a>
-</li>
-      <li><a href="api/biocutils.html#biocutils.package_utils.is_package_installed">is_package_installed() (in module biocutils.package_utils)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="L">L</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/biocutils.html#biocutils.Factor.Factor.levels">levels (biocutils.Factor.Factor property)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="M">M</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/biocutils.html#biocutils.map_to_index.map_to_index">map_to_index() (in module biocutils.map_to_index)</a>
-</li>
-      <li><a href="api/biocutils.html#biocutils.match.match">match() (in module biocutils.match)</a>
-</li>
-      <li>
-    module
-
-      <ul>
-        <li><a href="api/biocutils.html#module-biocutils">biocutils</a>
-</li>
-        <li><a href="api/biocutils.html#module-biocutils.assign">biocutils.assign</a>
-</li>
-        <li><a href="api/biocutils.html#module-biocutils.assign_rows">biocutils.assign_rows</a>
-</li>
-        <li><a href="api/biocutils.html#module-biocutils.assign_sequence">biocutils.assign_sequence</a>
-</li>
-        <li><a href="api/biocutils.html#module-biocutils.combine">biocutils.combine</a>
-</li>
-        <li><a href="api/biocutils.html#module-biocutils.combine_columns">biocutils.combine_columns</a>
-</li>
-        <li><a href="api/biocutils.html#module-biocutils.combine_rows">biocutils.combine_rows</a>
-</li>
-        <li><a href="api/biocutils.html#module-biocutils.combine_sequences">biocutils.combine_sequences</a>
-</li>
-        <li><a href="api/biocutils.html#module-biocutils.convert_to_dense">biocutils.convert_to_dense</a>
-</li>
-        <li><a href="api/biocutils.html#module-biocutils.extract_column_names">biocutils.extract_column_names</a>
-</li>
-        <li><a href="api/biocutils.html#module-biocutils.extract_row_names">biocutils.extract_row_names</a>
-</li>
-        <li><a href="api/biocutils.html#module-biocutils.Factor">biocutils.Factor</a>
-</li>
-        <li><a href="api/biocutils.html#module-biocutils.factorize">biocutils.factorize</a>
-</li>
-        <li><a href="api/biocutils.html#module-biocutils.get_height">biocutils.get_height</a>
-</li>
-        <li><a href="api/biocutils.html#module-biocutils.intersect">biocutils.intersect</a>
-</li>
-        <li><a href="api/biocutils.html#module-biocutils.is_high_dimensional">biocutils.is_high_dimensional</a>
-</li>
-        <li><a href="api/biocutils.html#module-biocutils.is_list_of_type">biocutils.is_list_of_type</a>
-</li>
-        <li><a href="api/biocutils.html#module-biocutils.is_missing_scalar">biocutils.is_missing_scalar</a>
-</li>
-        <li><a href="api/biocutils.html#module-biocutils.map_to_index">biocutils.map_to_index</a>
-</li>
-        <li><a href="api/biocutils.html#module-biocutils.match">biocutils.match</a>
-</li>
-        <li><a href="api/biocutils.html#module-biocutils.normalize_subscript">biocutils.normalize_subscript</a>
-</li>
-        <li><a href="api/biocutils.html#module-biocutils.package_utils">biocutils.package_utils</a>
-</li>
-        <li><a href="api/biocutils.html#module-biocutils.print_truncated">biocutils.print_truncated</a>
-</li>
-        <li><a href="api/biocutils.html#module-biocutils.print_wrapped_table">biocutils.print_wrapped_table</a>
-</li>
-        <li><a href="api/biocutils.html#module-biocutils.show_as_cell">biocutils.show_as_cell</a>
-</li>
-        <li><a href="api/biocutils.html#module-biocutils.StringList">biocutils.StringList</a>
-</li>
-        <li><a href="api/biocutils.html#module-biocutils.subset">biocutils.subset</a>
-</li>
-        <li><a href="api/biocutils.html#module-biocutils.subset_rows">biocutils.subset_rows</a>
-</li>
-        <li><a href="api/biocutils.html#module-biocutils.subset_sequence">biocutils.subset_sequence</a>
-</li>
-        <li><a href="api/biocutils.html#module-biocutils.union">biocutils.union</a>
-</li>
-      </ul></li>
-  </ul></td>
-</tr></table>
-
-<h2 id="N">N</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/biocutils.html#biocutils.normalize_subscript.normalize_subscript">normalize_subscript() (in module biocutils.normalize_subscript)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="O">O</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/biocutils.html#biocutils.Factor.Factor.ordered">ordered (biocutils.Factor.Factor property)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="P">P</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/biocutils.html#biocutils.print_truncated.print_truncated">print_truncated() (in module biocutils.print_truncated)</a>
-</li>
-      <li><a href="api/biocutils.html#biocutils.print_truncated.print_truncated_dict">print_truncated_dict() (in module biocutils.print_truncated)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/biocutils.html#biocutils.print_truncated.print_truncated_list">print_truncated_list() (in module biocutils.print_truncated)</a>
-</li>
-      <li><a href="api/biocutils.html#biocutils.print_wrapped_table.print_type">print_type() (in module biocutils.print_wrapped_table)</a>
-</li>
-      <li><a href="api/biocutils.html#biocutils.print_wrapped_table.print_wrapped_table">print_wrapped_table() (in module biocutils.print_wrapped_table)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="R">R</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/biocutils.html#biocutils.Factor.Factor.replace">replace() (biocutils.Factor.Factor method)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="S">S</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/biocutils.html#biocutils.Factor.Factor.set_levels">set_levels() (biocutils.Factor.Factor method)</a>
-</li>
-      <li><a href="api/biocutils.html#biocutils.show_as_cell.show_as_cell">show_as_cell() (in module biocutils.show_as_cell)</a>
-</li>
-      <li><a href="api/biocutils.html#biocutils.StringList.StringList">StringList (class in biocutils.StringList)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/biocutils.html#biocutils.subset.subset">subset() (in module biocutils.subset)</a>
-</li>
-      <li><a href="api/biocutils.html#biocutils.subset_rows.subset_rows">subset_rows() (in module biocutils.subset_rows)</a>
-</li>
-      <li><a href="api/biocutils.html#biocutils.subset_sequence.subset_sequence">subset_sequence() (in module biocutils.subset_sequence)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="T">T</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/biocutils.html#biocutils.Factor.Factor.to_pandas">to_pandas() (biocutils.Factor.Factor method)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/biocutils.html#biocutils.print_wrapped_table.truncate_strings">truncate_strings() (in module biocutils.print_wrapped_table)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="U">U</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/biocutils.html#biocutils.union.union">union() (in module biocutils.union)</a>
-</li>
-  </ul></td>
-</tr></table>
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
 
 
 
-          </div>
-          
-        </div>
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="index.html"><div class="brand">biocutils 0.1.2 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="index.html">biocutils</a></h1>
-
-
-
-
-
-
-
-
-<h3>Navigation</h3>
-<ul>
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
+  
+  
+  <span class="sidebar-brand-text">biocutils 0.1.2 documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul>
 <li class="toctree-l1"><a class="reference internal" href="readme.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributions &amp; Help</a></li>
 <li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
 <li class="toctree-l1"><a class="reference internal" href="authors.html">Authors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/modules.html">Module Reference</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="api/modules.html">Module Reference</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Module Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/biocutils.html">biocutils package</a></li>
+</ul>
+</li>
 </ul>
 
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="index.html">Documentation overview</a><ul>
-  </ul></li>
-</ul>
 </div>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
-    <div class="searchformwrapper">
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
-      <input type="submit" value="Go" />
-    </form>
-    </div>
 </div>
-<script>document.getElementById('searchbox').style.display = "block"</script>
 
-
-
-
-
-
-
-
-        </div>
       </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="footer">
-      &copy;2023, Aaron Lun.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.2.6</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
       
     </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          
+<section class="genindex-section">
+  <h1 id="index">Index</h1>
+  <div class="genindex-jumpbox"><a href="#_"><strong>_</strong></a> | <a href="#A"><strong>A</strong></a> | <a href="#B"><strong>B</strong></a> | <a href="#C"><strong>C</strong></a> | <a href="#D"><strong>D</strong></a> | <a href="#E"><strong>E</strong></a> | <a href="#F"><strong>F</strong></a> | <a href="#G"><strong>G</strong></a> | <a href="#I"><strong>I</strong></a> | <a href="#L"><strong>L</strong></a> | <a href="#M"><strong>M</strong></a> | <a href="#N"><strong>N</strong></a> | <a href="#O"><strong>O</strong></a> | <a href="#P"><strong>P</strong></a> | <a href="#S"><strong>S</strong></a> | <a href="#T"><strong>T</strong></a> | <a href="#U"><strong>U</strong></a></div>
+</section>
+<section id="_" class="genindex-section">
+  <h2>_</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="api/biocutils.html#biocutils.NamedList.NamedList.__add__">__add__() (biocutils.NamedList.NamedList method)</a>
 
-    
+        <ul>
+          <li><a href="api/biocutils.html#biocutils.Names.Names.__add__">(biocutils.Names.Names method)</a>
+</li>
+        </ul></li>
+        <li><a href="api/biocutils.html#biocutils.Factor.Factor.__copy__">__copy__() (biocutils.Factor.Factor method)</a>
 
-    
-  </body>
+        <ul>
+          <li><a href="api/biocutils.html#biocutils.NamedList.NamedList.__copy__">(biocutils.NamedList.NamedList method)</a>
+</li>
+          <li><a href="api/biocutils.html#biocutils.Names.Names.__copy__">(biocutils.Names.Names method)</a>
+</li>
+        </ul></li>
+        <li><a href="api/biocutils.html#biocutils.Factor.Factor.__deepcopy__">__deepcopy__() (biocutils.Factor.Factor method)</a>
+
+        <ul>
+          <li><a href="api/biocutils.html#biocutils.NamedList.NamedList.__deepcopy__">(biocutils.NamedList.NamedList method)</a>
+</li>
+          <li><a href="api/biocutils.html#biocutils.Names.Names.__deepcopy__">(biocutils.Names.Names method)</a>
+</li>
+        </ul></li>
+        <li><a href="api/biocutils.html#biocutils.NamedList.NamedList.__eq__">__eq__() (biocutils.NamedList.NamedList method)</a>
+
+        <ul>
+          <li><a href="api/biocutils.html#biocutils.Names.Names.__eq__">(biocutils.Names.Names method)</a>
+</li>
+        </ul></li>
+        <li><a href="api/biocutils.html#biocutils.Factor.Factor.__getitem__">__getitem__() (biocutils.Factor.Factor method)</a>
+
+        <ul>
+          <li><a href="api/biocutils.html#biocutils.NamedList.NamedList.__getitem__">(biocutils.NamedList.NamedList method)</a>
+</li>
+          <li><a href="api/biocutils.html#biocutils.Names.Names.__getitem__">(biocutils.Names.Names method)</a>
+</li>
+          <li><a href="api/biocutils.html#biocutils.normalize_subscript.NormalizedSubscript.__getitem__">(biocutils.normalize_subscript.NormalizedSubscript method)</a>
+</li>
+        </ul></li>
+        <li><a href="api/biocutils.html#biocutils.NamedList.NamedList.__hash__">__hash__ (biocutils.NamedList.NamedList attribute)</a>
+
+        <ul>
+          <li><a href="api/biocutils.html#biocutils.Names.Names.__hash__">(biocutils.Names.Names attribute)</a>
+</li>
+        </ul></li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="api/biocutils.html#biocutils.NamedList.NamedList.__iadd__">__iadd__() (biocutils.NamedList.NamedList method)</a>
+
+        <ul>
+          <li><a href="api/biocutils.html#biocutils.Names.Names.__iadd__">(biocutils.Names.Names method)</a>
+</li>
+        </ul></li>
+        <li><a href="api/biocutils.html#biocutils.Factor.Factor.__iter__">__iter__() (biocutils.Factor.Factor method)</a>
+
+        <ul>
+          <li><a href="api/biocutils.html#biocutils.Factor.FactorIterator.__iter__">(biocutils.Factor.FactorIterator method)</a>
+</li>
+          <li><a href="api/biocutils.html#biocutils.NamedList.NamedList.__iter__">(biocutils.NamedList.NamedList method)</a>
+</li>
+          <li><a href="api/biocutils.html#biocutils.Names.Names.__iter__">(biocutils.Names.Names method)</a>
+</li>
+        </ul></li>
+        <li><a href="api/biocutils.html#biocutils.Factor.Factor.__len__">__len__() (biocutils.Factor.Factor method)</a>
+
+        <ul>
+          <li><a href="api/biocutils.html#biocutils.NamedList.NamedList.__len__">(biocutils.NamedList.NamedList method)</a>
+</li>
+          <li><a href="api/biocutils.html#biocutils.Names.Names.__len__">(biocutils.Names.Names method)</a>
+</li>
+          <li><a href="api/biocutils.html#biocutils.normalize_subscript.NormalizedSubscript.__len__">(biocutils.normalize_subscript.NormalizedSubscript method)</a>
+</li>
+        </ul></li>
+        <li><a href="api/biocutils.html#biocutils.Factor.FactorIterator.__next__">__next__() (biocutils.Factor.FactorIterator method)</a>
+</li>
+        <li><a href="api/biocutils.html#biocutils.Factor.Factor.__repr__">__repr__() (biocutils.Factor.Factor method)</a>
+
+        <ul>
+          <li><a href="api/biocutils.html#biocutils.NamedList.NamedList.__repr__">(biocutils.NamedList.NamedList method)</a>
+</li>
+          <li><a href="api/biocutils.html#biocutils.Names.Names.__repr__">(biocutils.Names.Names method)</a>
+</li>
+        </ul></li>
+        <li><a href="api/biocutils.html#biocutils.Factor.Factor.__setitem__">__setitem__() (biocutils.Factor.Factor method)</a>
+
+        <ul>
+          <li><a href="api/biocutils.html#biocutils.NamedList.NamedList.__setitem__">(biocutils.NamedList.NamedList method)</a>
+</li>
+          <li><a href="api/biocutils.html#biocutils.Names.Names.__setitem__">(biocutils.Names.Names method)</a>
+</li>
+        </ul></li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="A" class="genindex-section">
+  <h2>A</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="api/biocutils.html#biocutils.NamedList.NamedList.append">append() (biocutils.NamedList.NamedList method)</a>
+
+        <ul>
+          <li><a href="api/biocutils.html#biocutils.Names.Names.append">(biocutils.Names.Names method)</a>
+</li>
+        </ul></li>
+        <li><a href="api/biocutils.html#biocutils.NamedList.NamedList.as_dict">as_dict() (biocutils.NamedList.NamedList method)</a>
+</li>
+        <li><a href="api/biocutils.html#biocutils.NamedList.NamedList.as_list">as_list() (biocutils.NamedList.NamedList method)</a>
+
+        <ul>
+          <li><a href="api/biocutils.html#biocutils.Names.Names.as_list">(biocutils.Names.Names method)</a>
+</li>
+        </ul></li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="api/biocutils.html#biocutils.assign.assign">assign() (in module biocutils.assign)</a>
+</li>
+        <li><a href="api/biocutils.html#biocutils.assign_rows.assign_rows">assign_rows() (in module biocutils.assign_rows)</a>
+</li>
+        <li><a href="api/biocutils.html#biocutils.assign_sequence.assign_sequence">assign_sequence() (in module biocutils.assign_sequence)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="B" class="genindex-section">
+  <h2>B</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li>
+    biocutils
+
+        <ul>
+          <li><a href="api/biocutils.html#module-biocutils">module</a>
+</li>
+        </ul></li>
+        <li>
+    biocutils.assign
+
+        <ul>
+          <li><a href="api/biocutils.html#module-biocutils.assign">module</a>
+</li>
+        </ul></li>
+        <li>
+    biocutils.assign_rows
+
+        <ul>
+          <li><a href="api/biocutils.html#module-biocutils.assign_rows">module</a>
+</li>
+        </ul></li>
+        <li>
+    biocutils.assign_sequence
+
+        <ul>
+          <li><a href="api/biocutils.html#module-biocutils.assign_sequence">module</a>
+</li>
+        </ul></li>
+        <li>
+    biocutils.combine
+
+        <ul>
+          <li><a href="api/biocutils.html#module-biocutils.combine">module</a>
+</li>
+        </ul></li>
+        <li>
+    biocutils.combine_columns
+
+        <ul>
+          <li><a href="api/biocutils.html#module-biocutils.combine_columns">module</a>
+</li>
+        </ul></li>
+        <li>
+    biocutils.combine_rows
+
+        <ul>
+          <li><a href="api/biocutils.html#module-biocutils.combine_rows">module</a>
+</li>
+        </ul></li>
+        <li>
+    biocutils.combine_sequences
+
+        <ul>
+          <li><a href="api/biocutils.html#module-biocutils.combine_sequences">module</a>
+</li>
+        </ul></li>
+        <li>
+    biocutils.convert_to_dense
+
+        <ul>
+          <li><a href="api/biocutils.html#module-biocutils.convert_to_dense">module</a>
+</li>
+        </ul></li>
+        <li>
+    biocutils.extract_column_names
+
+        <ul>
+          <li><a href="api/biocutils.html#module-biocutils.extract_column_names">module</a>
+</li>
+        </ul></li>
+        <li>
+    biocutils.extract_row_names
+
+        <ul>
+          <li><a href="api/biocutils.html#module-biocutils.extract_row_names">module</a>
+</li>
+        </ul></li>
+        <li>
+    biocutils.Factor
+
+        <ul>
+          <li><a href="api/biocutils.html#module-biocutils.Factor">module</a>
+</li>
+        </ul></li>
+        <li>
+    biocutils.factorize
+
+        <ul>
+          <li><a href="api/biocutils.html#module-biocutils.factorize">module</a>
+</li>
+        </ul></li>
+        <li>
+    biocutils.get_height
+
+        <ul>
+          <li><a href="api/biocutils.html#module-biocutils.get_height">module</a>
+</li>
+        </ul></li>
+        <li>
+    biocutils.intersect
+
+        <ul>
+          <li><a href="api/biocutils.html#module-biocutils.intersect">module</a>
+</li>
+        </ul></li>
+        <li>
+    biocutils.is_high_dimensional
+
+        <ul>
+          <li><a href="api/biocutils.html#module-biocutils.is_high_dimensional">module</a>
+</li>
+        </ul></li>
+        <li>
+    biocutils.is_list_of_type
+
+        <ul>
+          <li><a href="api/biocutils.html#module-biocutils.is_list_of_type">module</a>
+</li>
+        </ul></li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li>
+    biocutils.is_missing_scalar
+
+        <ul>
+          <li><a href="api/biocutils.html#module-biocutils.is_missing_scalar">module</a>
+</li>
+        </ul></li>
+        <li>
+    biocutils.map_to_index
+
+        <ul>
+          <li><a href="api/biocutils.html#module-biocutils.map_to_index">module</a>
+</li>
+        </ul></li>
+        <li>
+    biocutils.match
+
+        <ul>
+          <li><a href="api/biocutils.html#module-biocutils.match">module</a>
+</li>
+        </ul></li>
+        <li>
+    biocutils.NamedList
+
+        <ul>
+          <li><a href="api/biocutils.html#module-biocutils.NamedList">module</a>
+</li>
+        </ul></li>
+        <li>
+    biocutils.Names
+
+        <ul>
+          <li><a href="api/biocutils.html#module-biocutils.Names">module</a>
+</li>
+        </ul></li>
+        <li>
+    biocutils.normalize_subscript
+
+        <ul>
+          <li><a href="api/biocutils.html#module-biocutils.normalize_subscript">module</a>
+</li>
+        </ul></li>
+        <li>
+    biocutils.package_utils
+
+        <ul>
+          <li><a href="api/biocutils.html#module-biocutils.package_utils">module</a>
+</li>
+        </ul></li>
+        <li>
+    biocutils.print_truncated
+
+        <ul>
+          <li><a href="api/biocutils.html#module-biocutils.print_truncated">module</a>
+</li>
+        </ul></li>
+        <li>
+    biocutils.print_wrapped_table
+
+        <ul>
+          <li><a href="api/biocutils.html#module-biocutils.print_wrapped_table">module</a>
+</li>
+        </ul></li>
+        <li>
+    biocutils.reverse_index
+
+        <ul>
+          <li><a href="api/biocutils.html#module-biocutils.reverse_index">module</a>
+</li>
+        </ul></li>
+        <li>
+    biocutils.show_as_cell
+
+        <ul>
+          <li><a href="api/biocutils.html#module-biocutils.show_as_cell">module</a>
+</li>
+        </ul></li>
+        <li>
+    biocutils.StringList
+
+        <ul>
+          <li><a href="api/biocutils.html#module-biocutils.StringList">module</a>
+</li>
+        </ul></li>
+        <li>
+    biocutils.subset
+
+        <ul>
+          <li><a href="api/biocutils.html#module-biocutils.subset">module</a>
+</li>
+        </ul></li>
+        <li>
+    biocutils.subset_rows
+
+        <ul>
+          <li><a href="api/biocutils.html#module-biocutils.subset_rows">module</a>
+</li>
+        </ul></li>
+        <li>
+    biocutils.subset_sequence
+
+        <ul>
+          <li><a href="api/biocutils.html#module-biocutils.subset_sequence">module</a>
+</li>
+        </ul></li>
+        <li>
+    biocutils.union
+
+        <ul>
+          <li><a href="api/biocutils.html#module-biocutils.union">module</a>
+</li>
+        </ul></li>
+        <li><a href="api/biocutils.html#biocutils.reverse_index.build_reverse_index">build_reverse_index() (in module biocutils.reverse_index)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="C" class="genindex-section">
+  <h2>C</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="api/biocutils.html#biocutils.Factor.Factor.codes">codes (biocutils.Factor.Factor property)</a>
+</li>
+        <li><a href="api/biocutils.html#biocutils.combine.combine">combine() (in module biocutils.combine)</a>
+</li>
+        <li><a href="api/biocutils.html#biocutils.combine_columns.combine_columns">combine_columns() (in module biocutils.combine_columns)</a>
+</li>
+        <li><a href="api/biocutils.html#biocutils.combine_rows.combine_rows">combine_rows() (in module biocutils.combine_rows)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="api/biocutils.html#biocutils.combine_sequences.combine_sequences">combine_sequences() (in module biocutils.combine_sequences)</a>
+</li>
+        <li><a href="api/biocutils.html#biocutils.convert_to_dense.convert_to_dense">convert_to_dense() (in module biocutils.convert_to_dense)</a>
+</li>
+        <li><a href="api/biocutils.html#biocutils.NamedList.NamedList.copy">copy() (biocutils.NamedList.NamedList method)</a>
+
+        <ul>
+          <li><a href="api/biocutils.html#biocutils.Names.Names.copy">(biocutils.Names.Names method)</a>
+</li>
+        </ul></li>
+        <li><a href="api/biocutils.html#biocutils.print_wrapped_table.create_floating_names">create_floating_names() (in module biocutils.print_wrapped_table)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="D" class="genindex-section">
+  <h2>D</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="api/biocutils.html#biocutils.Factor.Factor.drop_unused_levels">drop_unused_levels() (biocutils.Factor.Factor method)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="E" class="genindex-section">
+  <h2>E</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="api/biocutils.html#biocutils.NamedList.NamedList.extend">extend() (biocutils.NamedList.NamedList method)</a>
+
+        <ul>
+          <li><a href="api/biocutils.html#biocutils.Names.Names.extend">(biocutils.Names.Names method)</a>
+</li>
+        </ul></li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="api/biocutils.html#biocutils.extract_column_names.extract_column_names">extract_column_names() (in module biocutils.extract_column_names)</a>
+</li>
+        <li><a href="api/biocutils.html#biocutils.extract_row_names.extract_row_names">extract_row_names() (in module biocutils.extract_row_names)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="F" class="genindex-section">
+  <h2>F</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="api/biocutils.html#biocutils.Factor.Factor">Factor (class in biocutils.Factor)</a>
+</li>
+        <li><a href="api/biocutils.html#biocutils.Factor.FactorIterator">FactorIterator (class in biocutils.Factor)</a>
+</li>
+        <li><a href="api/biocutils.html#biocutils.factorize.factorize">factorize() (in module biocutils.factorize)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="api/biocutils.html#biocutils.NamedList.NamedList.from_dict">from_dict() (biocutils.NamedList.NamedList static method)</a>
+</li>
+        <li><a href="api/biocutils.html#biocutils.NamedList.NamedList.from_list">from_list() (biocutils.NamedList.NamedList static method)</a>
+</li>
+        <li><a href="api/biocutils.html#biocutils.Factor.Factor.from_sequence">from_sequence() (biocutils.Factor.Factor static method)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="G" class="genindex-section">
+  <h2>G</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="api/biocutils.html#biocutils.Factor.Factor.get_codes">get_codes() (biocutils.Factor.Factor method)</a>
+</li>
+        <li><a href="api/biocutils.html#biocutils.get_height.get_height">get_height() (in module biocutils.get_height)</a>
+</li>
+        <li><a href="api/biocutils.html#biocutils.Factor.Factor.get_levels">get_levels() (biocutils.Factor.Factor method)</a>
+</li>
+        <li><a href="api/biocutils.html#biocutils.Factor.Factor.get_names">get_names() (biocutils.Factor.Factor method)</a>
+
+        <ul>
+          <li><a href="api/biocutils.html#biocutils.NamedList.NamedList.get_names">(biocutils.NamedList.NamedList method)</a>
+</li>
+        </ul></li>
+        <li><a href="api/biocutils.html#biocutils.Factor.Factor.get_ordered">get_ordered() (biocutils.Factor.Factor method)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="api/biocutils.html#biocutils.Factor.Factor.get_slice">get_slice() (biocutils.Factor.Factor method)</a>
+
+        <ul>
+          <li><a href="api/biocutils.html#biocutils.NamedList.NamedList.get_slice">(biocutils.NamedList.NamedList method)</a>
+</li>
+          <li><a href="api/biocutils.html#biocutils.Names.Names.get_slice">(biocutils.Names.Names method)</a>
+</li>
+        </ul></li>
+        <li><a href="api/biocutils.html#biocutils.Factor.Factor.get_value">get_value() (biocutils.Factor.Factor method)</a>
+
+        <ul>
+          <li><a href="api/biocutils.html#biocutils.NamedList.NamedList.get_value">(biocutils.NamedList.NamedList method)</a>
+</li>
+          <li><a href="api/biocutils.html#biocutils.Names.Names.get_value">(biocutils.Names.Names method)</a>
+</li>
+        </ul></li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="I" class="genindex-section">
+  <h2>I</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="api/biocutils.html#biocutils.NamedList.NamedList.insert">insert() (biocutils.NamedList.NamedList method)</a>
+
+        <ul>
+          <li><a href="api/biocutils.html#biocutils.Names.Names.insert">(biocutils.Names.Names method)</a>
+</li>
+        </ul></li>
+        <li><a href="api/biocutils.html#biocutils.intersect.intersect">intersect() (in module biocutils.intersect)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="api/biocutils.html#biocutils.is_high_dimensional.is_high_dimensional">is_high_dimensional() (in module biocutils.is_high_dimensional)</a>
+</li>
+        <li><a href="api/biocutils.html#biocutils.is_list_of_type.is_list_of_type">is_list_of_type() (in module biocutils.is_list_of_type)</a>
+</li>
+        <li><a href="api/biocutils.html#biocutils.is_missing_scalar.is_missing_scalar">is_missing_scalar() (in module biocutils.is_missing_scalar)</a>
+</li>
+        <li><a href="api/biocutils.html#biocutils.package_utils.is_package_installed">is_package_installed() (in module biocutils.package_utils)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="L" class="genindex-section">
+  <h2>L</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="api/biocutils.html#biocutils.Factor.Factor.levels">levels (biocutils.Factor.Factor property)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="M" class="genindex-section">
+  <h2>M</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="api/biocutils.html#biocutils.Names.Names.map">map() (biocutils.Names.Names method)</a>
+</li>
+        <li><a href="api/biocutils.html#biocutils.map_to_index.map_to_index">map_to_index() (in module biocutils.map_to_index)</a>
+</li>
+        <li><a href="api/biocutils.html#biocutils.match.match">match() (in module biocutils.match)</a>
+</li>
+        <li>
+    module
+
+        <ul>
+          <li><a href="api/biocutils.html#module-biocutils">biocutils</a>
+</li>
+          <li><a href="api/biocutils.html#module-biocutils.assign">biocutils.assign</a>
+</li>
+          <li><a href="api/biocutils.html#module-biocutils.assign_rows">biocutils.assign_rows</a>
+</li>
+          <li><a href="api/biocutils.html#module-biocutils.assign_sequence">biocutils.assign_sequence</a>
+</li>
+          <li><a href="api/biocutils.html#module-biocutils.combine">biocutils.combine</a>
+</li>
+          <li><a href="api/biocutils.html#module-biocutils.combine_columns">biocutils.combine_columns</a>
+</li>
+          <li><a href="api/biocutils.html#module-biocutils.combine_rows">biocutils.combine_rows</a>
+</li>
+          <li><a href="api/biocutils.html#module-biocutils.combine_sequences">biocutils.combine_sequences</a>
+</li>
+          <li><a href="api/biocutils.html#module-biocutils.convert_to_dense">biocutils.convert_to_dense</a>
+</li>
+          <li><a href="api/biocutils.html#module-biocutils.extract_column_names">biocutils.extract_column_names</a>
+</li>
+          <li><a href="api/biocutils.html#module-biocutils.extract_row_names">biocutils.extract_row_names</a>
+</li>
+          <li><a href="api/biocutils.html#module-biocutils.Factor">biocutils.Factor</a>
+</li>
+          <li><a href="api/biocutils.html#module-biocutils.factorize">biocutils.factorize</a>
+</li>
+          <li><a href="api/biocutils.html#module-biocutils.get_height">biocutils.get_height</a>
+</li>
+          <li><a href="api/biocutils.html#module-biocutils.intersect">biocutils.intersect</a>
+</li>
+          <li><a href="api/biocutils.html#module-biocutils.is_high_dimensional">biocutils.is_high_dimensional</a>
+</li>
+          <li><a href="api/biocutils.html#module-biocutils.is_list_of_type">biocutils.is_list_of_type</a>
+</li>
+          <li><a href="api/biocutils.html#module-biocutils.is_missing_scalar">biocutils.is_missing_scalar</a>
+</li>
+          <li><a href="api/biocutils.html#module-biocutils.map_to_index">biocutils.map_to_index</a>
+</li>
+          <li><a href="api/biocutils.html#module-biocutils.match">biocutils.match</a>
+</li>
+          <li><a href="api/biocutils.html#module-biocutils.NamedList">biocutils.NamedList</a>
+</li>
+          <li><a href="api/biocutils.html#module-biocutils.Names">biocutils.Names</a>
+</li>
+          <li><a href="api/biocutils.html#module-biocutils.normalize_subscript">biocutils.normalize_subscript</a>
+</li>
+          <li><a href="api/biocutils.html#module-biocutils.package_utils">biocutils.package_utils</a>
+</li>
+          <li><a href="api/biocutils.html#module-biocutils.print_truncated">biocutils.print_truncated</a>
+</li>
+          <li><a href="api/biocutils.html#module-biocutils.print_wrapped_table">biocutils.print_wrapped_table</a>
+</li>
+          <li><a href="api/biocutils.html#module-biocutils.reverse_index">biocutils.reverse_index</a>
+</li>
+          <li><a href="api/biocutils.html#module-biocutils.show_as_cell">biocutils.show_as_cell</a>
+</li>
+          <li><a href="api/biocutils.html#module-biocutils.StringList">biocutils.StringList</a>
+</li>
+          <li><a href="api/biocutils.html#module-biocutils.subset">biocutils.subset</a>
+</li>
+          <li><a href="api/biocutils.html#module-biocutils.subset_rows">biocutils.subset_rows</a>
+</li>
+          <li><a href="api/biocutils.html#module-biocutils.subset_sequence">biocutils.subset_sequence</a>
+</li>
+          <li><a href="api/biocutils.html#module-biocutils.union">biocutils.union</a>
+</li>
+        </ul></li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="N" class="genindex-section">
+  <h2>N</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="api/biocutils.html#biocutils.NamedList.NamedList">NamedList (class in biocutils.NamedList)</a>
+</li>
+        <li><a href="api/biocutils.html#biocutils.Factor.Factor.names">names (biocutils.Factor.Factor property)</a>
+
+        <ul>
+          <li><a href="api/biocutils.html#biocutils.NamedList.NamedList.names">(biocutils.NamedList.NamedList property)</a>
+</li>
+        </ul></li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="api/biocutils.html#biocutils.Names.Names">Names (class in biocutils.Names)</a>
+</li>
+        <li><a href="api/biocutils.html#biocutils.normalize_subscript.normalize_subscript">normalize_subscript() (in module biocutils.normalize_subscript)</a>
+</li>
+        <li><a href="api/biocutils.html#biocutils.normalize_subscript.NormalizedSubscript">NormalizedSubscript (class in biocutils.normalize_subscript)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="O" class="genindex-section">
+  <h2>O</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="api/biocutils.html#biocutils.Factor.Factor.ordered">ordered (biocutils.Factor.Factor property)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="P" class="genindex-section">
+  <h2>P</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="api/biocutils.html#biocutils.print_truncated.print_truncated">print_truncated() (in module biocutils.print_truncated)</a>
+</li>
+        <li><a href="api/biocutils.html#biocutils.print_truncated.print_truncated_dict">print_truncated_dict() (in module biocutils.print_truncated)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="api/biocutils.html#biocutils.print_truncated.print_truncated_list">print_truncated_list() (in module biocutils.print_truncated)</a>
+</li>
+        <li><a href="api/biocutils.html#biocutils.print_wrapped_table.print_type">print_type() (in module biocutils.print_wrapped_table)</a>
+</li>
+        <li><a href="api/biocutils.html#biocutils.print_wrapped_table.print_wrapped_table">print_wrapped_table() (in module biocutils.print_wrapped_table)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="S" class="genindex-section">
+  <h2>S</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="api/biocutils.html#biocutils.NamedList.NamedList.safe_append">safe_append() (biocutils.NamedList.NamedList method)</a>
+
+        <ul>
+          <li><a href="api/biocutils.html#biocutils.Names.Names.safe_append">(biocutils.Names.Names method)</a>
+</li>
+          <li><a href="api/biocutils.html#biocutils.StringList.StringList.safe_append">(biocutils.StringList.StringList method)</a>
+</li>
+        </ul></li>
+        <li><a href="api/biocutils.html#biocutils.NamedList.NamedList.safe_extend">safe_extend() (biocutils.NamedList.NamedList method)</a>
+
+        <ul>
+          <li><a href="api/biocutils.html#biocutils.Names.Names.safe_extend">(biocutils.Names.Names method)</a>
+</li>
+          <li><a href="api/biocutils.html#biocutils.StringList.StringList.safe_extend">(biocutils.StringList.StringList method)</a>
+</li>
+        </ul></li>
+        <li><a href="api/biocutils.html#biocutils.NamedList.NamedList.safe_insert">safe_insert() (biocutils.NamedList.NamedList method)</a>
+
+        <ul>
+          <li><a href="api/biocutils.html#biocutils.Names.Names.safe_insert">(biocutils.Names.Names method)</a>
+</li>
+          <li><a href="api/biocutils.html#biocutils.StringList.StringList.safe_insert">(biocutils.StringList.StringList method)</a>
+</li>
+        </ul></li>
+        <li><a href="api/biocutils.html#biocutils.Factor.Factor.set_codes">set_codes() (biocutils.Factor.Factor method)</a>
+</li>
+        <li><a href="api/biocutils.html#biocutils.Factor.Factor.set_levels">set_levels() (biocutils.Factor.Factor method)</a>
+</li>
+        <li><a href="api/biocutils.html#biocutils.Factor.Factor.set_names">set_names() (biocutils.Factor.Factor method)</a>
+
+        <ul>
+          <li><a href="api/biocutils.html#biocutils.NamedList.NamedList.set_names">(biocutils.NamedList.NamedList method)</a>
+</li>
+        </ul></li>
+        <li><a href="api/biocutils.html#biocutils.Factor.Factor.set_ordered">set_ordered() (biocutils.Factor.Factor method)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="api/biocutils.html#biocutils.Factor.Factor.set_slice">set_slice() (biocutils.Factor.Factor method)</a>
+
+        <ul>
+          <li><a href="api/biocutils.html#biocutils.NamedList.NamedList.set_slice">(biocutils.NamedList.NamedList method)</a>
+</li>
+          <li><a href="api/biocutils.html#biocutils.Names.Names.set_slice">(biocutils.Names.Names method)</a>
+</li>
+          <li><a href="api/biocutils.html#biocutils.StringList.StringList.set_slice">(biocutils.StringList.StringList method)</a>
+</li>
+        </ul></li>
+        <li><a href="api/biocutils.html#biocutils.Factor.Factor.set_value">set_value() (biocutils.Factor.Factor method)</a>
+
+        <ul>
+          <li><a href="api/biocutils.html#biocutils.NamedList.NamedList.set_value">(biocutils.NamedList.NamedList method)</a>
+</li>
+          <li><a href="api/biocutils.html#biocutils.Names.Names.set_value">(biocutils.Names.Names method)</a>
+</li>
+          <li><a href="api/biocutils.html#biocutils.StringList.StringList.set_value">(biocutils.StringList.StringList method)</a>
+</li>
+        </ul></li>
+        <li><a href="api/biocutils.html#biocutils.show_as_cell.show_as_cell">show_as_cell() (in module biocutils.show_as_cell)</a>
+</li>
+        <li><a href="api/biocutils.html#biocutils.StringList.StringList">StringList (class in biocutils.StringList)</a>
+</li>
+        <li><a href="api/biocutils.html#biocutils.normalize_subscript.NormalizedSubscript.subscript">subscript (biocutils.normalize_subscript.NormalizedSubscript property)</a>
+</li>
+        <li><a href="api/biocutils.html#biocutils.subset.subset">subset() (in module biocutils.subset)</a>
+</li>
+        <li><a href="api/biocutils.html#biocutils.subset_rows.subset_rows">subset_rows() (in module biocutils.subset_rows)</a>
+</li>
+        <li><a href="api/biocutils.html#biocutils.subset_sequence.subset_sequence">subset_sequence() (in module biocutils.subset_sequence)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="T" class="genindex-section">
+  <h2>T</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="api/biocutils.html#biocutils.Factor.Factor.to_pandas">to_pandas() (biocutils.Factor.Factor method)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="api/biocutils.html#biocutils.print_wrapped_table.truncate_strings">truncate_strings() (in module biocutils.print_wrapped_table)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="U" class="genindex-section">
+  <h2>U</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="api/biocutils.html#biocutils.union.union">union() (in module biocutils.union)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2023, Aaron Lun
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer no-toc">
+      
+      
+      
+    </aside>
+  </div>
+</div><script src="_static/documentation_options.js?v=92734c54"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/scripts/furo.js?v=32e29ea5"></script>
+    </body>
 </html>

@@ -12,6 +12,22 @@ biocutils.Factor module
    :undoc-members:
    :show-inheritance:
 
+biocutils.NamedList module
+--------------------------
+
+.. automodule:: biocutils.NamedList
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+biocutils.Names module
+----------------------
+
+.. automodule:: biocutils.Names
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 biocutils.StringList module
 ---------------------------
 
@@ -192,6 +208,14 @@ biocutils.print\_wrapped\_table module
 --------------------------------------
 
 .. automodule:: biocutils.print_wrapped_table
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+biocutils.reverse\_index module
+-------------------------------
+
+.. automodule:: biocutils.reverse_index
    :members:
    :undoc-members:
    :show-inheritance:

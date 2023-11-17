@@ -4,7 +4,11 @@ from typing import Any, Dict, Iterable, Optional, Sequence, Union
 from .assign_sequence import assign_sequence
 from .combine_sequences import combine_sequences
 from .Names import Names, _name_to_position, _sanitize_names
-from .normalize_subscript import NormalizedSubscript, SubscriptTypes, normalize_subscript
+from .normalize_subscript import (
+    NormalizedSubscript,
+    SubscriptTypes,
+    normalize_subscript,
+)
 from .subset_sequence import subset_sequence
 
 
@@ -15,7 +19,12 @@ class NamedList:
     be indexed by position or slices (list) but also by name (dictionary).
     """
 
-    def __init__(self, data: Optional[Iterable] = None, names: Optional[Names] = None, _validate: bool = True):
+    def __init__(
+        self,
+        data: Optional[Iterable] = None,
+        names: Optional[Names] = None,
+        _validate: bool = True,
+    ):
         """
         Args:
             data:
@@ -77,7 +86,14 @@ class NamedList:
             names if any exist.
         """
         if self._names is not None:
-            return "[" + ", ".join(repr(self._names[i]) + "=" + repr(x) for i, x in enumerate(self._data)) + "]" 
+            return (
+                "["
+                + ", ".join(
+                    repr(self._names[i]) + "=" + repr(x)
+                    for i, x in enumerate(self._data)
+                )
+                + "]"
+            )
         else:
             return repr(self._data)
 
@@ -129,7 +145,7 @@ class NamedList:
             output = self
         else:
             output = self._shallow_copy()
-        output._names = _sanitize_names(names, len(self)) 
+        output._names = _sanitize_names(names, len(self))
         return output
 
     #################################
@@ -142,7 +158,7 @@ class NamedList:
             index:
                 Integer index of the element to obtain. Alternatively, a string
                 containing the name of the element, using the first occurrence
-                if duplicate names are present. 
+                if duplicate names are present.
 
         Returns:
             The value at the specified position (or with the specified name).
@@ -183,13 +199,15 @@ class NamedList:
         else:
             return self.get_slice(NormalizedSubscript(index))
 
-    def set_value(self, index: Union[str, int], value: Any, in_place: bool = False) -> "NamedList":
+    def set_value(
+        self, index: Union[str, int], value: Any, in_place: bool = False
+    ) -> "NamedList":
         """
         Args:
             index:
                 Integer index of the element to obtain. Alternatively, a string
                 containing the name of the element; we consider the first
-                occurrence of the name if duplicates are present. 
+                occurrence of the name if duplicates are present.
 
             value:
                 Replacement value of the list element.
@@ -204,7 +222,7 @@ class NamedList:
 
             If ``index`` is a name that does not already exist in the current
             object, ``value`` is added to the end of the list, and the
-            ``index`` is added as a new name. 
+            ``index`` is added as a new name.
         """
         if in_place:
             output = self
@@ -230,7 +248,9 @@ class NamedList:
 
         return output
 
-    def set_slice(self, index: SubscriptTypes, value: Sequence, in_place: bool = False) -> "NamedList":
+    def set_slice(
+        self, index: SubscriptTypes, value: Sequence, in_place: bool = False
+    ) -> "NamedList":
         """
         Args:
             index:
@@ -242,7 +262,7 @@ class NamedList:
 
             value:
                 If ``index`` is a sequence, a sequence of the same length
-                containing values to be set at the positions in ``index``. 
+                containing values to be set at the positions in ``index``.
 
                 If ``index`` is a scalar, any object to be used as the
                 replacement value for the position at ``index``.
@@ -299,7 +319,9 @@ class NamedList:
         else:
             return self.copy()
 
-    def safe_insert(self, index: Union[int, str], value: Any, in_place: bool = False) -> "NamedList":
+    def safe_insert(
+        self, index: Union[int, str], value: Any, in_place: bool = False
+    ) -> "NamedList":
         """
         Args:
             index:
@@ -316,7 +338,7 @@ class NamedList:
         Returns:
             A ``NamedList`` where ``value`` is inserted at ``index``. This is a
             new object if ``in_place = False``, otherwise it is a reference to
-            the current object. If names are present in the current object, the 
+            the current object. If names are present in the current object, the
             newly inserted element's name is set to an empty string.
         """
         output = self._define_output(in_place)
@@ -359,7 +381,7 @@ class NamedList:
     def safe_extend(self, other: Iterable, in_place: bool = False) -> "NamedList":
         """
         Args:
-            other: 
+            other:
                 Some iterable object. If this is a ``NamedList``, its names are
                 used to extend the names of the current object; otherwise the
                 extended names are set to empty strings.
@@ -432,7 +454,11 @@ class NamedList:
         Returns:
             A deep copy of a ``NamedList`` with the same contents.
         """
-        return type(self)(deepcopy(self._data, memo, _nil), names=deepcopy(self._names, memo, _nil), _validate=False)
+        return type(self)(
+            deepcopy(self._data, memo, _nil),
+            names=deepcopy(self._names, memo, _nil),
+            _validate=False,
+        )
 
     ############################
     #####>>>> Coercion <<<<#####
@@ -495,13 +521,17 @@ def _combine_sequences_NamedList(*x: NamedList) -> NamedList:
 
 
 @assign_sequence.register
-def _assign_sequence_NamedList(x: NamedList, indices: Sequence[int], other: Sequence) -> NamedList:
+def _assign_sequence_NamedList(
+    x: NamedList, indices: Sequence[int], other: Sequence
+) -> NamedList:
     if isinstance(other, NamedList):
         # Do NOT set the names if 'other' is a NamedList. Names don't change
         # during assignment/setting operations, as a matter of policy. This is
         # for simplicity, efficiency (as the Names don't need to be reindexed)
-        # but mainly because 'indices' could have been derived from a sequence 
-        # of names, and it would be weird for the same sequence of names to 
+        # but mainly because 'indices' could have been derived from a sequence
+        # of names, and it would be weird for the same sequence of names to
         # suddently become an invalid indexing vector after an assignment.
         other = other._data
-    return type(x)(assign_sequence(x._data, NormalizedSubscript(indices), other), names=x._names)
+    return type(x)(
+        assign_sequence(x._data, NormalizedSubscript(indices), other), names=x._names
+    )

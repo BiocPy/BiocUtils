@@ -119,7 +119,7 @@ def create_floating_names(
         List of strings containing floating names.
     """
     if names is not None:
-        return subset_sequence(names, indices)
+        return list(subset_sequence(names, indices))
     else:
         return ["[" + str(i) + "]" for i in indices]
 

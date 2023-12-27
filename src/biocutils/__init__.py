@@ -36,6 +36,9 @@ from .combine_rows import combine_rows
 from .combine_columns import combine_columns
 from .combine_sequences import combine_sequences
 
+from .relaxed_combine_columns import relaxed_combine_columns
+from .relaxed_combine_rows import relaxed_combine_rows
+
 from .extract_row_names import extract_row_names
 from .extract_column_names import extract_column_names
 

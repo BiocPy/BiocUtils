@@ -212,6 +212,22 @@ biocutils.print\_wrapped\_table module
    :undoc-members:
    :show-inheritance:
 
+biocutils.relaxed\_combine\_columns module
+------------------------------------------
+
+.. automodule:: biocutils.relaxed_combine_columns
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+biocutils.relaxed\_combine\_rows module
+---------------------------------------
+
+.. automodule:: biocutils.relaxed_combine_rows
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 biocutils.reverse\_index module
 -------------------------------
 

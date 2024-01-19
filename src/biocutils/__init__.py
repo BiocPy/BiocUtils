@@ -17,6 +17,9 @@ finally:
 
 from .Factor import Factor
 from .StringList import StringList
+from .IntegerList import IntegerList
+from .FloatList import FloatList
+from .BooleanList import BooleanList
 from .Names import Names
 from .NamedList import NamedList
 

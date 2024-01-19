@@ -5,7 +5,7 @@ from .Names import Names
 from .normalize_subscript import SubscriptTypes
 
 
-def _coerce_to_str(x: Any) -> bool:
+def _coerce_to_str(x: Any):
     return None if x is None else str(x)
 
 

@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="prev" title="biocutils" href="modules.html" />
 
     <!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
-        <title>biocutils package - biocutils 0.1.4 documentation</title>
+        <title>biocutils package - biocutils 0.1.5 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=36a5483c" />
@@ -123,7 +123,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">biocutils 0.1.4 documentation</div></a>
+      <a href="../index.html"><div class="brand">biocutils 0.1.5 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -146,7 +146,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
   
   
-  <span class="sidebar-brand-text">biocutils 0.1.4 documentation</span>
+  <span class="sidebar-brand-text">biocutils 0.1.5 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -203,6 +203,74 @@
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
 </section>
+<section id="module-biocutils.BooleanList">
+<span id="biocutils-booleanlist-module"></span><h2>biocutils.BooleanList module<a class="headerlink" href="#module-biocutils.BooleanList" title="Link to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="biocutils.BooleanList.BooleanList">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">biocutils.BooleanList.</span></span><span class="sig-name descname"><span class="pre">BooleanList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_validate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/BooleanList.html#BooleanList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.BooleanList.BooleanList" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#biocutils.NamedList.NamedList" title="biocutils.NamedList.NamedList"><code class="xref py py-class docutils literal notranslate"><span class="pre">NamedList</span></code></a></p>
+<p>List of booleans. This mimics a regular Python list except that anything
+added to it will be coerced into a boolean. None values are also acceptable
+and are treated as missing booleans. The list may also be named (see
+<code class="xref py py-class docutils literal notranslate"><span class="pre">NamedList</span></code>), which provides some dictionary-like functionality.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="biocutils.BooleanList.BooleanList.safe_append">
+<span class="sig-name descname"><span class="pre">safe_append</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_place</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/BooleanList.html#BooleanList.safe_append"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.BooleanList.BooleanList.safe_append" title="Link to this definition">#</a></dt>
+<dd><p>Calls <a class="reference internal" href="#biocutils.NamedList.NamedList.safe_append" title="biocutils.NamedList.NamedList.safe_append"><code class="xref py py-meth docutils literal notranslate"><span class="pre">safe_append()</span></code></a> after coercing <code class="docutils literal notranslate"><span class="pre">value</span></code> to a boolean.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#biocutils.BooleanList.BooleanList" title="biocutils.BooleanList.BooleanList"><code class="xref py py-class docutils literal notranslate"><span class="pre">BooleanList</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="biocutils.BooleanList.BooleanList.safe_extend">
+<span class="sig-name descname"><span class="pre">safe_extend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_place</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/BooleanList.html#BooleanList.safe_extend"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.BooleanList.BooleanList.safe_extend" title="Link to this definition">#</a></dt>
+<dd><p>Calls <a class="reference internal" href="#biocutils.NamedList.NamedList.safe_extend" title="biocutils.NamedList.NamedList.safe_extend"><code class="xref py py-meth docutils literal notranslate"><span class="pre">safe_extend()</span></code></a> after coercing elements of <code class="docutils literal notranslate"><span class="pre">other</span></code> to booleans.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#biocutils.BooleanList.BooleanList" title="biocutils.BooleanList.BooleanList"><code class="xref py py-class docutils literal notranslate"><span class="pre">BooleanList</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="biocutils.BooleanList.BooleanList.safe_insert">
+<span class="sig-name descname"><span class="pre">safe_insert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_place</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/BooleanList.html#BooleanList.safe_insert"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.BooleanList.BooleanList.safe_insert" title="Link to this definition">#</a></dt>
+<dd><p>Calls <a class="reference internal" href="#biocutils.NamedList.NamedList.safe_insert" title="biocutils.NamedList.NamedList.safe_insert"><code class="xref py py-meth docutils literal notranslate"><span class="pre">safe_insert()</span></code></a> after coercing <code class="docutils literal notranslate"><span class="pre">value</span></code> to a boolean.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#biocutils.BooleanList.BooleanList" title="biocutils.BooleanList.BooleanList"><code class="xref py py-class docutils literal notranslate"><span class="pre">BooleanList</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="biocutils.BooleanList.BooleanList.set_slice">
+<span class="sig-name descname"><span class="pre">set_slice</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_place</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/BooleanList.html#BooleanList.set_slice"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.BooleanList.BooleanList.set_slice" title="Link to this definition">#</a></dt>
+<dd><p>Calls <a class="reference internal" href="#biocutils.NamedList.NamedList.set_slice" title="biocutils.NamedList.NamedList.set_slice"><code class="xref py py-meth docutils literal notranslate"><span class="pre">set_slice()</span></code></a> after coercing <code class="docutils literal notranslate"><span class="pre">value</span></code> to booleans.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#biocutils.BooleanList.BooleanList" title="biocutils.BooleanList.BooleanList"><code class="xref py py-class docutils literal notranslate"><span class="pre">BooleanList</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="biocutils.BooleanList.BooleanList.set_value">
+<span class="sig-name descname"><span class="pre">set_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_place</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/BooleanList.html#BooleanList.set_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.BooleanList.BooleanList.set_value" title="Link to this definition">#</a></dt>
+<dd><p>Calls <a class="reference internal" href="#biocutils.NamedList.NamedList.set_value" title="biocutils.NamedList.NamedList.set_value"><code class="xref py py-meth docutils literal notranslate"><span class="pre">set_value()</span></code></a> after coercing <code class="docutils literal notranslate"><span class="pre">value</span></code> to a boolean.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#biocutils.BooleanList.BooleanList" title="biocutils.BooleanList.BooleanList"><code class="xref py py-class docutils literal notranslate"><span class="pre">BooleanList</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
 <section id="module-biocutils.Factor">
 <span id="biocutils-factor-module"></span><h2>biocutils.Factor module<a class="headerlink" href="#module-biocutils.Factor" title="Link to this heading">#</a></h2>
 <dl class="py class">
@@ -240,6 +308,20 @@ easier numerical analysis.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="biocutils.Factor.Factor.__eq__">
+<span class="sig-name descname"><span class="pre">__eq__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/Factor.html#Factor.__eq__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.Factor.Factor.__eq__" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>other</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#biocutils.Factor.Factor" title="biocutils.Factor.Factor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Factor</span></code></a></span>) – Another <code class="docutils literal notranslate"><span class="pre">Factor</span></code>.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Whether the current object is equal to <code class="docutils literal notranslate"><span class="pre">other</span></code>, i.e.,
+same codes, levels, names and ordered status.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="biocutils.Factor.Factor.__getitem__">
 <span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/Factor.html#Factor.__getitem__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.Factor.Factor.__getitem__" title="Link to this definition">#</a></dt>
 <dd><p>If <code class="docutils literal notranslate"><span class="pre">index</span></code> is a scalar, this is an alias for <a class="reference internal" href="#biocutils.Factor.Factor.get_value" title="biocutils.Factor.Factor.get_value"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_value()</span></code></a>.</p>
@@ -250,6 +332,11 @@ easier numerical analysis.</p>
 </dd>
 </dl>
 </dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="biocutils.Factor.Factor.__hash__">
+<span class="sig-name descname"><span class="pre">__hash__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#biocutils.Factor.Factor.__hash__" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="biocutils.Factor.Factor.__iter__">
@@ -327,7 +414,7 @@ current object; a reference to the current object is returned.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="biocutils.Factor.Factor.from_sequence">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_sequence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">levels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort_levels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ordered</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/Factor.html#Factor.from_sequence"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.Factor.Factor.from_sequence" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_sequence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">levels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort_levels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ordered</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/Factor.html#Factor.from_sequence"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.Factor.Factor.from_sequence" title="Link to this definition">#</a></dt>
 <dd><p>Convert a sequence of hashable values into a factor.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -342,6 +429,8 @@ used if <code class="docutils literal notranslate"><span class="pre">levels</spa
 <li><p><strong>ordered</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span>) – Whether the levels should be assumed to be ordered.  Note that
 this refers to their importance and has nothing to do with
 their sorting order or with the setting of <code class="docutils literal notranslate"><span class="pre">sort_levels</span></code>.</p></li>
+<li><p><strong>names</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Sequence" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code></a>[<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]]</span>) – List of names. This should have same length as <code class="docutils literal notranslate"><span class="pre">x</span></code>.
+Alternatively None, if the factor has no names.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -654,6 +743,142 @@ a new object or a reference to the current object.</p>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Level corresponding to the code at the current position, or None
 for missing codes.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-biocutils.FloatList">
+<span id="biocutils-floatlist-module"></span><h2>biocutils.FloatList module<a class="headerlink" href="#module-biocutils.FloatList" title="Link to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="biocutils.FloatList.FloatList">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">biocutils.FloatList.</span></span><span class="sig-name descname"><span class="pre">FloatList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_validate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/FloatList.html#FloatList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.FloatList.FloatList" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#biocutils.NamedList.NamedList" title="biocutils.NamedList.NamedList"><code class="xref py py-class docutils literal notranslate"><span class="pre">NamedList</span></code></a></p>
+<p>List of floats. This mimics a regular Python list except that anything
+added to it will be coerced into a float. None values are also acceptable
+and are treated as missing floats. The list may also be named (see
+<code class="xref py py-class docutils literal notranslate"><span class="pre">NamedList</span></code>), which provides some dictionary-like functionality.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="biocutils.FloatList.FloatList.safe_append">
+<span class="sig-name descname"><span class="pre">safe_append</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_place</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/FloatList.html#FloatList.safe_append"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.FloatList.FloatList.safe_append" title="Link to this definition">#</a></dt>
+<dd><p>Calls <a class="reference internal" href="#biocutils.NamedList.NamedList.safe_append" title="biocutils.NamedList.NamedList.safe_append"><code class="xref py py-meth docutils literal notranslate"><span class="pre">safe_append()</span></code></a> after coercing <code class="docutils literal notranslate"><span class="pre">value</span></code> to a float.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#biocutils.FloatList.FloatList" title="biocutils.FloatList.FloatList"><code class="xref py py-class docutils literal notranslate"><span class="pre">FloatList</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="biocutils.FloatList.FloatList.safe_extend">
+<span class="sig-name descname"><span class="pre">safe_extend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_place</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/FloatList.html#FloatList.safe_extend"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.FloatList.FloatList.safe_extend" title="Link to this definition">#</a></dt>
+<dd><p>Calls <a class="reference internal" href="#biocutils.NamedList.NamedList.safe_extend" title="biocutils.NamedList.NamedList.safe_extend"><code class="xref py py-meth docutils literal notranslate"><span class="pre">safe_extend()</span></code></a> after coercing elements of <code class="docutils literal notranslate"><span class="pre">other</span></code> to floats.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#biocutils.FloatList.FloatList" title="biocutils.FloatList.FloatList"><code class="xref py py-class docutils literal notranslate"><span class="pre">FloatList</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="biocutils.FloatList.FloatList.safe_insert">
+<span class="sig-name descname"><span class="pre">safe_insert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_place</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/FloatList.html#FloatList.safe_insert"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.FloatList.FloatList.safe_insert" title="Link to this definition">#</a></dt>
+<dd><p>Calls <a class="reference internal" href="#biocutils.NamedList.NamedList.safe_insert" title="biocutils.NamedList.NamedList.safe_insert"><code class="xref py py-meth docutils literal notranslate"><span class="pre">safe_insert()</span></code></a> after coercing <code class="docutils literal notranslate"><span class="pre">value</span></code> to a float.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#biocutils.FloatList.FloatList" title="biocutils.FloatList.FloatList"><code class="xref py py-class docutils literal notranslate"><span class="pre">FloatList</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="biocutils.FloatList.FloatList.set_slice">
+<span class="sig-name descname"><span class="pre">set_slice</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_place</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/FloatList.html#FloatList.set_slice"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.FloatList.FloatList.set_slice" title="Link to this definition">#</a></dt>
+<dd><p>Calls <a class="reference internal" href="#biocutils.NamedList.NamedList.set_slice" title="biocutils.NamedList.NamedList.set_slice"><code class="xref py py-meth docutils literal notranslate"><span class="pre">set_slice()</span></code></a> after coercing <code class="docutils literal notranslate"><span class="pre">value</span></code> to floats.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#biocutils.FloatList.FloatList" title="biocutils.FloatList.FloatList"><code class="xref py py-class docutils literal notranslate"><span class="pre">FloatList</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="biocutils.FloatList.FloatList.set_value">
+<span class="sig-name descname"><span class="pre">set_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_place</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/FloatList.html#FloatList.set_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.FloatList.FloatList.set_value" title="Link to this definition">#</a></dt>
+<dd><p>Calls <a class="reference internal" href="#biocutils.NamedList.NamedList.set_value" title="biocutils.NamedList.NamedList.set_value"><code class="xref py py-meth docutils literal notranslate"><span class="pre">set_value()</span></code></a> after coercing <code class="docutils literal notranslate"><span class="pre">value</span></code> to a float.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#biocutils.FloatList.FloatList" title="biocutils.FloatList.FloatList"><code class="xref py py-class docutils literal notranslate"><span class="pre">FloatList</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-biocutils.IntegerList">
+<span id="biocutils-integerlist-module"></span><h2>biocutils.IntegerList module<a class="headerlink" href="#module-biocutils.IntegerList" title="Link to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="biocutils.IntegerList.IntegerList">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">biocutils.IntegerList.</span></span><span class="sig-name descname"><span class="pre">IntegerList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_validate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/IntegerList.html#IntegerList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.IntegerList.IntegerList" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#biocutils.NamedList.NamedList" title="biocutils.NamedList.NamedList"><code class="xref py py-class docutils literal notranslate"><span class="pre">NamedList</span></code></a></p>
+<p>List of integers. This mimics a regular Python list except that anything
+added to it will be coerced into a integer. None values are also acceptable
+and are treated as missing integers. The list may also be named (see
+<code class="xref py py-class docutils literal notranslate"><span class="pre">NamedList</span></code>), which provides some dictionary-like functionality.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="biocutils.IntegerList.IntegerList.safe_append">
+<span class="sig-name descname"><span class="pre">safe_append</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_place</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/IntegerList.html#IntegerList.safe_append"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.IntegerList.IntegerList.safe_append" title="Link to this definition">#</a></dt>
+<dd><p>Calls <a class="reference internal" href="#biocutils.NamedList.NamedList.safe_append" title="biocutils.NamedList.NamedList.safe_append"><code class="xref py py-meth docutils literal notranslate"><span class="pre">safe_append()</span></code></a> after coercing <code class="docutils literal notranslate"><span class="pre">value</span></code> to a integer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#biocutils.IntegerList.IntegerList" title="biocutils.IntegerList.IntegerList"><code class="xref py py-class docutils literal notranslate"><span class="pre">IntegerList</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="biocutils.IntegerList.IntegerList.safe_extend">
+<span class="sig-name descname"><span class="pre">safe_extend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_place</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/IntegerList.html#IntegerList.safe_extend"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.IntegerList.IntegerList.safe_extend" title="Link to this definition">#</a></dt>
+<dd><p>Calls <a class="reference internal" href="#biocutils.NamedList.NamedList.safe_extend" title="biocutils.NamedList.NamedList.safe_extend"><code class="xref py py-meth docutils literal notranslate"><span class="pre">safe_extend()</span></code></a> after coercing elements of <code class="docutils literal notranslate"><span class="pre">other</span></code> to integers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#biocutils.IntegerList.IntegerList" title="biocutils.IntegerList.IntegerList"><code class="xref py py-class docutils literal notranslate"><span class="pre">IntegerList</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="biocutils.IntegerList.IntegerList.safe_insert">
+<span class="sig-name descname"><span class="pre">safe_insert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_place</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/IntegerList.html#IntegerList.safe_insert"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.IntegerList.IntegerList.safe_insert" title="Link to this definition">#</a></dt>
+<dd><p>Calls <a class="reference internal" href="#biocutils.NamedList.NamedList.safe_insert" title="biocutils.NamedList.NamedList.safe_insert"><code class="xref py py-meth docutils literal notranslate"><span class="pre">safe_insert()</span></code></a> after coercing <code class="docutils literal notranslate"><span class="pre">value</span></code> to a integer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#biocutils.IntegerList.IntegerList" title="biocutils.IntegerList.IntegerList"><code class="xref py py-class docutils literal notranslate"><span class="pre">IntegerList</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="biocutils.IntegerList.IntegerList.set_slice">
+<span class="sig-name descname"><span class="pre">set_slice</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_place</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/IntegerList.html#IntegerList.set_slice"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.IntegerList.IntegerList.set_slice" title="Link to this definition">#</a></dt>
+<dd><p>Calls <a class="reference internal" href="#biocutils.NamedList.NamedList.set_slice" title="biocutils.NamedList.NamedList.set_slice"><code class="xref py py-meth docutils literal notranslate"><span class="pre">set_slice()</span></code></a> after coercing <code class="docutils literal notranslate"><span class="pre">value</span></code> to integers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#biocutils.IntegerList.IntegerList" title="biocutils.IntegerList.IntegerList"><code class="xref py py-class docutils literal notranslate"><span class="pre">IntegerList</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="biocutils.IntegerList.IntegerList.set_value">
+<span class="sig-name descname"><span class="pre">set_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_place</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/IntegerList.html#IntegerList.set_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.IntegerList.IntegerList.set_value" title="Link to this definition">#</a></dt>
+<dd><p>Calls <a class="reference internal" href="#biocutils.NamedList.NamedList.set_value" title="biocutils.NamedList.NamedList.set_value"><code class="xref py py-meth docutils literal notranslate"><span class="pre">set_value()</span></code></a> after coercing <code class="docutils literal notranslate"><span class="pre">value</span></code> to a integer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#biocutils.IntegerList.IntegerList" title="biocutils.IntegerList.IntegerList"><code class="xref py py-class docutils literal notranslate"><span class="pre">IntegerList</span></code></a></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -2491,11 +2716,24 @@ occurrence in the latest sequence of <code class="docutils literal notranslate">
             <ul>
 <li><a class="reference internal" href="#">biocutils package</a><ul>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-biocutils.BooleanList">biocutils.BooleanList module</a><ul>
+<li><a class="reference internal" href="#biocutils.BooleanList.BooleanList"><code class="docutils literal notranslate"><span class="pre">BooleanList</span></code></a><ul>
+<li><a class="reference internal" href="#biocutils.BooleanList.BooleanList.safe_append"><code class="docutils literal notranslate"><span class="pre">BooleanList.safe_append()</span></code></a></li>
+<li><a class="reference internal" href="#biocutils.BooleanList.BooleanList.safe_extend"><code class="docutils literal notranslate"><span class="pre">BooleanList.safe_extend()</span></code></a></li>
+<li><a class="reference internal" href="#biocutils.BooleanList.BooleanList.safe_insert"><code class="docutils literal notranslate"><span class="pre">BooleanList.safe_insert()</span></code></a></li>
+<li><a class="reference internal" href="#biocutils.BooleanList.BooleanList.set_slice"><code class="docutils literal notranslate"><span class="pre">BooleanList.set_slice()</span></code></a></li>
+<li><a class="reference internal" href="#biocutils.BooleanList.BooleanList.set_value"><code class="docutils literal notranslate"><span class="pre">BooleanList.set_value()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li><a class="reference internal" href="#module-biocutils.Factor">biocutils.Factor module</a><ul>
 <li><a class="reference internal" href="#biocutils.Factor.Factor"><code class="docutils literal notranslate"><span class="pre">Factor</span></code></a><ul>
 <li><a class="reference internal" href="#biocutils.Factor.Factor.__copy__"><code class="docutils literal notranslate"><span class="pre">Factor.__copy__()</span></code></a></li>
 <li><a class="reference internal" href="#biocutils.Factor.Factor.__deepcopy__"><code class="docutils literal notranslate"><span class="pre">Factor.__deepcopy__()</span></code></a></li>
+<li><a class="reference internal" href="#biocutils.Factor.Factor.__eq__"><code class="docutils literal notranslate"><span class="pre">Factor.__eq__()</span></code></a></li>
 <li><a class="reference internal" href="#biocutils.Factor.Factor.__getitem__"><code class="docutils literal notranslate"><span class="pre">Factor.__getitem__()</span></code></a></li>
+<li><a class="reference internal" href="#biocutils.Factor.Factor.__hash__"><code class="docutils literal notranslate"><span class="pre">Factor.__hash__</span></code></a></li>
 <li><a class="reference internal" href="#biocutils.Factor.Factor.__iter__"><code class="docutils literal notranslate"><span class="pre">Factor.__iter__()</span></code></a></li>
 <li><a class="reference internal" href="#biocutils.Factor.Factor.__len__"><code class="docutils literal notranslate"><span class="pre">Factor.__len__()</span></code></a></li>
 <li><a class="reference internal" href="#biocutils.Factor.Factor.__repr__"><code class="docutils literal notranslate"><span class="pre">Factor.__repr__()</span></code></a></li>
@@ -2524,6 +2762,28 @@ occurrence in the latest sequence of <code class="docutils literal notranslate">
 <li><a class="reference internal" href="#biocutils.Factor.FactorIterator"><code class="docutils literal notranslate"><span class="pre">FactorIterator</span></code></a><ul>
 <li><a class="reference internal" href="#biocutils.Factor.FactorIterator.__iter__"><code class="docutils literal notranslate"><span class="pre">FactorIterator.__iter__()</span></code></a></li>
 <li><a class="reference internal" href="#biocutils.Factor.FactorIterator.__next__"><code class="docutils literal notranslate"><span class="pre">FactorIterator.__next__()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-biocutils.FloatList">biocutils.FloatList module</a><ul>
+<li><a class="reference internal" href="#biocutils.FloatList.FloatList"><code class="docutils literal notranslate"><span class="pre">FloatList</span></code></a><ul>
+<li><a class="reference internal" href="#biocutils.FloatList.FloatList.safe_append"><code class="docutils literal notranslate"><span class="pre">FloatList.safe_append()</span></code></a></li>
+<li><a class="reference internal" href="#biocutils.FloatList.FloatList.safe_extend"><code class="docutils literal notranslate"><span class="pre">FloatList.safe_extend()</span></code></a></li>
+<li><a class="reference internal" href="#biocutils.FloatList.FloatList.safe_insert"><code class="docutils literal notranslate"><span class="pre">FloatList.safe_insert()</span></code></a></li>
+<li><a class="reference internal" href="#biocutils.FloatList.FloatList.set_slice"><code class="docutils literal notranslate"><span class="pre">FloatList.set_slice()</span></code></a></li>
+<li><a class="reference internal" href="#biocutils.FloatList.FloatList.set_value"><code class="docutils literal notranslate"><span class="pre">FloatList.set_value()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-biocutils.IntegerList">biocutils.IntegerList module</a><ul>
+<li><a class="reference internal" href="#biocutils.IntegerList.IntegerList"><code class="docutils literal notranslate"><span class="pre">IntegerList</span></code></a><ul>
+<li><a class="reference internal" href="#biocutils.IntegerList.IntegerList.safe_append"><code class="docutils literal notranslate"><span class="pre">IntegerList.safe_append()</span></code></a></li>
+<li><a class="reference internal" href="#biocutils.IntegerList.IntegerList.safe_extend"><code class="docutils literal notranslate"><span class="pre">IntegerList.safe_extend()</span></code></a></li>
+<li><a class="reference internal" href="#biocutils.IntegerList.IntegerList.safe_insert"><code class="docutils literal notranslate"><span class="pre">IntegerList.safe_insert()</span></code></a></li>
+<li><a class="reference internal" href="#biocutils.IntegerList.IntegerList.set_slice"><code class="docutils literal notranslate"><span class="pre">IntegerList.set_slice()</span></code></a></li>
+<li><a class="reference internal" href="#biocutils.IntegerList.IntegerList.set_value"><code class="docutils literal notranslate"><span class="pre">IntegerList.set_value()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -2747,7 +3007,7 @@ occurrence in the latest sequence of <code class="docutils literal notranslate">
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=fd825880"></script>
+</div><script src="../_static/documentation_options.js?v=59fadc99"></script>
     <script src="../_static/doctools.js?v=888ff710"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=32e29ea5"></script>

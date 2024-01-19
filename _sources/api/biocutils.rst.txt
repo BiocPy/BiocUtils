@@ -4,10 +4,34 @@ biocutils package
 Submodules
 ----------
 
+biocutils.BooleanList module
+----------------------------
+
+.. automodule:: biocutils.BooleanList
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 biocutils.Factor module
 -----------------------
 
 .. automodule:: biocutils.Factor
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+biocutils.FloatList module
+--------------------------
+
+.. automodule:: biocutils.FloatList
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+biocutils.IntegerList module
+----------------------------
+
+.. automodule:: biocutils.IntegerList
    :members:
    :undoc-members:
    :show-inheritance:

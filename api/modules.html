@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="biocutils package" href="biocutils.html" /><link rel="prev" title="Changelog" href="../changelog.html" />
 
     <!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
-        <title>biocutils - biocutils 0.1.4 documentation</title>
+        <title>biocutils - biocutils 0.1.5 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=36a5483c" />
@@ -123,7 +123,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">biocutils 0.1.4 documentation</div></a>
+      <a href="../index.html"><div class="brand">biocutils 0.1.5 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -146,7 +146,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
   
   
-  <span class="sidebar-brand-text">biocutils 0.1.4 documentation</span>
+  <span class="sidebar-brand-text">biocutils 0.1.5 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -204,11 +204,24 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="biocutils.html">biocutils package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="biocutils.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="biocutils.html#module-biocutils.BooleanList">biocutils.BooleanList module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="biocutils.html#biocutils.BooleanList.BooleanList"><code class="docutils literal notranslate"><span class="pre">BooleanList</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="biocutils.html#biocutils.BooleanList.BooleanList.safe_append"><code class="docutils literal notranslate"><span class="pre">BooleanList.safe_append()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="biocutils.html#biocutils.BooleanList.BooleanList.safe_extend"><code class="docutils literal notranslate"><span class="pre">BooleanList.safe_extend()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="biocutils.html#biocutils.BooleanList.BooleanList.safe_insert"><code class="docutils literal notranslate"><span class="pre">BooleanList.safe_insert()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="biocutils.html#biocutils.BooleanList.BooleanList.set_slice"><code class="docutils literal notranslate"><span class="pre">BooleanList.set_slice()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="biocutils.html#biocutils.BooleanList.BooleanList.set_value"><code class="docutils literal notranslate"><span class="pre">BooleanList.set_value()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="biocutils.html#module-biocutils.Factor">biocutils.Factor module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="biocutils.html#biocutils.Factor.Factor"><code class="docutils literal notranslate"><span class="pre">Factor</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="biocutils.html#biocutils.Factor.Factor.__copy__"><code class="docutils literal notranslate"><span class="pre">Factor.__copy__()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="biocutils.html#biocutils.Factor.Factor.__deepcopy__"><code class="docutils literal notranslate"><span class="pre">Factor.__deepcopy__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="biocutils.html#biocutils.Factor.Factor.__eq__"><code class="docutils literal notranslate"><span class="pre">Factor.__eq__()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="biocutils.html#biocutils.Factor.Factor.__getitem__"><code class="docutils literal notranslate"><span class="pre">Factor.__getitem__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="biocutils.html#biocutils.Factor.Factor.__hash__"><code class="docutils literal notranslate"><span class="pre">Factor.__hash__</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="biocutils.html#biocutils.Factor.Factor.__iter__"><code class="docutils literal notranslate"><span class="pre">Factor.__iter__()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="biocutils.html#biocutils.Factor.Factor.__len__"><code class="docutils literal notranslate"><span class="pre">Factor.__len__()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="biocutils.html#biocutils.Factor.Factor.__repr__"><code class="docutils literal notranslate"><span class="pre">Factor.__repr__()</span></code></a></li>
@@ -237,6 +250,28 @@
 <li class="toctree-l3"><a class="reference internal" href="biocutils.html#biocutils.Factor.FactorIterator"><code class="docutils literal notranslate"><span class="pre">FactorIterator</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="biocutils.html#biocutils.Factor.FactorIterator.__iter__"><code class="docutils literal notranslate"><span class="pre">FactorIterator.__iter__()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="biocutils.html#biocutils.Factor.FactorIterator.__next__"><code class="docutils literal notranslate"><span class="pre">FactorIterator.__next__()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="biocutils.html#module-biocutils.FloatList">biocutils.FloatList module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="biocutils.html#biocutils.FloatList.FloatList"><code class="docutils literal notranslate"><span class="pre">FloatList</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="biocutils.html#biocutils.FloatList.FloatList.safe_append"><code class="docutils literal notranslate"><span class="pre">FloatList.safe_append()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="biocutils.html#biocutils.FloatList.FloatList.safe_extend"><code class="docutils literal notranslate"><span class="pre">FloatList.safe_extend()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="biocutils.html#biocutils.FloatList.FloatList.safe_insert"><code class="docutils literal notranslate"><span class="pre">FloatList.safe_insert()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="biocutils.html#biocutils.FloatList.FloatList.set_slice"><code class="docutils literal notranslate"><span class="pre">FloatList.set_slice()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="biocutils.html#biocutils.FloatList.FloatList.set_value"><code class="docutils literal notranslate"><span class="pre">FloatList.set_value()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="biocutils.html#module-biocutils.IntegerList">biocutils.IntegerList module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="biocutils.html#biocutils.IntegerList.IntegerList"><code class="docutils literal notranslate"><span class="pre">IntegerList</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="biocutils.html#biocutils.IntegerList.IntegerList.safe_append"><code class="docutils literal notranslate"><span class="pre">IntegerList.safe_append()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="biocutils.html#biocutils.IntegerList.IntegerList.safe_extend"><code class="docutils literal notranslate"><span class="pre">IntegerList.safe_extend()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="biocutils.html#biocutils.IntegerList.IntegerList.safe_insert"><code class="docutils literal notranslate"><span class="pre">IntegerList.safe_insert()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="biocutils.html#biocutils.IntegerList.IntegerList.set_slice"><code class="docutils literal notranslate"><span class="pre">IntegerList.set_slice()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="biocutils.html#biocutils.IntegerList.IntegerList.set_value"><code class="docutils literal notranslate"><span class="pre">IntegerList.set_value()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -504,7 +539,7 @@
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=fd825880"></script>
+</div><script src="../_static/documentation_options.js?v=59fadc99"></script>
     <script src="../_static/doctools.js?v=888ff710"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=32e29ea5"></script>

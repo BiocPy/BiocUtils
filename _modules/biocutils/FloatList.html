@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
     <!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
-        <title>biocutils.StringList - biocutils 0.1.5 documentation</title>
+        <title>biocutils.FloatList - biocutils 0.1.5 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=36a5483c" />
@@ -196,7 +196,7 @@
           </label>
         </div>
         <article role="main">
-          <h1>Source code for biocutils.StringList</h1><div class="highlight"><pre>
+          <h1>Source code for biocutils.FloatList</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">from</span> <span class="nn">.NamedList</span> <span class="kn">import</span> <span class="n">NamedList</span>
@@ -204,8 +204,13 @@
 <span class="kn">from</span> <span class="nn">.normalize_subscript</span> <span class="kn">import</span> <span class="n">SubscriptTypes</span>
 
 
-<span class="k">def</span> <span class="nf">_coerce_to_str</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Any</span><span class="p">):</span>
-    <span class="k">return</span> <span class="kc">None</span> <span class="k">if</span> <span class="n">x</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">_coerce_to_float</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Any</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">x</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
 
 
 <span class="k">class</span> <span class="nc">_SubscriptCoercer</span><span class="p">:</span>
@@ -213,16 +218,16 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="n">data</span>
 
     <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">_coerce_to_str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">_coerce_to_float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
 
 
-<div class="viewcode-block" id="StringList">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.StringList.StringList">[docs]</a>
-<span class="k">class</span> <span class="nc">StringList</span><span class="p">(</span><span class="n">NamedList</span><span class="p">):</span>
+<div class="viewcode-block" id="FloatList">
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.FloatList.FloatList">[docs]</a>
+<span class="k">class</span> <span class="nc">FloatList</span><span class="p">(</span><span class="n">NamedList</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    List of strings. This mimics a regular Python list except that anything</span>
-<span class="sd">    added to it will be coerced into a string. None values are also acceptable</span>
-<span class="sd">    and are treated as missing strings. The list may also be named (see</span>
+<span class="sd">    List of floats. This mimics a regular Python list except that anything</span>
+<span class="sd">    added to it will be coerced into a float. None values are also acceptable</span>
+<span class="sd">    and are treated as missing floats. The list may also be named (see</span>
 <span class="sd">    :py:class:`~NamedList`), which provides some dictionary-like functionality.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -235,7 +240,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
 <span class="sd">           data:</span>
-<span class="sd">                Some iterable object where all values can be coerced to strings</span>
+<span class="sd">                Some iterable object where all values can be coerced to floats</span>
 <span class="sd">                or are None.</span>
 
 <span class="sd">                Alternatively this may itself be None, which defaults to an empty list.</span>
@@ -248,55 +253,55 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">_validate</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">StringList</span><span class="p">):</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">FloatList</span><span class="p">):</span>
                     <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">_data</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">NamedList</span><span class="p">):</span>
                         <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">_data</span>
                     <span class="n">original</span> <span class="o">=</span> <span class="n">data</span>
-                    <span class="n">data</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">_coerce_to_str</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">original</span><span class="p">)</span>
+                    <span class="n">data</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">_coerce_to_float</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">original</span><span class="p">)</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">names</span><span class="p">,</span> <span class="n">_validate</span><span class="o">=</span><span class="n">_validate</span><span class="p">)</span>
 
-<div class="viewcode-block" id="StringList.set_value">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.StringList.StringList.set_value">[docs]</a>
+<div class="viewcode-block" id="FloatList.set_value">
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.FloatList.FloatList.set_value">[docs]</a>
     <span class="k">def</span> <span class="nf">set_value</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">value</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">in_place</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;StringList&quot;</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calls :py:meth:`~biocutils.NamedList.NamedList.set_value` after coercing ``value`` to a string.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">set_value</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">_coerce_to_str</span><span class="p">(</span><span class="n">value</span><span class="p">),</span> <span class="n">in_place</span><span class="o">=</span><span class="n">in_place</span><span class="p">)</span></div>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;FloatList&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calls :py:meth:`~biocutils.NamedList.NamedList.set_value` after coercing ``value`` to a float.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">set_value</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">_coerce_to_float</span><span class="p">(</span><span class="n">value</span><span class="p">),</span> <span class="n">in_place</span><span class="o">=</span><span class="n">in_place</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="StringList.set_slice">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.StringList.StringList.set_slice">[docs]</a>
+<div class="viewcode-block" id="FloatList.set_slice">
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.FloatList.FloatList.set_slice">[docs]</a>
     <span class="k">def</span> <span class="nf">set_slice</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="n">SubscriptTypes</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">in_place</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;StringList&quot;</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calls :py:meth:`~biocutils.NamedList.NamedList.set_slice` after coercing ``value`` to strings.&quot;&quot;&quot;</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;FloatList&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calls :py:meth:`~biocutils.NamedList.NamedList.set_slice` after coercing ``value`` to floats.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">set_slice</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">_SubscriptCoercer</span><span class="p">(</span><span class="n">value</span><span class="p">),</span> <span class="n">in_place</span><span class="o">=</span><span class="n">in_place</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="StringList.safe_insert">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.StringList.StringList.safe_insert">[docs]</a>
+<div class="viewcode-block" id="FloatList.safe_insert">
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.FloatList.FloatList.safe_insert">[docs]</a>
     <span class="k">def</span> <span class="nf">safe_insert</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">value</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">in_place</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;StringList&quot;</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calls :py:meth:`~biocutils.NamedList.NamedList.safe_insert` after coercing ``value`` to a string.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">safe_insert</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">_coerce_to_str</span><span class="p">(</span><span class="n">value</span><span class="p">),</span> <span class="n">in_place</span><span class="o">=</span><span class="n">in_place</span><span class="p">)</span></div>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;FloatList&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calls :py:meth:`~biocutils.NamedList.NamedList.safe_insert` after coercing ``value`` to a float.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">safe_insert</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">_coerce_to_float</span><span class="p">(</span><span class="n">value</span><span class="p">),</span> <span class="n">in_place</span><span class="o">=</span><span class="n">in_place</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="StringList.safe_append">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.StringList.StringList.safe_append">[docs]</a>
-    <span class="k">def</span> <span class="nf">safe_append</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">in_place</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;StringList&quot;</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calls :py:meth:`~biocutils.NamedList.NamedList.safe_append` after coercing ``value`` to a string.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">safe_append</span><span class="p">(</span><span class="n">_coerce_to_str</span><span class="p">(</span><span class="n">value</span><span class="p">),</span> <span class="n">in_place</span><span class="o">=</span><span class="n">in_place</span><span class="p">)</span></div>
+<div class="viewcode-block" id="FloatList.safe_append">
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.FloatList.FloatList.safe_append">[docs]</a>
+    <span class="k">def</span> <span class="nf">safe_append</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">in_place</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;FloatList&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calls :py:meth:`~biocutils.NamedList.NamedList.safe_append` after coercing ``value`` to a float.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">safe_append</span><span class="p">(</span><span class="n">_coerce_to_float</span><span class="p">(</span><span class="n">value</span><span class="p">),</span> <span class="n">in_place</span><span class="o">=</span><span class="n">in_place</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="StringList.safe_extend">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.StringList.StringList.safe_extend">[docs]</a>
-    <span class="k">def</span> <span class="nf">safe_extend</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">in_place</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;StringList&quot;</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calls :py:meth:`~biocutils.NamedList.NamedList.safe_extend` after coercing elements of ``other`` to strings.&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="FloatList.safe_extend">
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.FloatList.FloatList.safe_extend">[docs]</a>
+    <span class="k">def</span> <span class="nf">safe_extend</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">in_place</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;FloatList&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calls :py:meth:`~biocutils.NamedList.NamedList.safe_extend` after coercing elements of ``other`` to floats.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">safe_extend</span><span class="p">(</span>
-            <span class="p">(</span><span class="n">_coerce_to_str</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">other</span><span class="p">),</span> <span class="n">in_place</span><span class="o">=</span><span class="n">in_place</span>
+            <span class="p">(</span><span class="n">_coerce_to_float</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">other</span><span class="p">),</span> <span class="n">in_place</span><span class="o">=</span><span class="n">in_place</span>
         <span class="p">)</span></div>
 </div>
 

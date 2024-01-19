@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
     <!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
-        <title>biocutils.Factor - biocutils 0.1.4 documentation</title>
+        <title>biocutils.Factor - biocutils 0.1.5 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=36a5483c" />
@@ -122,7 +122,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">biocutils 0.1.4 documentation</div></a>
+      <a href="../../index.html"><div class="brand">biocutils 0.1.5 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -145,7 +145,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
   
   
-  <span class="sidebar-brand-text">biocutils 0.1.4 documentation</span>
+  <span class="sidebar-brand-text">biocutils 0.1.5 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -576,6 +576,24 @@
         <span class="n">message</span> <span class="o">+=</span> <span class="s2">&quot;ordered: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ordered</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">message</span>
 
+<div class="viewcode-block" id="Factor.__eq__">
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Factor.Factor.__eq__">[docs]</a>
+    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s2">&quot;Factor&quot;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Args:</span>
+<span class="sd">            other: Another ``Factor``.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Whether the current object is equal to ``other``, i.e.,</span>
+<span class="sd">            same codes, levels, names and ordered status.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Factor</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">other</span><span class="p">)</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_levels</span> <span class="o">!=</span> <span class="n">other</span><span class="o">.</span><span class="n">_levels</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_names</span> <span class="o">!=</span> <span class="n">other</span><span class="o">.</span><span class="n">_names</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ordered</span> <span class="o">!=</span> <span class="n">other</span><span class="o">.</span><span class="n">_ordered</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_codes</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">_codes</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span></div>
+
+
     <span class="c1">###########################</span>
     <span class="c1">#####&gt;&gt;&gt;&gt; Slicing &lt;&lt;&lt;&lt;#####</span>
     <span class="c1">###########################</span>
@@ -939,6 +957,7 @@
         <span class="n">levels</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">sort_levels</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
         <span class="n">ordered</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">names</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Factor&quot;</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert a sequence of hashable values into a factor.</span>
 
@@ -961,11 +980,15 @@
 <span class="sd">                this refers to their importance and has nothing to do with</span>
 <span class="sd">                their sorting order or with the setting of ``sort_levels``.</span>
 
+<span class="sd">            names:</span>
+<span class="sd">                List of names. This should have same length as ``x``.</span>
+<span class="sd">                Alternatively None, if the factor has no names.</span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            A ``Factor`` object.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">levels</span><span class="p">,</span> <span class="n">indices</span> <span class="o">=</span> <span class="n">factorize</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="n">levels</span><span class="p">,</span> <span class="n">sort_levels</span><span class="o">=</span><span class="n">sort_levels</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">Factor</span><span class="p">(</span><span class="n">indices</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="n">levels</span><span class="p">,</span> <span class="n">ordered</span><span class="o">=</span><span class="n">ordered</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">Factor</span><span class="p">(</span><span class="n">indices</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="n">levels</span><span class="p">,</span> <span class="n">ordered</span><span class="o">=</span><span class="n">ordered</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="n">names</span><span class="p">)</span></div>
 </div>
 
 
@@ -1061,7 +1084,7 @@
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=fd825880"></script>
+</div><script src="../../_static/documentation_options.js?v=59fadc99"></script>
     <script src="../../_static/doctools.js?v=888ff710"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/furo.js?v=32e29ea5"></script>

@@ -664,6 +664,7 @@ class Factor:
         levels: Optional[Sequence[str]] = None,
         sort_levels: bool = True,
         ordered: bool = False,
+        names: Optional[Sequence[str]] = None,
     ) -> "Factor":
         """Convert a sequence of hashable values into a factor.
 
@@ -686,11 +687,15 @@ class Factor:
                 this refers to their importance and has nothing to do with
                 their sorting order or with the setting of ``sort_levels``.
 
+            names:
+                List of names. This should have same length as ``x``.
+                Alternatively None, if the factor has no names.
+
         Returns:
             A ``Factor`` object.
         """
         levels, indices = factorize(x, levels=levels, sort_levels=sort_levels)
-        return Factor(indices, levels=levels, ordered=ordered)
+        return Factor(indices, levels=levels, ordered=ordered, names=names)
 
 
 @subset_sequence.register

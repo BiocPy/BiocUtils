@@ -90,6 +90,8 @@ class Names:
         Returns:
             Whether the current object is the same as ``other``.
         """
+        if not isinstance(other, Names):
+            return False
         return self._names == other._names
 
     def as_list(self) -> List[str]:

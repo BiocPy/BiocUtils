@@ -106,6 +106,8 @@ class NamedList:
             Whether the current object is equal to ``other``, i.e.,
             same data and names.
         """
+        if not isinstance(other, NamedList):
+            return False
         return self._data == other._data and self._names == other._names
 
     #################################

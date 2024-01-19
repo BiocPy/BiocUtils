@@ -211,6 +211,18 @@ def test_NamedList_addition():
     assert x1.get_names().as_list() == ["A", "B", "C", "D", "E", "F", "G"]
 
 
+def test_NamedList_comparison():
+    x1 = NamedList([1,2,3,4], names=["A", "B", "C", "D"])
+    assert x1 == x1
+    assert x1 != []
+    x2 = x1.set_names(None)
+    assert x2 != x1
+    x2 = NamedList([4,3,2,1], names=["A", "B", "C", "D"])
+    assert x2 != x1
+    x2 = NamedList([1,2,3,4], names=["a", "b", "c", "d"])
+    assert x2 != x1
+
+
 def test_NamedList_copy():
     x = NamedList([1,2,3,4])
     y = x.copy()

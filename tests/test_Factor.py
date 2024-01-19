@@ -48,6 +48,20 @@ def test_factor_iter():
     assert output == ["A", "B", "C", None, "C", "E"]
 
 
+def test_factor_comparisons():
+    f = Factor([0, 1, 2, 0, 2, 4], levels=["A", "B", "C", "D", "E"])
+    assert f == f
+    assert f != []
+    f2 = f.set_levels(["E", "C", "D", "B", "A"])
+    assert f != f2
+    f2 = f.set_ordered(True)
+    assert f != f2
+    f2 = Factor([0, 1, 2, 3, 4], levels=["A", "B", "C", "D", "E"])
+    assert f != f2
+    f2 = Factor([0, 1, 2, 3, 4, 0], levels=["A", "B", "C", "D", "E"])
+    assert f != f2
+
+
 def test_Factor_print():
     f = Factor([0, 1, 2, 0, 2, 4], levels=["A", "B", "C", "D", "E"])
     assert repr(f).startswith("Factor(")

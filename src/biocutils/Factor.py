@@ -336,6 +336,21 @@ class Factor:
         message += "ordered: " + str(self._ordered)
         return message
 
+    def __eq__(self, other: "Factor"):
+        """
+        Args:
+            other: Another ``Factor``.
+
+        Returns:
+            Whether the current object is equal to ``other``, i.e.,
+            same codes, levels, names and ordered status.
+        """
+        if not isinstance(other, Factor):
+            return False
+        if len(self) != len(other) or self._levels != other._levels or self._names != other._names or self._ordered != other._ordered:
+            return False
+        return (self._codes == other._codes).all()
+
     ###########################
     #####>>>> Slicing <<<<#####
     ###########################

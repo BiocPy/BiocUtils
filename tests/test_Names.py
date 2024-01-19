@@ -172,6 +172,14 @@ def test_Names_addition():
     assert x1.as_list() == ["1", "2", "3", "4", "5", "6", "7"]
 
 
+def test_Names_comparison():
+    x1 = Names([1,2,3,4])
+    assert x1 == x1
+    assert x1 != []
+    x2 = Names([4,3,2,1])
+    assert x2 != x1
+
+
 def test_Names_generics():
     x = Names([1,2,3,4])
     sub = biocutils.subset_sequence(x, [0,3,2,1])

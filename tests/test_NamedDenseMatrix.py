@@ -60,50 +60,50 @@ def test_indexing():
     assert sub_mat.column_names == ["c1", "c2"]
 
 
-# def test_operations():
-#     """Test mathematical operations."""
-#     data = [[1, 2], [3, 4]]
-#     mat = NamedDenseMatrix(data, row_names=["r1", "r2"], column_names=["c1", "c2"])
+def test_operations():
+    """Test mathematical operations."""
+    data = [[1, 2], [3, 4]]
+    mat = NamedDenseMatrix(data, row_names=["r1", "r2"], column_names=["c1", "c2"])
 
-#     # Multiplication
-#     result = mat * 2
-#     assert isinstance(result, NamedDenseMatrix)
-#     assert result.row_names == mat.row_names
-#     assert result.column_names == mat.column_names
-#     assert np.array_equal(result.A, np.array(data) * 2)
+    # Multiplication
+    result = mat * 2
+    assert isinstance(result, NamedDenseMatrix)
+    assert result.row_names == mat.row_names
+    assert result.column_names == mat.column_names
+    assert np.array_equal(result.A, np.array(data) * 2)
 
-#     # Matrix multiplication
-#     result = mat @ mat
-#     assert isinstance(result, NamedDenseMatrix)
-#     assert result.row_names == mat.row_names
-#     assert result.column_names == mat.column_names
+    # Matrix multiplication
+    result = mat @ mat
+    assert isinstance(result, NamedDenseMatrix)
+    assert result.row_names == mat.row_names
+    assert result.column_names == mat.column_names
 
-#     # Addition
-#     result = mat + mat
-#     assert isinstance(result, NamedDenseMatrix)
-#     assert result.row_names == mat.row_names
-#     assert result.column_names == mat.column_names
-#     assert np.array_equal(result.A, np.array(data) * 2)
+    # Addition
+    result = mat + mat
+    assert isinstance(result, NamedDenseMatrix)
+    assert result.row_names == mat.row_names
+    assert result.column_names == mat.column_names
+    assert np.array_equal(result.A, np.array(data) * 2)
 
 
-# def test_rename():
-#     """Test renaming functionality."""
-#     mat = NamedDenseMatrix([[1, 2], [3, 4]])
+def test_rename():
+    """Test renaming functionality."""
+    mat = NamedDenseMatrix([[1, 2], [3, 4]])
 
-#     # Add names
-#     mat.set_rows(["r1", "r2"])
-#     mat.set_columns(["c1", "c2"])
-#     assert mat.row_names == ["r1", "r2"]
-#     assert mat.column_names == ["c1", "c2"]
+    # Add names
+    mat.set_rows(["r1", "r2"])
+    mat.set_columns(["c1", "c2"])
+    assert mat.row_names == ["r1", "r2"]
+    assert mat.column_names == ["c1", "c2"]
 
-#     # Remove names
-#     mat.set_rows(None)
-#     mat.set_columns(None)
-#     assert mat.row_names is None
-#     assert mat.column_names is None
+    # Remove names
+    mat.set_rows(None)
+    mat.set_columns(None)
+    assert mat.row_names is None
+    assert mat.column_names is None
 
-#     # Invalid renaming
-#     with pytest.raises(ValueError):
-#         mat.set_rows(["single"])
-#     with pytest.raises(ValueError):
-#         mat.set_columns(["single"])
+    # Invalid renaming
+    with pytest.raises(ValueError):
+        mat.set_rows(["single"])
+    with pytest.raises(ValueError):
+        mat.set_columns(["single"])

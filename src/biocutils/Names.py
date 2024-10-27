@@ -98,6 +98,9 @@ class Names:
         """
         Returns:
             List of strings containing the names.
+
+            This should be treated as a read-only reference. Modifications
+            should be performed by creating a new ``Names`` object instead.
         """
         return self._names
 

@@ -159,6 +159,9 @@ class Factor:
         Returns:
             Array of integer codes, used as indices into the levels from
             :py:meth:`~get_levels`. Missing values are marked with -1.
+
+            This should be treated as a read-only reference. To modify
+            the codes, use :py:meth:`~set_codes` instead.
         """
         return self._codes
 
@@ -193,6 +196,9 @@ class Factor:
         """
         Returns:
             List of strings containing the factor levels.
+
+            This should be treated as a read-only reference. To modify the
+            levels, use :py:meth:`~set_levels` instead.
         """
         return self._levels
 
@@ -234,6 +240,9 @@ class Factor:
         """
         Returns:
             Names for the factor elements.
+
+            This should be treated as a read-only reference. To modify the
+            names, use :py:meth:`~set_names` instead.
         """
         return self._names
 

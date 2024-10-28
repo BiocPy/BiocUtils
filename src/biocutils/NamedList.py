@@ -118,6 +118,9 @@ class NamedList:
         """
         Returns:
             Names for the list elements.
+
+            The returned object should be treated as a read-only reference. To
+            modify the names, use :py:meth:`~set_names` instead.
         """
         return self._names
 
@@ -470,6 +473,8 @@ class NamedList:
         """
         Returns:
             The underlying list of elements.
+
+            The returned object should be treated as a read-only reference.
         """
         return self._data
 
@@ -478,6 +483,8 @@ class NamedList:
         Returns:
             A dictionary where the keys are the names and the values are the
             list elements. Only the first occurrence of each name is returned.
+
+            Values of the dictionary should be treated as read-only references.
         """
         output = {}
         for i, n in enumerate(self._names):

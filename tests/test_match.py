@@ -1,4 +1,5 @@
 from biocutils import match, map_to_index
+import numpy
 
 
 def test_match_simple():
@@ -7,6 +8,7 @@ def test_match_simple():
 
     mm = match(x, levels)
     assert list(mm) == [3, 1, 2, 0, 3, 3, 1, 0, 2]
+    assert mm.dtype == numpy.dtype("int8")
 
     mm2 = match(x, map_to_index(levels))
     assert (mm == mm2).all()
@@ -27,3 +29,13 @@ def test_match_none():
 
     mm = match(["A", "B", "D", "A", "C", "B"], ["D", None, "C", "B", None, "A"])
     assert list(mm) == [5, 3, 0, 5, 2, 3]
+
+
+def test_match_dtype():
+    mm = match(["A", "F", "B", "D", "F", "A", "C", "F", "B"], ["D", "C", "B", "A"], dtype=numpy.dtype("int32"))
+    assert list(mm) == [3, -1, 2, 0, -1, 3, 1, -1, 2]
+    assert mm.dtype == numpy.dtype("int32")
+
+    mm = match(["A", "B", "D", "A", "C", "B"], ["D", "C", "B", "A"], dtype=numpy.dtype("uint32"))
+    assert list(mm) == [3, 2, 0, 3, 1, 2]
+    assert mm.dtype == numpy.dtype("uint32")

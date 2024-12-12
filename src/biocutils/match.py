@@ -1,5 +1,4 @@
-from typing import Sequence, Union
-
+from typing import Sequence, Union, Optional
 import numpy
 
 from .map_to_index import DUPLICATE_METHOD, map_to_index
@@ -9,6 +8,7 @@ def match(
     x: Sequence,
     targets: Union[dict, Sequence],
     duplicate_method: DUPLICATE_METHOD = "first",
+    dtype: Optional[numpy.ndarray] = None,
 ) -> numpy.ndarray:
     """Find a matching value of each element of ``x`` in ``target``.
 
@@ -24,6 +24,11 @@ def match(
             How to handle duplicate entries in ``targets``. Matches can
             be reported to the first or last occurrence of duplicates.
 
+        dtype:
+            NumPy type of the output array. This should be an integer type; if
+            missing values are expected, the type should be a signed integer.
+            If None, a suitable type is automatically determined.
+
     Returns:
         Array of length equal to ``x``, containing the integer position of each
         entry of ``x`` inside ``target``; or -1, if the entry of ``x`` is
@@ -32,9 +37,10 @@ def match(
     if not isinstance(targets, dict):
         targets = map_to_index(targets, duplicate_method=duplicate_method)
 
-    indices = numpy.zeros(
-        len(x), dtype=numpy.min_scalar_type(-len(targets))
-    )  # get a signed type
+    if dtype is None:
+        dtype = numpy.min_scalar_type(-len(targets)) # get a signed type
+    indices = numpy.zeros(len(x), dtype=dtype)
+
     for i, y in enumerate(x):
         if y not in targets:
             indices[i] = -1

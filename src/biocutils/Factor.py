@@ -689,6 +689,7 @@ class Factor:
         sort_levels: bool = True,
         ordered: bool = False,
         names: Optional[Sequence[str]] = None,
+        **kwargs
     ) -> "Factor":
         """Convert a sequence of hashable values into a factor.
 
@@ -715,10 +716,14 @@ class Factor:
                 List of names. This should have same length as ``x``.
                 Alternatively None, if the factor has no names.
 
+            kwargs:
+                Further arguments to pass to
+                :py:func:`~biocutils.factorize.factorize`.
+
         Returns:
             A ``Factor`` object.
         """
-        levels, indices = factorize(x, levels=levels, sort_levels=sort_levels)
+        levels, indices = factorize(x, levels=levels, sort_levels=sort_levels, **kwargs)
         return Factor(indices, levels=levels, ordered=ordered, names=names)
 
 

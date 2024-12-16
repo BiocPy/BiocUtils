@@ -7,7 +7,10 @@ from .match import match
 
 
 def factorize(
-    x: Sequence, levels: Optional[Sequence] = None, sort_levels: bool = False
+    x: Sequence,
+    levels: Optional[Sequence] = None,
+    sort_levels: bool = False,
+    dtype: Optional[numpy.dtype] = None,
 ) -> Tuple[list, numpy.ndarray]:
     """Convert a sequence of hashable values into a factor.
 
@@ -24,6 +27,10 @@ def factorize(
             Whether to sort the automatically-determined levels.
             If False, the levels are kept in order of their appearance in ``x``.
             Not used if ``levels`` is explicitly supplied.
+
+        dtype:
+            NumPy type of the array of indices, see
+            :py:func:`~biocutils.match.match` for details.
 
     Returns:
         Tuple where the first list contains the unique levels and the second
@@ -44,5 +51,5 @@ def factorize(
         if sort_levels:
             levels.sort()
 
-    codes = match(x, levels)
+    codes = match(x, levels, dtype=dtype)
     return levels, codes

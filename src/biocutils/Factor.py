@@ -2,6 +2,7 @@ from copy import copy, deepcopy
 from typing import Optional, Sequence, Union
 
 import numpy
+import warnings
 
 from .assign_sequence import assign_sequence
 from .combine_sequences import combine_sequences
@@ -198,7 +199,7 @@ class Factor:
             List of strings containing the factor levels.
 
             This should be treated as a read-only reference. To modify the
-            levels, use :py:meth:`~set_levels` instead.
+            levels, use :py:meth:`~replace_levels` instead.
         """
         return self._levels
 
@@ -562,10 +563,82 @@ class Factor:
         output._levels = new_levels
         return output
 
+    def replace_levels(
+        self,
+        levels: Sequence[str],
+        in_place: bool = False,
+    ) -> "Factor":
+        """Replace the existing levels with a new list. The codes of the
+        returned ``Factor`` are unchanged by this method and will index into
+        the replacement ``levels``, so each element of the ``Factor`` may refer
+        to a different string after the levels are replaced. (To change the
+        levels while ensuring that each element of the ``Factor`` refers to the
+        same string, use :py:meth:`~remap_levels`.  instead.)
+
+        Args:
+            levels:
+                A sequence of replacement levels. These should be unique
+                strings with no missing values. The length of this sequence
+                should be no less than the current number of levels.
+
+            in_place:
+                Whether to perform this modification in-place.
+
+        Returns:
+            If ``in_place = False``, returns same type as caller (a new
+            ``Factor`` object) where the levels have been replaced. Codes
+            are unchanged and may refer to different strings.
+
+            If ``in_place = True``, the levels are replaced in the current
+            object, and a reference to the current object is returned.
+        """
+        new_levels = levels
+        if not isinstance(new_levels, StringList):
+            new_levels = StringList(levels)
+        if len(new_levels) < len(self._levels):
+            raise ValueError("'levels' should be at least as long as the existing levels")
+
+        present = set()
+        for x in new_levels:
+            if x is None:
+                raise ValueError("all entries of 'levels' should be non-missing")
+            if x in present:
+                raise ValueError("all entries of 'levels' should be unique")
+            present.add(x)
+
+        if in_place:
+            output = self
+        else:
+            output = copy(self)
+
+        output._levels = new_levels
+        return output
+
     def set_levels(
+        self,
+        levels: Union[str, Sequence[str]],
+        remap: bool = True,
+        in_place: bool = False
+    ) -> "Factor":
+        """
+        Alias for :py:meth:`~remap_levels` if ``remap = True``, otherwise an
+        alias for :py:meth:`~replace_levels`. The first alias is deprecated and
+        :py:meth:`~remap_levels` should be used directly if that is the intent.
+        """
+        if remap:
+            warnings.warn("'remap=True' is deprecated, use 'remap_levels()' instead", category=DeprecationWarning)
+            return self.remap_levels(levels, in_place=in_place)
+        else:
+            return self.replace_levels(levels, in_place=in_place)
+
+    def remap_levels(
         self, levels: Union[str, Sequence[str]], in_place: bool = False
     ) -> "Factor":
-        """Set or replace levels.
+        """Remap codes to a replacement list of levels. Each entry of the
+        remapped ``Factor`` will refer to the same string across the old and
+        new levels, provided that string is present in both sets of levels.
+        (To change the levels without altering the codes of the ``Factor``, use
+        :py:meth:`~replace_levels` instead.)
 
         Args:
             levels:
@@ -585,7 +658,7 @@ class Factor:
             ``Factor`` object) where the levels have been replaced. This will
             automatically update the codes so that they still refer to the same
             string in the new ``levels``. If a code refers to a level that is
-            not present in the new ``levels``, it is replaced with None.
+            not present in the new ``levels``, it is set to a missing value.
 
             If ``in_place = True``, the levels are replaced in the current
             object, and a reference to the current object is returned.
@@ -615,7 +688,7 @@ class Factor:
                 new_levels = StringList(levels)
             for i, x in enumerate(new_levels):
                 if x is None:
-                    raise TypeError("all entries of 'levels' should be non-missing")
+                    raise ValueError("all entries of 'levels' should be non-missing")
                 if x in lmapping:
                     raise ValueError("all entries of 'levels' should be unique")
                 lmapping[x] = i

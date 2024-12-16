@@ -52,7 +52,7 @@ def test_factor_comparisons():
     f = Factor([0, 1, 2, 0, 2, 4], levels=["A", "B", "C", "D", "E"])
     assert f == f
     assert f != []
-    f2 = f.set_levels(["E", "C", "D", "B", "A"])
+    f2 = f.replace_levels(["E", "C", "D", "B", "A"])
     assert f != f2
     f2 = f.set_ordered(True)
     assert f != f2
@@ -193,34 +193,67 @@ def test_Factor_drop_unused_levels():
     assert list(f2) == ["D", "E", "C", "D", "C", "E"]
 
 
-def test_Factor_set_levels():
+def test_Factor_replace_levels():
     f = Factor([0, 1, 2, 0, 2, 4], levels=["A", "B", "C", "D", "E"])
-    f2 = f.set_levels(["E", "D", "C", "B", "A"])
+    f2 = f.replace_levels(["E", "D", "C", "B", "A"])
+    assert f2.get_levels().as_list() == ["E", "D", "C", "B", "A"]
+    assert (f2.get_codes() == f.get_codes()).all()
+    assert list(f2) != list(f)
+
+    f = Factor([0, 1, 2, 0, 2, 4], levels=["A", "B", "C", "D", "E"])
+    f2 = f.replace_levels(["G", "F", "E", "D", "C", "B", "A"], in_place=True)
+    assert f2.get_levels().as_list() == ["G", "F", "E", "D", "C", "B", "A"]
+    assert (f2.get_codes() == f.get_codes()).all()
+
+    with pytest.raises(ValueError, match="at least as long") as ex:
+        f.replace_levels(["F"])
+
+    with pytest.raises(ValueError, match="non-missing") as ex:
+        f.replace_levels([None, "A"] * 10)
+    assert str(ex.value).find("non-missing") >= 0
+
+    with pytest.raises(ValueError, match="should be unique") as ex:
+        f.replace_levels(["A"] * 10)
+
+
+def test_Factor_remap_levels():
+    f = Factor([0, 1, 2, 0, 2, 4], levels=["A", "B", "C", "D", "E"])
+    f2 = f.remap_levels(["E", "D", "C", "B", "A"])
     assert f2.get_levels().as_list() == ["E", "D", "C", "B", "A"]
     assert list(f2.get_codes()) == [4, 3, 2, 4, 2, 0]
     assert list(f2) == list(f)
 
     f = Factor([0, 1, 2, 0, 2, 4], levels=["A", "B", "C", "D", "E"])
-    f2 = f.set_levels(["E", "C", "A"], in_place=True)
+    f2 = f.remap_levels(["E", "C", "A"], in_place=True)
     assert f2.get_levels().as_list() == ["E", "C", "A"]
     assert list(f2.get_codes()) == [2, -1, 1, 2, 1, 0]
 
     f = Factor([0, 1, 2, 0, 2, 4], levels=["A", "B", "C", "D", "E"])
-    f2 = f.set_levels("E")  # reorders
+    f2 = f.remap_levels("E")  # reorders
     assert f2.get_levels().as_list() == ["E", "A", "B", "C", "D"]
     assert list(f2.get_codes()) == [1, 2, 3, 1, 3, 0]
 
-    with pytest.raises(ValueError) as ex:
-        f.set_levels("F")
-    assert str(ex.value).find("should already be present") >= 0
+    with pytest.raises(ValueError, match="should already be present"):
+        f.remap_levels("F")
 
-    with pytest.raises(TypeError) as ex:
-        f.set_levels([None, "A"])
-    assert str(ex.value).find("non-missing") >= 0
+    with pytest.raises(ValueError, match="non-missing") as ex:
+        f.remap_levels([None, "A"])
 
-    with pytest.raises(ValueError) as ex:
-        f.set_levels(["A", "A"])
-    assert str(ex.value).find("should be unique") >= 0
+    with pytest.raises(ValueError, match="should be unique") as ex:
+        f.remap_levels(["A", "A"])
+
+
+def test_Factor_set_levels():
+    f = Factor([0, 1, 2, 0, 2, 4], levels=["A", "B", "C", "D", "E"])
+
+    f2 = f.set_levels(["E", "D", "C", "B", "A"], remap=False)
+    assert f2.get_levels().as_list() == ["E", "D", "C", "B", "A"]
+    assert (f2.get_codes() == f.get_codes()).all()
+
+    with pytest.warns(DeprecationWarning) as ex:
+        f2 = f.set_levels(["E", "D", "C", "B", "A"], remap=True)
+    assert f2.get_levels().as_list() == ["E", "D", "C", "B", "A"]
+    assert list(f2) == list(f)
 
 
 def test_Factor_copy():

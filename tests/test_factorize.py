@@ -1,7 +1,7 @@
-from biocutils import factorize
+from biocutils import factorize, Factor
 
 
-def test_factor_simple():
+def test_factorize_simple():
     lev, ind = factorize([1, 3, 5, 5, 3, 1])
     assert lev == [1, 3, 5]
     assert list(ind) == [0, 1, 2, 2, 1, 0]
@@ -17,7 +17,7 @@ def test_factor_simple():
     assert list(ind) == [0, -1, 1, -1, 2, -1]
 
 
-def test_factor_levels():
+def test_factorize_levels():
     revlev = [5, 4, 3, 2, 1]
     lev, ind = factorize([1, 3, 5, 5, 3, 1], levels=revlev)
     assert lev == revlev
@@ -36,7 +36,7 @@ def test_factor_levels():
     assert list(ind) == [1, 3, 5, 5, 3, 1]
 
 
-def test_factor_sorted():
+def test_factorize_sorted():
     lev, ind = factorize(["C", "D", "A", "B", "C", "A"], sort_levels=True)
     assert lev == ["A", "B", "C", "D"]
     assert list(ind) == [2, 3, 0, 1, 2, 0]
@@ -47,3 +47,14 @@ def test_factor_sorted():
     )
     assert lev == ["D", "C", "B", "A"]
     assert list(ind) == [1, 0, 3, 2, 1, 3]
+
+
+def test_factorize_factor():
+    f = Factor([4, 3, 2, 1, 0], ["A", "B", "C", "D", "E"])
+    lev, ind = factorize(f)
+    assert lev == ["E", "D", "C", "B", "A"] 
+    assert list(ind) == [0, 1, 2, 3, 4]
+
+    lev, ind = factorize(f, sort_levels=True)
+    assert lev == f.levels.as_list()
+    assert list(ind) == [4, 3, 2, 1, 0]

@@ -33,12 +33,12 @@ def factorize(
             :py:func:`~biocutils.match.match` for details.
 
     Returns:
-        Tuple where the first list contains the unique levels and the second
-        array contains the integer index into the first list. Indexing the
-        first list by the second array will recover ``x``; except for any None
-        or masked values in ``x``, which will be -1 in the second array.
+        Tuple where the first element is a list of unique levels and the second
+        element in a NumPy array containing integer codes, i.e., indices into
+        the first list. Indexing the first list by the second array will
+        recover ``x``, with the exception of any None or masked values in ``x``
+        that will instead be represented by -1 in the second array.
     """
-
     if levels is None:
         present = set()
         levels = []

@@ -14,6 +14,7 @@ def subset_sequence(x: Any, indices: Sequence[int]) -> Any:
 
         indices:
             Sequence of non-negative integers specifying the integers of interest.
+            All indices should be less than ``len(x)``.
 
     Returns:
         The result of slicing ``x`` by ``indices``. The exact type
@@ -30,6 +31,12 @@ def _subset_sequence_list(x: list, indices: Sequence) -> list:
 @subset_sequence.register
 def _subset_sequence_range(x: range, indices: Sequence) -> Union[list, range]:
     if isinstance(indices, range):
-        return x[slice(indices.start, indices.stop, indices.step)]
+        # We can just assume that all 'indices' are in [0, len(x)),
+        # so no need to handle out-of-range indices.
+        return range(
+            x.start + x.step * indices.start,
+            x.start + x.step * indices.stop,
+            x.step * indices.step
+        )
     else:
         return [x[i] for i in indices]

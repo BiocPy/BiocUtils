@@ -80,7 +80,7 @@ templates_path = ["_templates"]
 
 
 # Enable markdown
-extensions.append("myst_parser")
+extensions.append("myst_nb")
 
 # Configure MyST-Parser
 myst_enable_extensions = [

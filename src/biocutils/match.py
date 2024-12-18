@@ -9,11 +9,13 @@ def match(
     targets: Union[dict, Sequence],
     duplicate_method: DUPLICATE_METHOD = "first",
     dtype: Optional[numpy.ndarray] = None,
+    fail_missing: Optional[bool] = None,
 ) -> numpy.ndarray:
     """Find a matching value of each element of ``x`` in ``target``.
 
     Args:
-        x: Squence of values to match.
+        x:
+            Sequence of values to match.
 
         targets:
             Sequence of targets to be matched against. Alternatively, a
@@ -27,7 +29,12 @@ def match(
         dtype:
             NumPy type of the output array. This should be an integer type; if
             missing values are expected, the type should be a signed integer.
-            If None, a suitable type is automatically determined.
+            If None, a suitable signed type is automatically determined.
+
+        fail_missing:
+            Whether to raise an error if ``x`` cannot be found in ``targets``.
+            If ``None``, this defaults to ``True`` if ``dtype`` is an unsigned
+            type, otherwise it defaults to ``False``.
 
     Returns:
         Array of length equal to ``x``, containing the integer position of each
@@ -41,10 +48,20 @@ def match(
         dtype = numpy.min_scalar_type(-len(targets)) # get a signed type
     indices = numpy.zeros(len(x), dtype=dtype)
 
-    for i, y in enumerate(x):
-        if y not in targets:
-            indices[i] = -1
-        else:
+    if fail_missing is None:
+        fail_missing = numpy.issubdtype(dtype, numpy.unsignedinteger)
+
+    # Separate loops to reduce branching in the tight inner loop.
+    if not fail_missing:
+        for i, y in enumerate(x):
+            if y in targets:
+                indices[i] = targets[y]
+            else:
+                indices[i] = -1
+    else:
+        for i, y in enumerate(x):
+            if not y in targets:
+                raise ValueError("cannot find '" + str(y) + "' in 'targets'")
             indices[i] = targets[y]
 
     return indices

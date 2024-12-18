@@ -11,6 +11,7 @@ def factorize(
     levels: Optional[Sequence] = None,
     sort_levels: bool = False,
     dtype: Optional[numpy.dtype] = None,
+    fail_missing: Optional[bool] = None,
 ) -> Tuple[list, numpy.ndarray]:
     """Convert a sequence of hashable values into a factor.
 
@@ -32,6 +33,10 @@ def factorize(
             NumPy type of the array of indices, see
             :py:func:`~biocutils.match.match` for details.
 
+        fail_missing:
+            Whether to raise an error upon encountering missing levels in
+            ``x``, see :py:func:`~biocutils.match.match` for details.
+
     Returns:
         Tuple where the first element is a list of unique levels and the second
         element in a NumPy array containing integer codes, i.e., indices into
@@ -51,5 +56,5 @@ def factorize(
         if sort_levels:
             levels.sort()
 
-    codes = match(x, levels, dtype=dtype)
+    codes = match(x, levels, dtype=dtype, fail_missing=fail_missing)
     return levels, codes

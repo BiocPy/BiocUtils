@@ -1,5 +1,6 @@
 from biocutils import match, map_to_index
 import numpy
+import pytest
 
 
 def test_match_simple():
@@ -39,3 +40,17 @@ def test_match_dtype():
     mm = match(["A", "B", "D", "A", "C", "B"], ["D", "C", "B", "A"], dtype=numpy.dtype("uint32"))
     assert list(mm) == [3, 2, 0, 3, 1, 2]
     assert mm.dtype == numpy.dtype("uint32")
+
+
+def test_match_fail_missing():
+    x = match(["A", "E", "B", "D", "E"], ["D", "C", "B", "A"])
+    assert list(x) == [3, -1, 2, 0, -1]
+
+    with pytest.raises(ValueError, match="cannot find"):
+        match(["A", "E", "B", "D", "E"], ["D", "C", "B", "A"], fail_missing=True)
+
+    with pytest.raises(ValueError, match="cannot find"):
+        match(["A", "E", "B", "D", "E"], ["D", "C", "B", "A"], dtype=numpy.uint32)
+
+    x = match(["A", "C", "B", "D", "C"], ["D", "C", "B", "A"], fail_missing=True)
+    assert list(x) == [3, 1, 2, 0, 1]

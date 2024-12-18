@@ -25,3 +25,14 @@ def test_subset_range():
     x = range(10, 20)
     assert subset_sequence(x, range(2, 8, 2)) == range(12, 18, 2)
     assert subset_sequence(x, [0, 1, 5, 9]) == [10, 11, 15, 19]
+    assert subset_sequence(x, range(9, -1, -1)) == range(19, 9, -1)
+
+    x = range(10, 30, 3)
+    assert subset_sequence(x, range(2, 7, 2)) == x[2:7:2]
+    assert subset_sequence(x, range(5, 0, -2)) == x[5:0:-2]
+    assert subset_sequence(x, range(len(x) - 1, -1, -1)) == x[::-1]
+
+    x = range(100, 21, -6)
+    assert subset_sequence(x, range(3, 10, 2)) == x[3:10:2]
+    assert subset_sequence(x, range(7, 1, -1)) == x[7:1:-1]
+    assert subset_sequence(x, range(len(x) - 1, -1, -1)) == x[::-1]

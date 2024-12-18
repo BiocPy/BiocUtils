@@ -4,10 +4,11 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
-    <!-- Generated with Sphinx 7.4.7 and Furo 2024.08.06 -->
-        <title>biocutils.Factor - biocutils 0.1.7 documentation</title>
+    <!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
+        <title>biocutils.Factor - biocutils 0.2.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=354aac6f" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=302659d7" />
     
     
@@ -165,7 +166,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">biocutils 0.1.7 documentation</div></a>
+      <a href="../../index.html"><div class="brand">biocutils 0.2.0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -189,7 +190,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
   
   
-  <span class="sidebar-brand-text">biocutils 0.1.7 documentation</span>
+  <span class="sidebar-brand-text">biocutils 0.2.0 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -246,6 +247,7 @@
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
 
 <span class="kn">from</span> <span class="nn">.assign_sequence</span> <span class="kn">import</span> <span class="n">assign_sequence</span>
 <span class="kn">from</span> <span class="nn">.combine_sequences</span> <span class="kn">import</span> <span class="n">combine_sequences</span>
@@ -461,7 +463,7 @@
 <span class="sd">            List of strings containing the factor levels.</span>
 
 <span class="sd">            This should be treated as a read-only reference. To modify the</span>
-<span class="sd">            levels, use :py:meth:`~set_levels` instead.</span>
+<span class="sd">            levels, use :py:meth:`~replace_levels` instead.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_levels</span></div>
 
@@ -871,12 +873,90 @@
         <span class="k">return</span> <span class="n">output</span></div>
 
 
+<div class="viewcode-block" id="Factor.replace_levels">
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Factor.Factor.replace_levels">[docs]</a>
+    <span class="k">def</span> <span class="nf">replace_levels</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">levels</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+        <span class="n">in_place</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Factor&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Replace the existing levels with a new list. The codes of the</span>
+<span class="sd">        returned ``Factor`` are unchanged by this method and will index into</span>
+<span class="sd">        the replacement ``levels``, so each element of the ``Factor`` may refer</span>
+<span class="sd">        to a different string after the levels are replaced. (To change the</span>
+<span class="sd">        levels while ensuring that each element of the ``Factor`` refers to the</span>
+<span class="sd">        same string, use :py:meth:`~remap_levels`.  instead.)</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            levels:</span>
+<span class="sd">                A sequence of replacement levels. These should be unique</span>
+<span class="sd">                strings with no missing values. The length of this sequence</span>
+<span class="sd">                should be no less than the current number of levels.</span>
+
+<span class="sd">            in_place:</span>
+<span class="sd">                Whether to perform this modification in-place.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            If ``in_place = False``, returns same type as caller (a new</span>
+<span class="sd">            ``Factor`` object) where the levels have been replaced. Codes</span>
+<span class="sd">            are unchanged and may refer to different strings.</span>
+
+<span class="sd">            If ``in_place = True``, the levels are replaced in the current</span>
+<span class="sd">            object, and a reference to the current object is returned.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">new_levels</span> <span class="o">=</span> <span class="n">levels</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">new_levels</span><span class="p">,</span> <span class="n">StringList</span><span class="p">):</span>
+            <span class="n">new_levels</span> <span class="o">=</span> <span class="n">StringList</span><span class="p">(</span><span class="n">levels</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">new_levels</span><span class="p">)</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_levels</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;&#39;levels&#39; should be at least as long as the existing levels&quot;</span><span class="p">)</span>
+
+        <span class="n">present</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">new_levels</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">x</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;all entries of &#39;levels&#39; should be non-missing&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">present</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;all entries of &#39;levels&#39; should be unique&quot;</span><span class="p">)</span>
+            <span class="n">present</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">in_place</span><span class="p">:</span>
+            <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">output</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+        <span class="n">output</span><span class="o">.</span><span class="n">_levels</span> <span class="o">=</span> <span class="n">new_levels</span>
+        <span class="k">return</span> <span class="n">output</span></div>
+
+
 <div class="viewcode-block" id="Factor.set_levels">
 <a class="viewcode-back" href="../../api/biocutils.html#biocutils.Factor.Factor.set_levels">[docs]</a>
     <span class="k">def</span> <span class="nf">set_levels</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">levels</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]],</span>
+        <span class="n">remap</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">in_place</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Factor&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Alias for :py:meth:`~remap_levels` if ``remap = True``, otherwise an</span>
+<span class="sd">        alias for :py:meth:`~replace_levels`. The first alias is deprecated and</span>
+<span class="sd">        :py:meth:`~remap_levels` should be used directly if that is the intent.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">remap</span><span class="p">:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;&#39;remap=True&#39; is deprecated, use &#39;remap_levels()&#39; instead&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">remap_levels</span><span class="p">(</span><span class="n">levels</span><span class="p">,</span> <span class="n">in_place</span><span class="o">=</span><span class="n">in_place</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">replace_levels</span><span class="p">(</span><span class="n">levels</span><span class="p">,</span> <span class="n">in_place</span><span class="o">=</span><span class="n">in_place</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Factor.remap_levels">
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Factor.Factor.remap_levels">[docs]</a>
+    <span class="k">def</span> <span class="nf">remap_levels</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">levels</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]],</span> <span class="n">in_place</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Factor&quot;</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set or replace levels.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Remap codes to a replacement list of levels. Each entry of the</span>
+<span class="sd">        remapped ``Factor`` will refer to the same string across the old and</span>
+<span class="sd">        new levels, provided that string is present in both sets of levels.</span>
+<span class="sd">        (To change the levels without altering the codes of the ``Factor``, use</span>
+<span class="sd">        :py:meth:`~replace_levels` instead.)</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            levels:</span>
@@ -896,7 +976,7 @@
 <span class="sd">            ``Factor`` object) where the levels have been replaced. This will</span>
 <span class="sd">            automatically update the codes so that they still refer to the same</span>
 <span class="sd">            string in the new ``levels``. If a code refers to a level that is</span>
-<span class="sd">            not present in the new ``levels``, it is replaced with None.</span>
+<span class="sd">            not present in the new ``levels``, it is set to a missing value.</span>
 
 <span class="sd">            If ``in_place = True``, the levels are replaced in the current</span>
 <span class="sd">            object, and a reference to the current object is returned.</span>
@@ -926,7 +1006,7 @@
                 <span class="n">new_levels</span> <span class="o">=</span> <span class="n">StringList</span><span class="p">(</span><span class="n">levels</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">new_levels</span><span class="p">):</span>
                 <span class="k">if</span> <span class="n">x</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;all entries of &#39;levels&#39; should be non-missing&quot;</span><span class="p">)</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;all entries of &#39;levels&#39; should be non-missing&quot;</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">lmapping</span><span class="p">:</span>
                     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;all entries of &#39;levels&#39; should be unique&quot;</span><span class="p">)</span>
                 <span class="n">lmapping</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span>
@@ -1012,6 +1092,7 @@
         <span class="n">sort_levels</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
         <span class="n">ordered</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">names</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Factor&quot;</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert a sequence of hashable values into a factor.</span>
 
@@ -1038,10 +1119,14 @@
 <span class="sd">                List of names. This should have same length as ``x``.</span>
 <span class="sd">                Alternatively None, if the factor has no names.</span>
 
+<span class="sd">            kwargs:</span>
+<span class="sd">                Further arguments to pass to</span>
+<span class="sd">                :py:func:`~biocutils.factorize.factorize`.</span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            A ``Factor`` object.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">levels</span><span class="p">,</span> <span class="n">indices</span> <span class="o">=</span> <span class="n">factorize</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="n">levels</span><span class="p">,</span> <span class="n">sort_levels</span><span class="o">=</span><span class="n">sort_levels</span><span class="p">)</span>
+        <span class="n">levels</span><span class="p">,</span> <span class="n">indices</span> <span class="o">=</span> <span class="n">factorize</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="n">levels</span><span class="p">,</span> <span class="n">sort_levels</span><span class="o">=</span><span class="n">sort_levels</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">Factor</span><span class="p">(</span><span class="n">indices</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="n">levels</span><span class="p">,</span> <span class="n">ordered</span><span class="o">=</span><span class="n">ordered</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="n">names</span><span class="p">)</span></div>
 </div>
 
@@ -1138,8 +1223,8 @@
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=ca7ad2ea"></script>
-    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+</div><script src="../../_static/documentation_options.js?v=938c9ccc"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/furo.js?v=5fa4622c"></script>
     </body>

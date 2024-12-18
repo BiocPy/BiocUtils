@@ -4,10 +4,11 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
-    <!-- Generated with Sphinx 7.4.7 and Furo 2024.08.06 -->
-        <title>biocutils.factorize - biocutils 0.1.7 documentation</title>
+    <!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
+        <title>biocutils.factorize - biocutils 0.2.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=354aac6f" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=302659d7" />
     
     
@@ -165,7 +166,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">biocutils 0.1.7 documentation</div></a>
+      <a href="../../index.html"><div class="brand">biocutils 0.2.0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -189,7 +190,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
   
   
-  <span class="sidebar-brand-text">biocutils 0.1.7 documentation</span>
+  <span class="sidebar-brand-text">biocutils 0.2.0 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -253,7 +254,11 @@
 <div class="viewcode-block" id="factorize">
 <a class="viewcode-back" href="../../api/biocutils.html#biocutils.factorize.factorize">[docs]</a>
 <span class="k">def</span> <span class="nf">factorize</span><span class="p">(</span>
-    <span class="n">x</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">levels</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">sort_levels</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">x</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">,</span>
+    <span class="n">levels</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">sort_levels</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">dtype</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">dtype</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">fail_missing</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">list</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert a sequence of hashable values into a factor.</span>
 
@@ -271,13 +276,21 @@
 <span class="sd">            If False, the levels are kept in order of their appearance in ``x``.</span>
 <span class="sd">            Not used if ``levels`` is explicitly supplied.</span>
 
-<span class="sd">    Returns:</span>
-<span class="sd">        Tuple where the first list contains the unique levels and the second</span>
-<span class="sd">        array contains the integer index into the first list. Indexing the</span>
-<span class="sd">        first list by the second array will recover ``x``; except for any None</span>
-<span class="sd">        or masked values in ``x``, which will be -1 in the second array.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">        dtype:</span>
+<span class="sd">            NumPy type of the array of indices, see</span>
+<span class="sd">            :py:func:`~biocutils.match.match` for details.</span>
 
+<span class="sd">        fail_missing:</span>
+<span class="sd">            Whether to raise an error upon encountering missing levels in</span>
+<span class="sd">            ``x``, see :py:func:`~biocutils.match.match` for details.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tuple where the first element is a list of unique levels and the second</span>
+<span class="sd">        element in a NumPy array containing integer codes, i.e., indices into</span>
+<span class="sd">        the first list. Indexing the first list by the second array will</span>
+<span class="sd">        recover ``x``, with the exception of any None or masked values in ``x``</span>
+<span class="sd">        that will instead be represented by -1 in the second array.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">levels</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">present</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
         <span class="n">levels</span> <span class="o">=</span> <span class="p">[]</span>
@@ -290,7 +303,7 @@
         <span class="k">if</span> <span class="n">sort_levels</span><span class="p">:</span>
             <span class="n">levels</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
 
-    <span class="n">codes</span> <span class="o">=</span> <span class="n">match</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">levels</span><span class="p">)</span>
+    <span class="n">codes</span> <span class="o">=</span> <span class="n">match</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">levels</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span> <span class="n">fail_missing</span><span class="o">=</span><span class="n">fail_missing</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">levels</span><span class="p">,</span> <span class="n">codes</span></div>
 
 </pre></div>
@@ -325,8 +338,8 @@
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=ca7ad2ea"></script>
-    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+</div><script src="../../_static/documentation_options.js?v=938c9ccc"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/furo.js?v=5fa4622c"></script>
     </body>

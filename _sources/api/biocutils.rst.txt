@@ -300,6 +300,14 @@ biocutils.union module
    :undoc-members:
    :show-inheritance:
 
+biocutils.which module
+----------------------
+
+.. automodule:: biocutils.which
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Module contents
 ---------------
 

@@ -5,8 +5,8 @@
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
     <!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
-        <title>biocutils.normalize_subscript - biocutils 0.2.1 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+        <title>biocutils.normalize_subscript - biocutils 0.2.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=302659d7" />
@@ -166,7 +166,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">biocutils 0.2.1 documentation</div></a>
+      <a href="../../index.html"><div class="brand">biocutils 0.2.2 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -190,7 +190,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
   
   
-  <span class="sidebar-brand-text">biocutils 0.2.1 documentation</span>
+  <span class="sidebar-brand-text">biocutils 0.2.2 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -243,12 +243,12 @@
         </div>
         <article role="main" id="furo-main-content">
           <h1>Source code for biocutils.normalize_subscript</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
 
-<span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span>
 
 
-<span class="k">def</span> <span class="nf">_raise_int</span><span class="p">(</span><span class="n">idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">length</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_raise_int</span><span class="p">(</span><span class="n">idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">length</span><span class="p">):</span>
     <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span>
         <span class="s2">&quot;subscript (&quot;</span>
         <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span>
@@ -257,20 +257,20 @@
     <span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_is_scalar_bool</span><span class="p">(</span><span class="n">sub</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_is_scalar_bool</span><span class="p">(</span><span class="n">sub</span><span class="p">):</span>
     <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">sub</span><span class="p">,</span> <span class="nb">bool</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">sub</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">bool_</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="NormalizedSubscript">
 <a class="viewcode-back" href="../../api/biocutils.html#biocutils.normalize_subscript.NormalizedSubscript">[docs]</a>
-<span class="k">class</span> <span class="nc">NormalizedSubscript</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">NormalizedSubscript</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Subscript normalized by :py:func:`~normalize_subscript`. This</span>
 <span class="sd">    is used to indicate that no further normalization is required,</span>
 <span class="sd">    such that :py:func:`~normalize_subscript` is just a no-op.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subscript</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">]):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subscript</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">]):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
 <span class="sd">            subscript:</span>
@@ -279,7 +279,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_subscript</span> <span class="o">=</span> <span class="n">subscript</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">subscript</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">subscript</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns:</span>
 <span class="sd">            The subscript, as a sequence of integer positions.</span>
@@ -288,7 +288,7 @@
 
 <div class="viewcode-block" id="NormalizedSubscript.__getitem__">
 <a class="viewcode-back" href="../../api/biocutils.html#biocutils.normalize_subscript.NormalizedSubscript.__getitem__">[docs]</a>
-    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
 <span class="sd">            index:</span>
@@ -304,7 +304,7 @@
 
 <div class="viewcode-block" id="NormalizedSubscript.__len__">
 <a class="viewcode-back" href="../../api/biocutils.html#biocutils.normalize_subscript.NormalizedSubscript.__len__">[docs]</a>
-    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns:</span>
 <span class="sd">            Length of the subscript.</span>
@@ -319,7 +319,7 @@
 
 <div class="viewcode-block" id="normalize_subscript">
 <a class="viewcode-back" href="../../api/biocutils.html#biocutils.normalize_subscript.normalize_subscript">[docs]</a>
-<span class="k">def</span> <span class="nf">normalize_subscript</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">normalize_subscript</span><span class="p">(</span>
     <span class="n">sub</span><span class="p">:</span> <span class="n">SubscriptTypes</span><span class="p">,</span>
     <span class="n">length</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
     <span class="n">names</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -392,7 +392,7 @@
                 <span class="o">+</span> <span class="s2">&quot;&#39; for vector-like object with no names&quot;</span>
             <span class="p">)</span>
         <span class="n">i</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
-        <span class="kn">from</span> <span class="nn">.Names</span> <span class="kn">import</span> <span class="n">Names</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">.Names</span><span class="w"> </span><span class="kn">import</span> <span class="n">Names</span>
 
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">names</span><span class="p">,</span> <span class="n">Names</span><span class="p">):</span>
             <span class="n">i</span> <span class="o">=</span> <span class="n">names</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">sub</span><span class="p">)</span>
@@ -451,7 +451,7 @@
     <span class="n">output</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">has_strings</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
     <span class="n">string_positions</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="kn">from</span> <span class="nn">.Names</span> <span class="kn">import</span> <span class="n">Names</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">.Names</span><span class="w"> </span><span class="kn">import</span> <span class="n">Names</span>
 
     <span class="n">are_names_indexed</span> <span class="o">=</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">names</span><span class="p">,</span> <span class="n">Names</span><span class="p">)</span>
 
@@ -527,7 +527,7 @@
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=37f418d5"></script>
+</div><script src="../../_static/documentation_options.js?v=000c92bf"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/furo.js?v=5fa4622c"></script>

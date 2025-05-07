@@ -22,5 +22,14 @@ def show_as_cell(x: Any, indices: Sequence[int]) -> List[str]:
     """
     output = []
     for i in indices:
-        output.append(str(x[i]))
+        try:
+            candidate = str(x[i])
+            if len(candidate) > 25:
+                candidate = candidate[:20] + "..." # pick the first two characters, whatever.
+            nl = candidate.find("\n")
+            if nl >= 0:
+                candidate = candidate[:nl] + "..."
+            output.append(candidate)
+        except:
+            output.append("####")
     return output

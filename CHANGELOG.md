@@ -1,6 +1,14 @@
 # Changelog
 
-## Version 0.2.0
+## Version 0.2.3
+
+- Improve robustness of `show_as_cell()` to long strings, strings with newlines, and non-iterable objects.
+
+## Version 0.2.2
+
+- Fix `is_list_of_type()` so that they work correctly with NumPy's masked arrays.
+
+## Version 0.2.1
 
 - Added a `which()` function to get the indices of truthy values.
 

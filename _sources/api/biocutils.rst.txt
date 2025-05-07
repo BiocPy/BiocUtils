@@ -9,309 +9,309 @@ biocutils.BooleanList module
 
 .. automodule:: biocutils.BooleanList
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 biocutils.Factor module
 -----------------------
 
 .. automodule:: biocutils.Factor
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 biocutils.FloatList module
 --------------------------
 
 .. automodule:: biocutils.FloatList
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 biocutils.IntegerList module
 ----------------------------
 
 .. automodule:: biocutils.IntegerList
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 biocutils.NamedList module
 --------------------------
 
 .. automodule:: biocutils.NamedList
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 biocutils.Names module
 ----------------------
 
 .. automodule:: biocutils.Names
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 biocutils.StringList module
 ---------------------------
 
 .. automodule:: biocutils.StringList
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 biocutils.assign module
 -----------------------
 
 .. automodule:: biocutils.assign
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 biocutils.assign\_rows module
 -----------------------------
 
 .. automodule:: biocutils.assign_rows
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 biocutils.assign\_sequence module
 ---------------------------------
 
 .. automodule:: biocutils.assign_sequence
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 biocutils.combine module
 ------------------------
 
 .. automodule:: biocutils.combine
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 biocutils.combine\_columns module
 ---------------------------------
 
 .. automodule:: biocutils.combine_columns
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 biocutils.combine\_rows module
 ------------------------------
 
 .. automodule:: biocutils.combine_rows
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 biocutils.combine\_sequences module
 -----------------------------------
 
 .. automodule:: biocutils.combine_sequences
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 biocutils.convert\_to\_dense module
 -----------------------------------
 
 .. automodule:: biocutils.convert_to_dense
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 biocutils.extract\_column\_names module
 ---------------------------------------
 
 .. automodule:: biocutils.extract_column_names
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 biocutils.extract\_row\_names module
 ------------------------------------
 
 .. automodule:: biocutils.extract_row_names
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 biocutils.factorize module
 --------------------------
 
 .. automodule:: biocutils.factorize
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 biocutils.get\_height module
 ----------------------------
 
 .. automodule:: biocutils.get_height
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 biocutils.intersect module
 --------------------------
 
 .. automodule:: biocutils.intersect
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 biocutils.is\_high\_dimensional module
 --------------------------------------
 
 .. automodule:: biocutils.is_high_dimensional
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 biocutils.is\_list\_of\_type module
 -----------------------------------
 
 .. automodule:: biocutils.is_list_of_type
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 biocutils.is\_missing\_scalar module
 ------------------------------------
 
 .. automodule:: biocutils.is_missing_scalar
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 biocutils.map\_to\_index module
 -------------------------------
 
 .. automodule:: biocutils.map_to_index
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 biocutils.match module
 ----------------------
 
 .. automodule:: biocutils.match
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 biocutils.normalize\_subscript module
 -------------------------------------
 
 .. automodule:: biocutils.normalize_subscript
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 biocutils.package\_utils module
 -------------------------------
 
 .. automodule:: biocutils.package_utils
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 biocutils.print\_truncated module
 ---------------------------------
 
 .. automodule:: biocutils.print_truncated
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 biocutils.print\_wrapped\_table module
 --------------------------------------
 
 .. automodule:: biocutils.print_wrapped_table
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 biocutils.relaxed\_combine\_columns module
 ------------------------------------------
 
 .. automodule:: biocutils.relaxed_combine_columns
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 biocutils.relaxed\_combine\_rows module
 ---------------------------------------
 
 .. automodule:: biocutils.relaxed_combine_rows
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 biocutils.reverse\_index module
 -------------------------------
 
 .. automodule:: biocutils.reverse_index
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 biocutils.show\_as\_cell module
 -------------------------------
 
 .. automodule:: biocutils.show_as_cell
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 biocutils.subset module
 -----------------------
 
 .. automodule:: biocutils.subset
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 biocutils.subset\_rows module
 -----------------------------
 
 .. automodule:: biocutils.subset_rows
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 biocutils.subset\_sequence module
 ---------------------------------
 
 .. automodule:: biocutils.subset_sequence
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 biocutils.union module
 ----------------------
 
 .. automodule:: biocutils.union
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 biocutils.which module
 ----------------------
 
 .. automodule:: biocutils.which
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 Module contents
 ---------------
 
 .. automodule:: biocutils
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:

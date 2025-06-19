@@ -36,7 +36,7 @@ biocutils.match(["A", "C", "E"], ["A", "B", "C", "D", "E"])
 
 ```python
 import biocutils
-biocutils.factor(["A", "B", "B", "A", "C", "D", "C", "D"])
+biocutils.factorize(["A", "B", "B", "A", "C", "D", "C", "D"])
 ## (['A', 'B', 'C', 'D'], [0, 1, 1, 0, 2, 3, 2, 3])
 ```
 

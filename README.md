@@ -81,3 +81,5 @@ x = [np.random.rand(3), np.random.rand(3, 2)]
 biocutils.is_list_of_type(x, np.ndarray)
 ## True
 ```
+
+and many more. Check out the [documentation](https://biocpy.github.io/BiocUtils/api/modules.html) for more information.

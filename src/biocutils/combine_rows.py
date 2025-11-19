@@ -77,7 +77,7 @@ if is_package_installed("scipy"):
         _check_array_dimensions(x, 0)
         if is_list_of_type(x, sp.sparray):
             combined = sp.vstack(x)
-            return _coerce_sparse_array(first, combined, sp)
+            return _coerce_sparse_array(x[0], combined, sp)
 
         warn("not all elements are SciPy sparse arrays")
         x = [convert_to_dense(y) for y in x]

@@ -10,10 +10,25 @@ def _coerce_to_bool(x: Any):
 
 
 class _SubscriptCoercer:
-    def __init__(self, data):
+    """Coercer for subscript operations on BooleanList."""
+
+    def __init__(self, data: Sequence) -> None:
+        """Initialize the coercer.
+
+        Args:
+            data: Sequence of values to coerce.
+        """
         self._data = data
 
-    def __getitem__(self, index):
+    def __getitem__(self, index: int) -> Optional[bool]:
+        """Get an item and coerce it to boolean.
+
+        Args:
+            index: Index of the item.
+
+        Returns:
+            Coerced boolean value.
+        """
         return _coerce_to_bool(self._data[index])
 
 

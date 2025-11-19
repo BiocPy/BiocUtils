@@ -15,7 +15,7 @@ def extract_column_names(x: Any) -> numpy.ndarray:
     """Access column names from 2-dimensional representations.
 
     Args:
-        x: Any object.
+        x: Any object with column names.
 
     Returns:
         Array of strings containing column names.

@@ -15,10 +15,25 @@ def _coerce_to_int(x: Any):
 
 
 class _SubscriptCoercer:
-    def __init__(self, data):
+    """Coercer for subscript operations on IntegerList."""
+
+    def __init__(self, data: Sequence) -> None:
+        """Initialize the coercer.
+
+        Args:
+            data: Sequence of values to coerce.
+        """
         self._data = data
 
-    def __getitem__(self, index):
+    def __getitem__(self, index: int) -> Optional[int]:
+        """Get an item and coerce it to integer.
+
+        Args:
+            index: Index of the item.
+
+        Returns:
+            Coerced integer value.
+        """
         return _coerce_to_int(self._data[index])
 
 

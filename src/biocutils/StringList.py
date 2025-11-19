@@ -10,10 +10,25 @@ def _coerce_to_str(x: Any):
 
 
 class _SubscriptCoercer:
-    def __init__(self, data):
+    """Coercer for subscript operations on StringList."""
+
+    def __init__(self, data: Sequence) -> None:
+        """Initialize the coercer.
+
+        Args:
+            data: Sequence of values to coerce.
+        """
         self._data = data
 
-    def __getitem__(self, index):
+    def __getitem__(self, index: int) -> Optional[str]:
+        """Get an item and coerce it to string.
+
+        Args:
+            index: Index of the item.
+
+        Returns:
+            Coerced string value.
+        """
         return _coerce_to_str(self._data[index])
 
 

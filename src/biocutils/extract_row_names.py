@@ -15,7 +15,7 @@ def extract_row_names(x: Any) -> numpy.ndarray:
     """Access row names from 2-dimensional representations.
 
     Args:
-        x: Any object.
+        x: Any object with row names.
 
     Returns:
         Array of strings containing row names.

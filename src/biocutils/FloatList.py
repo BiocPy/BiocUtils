@@ -15,10 +15,25 @@ def _coerce_to_float(x: Any):
 
 
 class _SubscriptCoercer:
-    def __init__(self, data):
+    """Coercer for subscript operations on FloatList."""
+
+    def __init__(self, data: Sequence) -> None:
+        """Initialize the coercer.
+
+        Args:
+            data: Sequence of values to coerce.
+        """
         self._data = data
 
-    def __getitem__(self, index):
+    def __getitem__(self, index: int) -> Optional[float]:
+        """Get an item and coerce it to float.
+
+        Args:
+            index: Index of the item.
+
+        Returns:
+            Coerced float value.
+        """
         return _coerce_to_float(self._data[index])
 
 

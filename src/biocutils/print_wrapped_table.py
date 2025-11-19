@@ -144,14 +144,17 @@ def truncate_strings(values: List[str], width: int = 40) -> List[str]:
     return replacement
 
 
-def print_type(x) -> str:
-    """Print the type of an object, with some special behavior for certain classes (e.g., to add the data type of NumPy
-    arrays). This is intended for display at the top of the columns of :py:meth:`~print_wrapped_table`.
+def print_type(x: Any) -> str:
+    """Print the type of an object.
+
+    Print the type of an object, with some special behavior for certain classes
+    (e.g., to add the data type of NumPy arrays). This is intended for display
+    at the top of the columns of :py:meth:`~print_wrapped_table`.
 
     Args:
         x: Some object.
 
-    Return:
+    Returns:
         String containing the class of the object.
     """
     cls = type(x).__name__

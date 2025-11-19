@@ -8,7 +8,7 @@ def match(
     x: Sequence,
     targets: Union[dict, Sequence],
     duplicate_method: DUPLICATE_METHOD = "first",
-    dtype: Optional[numpy.ndarray] = None,
+    dtype: Optional[numpy.dtype] = None,
     fail_missing: Optional[bool] = None,
 ) -> numpy.ndarray:
     """Find a matching value of each element of ``x`` in ``target``.

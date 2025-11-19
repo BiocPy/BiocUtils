@@ -4,7 +4,7 @@ import numpy
 
 def which(
     x: Sequence,
-    dtype: Optional[numpy.ndarray] = None,
+    dtype: Optional[numpy.dtype] = None,
 ) -> numpy.ndarray:
     """Report the indices of all elements of ``x`` that are truthy.
 

@@ -23,11 +23,11 @@ class NormalizedSubscript:
     such that :py:func:`~normalize_subscript` is just a no-op.
     """
 
-    def __init__(self, subscript: Sequence[int]):
-        """
+    def __init__(self, subscript: Sequence[int]) -> None:
+        """Initialize a NormalizedSubscript.
+
         Args:
-            subscript:
-                Sequence of integers for a normalized subscript.
+            subscript: Sequence of integers for a normalized subscript.
         """
         self._subscript = subscript
 
@@ -40,11 +40,11 @@ class NormalizedSubscript:
         return self._subscript
 
     def __getitem__(self, index: Any) -> Any:
-        """
+        """Get an item from the subscript.
+
         Args:
-            index:
-                Any argument accepted by the ``__getitem__`` method of the
-                :py:attr:`~subscript`.
+            index: Any argument accepted by the ``__getitem__`` method of the
+                subscript.
 
         Returns:
             The same return value as the ``__getitem__`` method of the
@@ -53,7 +53,8 @@ class NormalizedSubscript:
         return self._subscript[index]
 
     def __len__(self) -> int:
-        """
+        """Get the length of the subscript.
+
         Returns:
             Length of the subscript.
         """
@@ -68,8 +69,9 @@ def normalize_subscript(
     length: int,
     names: Optional[Sequence[str]] = None,
     non_negative_only: bool = True,
-) -> Tuple:
-    """
+) -> Tuple[Sequence[int], bool]:
+    """Normalize a subscript into a sequence of integer indices.
+
     Normalize a subscript for ``__getitem__`` or friends into a sequence of
     integer indices, for consistent downstream use.
 

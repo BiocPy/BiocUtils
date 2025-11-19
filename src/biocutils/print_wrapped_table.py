@@ -1,4 +1,4 @@
-from typing import List, Optional, Sequence
+from typing import Any, List, Optional, Sequence
 
 import numpy
 

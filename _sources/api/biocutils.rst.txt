@@ -84,6 +84,14 @@ biocutils.assign\_sequence module
    :show-inheritance:
    :undoc-members:
 
+biocutils.bioc\_object module
+-----------------------------
+
+.. automodule:: biocutils.bioc_object
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
 biocutils.combine module
 ------------------------
 

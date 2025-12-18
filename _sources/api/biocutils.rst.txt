@@ -4,62 +4,6 @@ biocutils package
 Submodules
 ----------
 
-biocutils.BooleanList module
-----------------------------
-
-.. automodule:: biocutils.BooleanList
-   :members:
-   :show-inheritance:
-   :undoc-members:
-
-biocutils.Factor module
------------------------
-
-.. automodule:: biocutils.Factor
-   :members:
-   :show-inheritance:
-   :undoc-members:
-
-biocutils.FloatList module
---------------------------
-
-.. automodule:: biocutils.FloatList
-   :members:
-   :show-inheritance:
-   :undoc-members:
-
-biocutils.IntegerList module
-----------------------------
-
-.. automodule:: biocutils.IntegerList
-   :members:
-   :show-inheritance:
-   :undoc-members:
-
-biocutils.NamedList module
---------------------------
-
-.. automodule:: biocutils.NamedList
-   :members:
-   :show-inheritance:
-   :undoc-members:
-
-biocutils.Names module
-----------------------
-
-.. automodule:: biocutils.Names
-   :members:
-   :show-inheritance:
-   :undoc-members:
-
-biocutils.StringList module
----------------------------
-
-.. automodule:: biocutils.StringList
-   :members:
-   :show-inheritance:
-   :undoc-members:
-
 biocutils.assign module
 -----------------------
 
@@ -88,6 +32,14 @@ biocutils.bioc\_object module
 -----------------------------
 
 .. automodule:: biocutils.bioc_object
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+biocutils.boolean\_list module
+------------------------------
+
+.. automodule:: biocutils.boolean_list
    :members:
    :show-inheritance:
    :undoc-members:
@@ -148,6 +100,14 @@ biocutils.extract\_row\_names module
    :show-inheritance:
    :undoc-members:
 
+biocutils.factor module
+-----------------------
+
+.. automodule:: biocutils.factor
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
 biocutils.factorize module
 --------------------------
 
@@ -156,10 +116,26 @@ biocutils.factorize module
    :show-inheritance:
    :undoc-members:
 
+biocutils.float\_list module
+----------------------------
+
+.. automodule:: biocutils.float_list
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
 biocutils.get\_height module
 ----------------------------
 
 .. automodule:: biocutils.get_height
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+biocutils.integer\_list module
+------------------------------
+
+.. automodule:: biocutils.integer_list
    :members:
    :show-inheritance:
    :undoc-members:
@@ -208,6 +184,22 @@ biocutils.match module
 ----------------------
 
 .. automodule:: biocutils.match
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+biocutils.named\_list module
+----------------------------
+
+.. automodule:: biocutils.named_list
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+biocutils.names module
+----------------------
+
+.. automodule:: biocutils.names
    :members:
    :show-inheritance:
    :undoc-members:
@@ -272,6 +264,14 @@ biocutils.show\_as\_cell module
 -------------------------------
 
 .. automodule:: biocutils.show_as_cell
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+biocutils.string\_list module
+-----------------------------
+
+.. automodule:: biocutils.string_list
    :members:
    :show-inheritance:
    :undoc-members:

@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 0.3.0
+
+- Provide a base `BiocObject` class similar to the `Annotated` class in Bioconductor. The class provides `metadata` slot, accessors and validation functions.
+
 ## Version 0.2.3
 
 - Improve robustness of `show_as_cell()` to long strings, strings with newlines, and non-iterable objects.

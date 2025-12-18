@@ -7,9 +7,7 @@ from warnings import warn
 try:
     from typing import Self
 except ImportError:
-    from typing import TypeVar
-
-    Self = TypeVar("Self", bound="BiocObject")
+    Self = "BiocObject"
 
 from .NamedList import NamedList
 

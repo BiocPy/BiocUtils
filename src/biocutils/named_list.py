@@ -3,7 +3,7 @@ from typing import Any, Dict, Iterable, Optional, Sequence, Union
 
 from .assign_sequence import assign_sequence
 from .combine_sequences import combine_sequences
-from .Names import Names, _name_to_position, _sanitize_names
+from .names import Names, _name_to_position, _sanitize_names
 from .normalize_subscript import (
     NormalizedSubscript,
     SubscriptTypes,

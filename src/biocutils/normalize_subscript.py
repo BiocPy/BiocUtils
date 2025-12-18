@@ -103,7 +103,7 @@ def normalize_subscript(
         names:
             List of names for each entry in the object. If not None, this
             should have length equal to ``length``. Some optimizations
-            are possible if this is a :py:class:`~Names.Names` object.
+            are possible if this is a :py:class:`~Names.names` object.
 
         non_negative_only:
             Whether negative indices must be converted into non-negative
@@ -138,7 +138,7 @@ def normalize_subscript(
                 + "' for vector-like object with no names"
             )
         i = -1
-        from .Names import Names
+        from .names import Names
 
         if isinstance(names, Names):
             i = names.map(sub)
@@ -197,7 +197,7 @@ def normalize_subscript(
     output = []
     has_strings = set()
     string_positions = []
-    from .Names import Names
+    from .names import Names
 
     are_names_indexed = isinstance(names, Names)
 

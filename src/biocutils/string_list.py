@@ -1,7 +1,7 @@
 from typing import Any, Iterable, Optional, Sequence, Union
 
-from .NamedList import NamedList
-from .Names import Names
+from .named_list import NamedList
+from .names import Names
 from .normalize_subscript import SubscriptTypes
 
 

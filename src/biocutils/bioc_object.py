@@ -9,7 +9,7 @@ try:
 except ImportError:
     Self = "BiocObject"
 
-from .NamedList import NamedList
+from .named_list import NamedList
 
 __author__ = "Jayaram Kancherla"
 __copyright__ = "jkanche"

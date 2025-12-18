@@ -15,13 +15,13 @@ except PackageNotFoundError:  # pragma: no cover
 finally:
     del version, PackageNotFoundError
 
-from .Factor import Factor
-from .StringList import StringList
-from .IntegerList import IntegerList
-from .FloatList import FloatList
-from .BooleanList import BooleanList
-from .Names import Names
-from .NamedList import NamedList
+from .factor import Factor
+from .string_list import StringList
+from .integer_list import IntegerList
+from .float_list import FloatList
+from .boolean_list import BooleanList
+from .names import Names
+from .named_list import NamedList
 
 from .factorize import factorize
 from .intersect import intersect

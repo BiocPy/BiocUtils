@@ -39,6 +39,9 @@ class NamedList:
             _validate:
                 Internal use only.
         """
+        if isinstance(data, dict):
+            raise TypeError("'data' is a dictionary, use 'NamedList.from_dict' instead.")
+
         if _validate:
             if data is None:
                 data = []
@@ -86,14 +89,7 @@ class NamedList:
             names if any exist.
         """
         if self._names is not None:
-            return (
-                "["
-                + ", ".join(
-                    repr(self._names[i]) + "=" + repr(x)
-                    for i, x in enumerate(self._data)
-                )
-                + "]"
-            )
+            return "[" + ", ".join(repr(self._names[i]) + "=" + repr(x) for i, x in enumerate(self._data)) + "]"
         else:
             return repr(self._data)
 
@@ -204,9 +200,7 @@ class NamedList:
         else:
             return self.get_slice(NormalizedSubscript(index))
 
-    def set_value(
-        self, index: Union[str, int], value: Any, in_place: bool = False
-    ) -> "NamedList":
+    def set_value(self, index: Union[str, int], value: Any, in_place: bool = False) -> "NamedList":
         """
         Args:
             index:
@@ -253,9 +247,7 @@ class NamedList:
 
         return output
 
-    def set_slice(
-        self, index: SubscriptTypes, value: Sequence, in_place: bool = False
-    ) -> "NamedList":
+    def set_slice(self, index: SubscriptTypes, value: Sequence, in_place: bool = False) -> "NamedList":
         """
         Args:
             index:
@@ -324,9 +316,7 @@ class NamedList:
         else:
             return self.copy()
 
-    def safe_insert(
-        self, index: Union[int, str], value: Any, in_place: bool = False
-    ) -> "NamedList":
+    def safe_insert(self, index: Union[int, str], value: Any, in_place: bool = False) -> "NamedList":
         """
         Args:
             index:
@@ -530,9 +520,7 @@ def _combine_sequences_NamedList(*x: NamedList) -> NamedList:
 
 
 @assign_sequence.register
-def _assign_sequence_NamedList(
-    x: NamedList, indices: Sequence[int], other: Sequence
-) -> NamedList:
+def _assign_sequence_NamedList(x: NamedList, indices: Sequence[int], other: Sequence) -> NamedList:
     if isinstance(other, NamedList):
         # Do NOT set the names if 'other' is a NamedList. Names don't change
         # during assignment/setting operations, as a matter of policy. This is
@@ -541,6 +529,4 @@ def _assign_sequence_NamedList(
         # of names, and it would be weird for the same sequence of names to
         # suddently become an invalid indexing vector after an assignment.
         other = other._data
-    return type(x)(
-        assign_sequence(x._data, NormalizedSubscript(indices), other), names=x._names
-    )
+    return type(x)(assign_sequence(x._data, NormalizedSubscript(indices), other), names=x._names)

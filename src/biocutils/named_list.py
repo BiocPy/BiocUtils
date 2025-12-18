@@ -482,28 +482,28 @@ class NamedList:
                 output[n] = self[i]
         return output
 
-    @staticmethod
-    def from_list(x: list) -> "NamedList":
+    @classmethod
+    def from_list(cls, x: list) -> "NamedList":
         """
         Args:
             x: List of data elements.
 
         Returns:
-            A ``NamedList`` instance with the contents of ``x`` and no names.
+            A instance with the contents of ``x`` and no names.
         """
-        return NamedList(x)
+        return cls(x)
 
-    @staticmethod
-    def from_dict(x: dict) -> "NamedList":
+    @classmethod
+    def from_dict(cls, x: dict) -> "NamedList":
         """
         Args:
             x: Dictionary where keys are strings (or can be coerced to them).
 
         Returns:
-            A ``NamedList`` instance where the list elements are the values of
+            A instance where the list elements are the values of
             ``x`` and the names are the stringified keys.
         """
-        return NamedList(list(x.values()), names=Names(str(y) for y in x.keys()))
+        return cls(list(x.values()), names=Names(str(y) for y in x.keys()))
 
 
 @subset_sequence.register

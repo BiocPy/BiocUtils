@@ -17,13 +17,13 @@ def test_factor_init():
     assert len(f) == 6
     assert list(f) == ["A", "B", None, "A", None, "E"]
     assert list(f.get_codes()) == [0, 1, -1, 0, -1, 4]
-    
+
     f = Factor([None] * 10, levels=["A", "B", "C", "D", "E"])
     assert list(f) == [None] * 10
 
     # Works with NumPy inputs.
     f = Factor(numpy.array([4,3,2,1,0], dtype=numpy.uint8), levels=numpy.array(["A", "B", "C", "D", "E"]))
-    assert len(f) == 5 
+    assert len(f) == 5
     assert f.get_codes().dtype == numpy.int8
     assert isinstance(f.get_levels(), StringList)
 
@@ -98,7 +98,7 @@ def test_Factor_get_value():
 def test_Factor_get_slice():
     f = Factor([0, 1, 2, -1, 2, 4], levels=["A", "B", "C", "D", "E"])
 
-    sub = f.get_slice([0, 1]) 
+    sub = f.get_slice([0, 1])
     assert list(sub) == ["A", "B"]
     assert sub.get_levels() == f.get_levels()
 
@@ -176,7 +176,7 @@ def test_Factor_setitem():
     f[-1] = "D"
     assert list(f.get_codes()) == [1, 1, 0, 0, 2, 3]
 
-    f[2:5] = Factor([4, 3, 1], levels=["A", "B", "C", "D", "E"]) 
+    f[2:5] = Factor([4, 3, 1], levels=["A", "B", "C", "D", "E"])
     assert list(f.get_codes()) == [1, 1, 4, 3, 1, 3]
     assert f.get_levels() == f.get_levels()
 

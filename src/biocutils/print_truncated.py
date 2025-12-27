@@ -20,13 +20,9 @@ def print_truncated(x, truncated_to: int = 3, full_threshold: int = 10) -> str:
         String containing the pretty-printed contents.
     """
     if isinstance(x, dict):
-        return print_truncated_dict(
-            x, truncated_to=truncated_to, full_threshold=full_threshold
-        )
+        return print_truncated_dict(x, truncated_to=truncated_to, full_threshold=full_threshold)
     elif isinstance(x, list):
-        return print_truncated_list(
-            x, truncated_to=truncated_to, full_threshold=full_threshold
-        )
+        return print_truncated_list(x, truncated_to=truncated_to, full_threshold=full_threshold)
     else:
         return repr(x)
 
@@ -43,7 +39,8 @@ def print_truncated_list(
     preview of an object without spewing out all of its contents on the screen.
 
     Args:
-        x: List to be printed.
+        x:
+            List to be printed.
 
         truncated_to:
             Number of elements to truncate to, at the start and end of the
@@ -71,9 +68,7 @@ def print_truncated_list(
     if transform is None:
 
         def transform(y):
-            return print_truncated(
-                y, truncated_to=truncated_to, full_threshold=full_threshold
-            )
+            return print_truncated(y, truncated_to=truncated_to, full_threshold=full_threshold)
 
     if len(x) > full_threshold and len(x) > truncated_to * 2:
         for i in range(truncated_to):
@@ -131,9 +126,7 @@ def print_truncated_dict(
     if transform is None:
 
         def transform(y):
-            return print_truncated(
-                y, truncated_to=truncated_to, full_threshold=full_threshold
-            )
+            return print_truncated(y, truncated_to=truncated_to, full_threshold=full_threshold)
 
     all_keys = x.keys()
     if len(x) > full_threshold and len(x) > truncated_to * 2:

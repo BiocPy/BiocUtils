@@ -44,7 +44,7 @@ def test_FloatList_setitem():
     x = FloatList([ 0.5, -2.1, -3.2, -4.5 ])
     x[0] = None
     assert x.as_list() == [None, -2.1, -3.2, -4.5]
-    x[0] = 12345 
+    x[0] = 12345
     assert x.as_list() == [12345.0, -2.1, -3.2, -4.5]
 
     x[1:3] = [10.1, 20.2]

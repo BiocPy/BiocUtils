@@ -20,11 +20,7 @@ def relaxed_combine_columns(*x: Any):
     Returns:
         Combined object, typically the same type as the first entry of ``x``
     """
-    raise NotImplementedError(
-        "no `combine_columns` method implemented for '"
-        + type(x[0]).__name__
-        + "' objects."
-    )
+    raise NotImplementedError("no `combine_columns` method implemented for '" + type(x[0]).__name__ + "' objects.")
 
 
 if is_package_installed("pandas") is True:

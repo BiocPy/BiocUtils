@@ -11,11 +11,12 @@ __license__ = "MIT"
 
 
 @singledispatch
-def extract_column_names(x: Any) -> numpy.ndarray:
+def extract_column_names(x: Any) -> Any:
     """Access column names from 2-dimensional representations.
 
     Args:
-        x: Any object.
+        x:
+            Any object with column names.
 
     Returns:
         Array of strings containing column names.
@@ -27,5 +28,5 @@ if is_package_installed("pandas") is True:
     from pandas import DataFrame
 
     @extract_column_names.register(DataFrame)
-    def _colnames_dataframe(x: DataFrame) -> list:
+    def _colnames_dataframe(x):
         return numpy.array(x.columns, dtype=str)

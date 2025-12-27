@@ -35,7 +35,7 @@ def test_basic_dense_masked():
     x = [1, 2, 3]
     y = [0.1, 0.2]
     xd = np.array(x)
-    yd = np.ma.array(y, mask=[True]*2) 
+    yd = np.ma.array(y, mask=[True]*2)
 
     zcomb = combine_sequences(xd, yd)
     z = x + y

@@ -5,7 +5,7 @@ from .combine_sequences import combine_sequences
 from .is_high_dimensional import is_high_dimensional
 
 
-def combine(*x: Any):
+def combine(*x: Any) -> Any:
     """
     Generic combine that checks if the objects are n-dimensional for n > 1
     (i.e. has a ``shape`` property of length greater than 1); if so, it calls
@@ -14,7 +14,8 @@ def combine(*x: Any):
     :py:func:`~biocutils.combine_sequences.combine_sequences` instead.
 
     Args:
-        x: Objects to combine.
+        x:
+            Objects to combine.
 
     Returns:
         A combined object, typically the same type as the first element in ``x``.
@@ -28,9 +29,8 @@ def combine(*x: Any):
             has_1d = True
 
     if has_nd and has_1d:
-        raise ValueError(
-            "cannot mix 1-dimensional and higher-dimensional objects in `combine`"
-        )
+        raise ValueError("cannot mix 1-dimensional and higher-dimensional objects in `combine`")
+
     if has_nd:
         return combine_rows(*x)
     else:

@@ -10,6 +10,7 @@ def test_NamedList_init():
     assert x.as_list() == [ 1,2,3,4 ]
     assert x.get_names().as_list() == ["a", "b", "c", "d"]
     assert len(x) == 4
+    assert x.get_name(0) == "a"
 
     y = NamedList(x)
     assert y.as_list() == [1,2,3,4]
@@ -23,6 +24,7 @@ def test_NamedList_init():
     x = NamedList([1,2,3,4])
     assert x.as_list() == [1,2,3,4]
     assert x.get_names() is None
+    assert x.get_name(1) is None
 
 
 def test_Names_iter():

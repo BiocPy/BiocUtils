@@ -14,7 +14,8 @@ def assign(x: Any, indices: Sequence[int], replacement: Any) -> Any:
     :py:func:`~biocutils.assign_sequence.assign_sequence` instead.
 
     Args:
-        x: Object to be assignted.
+        x:
+            Object to be assignted.
 
     Returns:
         The object after assignment, typically the same type as ``x``.

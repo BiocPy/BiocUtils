@@ -153,12 +153,27 @@ class NamedList:
         output._names = _sanitize_names(names, len(self))
         return output
 
+    def get_name(self, index: int) -> Optional[str]:
+        """Get name at an index.
+
+        Args:
+            index:
+                Integer index of the element.
+        Returns:
+            Names for the list elements.
+        """
+        if self._names is None:
+            return None
+
+        return self._names.get_value(index)
+
     #################################
     #####>>>> Get/set items <<<<#####
     #################################
 
     def get_value(self, index: Union[str, int]) -> Any:
-        """
+        """Get value at an index.
+
         Args:
             index:
                 Integer index of the element to obtain. Alternatively, a string

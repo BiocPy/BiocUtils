@@ -44,7 +44,7 @@ def test_StringList_setitem():
     x = StringList([1,2,3,4])
     x[0] = None
     assert x.as_list() == [None, "2", "3", "4"]
-    x[0] = 12345 
+    x[0] = 12345
     assert x.as_list() == ["12345", "2", "3", "4"]
 
     x[1:3] = [10, 20]
@@ -89,7 +89,7 @@ def test_StringList_generics():
     sub = biocutils.subset_sequence(x, [0,3,2,1])
     assert isinstance(sub, StringList)
     assert sub.as_list() == ["1", "4", "3", "2"]
-    
+
     y = ["a", "b", "c", "d"]
     com = biocutils.combine_sequences(x, y)
     assert isinstance(com, StringList)

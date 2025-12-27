@@ -23,7 +23,7 @@ def which(
     """
     if isinstance(x, numpy.ndarray):
         found = numpy.where(x)[0]
-        if not dtype is None:
+        if dtype is not None:
             found = found.astype(dtype=dtype, copy=False, order="A")
         return found
 

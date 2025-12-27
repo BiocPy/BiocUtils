@@ -44,7 +44,7 @@ def test_BooleanList_setitem():
     x = BooleanList([False, True, True, False])
     x[0] = None
     assert x.as_list() == [None, True, True, False]
-    x[0] = 12345 
+    x[0] = 12345
     assert x.as_list() == [True, True, True, False]
 
     x[1:3] = [False, False]
@@ -54,7 +54,7 @@ def test_BooleanList_setitem():
     assert x.as_list() == [None, False, None, False]
 
     x.set_names(["A", "B", "C", "D"], in_place=True)
-    x["C"] = True 
+    x["C"] = True
     assert x.as_list() == [None, False, True, False]
     x[["A", "B"]] = [False, True]
     assert x.as_list() == [False, True, True, False]

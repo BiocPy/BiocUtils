@@ -185,7 +185,7 @@ def test_Names_generics():
     sub = biocutils.subset_sequence(x, [0,3,2,1])
     assert isinstance(sub, Names)
     assert sub.as_list() == ["1", "4", "3", "2"]
-    
+
     y = ["a", "b", "c", "d"]
     com = biocutils.combine_sequences(x, y)
     assert isinstance(com, Names)
@@ -195,4 +195,3 @@ def test_Names_generics():
     ass = biocutils.assign_sequence(x, range(1, 3), y)
     assert isinstance(ass, Names)
     assert ass.as_list() == ["1", "b", "c", "4"]
-

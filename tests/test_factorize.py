@@ -52,7 +52,7 @@ def test_factorize_sorted():
 def test_factorize_factor():
     f = Factor([4, 3, 2, 1, 0], ["A", "B", "C", "D", "E"])
     lev, ind = factorize(f)
-    assert lev == ["E", "D", "C", "B", "A"] 
+    assert lev == ["E", "D", "C", "B", "A"]
     assert list(ind) == [0, 1, 2, 3, 4]
 
     lev, ind = factorize(f, sort_levels=True)

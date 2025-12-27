@@ -31,15 +31,15 @@ def assign_rows(x: Any, indices: Sequence[int], replacement: Any) -> Any:
     tmp = [slice(None)] * len(x.shape)
     tmp[0] = indices
     output[(*tmp,)] = replacement
+
     return output
 
 
 @assign_rows.register
-def _assign_rows_numpy(
-    x: numpy.ndarray, indices: Sequence[int], replacement: Any
-) -> numpy.ndarray:
+def _assign_rows_numpy(x: numpy.ndarray, indices: Sequence[int], replacement: Any) -> numpy.ndarray:
     tmp = [slice(None)] * len(x.shape)
     tmp[0] = indices
     output = numpy.copy(x)
     output[(*tmp,)] = replacement
+
     return output

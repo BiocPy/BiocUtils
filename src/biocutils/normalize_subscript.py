@@ -4,12 +4,7 @@ import numpy
 
 
 def _raise_int(idx: int, length):
-    raise IndexError(
-        "subscript ("
-        + str(idx)
-        + ") out of range for vector-like object of length "
-        + str(length)
-    )
+    raise IndexError("subscript (" + str(idx) + ") out of range for vector-like object of length " + str(length))
 
 
 def _is_scalar_bool(sub):
@@ -27,7 +22,8 @@ class NormalizedSubscript:
         """Initialize a NormalizedSubscript.
 
         Args:
-            subscript: Sequence of integers for a normalized subscript.
+            subscript:
+                Sequence of integers for a normalized subscript.
         """
         self._subscript = subscript
 
@@ -132,11 +128,7 @@ def normalize_subscript(
 
     if isinstance(sub, str):
         if names is None:
-            raise IndexError(
-                "failed to find subscript '"
-                + sub
-                + "' for vector-like object with no names"
-            )
+            raise IndexError("failed to find subscript '" + sub + "' for vector-like object with no names")
         i = -1
         from .names import Names
 
@@ -226,9 +218,7 @@ def normalize_subscript(
 
     if len(has_strings):
         if names is None:
-            raise IndexError(
-                "cannot find string subscripts for vector-like object with no names"
-            )
+            raise IndexError("cannot find string subscripts for vector-like object with no names")
 
         mapping = {}
         for i, y in enumerate(names):

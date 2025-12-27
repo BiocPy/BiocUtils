@@ -7,7 +7,8 @@ def build_reverse_index(obj: Sequence[str]) -> dict:
     Only contains the first occurrence of a term.
 
     Args:
-        obj: List of names.
+        obj:
+            List of names.
 
     Returns:
         A dictionary mapping names to their index positions.

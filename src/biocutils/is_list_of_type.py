@@ -12,11 +12,14 @@ def is_list_of_type(x: Union[list, tuple], target_type: Callable, ignore_none: b
     """Checks if ``x`` is a list, and whether all elements of the list are of the same type.
 
     Args:
-        x: A list or tuple of values.
+        x:
+            A list or tuple of values.
 
-        target_type: Type to check for, e.g. ``str``, ``int``.
+        target_type:
+            Type to check for, e.g. ``str``, ``int``.
 
-        ignore_none: Whether to ignore Nones when comparing to ``target_type``.
+        ignore_none:
+            Whether to ignore Nones when comparing to ``target_type``.
 
     Returns:
         True if ``x`` is a list or tuple and all elements are of the target
@@ -24,7 +27,7 @@ def is_list_of_type(x: Union[list, tuple], target_type: Callable, ignore_none: b
     """
     if not isinstance(x, (list, tuple, np.ndarray, ma.MaskedArray)):
         return False
-    
+
     if isinstance(x, ma.MaskedArray):
         if not ignore_none:
             return all(x.mask) and all(isinstance(item, target_type) for item in x.data)

@@ -19,7 +19,7 @@ __license__ = "MIT"
 
 
 @singledispatch
-def combine_rows(*x: Any):
+def combine_rows(*x: Any) -> Any:
     """Combine n-dimensional objects along their first dimension.
 
     If all elements are :py:class:`~numpy.ndarray`, we combine them using
@@ -40,9 +40,7 @@ def combine_rows(*x: Any):
     Returns:
         Combined object, typically the same type as the first entry of ``x``.
     """
-    raise NotImplementedError(
-        "no `combine_rows` method implemented for '" + type(x[0]).__name__ + "' objects"
-    )
+    raise NotImplementedError("no `combine_rows` method implemented for '" + type(x[0]).__name__ + "' objects")
 
 
 @combine_rows.register(numpy.ndarray)
@@ -69,7 +67,7 @@ if is_package_installed("scipy"):
         return numpy.concatenate(x)
 
     try:
-        combine_rows.register(sp.sparray, _combine_rows_sparse_arrays)
+        combine_rows.register(sp.spmatrix, _combine_rows_sparse_matrices)
     except Exception:
         pass
 
@@ -84,7 +82,7 @@ if is_package_installed("scipy"):
         return numpy.concatenate(x)
 
     try:
-        combine_rows.register(sp.spmatrix, _combine_rows_sparse_matrices)
+        combine_rows.register(sp.sparray, _combine_rows_sparse_arrays)
     except Exception:
         pass
 

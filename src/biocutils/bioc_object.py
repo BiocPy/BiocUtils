@@ -4,11 +4,6 @@ import copy
 from typing import Any, Dict, Optional, Union
 from warnings import warn
 
-try:
-    from typing import Self
-except ImportError:
-    Self = "BiocObject"
-
 from .named_list import NamedList
 
 __author__ = "Jayaram Kancherla"
@@ -40,22 +35,22 @@ class BiocObject:
     Provides a standardized `metadata` slot and copy-on-write semantics.
     """
 
-    def __init__(self, metadata: Optional[Union[Dict[str, Any], NamedList]] = None, validate: bool = True) -> None:
+    def __init__(self, metadata: Optional[Union[Dict[str, Any], NamedList]] = None, _validate: bool = True) -> None:
         """Initialize the BiocObject.
 
         Args:
             metadata:
                 Additional metadata. Defaults to an empty NamedList.
 
-            validate:
+            _validate:
                 Whether to validate the input. Defaults to True.
         """
-        if validate and metadata is not None:
+        if _validate and metadata is not None:
             _validate_metadata(metadata)
 
         self._metadata = sanitize_metadata(metadata)
 
-    def _define_output(self, in_place: bool = False) -> Self:
+    def _define_output(self, in_place: bool = False) -> BiocObject:
         """Internal utility to handle in-place vs copy-on-modify."""
         if in_place:
             return self
@@ -93,7 +88,7 @@ class BiocObject:
         """Alias for :py:attr:`~metadata` getter."""
         return self.metadata
 
-    def set_metadata(self, metadata: Optional[Union[Dict[str, Any], NamedList]], in_place: bool = False) -> Self:
+    def set_metadata(self, metadata: Optional[Union[Dict[str, Any], NamedList]], in_place: bool = False) -> BiocObject:
         """Set new metadata.
 
         Args:

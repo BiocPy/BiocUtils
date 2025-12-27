@@ -15,7 +15,8 @@ def convert_to_dense(x: Any) -> numpy.ndarray:
     ``numpy.concatenate`` doesn't understand.
 
     Args:
-        x: Some array-like object to be stored as a NumPy array.
+        x:
+            Some array-like object to be stored as a NumPy array.
 
     Returns:
         A NumPy array.

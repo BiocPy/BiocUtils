@@ -26,6 +26,8 @@ def _check_array_dimensions(x, active: int) -> bool:
                     + ")"
                 )
 
+    return True
+
 
 def _coerce_sparse_matrix(first, combined, module):
     if isinstance(first, module.csr_matrix):

@@ -102,9 +102,7 @@ def print_wrapped_table(
     return output
 
 
-def create_floating_names(
-    names: Optional[List[str]], indices: Sequence[int]
-) -> List[str]:
+def create_floating_names(names: Optional[List[str]], indices: Sequence[int]) -> List[str]:
     """Create the floating names to use in :py:meth:`~print_wrapped_table`. If no names are present, positional indices
     are used instead.
 

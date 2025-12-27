@@ -10,7 +10,8 @@ def is_high_dimensional(x: Any) -> bool:
     attribute that is of length greater than 1.
 
     Args:
-        x: Some kind of object.
+        x:
+            Some kind of object.
 
     Returns:
         Whether ``x`` is high-dimensional.

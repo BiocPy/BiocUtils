@@ -11,7 +11,7 @@ __license__ = "MIT"
 
 
 @singledispatch
-def extract_row_names(x: Any) -> numpy.ndarray:
+def extract_row_names(x: Any) -> Any:
     """Access row names from 2-dimensional representations.
 
     Args:
@@ -27,5 +27,5 @@ if is_package_installed("pandas") is True:
     from pandas import DataFrame
 
     @extract_row_names.register(DataFrame)
-    def _rownames_dataframe(x: DataFrame) -> list:
+    def _rownames_dataframe(x):
         return numpy.array(x.index, dtype=str)

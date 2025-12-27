@@ -6,8 +6,7 @@ DUPLICATE_METHOD = Literal["first", "last"]
 
 
 def map_to_index(x: Sequence, duplicate_method: DUPLICATE_METHOD = "first") -> dict:
-    """
-    Create a dictionary to map values of a sequence to positional indices.
+    """Create a dictionary to map values of a sequence to positional indices.
 
     Args:
         x:
@@ -19,7 +18,7 @@ def map_to_index(x: Sequence, duplicate_method: DUPLICATE_METHOD = "first") -> d
             value in ``x``.
 
     Returns:
-        dict: Dictionary that maps values of ``x`` to their position inside ``x``.
+        Dictionary that maps values of ``x`` to their position inside ``x``.
     """
     first_tie = duplicate_method == "first"
 

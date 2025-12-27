@@ -13,7 +13,7 @@ __license__ = "MIT"
 
 
 @singledispatch
-def combine_sequences(*x: Any):
+def combine_sequences(*x: Any) -> Any:
     """Combine vector-like objects (1-dimensional arrays).
 
     If all elements are :py:class:`~numpy.ndarray`,
@@ -34,11 +34,7 @@ def combine_sequences(*x: Any):
     Returns:
         A combined object, ideally of the same type as the first element in ``x``.
     """
-    raise NotImplementedError(
-        "no `combine_sequences` method implemented for '"
-        + type(x[0]).__name__
-        + "' objects"
-    )
+    raise NotImplementedError("no `combine_sequences` method implemented for '" + type(x[0]).__name__ + "' objects")
 
 
 @combine_sequences.register(list)
@@ -51,6 +47,7 @@ def _combine_sequences_dense_arrays(*x: numpy.ndarray):
     for y in x:
         if numpy.ma.is_masked(y):
             return numpy.ma.concatenate(x, axis=None)
+
     return numpy.concatenate(x, axis=None)
 
 
@@ -85,6 +82,7 @@ def _combine_sequences_ranges(*x: range):
 
     if not failed:
         return range(start, stop, step)
+
     return list(chain(*x))
 
 
@@ -101,4 +99,5 @@ if is_package_installed("pandas") is True:
                 else:
                     elems.append(elem)
             x = elems
+
         return concat(x)

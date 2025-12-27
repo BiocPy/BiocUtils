@@ -1,4 +1,5 @@
-from typing import Sequence, Union, Optional
+from typing import Optional, Sequence, Union
+
 import numpy
 
 from .map_to_index import DUPLICATE_METHOD, map_to_index
@@ -45,7 +46,7 @@ def match(
         targets = map_to_index(targets, duplicate_method=duplicate_method)
 
     if dtype is None:
-        dtype = numpy.min_scalar_type(-len(targets)) # get a signed type
+        dtype = numpy.min_scalar_type(-len(targets))  # get a signed type
     indices = numpy.zeros(len(x), dtype=dtype)
 
     if fail_missing is None:
@@ -60,7 +61,7 @@ def match(
                 indices[i] = -1
     else:
         for i, y in enumerate(x):
-            if not y in targets:
+            if y not in targets:
                 raise ValueError("cannot find '" + str(y) + "' in 'targets'")
             indices[i] = targets[y]
 

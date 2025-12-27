@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import Any, Iterable, Optional, Sequence, Union
 
 from .named_list import NamedList
@@ -47,7 +49,7 @@ class FloatList(NamedList):
 
     def __init__(
         self,
-        data: Optional[Iterable] = None,
+        data: Optional[Sequence] = None,
         names: Optional[Names] = None,
         _validate: bool = True,
     ):
@@ -74,32 +76,25 @@ class FloatList(NamedList):
                         data = data._data
                     original = data
                     data = list(_coerce_to_float(item) for item in original)
+
         super().__init__(data, names, _validate=_validate)
 
-    def set_value(
-        self, index: Union[int, str], value: Any, in_place: bool = False
-    ) -> "FloatList":
+    def set_value(self, index: Union[int, str], value: Any, in_place: bool = False) -> FloatList:
         """Calls :py:meth:`~biocutils.NamedList.NamedList.set_value` after coercing ``value`` to a float."""
         return super().set_value(index, _coerce_to_float(value), in_place=in_place)
 
-    def set_slice(
-        self, index: SubscriptTypes, value: Sequence, in_place: bool = False
-    ) -> "FloatList":
+    def set_slice(self, index: SubscriptTypes, value: Sequence, in_place: bool = False) -> FloatList:
         """Calls :py:meth:`~biocutils.NamedList.NamedList.set_slice` after coercing ``value`` to floats."""
         return super().set_slice(index, _SubscriptCoercer(value), in_place=in_place)
 
-    def safe_insert(
-        self, index: Union[int, str], value: Any, in_place: bool = False
-    ) -> "FloatList":
+    def safe_insert(self, index: Union[int, str], value: Any, in_place: bool = False) -> FloatList:
         """Calls :py:meth:`~biocutils.NamedList.NamedList.safe_insert` after coercing ``value`` to a float."""
         return super().safe_insert(index, _coerce_to_float(value), in_place=in_place)
 
-    def safe_append(self, value: Any, in_place: bool = False) -> "FloatList":
+    def safe_append(self, value: Any, in_place: bool = False) -> FloatList:
         """Calls :py:meth:`~biocutils.NamedList.NamedList.safe_append` after coercing ``value`` to a float."""
         return super().safe_append(_coerce_to_float(value), in_place=in_place)
 
-    def safe_extend(self, other: Iterable, in_place: bool = True) -> "FloatList":
+    def safe_extend(self, other: Iterable, in_place: bool = True) -> FloatList:
         """Calls :py:meth:`~biocutils.NamedList.NamedList.safe_extend` after coercing elements of ``other`` to floats."""
-        return super().safe_extend(
-            (_coerce_to_float(y) for y in other), in_place=in_place
-        )
+        return super().safe_extend((_coerce_to_float(y) for y in other), in_place=in_place)

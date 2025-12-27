@@ -4,10 +4,10 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html"><link rel="search" title="Search" href="../../search.html">
 
-    <!-- Generated with Sphinx 8.2.3 and Furo 2025.09.25 -->
-        <title>biocutils.normalize_subscript - biocutils 0.3.2.dev1 documentation</title>
+    <!-- Generated with Sphinx 8.2.3 and Furo 2025.12.19 -->
+        <title>biocutils.normalize_subscript - biocutils 0.3.1.dev0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=580074bf" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=8dab3a3b" />
     
@@ -161,7 +161,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">biocutils 0.3.2.dev1 documentation</div></a>
+      <a href="../../index.html"><div class="brand">biocutils 0.3.1.dev0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -182,7 +182,7 @@
       
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
   
-  <span class="sidebar-brand-text">biocutils 0.3.2.dev1 documentation</span>
+  <span class="sidebar-brand-text">biocutils 0.3.1.dev0 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -239,12 +239,7 @@
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_raise_int</span><span class="p">(</span><span class="n">idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">length</span><span class="p">):</span>
-    <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span>
-        <span class="s2">&quot;subscript (&quot;</span>
-        <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span>
-        <span class="o">+</span> <span class="s2">&quot;) out of range for vector-like object of length &quot;</span>
-        <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">length</span><span class="p">)</span>
-    <span class="p">)</span>
+    <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span><span class="s2">&quot;subscript (&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;) out of range for vector-like object of length &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">length</span><span class="p">))</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_is_scalar_bool</span><span class="p">(</span><span class="n">sub</span><span class="p">):</span>
@@ -264,7 +259,8 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize a NormalizedSubscript.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            subscript: Sequence of integers for a normalized subscript.</span>
+<span class="sd">            subscript:</span>
+<span class="sd">                Sequence of integers for a normalized subscript.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_subscript</span> <span class="o">=</span> <span class="n">subscript</span>
 
@@ -378,11 +374,7 @@
 
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">sub</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">names</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span>
-                <span class="s2">&quot;failed to find subscript &#39;&quot;</span>
-                <span class="o">+</span> <span class="n">sub</span>
-                <span class="o">+</span> <span class="s2">&quot;&#39; for vector-like object with no names&quot;</span>
-            <span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span><span class="s2">&quot;failed to find subscript &#39;&quot;</span> <span class="o">+</span> <span class="n">sub</span> <span class="o">+</span> <span class="s2">&quot;&#39; for vector-like object with no names&quot;</span><span class="p">)</span>
         <span class="n">i</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
         <span class="kn">from</span><span class="w"> </span><span class="nn">.names</span><span class="w"> </span><span class="kn">import</span> <span class="n">Names</span>
 
@@ -472,9 +464,7 @@
 
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">has_strings</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">names</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span>
-                <span class="s2">&quot;cannot find string subscripts for vector-like object with no names&quot;</span>
-            <span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span><span class="s2">&quot;cannot find string subscripts for vector-like object with no names&quot;</span><span class="p">)</span>
 
         <span class="n">mapping</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">names</span><span class="p">):</span>
@@ -519,7 +509,7 @@
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=2e4a5242"></script>
+</div><script src="../../_static/documentation_options.js?v=f0846db4"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/furo.js?v=46bd48cc"></script>

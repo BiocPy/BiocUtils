@@ -300,6 +300,14 @@ biocutils.subset\_sequence module
    :show-inheritance:
    :undoc-members:
 
+biocutils.table module
+----------------------
+
+.. automodule:: biocutils.table
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
 biocutils.union module
 ----------------------
 

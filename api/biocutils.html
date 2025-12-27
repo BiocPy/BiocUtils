@@ -5,10 +5,10 @@
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="prev" title="biocutils" href="modules.html">
 
-    <!-- Generated with Sphinx 8.2.3 and Furo 2025.09.25 -->
-        <title>biocutils package - biocutils 0.3.2.dev1 documentation</title>
+    <!-- Generated with Sphinx 8.2.3 and Furo 2025.12.19 -->
+        <title>biocutils package - biocutils 0.3.1.dev0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=580074bf" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
     
@@ -162,7 +162,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">biocutils 0.3.2.dev1 documentation</div></a>
+      <a href="../index.html"><div class="brand">biocutils 0.3.1.dev0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -183,7 +183,7 @@
       
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
   
-  <span class="sidebar-brand-text">biocutils 0.3.2.dev1 documentation</span>
+  <span class="sidebar-brand-text">biocutils 0.3.1.dev0 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -327,7 +327,7 @@ same length as <code class="docutils literal notranslate"><span class="pre">indi
 <span id="biocutils-bioc-object-module"></span><h2>biocutils.bioc_object module<a class="headerlink" href="#module-biocutils.bioc_object" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="biocutils.bioc_object.BiocObject">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">biocutils.bioc_object.</span></span><span class="sig-name descname"><span class="pre">BiocObject</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">validate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/bioc_object.html#BiocObject"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.bioc_object.BiocObject" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">biocutils.bioc_object.</span></span><span class="sig-name descname"><span class="pre">BiocObject</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_validate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/bioc_object.html#BiocObject"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.bioc_object.BiocObject" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.12/library/functions.html#object" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Base class for all BiocPy classes.</p>
 <p>Provides a standardized <cite>metadata</cite> slot and copy-on-write semantics.</p>
@@ -377,7 +377,7 @@ Defaults to False (returns a copy).</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Self</span></code></span></p>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#biocutils.bioc_object.BiocObject" title="biocutils.bioc_object.BiocObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">BiocObject</span></code></a></span></p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>A modified object, either as a copy of the original
@@ -423,7 +423,7 @@ and are treated as missing booleans. The list may also be named (see
 
 <dl class="py method">
 <dt class="sig sig-object py" id="biocutils.boolean_list.BooleanList.safe_extend">
-<span class="sig-name descname"><span class="pre">safe_extend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_place</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/boolean_list.html#BooleanList.safe_extend"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.boolean_list.BooleanList.safe_extend" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">safe_extend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_place</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/boolean_list.html#BooleanList.safe_extend"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.boolean_list.BooleanList.safe_extend" title="Link to this definition">¶</a></dt>
 <dd><p>Calls <code class="xref py py-meth docutils literal notranslate"><span class="pre">safe_extend()</span></code> after coercing elements of <code class="docutils literal notranslate"><span class="pre">other</span></code> to booleans.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -482,8 +482,11 @@ first dimension, otherwise it assumes that they are vector-like and calls
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>x</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.12/library/typing.html#typing.Any" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a></span>) – Objects to combine.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A combined object, typically the same type as the first element in <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.12/library/typing.html#typing.Any" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A combined object, typically the same type as the first element in <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -495,8 +498,8 @@ first dimension, otherwise it assumes that they are vector-like and calls
 <dt class="sig sig-object py" id="biocutils.combine_columns.combine_columns">
 <span class="sig-prename descclassname"><span class="pre">biocutils.combine_columns.</span></span><span class="sig-name descname"><span class="pre">combine_columns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/combine_columns.html#combine_columns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.combine_columns.combine_columns" title="Link to this definition">¶</a></dt>
 <dd><p>Combine n-dimensional objects along the second dimension.</p>
-<p>If all elements are <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a>,
-we combine them using numpy’s <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.concatenate.html#numpy.concatenate" title="(in NumPy v2.3)"><code class="xref py py-func docutils literal notranslate"><span class="pre">concatenate()</span></code></a>.</p>
+<p>If all elements are <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a>,
+we combine them using numpy’s <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.concatenate.html#numpy.concatenate" title="(in NumPy v2.4)"><code class="xref py py-func docutils literal notranslate"><span class="pre">concatenate()</span></code></a>.</p>
 <p>If all elements are either <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.spmatrix.html#scipy.sparse.spmatrix" title="(in SciPy v1.16.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">spmatrix</span></code></a> or
 <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.sparray.html#scipy.sparse.sparray" title="(in SciPy v1.16.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">sparray</span></code></a>, these objects are combined
 using scipy’s <code class="xref py py-class docutils literal notranslate"><span class="pre">hstack</span></code>.</p>
@@ -507,8 +510,11 @@ combined using <a class="reference external" href="https://pandas.pydata.org/pan
 <dd class="field-odd"><p><strong>x</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.12/library/typing.html#typing.Any" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a></span>) – n-dimensional objects to combine. All elements of x are expected
 to be the same class.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Combined object, typically the same type as the first entry of <code class="docutils literal notranslate"><span class="pre">x</span></code></p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.12/library/typing.html#typing.Any" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Combined object, typically the same type as the first entry of <code class="docutils literal notranslate"><span class="pre">x</span></code></p>
 </dd>
 </dl>
 </dd></dl>
@@ -520,8 +526,8 @@ to be the same class.</p>
 <dt class="sig sig-object py" id="biocutils.combine_rows.combine_rows">
 <span class="sig-prename descclassname"><span class="pre">biocutils.combine_rows.</span></span><span class="sig-name descname"><span class="pre">combine_rows</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/combine_rows.html#combine_rows"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.combine_rows.combine_rows" title="Link to this definition">¶</a></dt>
 <dd><p>Combine n-dimensional objects along their first dimension.</p>
-<p>If all elements are <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a>, we combine them using
-numpy’s <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.concatenate.html#numpy.concatenate" title="(in NumPy v2.3)"><code class="xref py py-func docutils literal notranslate"><span class="pre">concatenate()</span></code></a>.</p>
+<p>If all elements are <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a>, we combine them using
+numpy’s <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.concatenate.html#numpy.concatenate" title="(in NumPy v2.4)"><code class="xref py py-func docutils literal notranslate"><span class="pre">concatenate()</span></code></a>.</p>
 <p>If all elements are either <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.spmatrix.html#scipy.sparse.spmatrix" title="(in SciPy v1.16.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">spmatrix</span></code></a> or
 <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.sparray.html#scipy.sparse.sparray" title="(in SciPy v1.16.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">sparray</span></code></a>, these objects are combined using scipy’s
 <code class="xref py py-class docutils literal notranslate"><span class="pre">vstack</span></code>.</p>
@@ -532,8 +538,11 @@ combined using <a class="reference external" href="https://pandas.pydata.org/pan
 <dd class="field-odd"><p><strong>x</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.12/library/typing.html#typing.Any" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a></span>) – One or more n-dimensional objects to combine. All elements of x
 are expected to be the same class.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Combined object, typically the same type as the first entry of <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.12/library/typing.html#typing.Any" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Combined object, typically the same type as the first entry of <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -545,8 +554,8 @@ are expected to be the same class.</p>
 <dt class="sig sig-object py" id="biocutils.combine_sequences.combine_sequences">
 <span class="sig-prename descclassname"><span class="pre">biocutils.combine_sequences.</span></span><span class="sig-name descname"><span class="pre">combine_sequences</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/combine_sequences.html#combine_sequences"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.combine_sequences.combine_sequences" title="Link to this definition">¶</a></dt>
 <dd><p>Combine vector-like objects (1-dimensional arrays).</p>
-<p>If all elements are <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a>,
-we combine them using numpy’s <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.concatenate.html#numpy.concatenate" title="(in NumPy v2.3)"><code class="xref py py-func docutils literal notranslate"><span class="pre">concatenate()</span></code></a>.</p>
+<p>If all elements are <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a>,
+we combine them using numpy’s <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.concatenate.html#numpy.concatenate" title="(in NumPy v2.4)"><code class="xref py py-func docutils literal notranslate"><span class="pre">concatenate()</span></code></a>.</p>
 <p>If all elements are <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v2.3.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Series</span></code></a> objects, they are combined
 using <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.concat.html#pandas.concat" title="(in pandas v2.3.3)"><code class="xref py py-func docutils literal notranslate"><span class="pre">concat()</span></code></a>.</p>
 <p>For all other scenarios, all elements are coerced to a <a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#list" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>
@@ -557,8 +566,11 @@ and combined.</p>
 All elements of <code class="docutils literal notranslate"><span class="pre">x</span></code> are expected to be the same class or
 atleast compatible with each other.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A combined object, ideally of the same type as the first element in <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.12/library/typing.html#typing.Any" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A combined object, ideally of the same type as the first element in <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -578,7 +590,7 @@ methods when there are lots of different array types that
 <dd class="field-odd"><p><strong>x</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.12/library/typing.html#typing.Any" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a></span>) – Some array-like object to be stored as a NumPy array.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a></span></p>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a></span></p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>A NumPy array.</p>
@@ -598,7 +610,7 @@ methods when there are lots of different array types that
 <dd class="field-odd"><p><strong>x</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.12/library/typing.html#typing.Any" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a></span>) – Any object with column names.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a></span></p>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.12/library/typing.html#typing.Any" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a></span></p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Array of strings containing column names.</p>
@@ -618,7 +630,7 @@ methods when there are lots of different array types that
 <dd class="field-odd"><p><strong>x</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.12/library/typing.html#typing.Any" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a></span>) – Any object with row names.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a></span></p>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.12/library/typing.html#typing.Any" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a></span></p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Array of strings containing row names.</p>
@@ -743,7 +755,7 @@ report the corresponding level (or None).</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="biocutils.factor.Factor.codes">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">codes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><span class="pre">ndarray</span></a></em><a class="headerlink" href="#biocutils.factor.Factor.codes" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">codes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">ndarray</span></a></em><a class="headerlink" href="#biocutils.factor.Factor.codes" title="Link to this definition">¶</a></dt>
 <dd><p>Alias for <a class="reference internal" href="#biocutils.factor.Factor.get_codes" title="biocutils.factor.Factor.get_codes"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_codes()</span></code></a>.</p>
 </dd></dl>
 
@@ -805,7 +817,7 @@ Alternatively None, if the factor has no names.</p></li>
 <span class="sig-name descname"><span class="pre">get_codes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/factor.html#Factor.get_codes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.factor.Factor.get_codes" title="Link to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a></span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a></span></p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><p>Array of integer codes, used as indices into the levels from
@@ -1028,8 +1040,8 @@ alias for <a class="reference internal" href="#biocutils.factor.Factor.replace_l
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>names</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.12/library/typing.html#typing.Optional" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference internal" href="#biocutils.names.Names" title="biocutils.names.Names"><code class="xref py py-class docutils literal notranslate"><span class="pre">Names</span></code></a>]</span>) – List of names, of the same length as this list.</p></li>
-<li><p><strong>in_place</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.12/library/functions.html#bool" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span>) – Whether to perform this modification in-place.</p></li>
+<li><p><strong>names</strong> (<span class="sphinx_autodoc_typehints-type">Optional[Names]</span>) – List of names, of the same length as this list.</p></li>
+<li><p><strong>in_place</strong> (<span class="sphinx_autodoc_typehints-type">bool</span>) – Whether to perform this modification in-place.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -1182,14 +1194,14 @@ If None, this defaults to all unique values of <code class="docutils literal not
 <li><p><strong>sort_levels</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.12/library/functions.html#bool" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span>) – Whether to sort the automatically-determined levels.
 If False, the levels are kept in order of their appearance in <code class="docutils literal notranslate"><span class="pre">x</span></code>.
 Not used if <code class="docutils literal notranslate"><span class="pre">levels</span></code> is explicitly supplied.</p></li>
-<li><p><strong>dtype</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.12/library/typing.html#typing.Optional" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.dtype.html#numpy.dtype" title="(in NumPy v2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dtype</span></code></a>]</span>) – NumPy type of the array of indices, see
+<li><p><strong>dtype</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.12/library/typing.html#typing.Optional" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.dtype.html#numpy.dtype" title="(in NumPy v2.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dtype</span></code></a>]</span>) – NumPy type of the array of indices, see
 <a class="reference internal" href="#biocutils.match.match" title="biocutils.match.match"><code class="xref py py-func docutils literal notranslate"><span class="pre">match()</span></code></a> for details.</p></li>
 <li><p><strong>fail_missing</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.12/library/typing.html#typing.Optional" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3.12/library/functions.html#bool" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>]</span>) – Whether to raise an error upon encountering missing levels in
 <code class="docutils literal notranslate"><span class="pre">x</span></code>, see <a class="reference internal" href="#biocutils.match.match" title="biocutils.match.match"><code class="xref py py-func docutils literal notranslate"><span class="pre">match()</span></code></a> for details.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.12/library/typing.html#typing.Tuple" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a>[<a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#list" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>, <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a>]</span></p>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.12/library/typing.html#typing.Tuple" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a>[<a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#list" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>, <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a>]</span></p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Tuple where the first element is a list of unique levels and the second
@@ -1479,11 +1491,11 @@ type (or None, if <code class="docutils literal notranslate"><span class="pre">i
 value in <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Dictionary that maps values of <code class="docutils literal notranslate"><span class="pre">x</span></code> to their position inside <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#dict" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></span></p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#dict" title="(in Python v3.12)">dict</a></p>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dictionary that maps values of <code class="docutils literal notranslate"><span class="pre">x</span></code> to their position inside <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1504,7 +1516,7 @@ dictionary generated by passing a sequence of targets to
 <a class="reference internal" href="#biocutils.map_to_index.map_to_index" title="biocutils.map_to_index.map_to_index"><code class="xref py py-meth docutils literal notranslate"><span class="pre">map_to_index()</span></code></a>.</p></li>
 <li><p><strong>duplicate_method</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.12/library/typing.html#typing.Literal" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code></a>[<code class="docutils literal notranslate"><span class="pre">'first'</span></code>, <code class="docutils literal notranslate"><span class="pre">'last'</span></code>]</span>) – How to handle duplicate entries in <code class="docutils literal notranslate"><span class="pre">targets</span></code>. Matches can
 be reported to the first or last occurrence of duplicates.</p></li>
-<li><p><strong>dtype</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.12/library/typing.html#typing.Optional" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.dtype.html#numpy.dtype" title="(in NumPy v2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dtype</span></code></a>]</span>) – NumPy type of the output array. This should be an integer type; if
+<li><p><strong>dtype</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.12/library/typing.html#typing.Optional" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.dtype.html#numpy.dtype" title="(in NumPy v2.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dtype</span></code></a>]</span>) – NumPy type of the output array. This should be an integer type; if
 missing values are expected, the type should be a signed integer.
 If None, a suitable signed type is automatically determined.</p></li>
 <li><p><strong>fail_missing</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.12/library/typing.html#typing.Optional" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3.12/library/functions.html#bool" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>]</span>) – Whether to raise an error if <code class="docutils literal notranslate"><span class="pre">x</span></code> cannot be found in <code class="docutils literal notranslate"><span class="pre">targets</span></code>.
@@ -1513,7 +1525,7 @@ type, otherwise it defaults to <code class="docutils literal notranslate"><span 
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a></span></p>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a></span></p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Array of length equal to <code class="docutils literal notranslate"><span class="pre">x</span></code>, containing the integer position of each
@@ -1729,7 +1741,7 @@ object will not change the original object.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="biocutils.named_list.NamedList.from_dict">
-<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/named_list.html#NamedList.from_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.named_list.NamedList.from_dict" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/named_list.html#NamedList.from_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.named_list.NamedList.from_dict" title="Link to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>x</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#dict" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></span>) – Dictionary where keys are strings (or can be coerced to them).</p>
@@ -1738,7 +1750,7 @@ object will not change the original object.</p>
 <dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#biocutils.named_list.NamedList" title="biocutils.named_list.NamedList"><code class="xref py py-class docutils literal notranslate"><span class="pre">NamedList</span></code></a></span></p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>A <code class="docutils literal notranslate"><span class="pre">NamedList</span></code> instance where the list elements are the values of
+<dd class="field-odd"><p>A instance where the list elements are the values of
 <code class="docutils literal notranslate"><span class="pre">x</span></code> and the names are the stringified keys.</p>
 </dd>
 </dl>
@@ -1746,7 +1758,7 @@ object will not change the original object.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="biocutils.named_list.NamedList.from_list">
-<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/named_list.html#NamedList.from_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.named_list.NamedList.from_list" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/named_list.html#NamedList.from_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.named_list.NamedList.from_list" title="Link to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>x</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#list" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a></span>) – List of data elements.</p>
@@ -1755,7 +1767,7 @@ object will not change the original object.</p>
 <dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#biocutils.named_list.NamedList" title="biocutils.named_list.NamedList"><code class="xref py py-class docutils literal notranslate"><span class="pre">NamedList</span></code></a></span></p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>A <code class="docutils literal notranslate"><span class="pre">NamedList</span></code> instance with the contents of <code class="docutils literal notranslate"><span class="pre">x</span></code> and no names.</p>
+<dd class="field-odd"><p>A instance with the contents of <code class="docutils literal notranslate"><span class="pre">x</span></code> and no names.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1765,7 +1777,7 @@ object will not change the original object.</p>
 <span class="sig-name descname"><span class="pre">get_names</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/named_list.html#NamedList.get_names"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.named_list.NamedList.get_names" title="Link to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#biocutils.names.Names" title="biocutils.names.Names"><code class="xref py py-class docutils literal notranslate"><span class="pre">Names</span></code></a></span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.12/library/typing.html#typing.Optional" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference internal" href="#biocutils.names.Names" title="biocutils.names.Names"><code class="xref py py-class docutils literal notranslate"><span class="pre">Names</span></code></a>]</span></p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><p>Names for the list elements.</p>
@@ -1822,7 +1834,7 @@ if duplicate names are present.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="biocutils.named_list.NamedList.names">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">names</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#biocutils.names.Names" title="biocutils.names.Names"><span class="pre">Names</span></a></em><a class="headerlink" href="#biocutils.named_list.NamedList.names" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">names</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#biocutils.names.Names" title="biocutils.names.Names"><span class="pre">Names</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.12/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></em><a class="headerlink" href="#biocutils.named_list.NamedList.names" title="Link to this definition">¶</a></dt>
 <dd><p>Alias for <a class="reference internal" href="#biocutils.named_list.NamedList.get_names" title="biocutils.named_list.NamedList.get_names"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_names()</span></code></a>.</p>
 </dd></dl>
 
@@ -2868,6 +2880,31 @@ depends on what <code class="docutils literal notranslate"><span class="pre">x</
 </dd></dl>
 
 </section>
+<section id="module-biocutils.table">
+<span id="biocutils-table-module"></span><h2>biocutils.table module<a class="headerlink" href="#module-biocutils.table" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="biocutils.table.table">
+<span class="sig-prename descclassname"><span class="pre">biocutils.table.</span></span><span class="sig-name descname"><span class="pre">table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/table.html#table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.table.table" title="Link to this definition">¶</a></dt>
+<dd><p>Create a frequency table of values in a sequence.</p>
+<p>Count the occurrences of each unique value in the input sequence and return
+them as an IntegerList with names corresponding to the unique values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.12/library/typing.html#typing.Sequence" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code></a></span>) – A sequence of hashable values.</p></li>
+<li><p><strong>sort</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.12/library/functions.html#bool" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span>) – Whether to sort the output by keys (values from x).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#biocutils.integer_list.IntegerList" title="biocutils.integer_list.IntegerList"><code class="xref py py-class docutils literal notranslate"><span class="pre">IntegerList</span></code></a></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>An IntegerList where names are the unique values and values are their counts.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
 <section id="module-biocutils.union">
 <span id="biocutils-union-module"></span><h2>biocutils.union module<a class="headerlink" href="#module-biocutils.union" title="Link to this heading">¶</a></h2>
 <dl class="py function">
@@ -2907,12 +2944,12 @@ occurrence in the latest sequence of <code class="docutils literal notranslate">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>x</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.12/library/typing.html#typing.Sequence" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code></a></span>) – Sequence of values to be interpreted as booleans.</p></li>
-<li><p><strong>dtype</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.12/library/typing.html#typing.Optional" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.dtype.html#numpy.dtype" title="(in NumPy v2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dtype</span></code></a>]</span>) – NumPy type of the output array. This should be an integer type. If
+<li><p><strong>dtype</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.12/library/typing.html#typing.Optional" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.dtype.html#numpy.dtype" title="(in NumPy v2.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dtype</span></code></a>]</span>) – NumPy type of the output array. This should be an integer type. If
 None, a suitable signed type is automatically determined.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a></span></p>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a></span></p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Array of length no greater than <code class="docutils literal notranslate"><span class="pre">x</span></code>, containing the indices of all
@@ -3268,6 +3305,10 @@ truthy entries. Indices are guaranteed to be unique and sorted.</p>
 <li><a class="reference internal" href="#biocutils.subset_sequence.subset_sequence"><code class="docutils literal notranslate"><span class="pre">subset_sequence()</span></code></a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#module-biocutils.table">biocutils.table module</a><ul>
+<li><a class="reference internal" href="#biocutils.table.table"><code class="docutils literal notranslate"><span class="pre">table()</span></code></a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#module-biocutils.union">biocutils.union module</a><ul>
 <li><a class="reference internal" href="#biocutils.union.union"><code class="docutils literal notranslate"><span class="pre">union()</span></code></a></li>
 </ul>
@@ -3288,7 +3329,7 @@ truthy entries. Indices are guaranteed to be unique and sorted.</p>
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=2e4a5242"></script>
+</div><script src="../_static/documentation_options.js?v=f0846db4"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=46bd48cc"></script>

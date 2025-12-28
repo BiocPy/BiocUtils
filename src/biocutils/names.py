@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from copy import deepcopy
 from typing import Any, Callable, Iterable, List, Optional, Sequence, Union
 
@@ -82,7 +84,7 @@ class Names:
         """
         return str(self._names)
 
-    def __eq__(self, other: "Names") -> bool:
+    def __eq__(self, other: Names) -> bool:
         """
         Args:
             other: Another ``Names`` object.
@@ -119,6 +121,17 @@ class Names:
         else:
             return -1
 
+    def __contains__(self, name: str) -> bool:
+        """
+        Args:
+            name:
+                Name to check.
+
+        Returns:
+            True if ``name`` exists, otherwise False.
+        """
+        return self.map(name) >= 0
+
     #################################
     #####>>>> Get/set items <<<<#####
     #################################
@@ -133,7 +146,7 @@ class Names:
         """
         return self._names[index]
 
-    def get_slice(self, index: SubscriptTypes) -> "Names":
+    def get_slice(self, index: SubscriptTypes) -> Names:
         """
         Args:
             index:
@@ -147,7 +160,7 @@ class Names:
         index, scalar = normalize_subscript(index, len(self), None)
         return type(self)(subset_sequence(self._names, index), _validate=False)
 
-    def __getitem__(self, index: SubscriptTypes) -> Union[str, "Names"]:
+    def __getitem__(self, index: SubscriptTypes) -> Union[str, Names]:
         """
         If ``index`` is a scalar, this is an alias for :py:attr:`~get_value`.
 
@@ -159,7 +172,7 @@ class Names:
         else:
             return self.get_slice(NormalizedSubscript(index))
 
-    def set_value(self, index: int, value: str, in_place: bool = False) -> "Names":
+    def set_value(self, index: int, value: str, in_place: bool = False) -> Names:
         """
         Args:
             index: Position of interest.
@@ -180,9 +193,7 @@ class Names:
         output._names[index] = str(value)
         return output
 
-    def set_slice(
-        self, index: SubscriptTypes, value: Sequence[str], in_place: bool = False
-    ) -> "Names":
+    def set_slice(self, index: SubscriptTypes, value: Sequence[str], in_place: bool = False) -> Names:
         """
         Args:
             index: Positions of interest.
@@ -228,13 +239,13 @@ class Names:
     #####>>>> List methods <<<<#####
     ################################
 
-    def _define_output(self, in_place: bool) -> "Names":
+    def _define_output(self, in_place: bool) -> Names:
         if in_place:
             return self
         else:
             return self.copy()
 
-    def safe_append(self, value: str, in_place: bool = False) -> "Names":
+    def safe_append(self, value: str, in_place: bool = False) -> Names:
         """
         Args:
             value: Name to be added.
@@ -256,7 +267,7 @@ class Names:
         """Alias for :py:attr:`~safe_append` with ``in_place = True``."""
         self.safe_append(value, in_place=True)
 
-    def safe_insert(self, index: int, value: str, in_place: bool = False) -> "Names":
+    def safe_insert(self, index: int, value: str, in_place: bool = False) -> Names:
         """
         Args:
             index: Position on the object to insert at.
@@ -278,7 +289,7 @@ class Names:
         """Alias for :py:attr:`~safe_insert` with ``in_place = True``."""
         self.safe_insert(index, value, in_place=True)
 
-    def safe_extend(self, value: Sequence[str], in_place: bool = False) -> "Names":
+    def safe_extend(self, value: Sequence[str], in_place: bool = False) -> Names:
         """
         Args:
             value: Names to be added.
@@ -328,11 +339,40 @@ class Names:
         self.extend(other)
         return self
 
+    def safe_delete(self, index: Union[int, slice], in_place: bool = False) -> Names:
+        """
+        Args:
+            index:
+                Position(s) of the name(s) to delete.
+
+            in_place:
+                Whether to perform this deletion in-place.
+
+        Returns:
+            A ``Names`` object with the deleted name(s). This is a new object
+            if ``in_place = False``, otherwise it is a reference to the current
+            object.
+        """
+        output = self._define_output(in_place)
+        if in_place:
+            output._wipe_reverse_index()
+
+        del output._names[index]
+        return output
+
+    def delete(self, index: Union[int, slice]):
+        """Alias for :py:attr:`~safe_delete` with ``in_place = True``."""
+        self.safe_delete(index, in_place=True)
+
+    def __delitem__(self, index: Union[int, slice]):
+        """Alias for :py:attr:`~delete`."""
+        self.delete(index)
+
     ################################
     #####>>>> Copy methods <<<<#####
     ################################
 
-    def copy(self) -> "Names":
+    def copy(self) -> Names:
         """
         Returns:
             A shallow copy of the current object. This will copy the underlying
@@ -341,11 +381,11 @@ class Names:
         """
         return type(self)(self._names.copy(), _validate=False)
 
-    def __copy__(self) -> "Names":
+    def __copy__(self) -> Names:
         """Alias for :py:attr:`~copy`."""
         return self.copy()
 
-    def __deepcopy__(self, memo=None, _nil=[]) -> "Names":
+    def __deepcopy__(self, memo=None, _nil=[]) -> Names:
         """
         Args:
             memo:
@@ -358,6 +398,15 @@ class Names:
             A deep copy of this ``Names`` object with the same contents.
         """
         return type(self)(deepcopy(self._names, memo, _nil), _validate=False)
+
+    @property
+    def is_unique(self) -> bool:
+        """
+        Returns:
+            True if all names are unique, otherwise False.
+        """
+        self._populate_reverse_index()
+        return len(self._reverse) == len(self._names)
 
 
 @subset_sequence.register
@@ -387,19 +436,24 @@ def _name_to_position(names: Optional[Names], index: str) -> int:
     return i
 
 
-def _sanitize_names(names: Optional[Names], length: int) -> Union[None, Names]:
+def _validate_names(names: Optional[Names], length: int) -> bool:
+    if names is not None and len(names) != length:
+        raise ValueError("length of 'names' must be equal to number of entries (" + str(length) + ")")
+
+    return True
+
+
+def _sanitize_names(names: Optional[Names], length: int) -> Optional[Names]:
     if names is None:
         return names
     if not isinstance(names, Names):
         names = Names(names)
-    if len(names) != length:
-        raise ValueError(
-            "length of 'names' must be equal to number of entries (" + str(length) + ")"
-        )
+
+    _validate_names(names, length=length)
     return names
 
 
-def _combine_names(*x: Any, get_names: Callable) -> Union[Names, None]:
+def _combine_names(*x: Any, get_names: Callable) -> Optional[Names]:
     all_names = []
     has_names = False
     for y in x:

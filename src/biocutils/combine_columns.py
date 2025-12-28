@@ -19,7 +19,7 @@ __license__ = "MIT"
 
 
 @singledispatch
-def combine_columns(*x: Any):
+def combine_columns(*x: Any) -> Any:
     """Combine n-dimensional objects along the second dimension.
 
     If all elements are :py:class:`~numpy.ndarray`,
@@ -40,11 +40,7 @@ def combine_columns(*x: Any):
     Returns:
         Combined object, typically the same type as the first entry of ``x``
     """
-    raise NotImplementedError(
-        "no `combine_columns` method implemented for '"
-        + type(x[0]).__name__
-        + "' objects"
-    )
+    raise NotImplementedError("no `combine_columns` method implemented for '" + type(x[0]).__name__ + "' objects")
 
 
 @combine_columns.register
@@ -57,7 +53,7 @@ def _combine_columns_dense_arrays(*x: numpy.ndarray):
     return numpy.concatenate(x, axis=1)
 
 
-if is_package_installed("scipy") is True:
+if is_package_installed("scipy"):
     import scipy.sparse as sp
 
     def _combine_columns_sparse_matrices(*x):
@@ -85,8 +81,13 @@ if is_package_installed("scipy") is True:
         x = [convert_to_dense(y) for y in x]
         return numpy.concatenate(x, axis=1)
 
+    try:
+        combine_columns.register(sp.sparray, _combine_columns_sparse_arrays)
+    except Exception:
+        pass
 
-if is_package_installed("pandas") is True:
+
+if is_package_installed("pandas"):
     from pandas import DataFrame, concat
 
     @combine_columns.register(DataFrame)

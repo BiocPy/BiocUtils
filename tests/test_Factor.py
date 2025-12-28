@@ -17,13 +17,13 @@ def test_factor_init():
     assert len(f) == 6
     assert list(f) == ["A", "B", None, "A", None, "E"]
     assert list(f.get_codes()) == [0, 1, -1, 0, -1, 4]
-    
+
     f = Factor([None] * 10, levels=["A", "B", "C", "D", "E"])
     assert list(f) == [None] * 10
 
     # Works with NumPy inputs.
     f = Factor(numpy.array([4,3,2,1,0], dtype=numpy.uint8), levels=numpy.array(["A", "B", "C", "D", "E"]))
-    assert len(f) == 5 
+    assert len(f) == 5
     assert f.get_codes().dtype == numpy.int8
     assert isinstance(f.get_levels(), StringList)
 
@@ -98,7 +98,7 @@ def test_Factor_get_value():
 def test_Factor_get_slice():
     f = Factor([0, 1, 2, -1, 2, 4], levels=["A", "B", "C", "D", "E"])
 
-    sub = f.get_slice([0, 1]) 
+    sub = f.get_slice([0, 1])
     assert list(sub) == ["A", "B"]
     assert sub.get_levels() == f.get_levels()
 
@@ -176,7 +176,7 @@ def test_Factor_setitem():
     f[-1] = "D"
     assert list(f.get_codes()) == [1, 1, 0, 0, 2, 3]
 
-    f[2:5] = Factor([4, 3, 1], levels=["A", "B", "C", "D", "E"]) 
+    f[2:5] = Factor([4, 3, 1], levels=["A", "B", "C", "D", "E"])
     assert list(f.get_codes()) == [1, 1, 4, 3, 1, 3]
     assert f.get_levels() == f.get_levels()
 
@@ -339,3 +339,54 @@ def test_Factor_init_from_list():
     assert isinstance(f1, Factor)
     assert len(f1) == 5
     assert len(f1.get_levels()) == 3
+
+def test_Factor_as_list():
+    f = Factor([0, 1, -1, 0], levels=["A", "B"])
+    assert f.as_list() == ["A", "B", None, "A"]
+
+    empty = Factor([], levels=[])
+    assert empty.as_list() == []
+
+
+def test_Factor_safe_delete():
+    f = Factor([0, 1, 2, 0], levels=["A", "B", "C"], names=["x", "y", "z", "w"])
+
+    y = f.safe_delete(1)
+    assert y.as_list() == ["A", "C", "A"]
+    assert y.get_names().as_list() == ["x", "z", "w"]
+    assert f.as_list() == ["A", "B", "C", "A"]
+
+    y = f.safe_delete("y")
+    assert y.as_list() == ["A", "C", "A"]
+    assert y.get_names().as_list() == ["x", "z", "w"]
+
+    y = f.safe_delete(slice(1, 3))
+    assert y.as_list() == ["A", "A"]
+    assert y.get_names().as_list() == ["x", "w"]
+
+
+def test_Factor_delete():
+    f = Factor([0, 1, 2], levels=["A", "B", "C"], names=["x", "y", "z"])
+
+    f.delete(1)
+    assert f.as_list() == ["A", "C"]
+    assert f.get_names().as_list() == ["x", "z"]
+
+    f.delete("z")
+    assert f.as_list() == ["A"]
+    assert f.get_names().as_list() == ["x"]
+
+
+def test_Factor_delitem():
+    f = Factor([0, 1, 2, 0], levels=["A", "B", "C"], names=["x", "y", "z", "w"])
+
+    del f["y"]
+    assert f.as_list() == ["A", "C", "A"]
+    assert f.get_names().as_list() == ["x", "z", "w"]
+
+    del f[0]
+    assert f.as_list() == ["C", "A"]
+    assert f.get_names().as_list() == ["z", "w"]
+
+    del f[:]
+    assert len(f) == 0

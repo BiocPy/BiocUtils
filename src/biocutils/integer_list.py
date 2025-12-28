@@ -1,7 +1,9 @@
+from __future__ import annotations
+
 from typing import Any, Iterable, Optional, Sequence, Union
 
-from .NamedList import NamedList
-from .Names import Names
+from .named_list import NamedList
+from .names import Names
 from .normalize_subscript import SubscriptTypes
 
 
@@ -10,15 +12,32 @@ def _coerce_to_int(x: Any):
         return None
     try:
         return int(x)
-    except:
+    except Exception as _:
         return None
 
 
 class _SubscriptCoercer:
-    def __init__(self, data):
+    """Coercer for subscript operations on IntegerList."""
+
+    def __init__(self, data: Sequence) -> None:
+        """Initialize the coercer.
+
+        Args:
+            data:
+                Sequence of values to coerce.
+        """
         self._data = data
 
-    def __getitem__(self, index):
+    def __getitem__(self, index: int) -> Optional[int]:
+        """Get an item and coerce it to integer.
+
+        Args:
+            index:
+                Index of the item.
+
+        Returns:
+            Coerced integer value.
+        """
         return _coerce_to_int(self._data[index])
 
 
@@ -32,7 +51,7 @@ class IntegerList(NamedList):
 
     def __init__(
         self,
-        data: Optional[Iterable] = None,
+        data: Optional[Sequence] = None,
         names: Optional[Names] = None,
         _validate: bool = True,
     ):
@@ -61,30 +80,22 @@ class IntegerList(NamedList):
                     data = list(_coerce_to_int(item) for item in original)
         super().__init__(data, names, _validate=_validate)
 
-    def set_value(
-        self, index: Union[int, str], value: Any, in_place: bool = False
-    ) -> "IntegerList":
+    def set_value(self, index: Union[int, str], value: Any, in_place: bool = False) -> IntegerList:
         """Calls :py:meth:`~biocutils.NamedList.NamedList.set_value` after coercing ``value`` to a integer."""
         return super().set_value(index, _coerce_to_int(value), in_place=in_place)
 
-    def set_slice(
-        self, index: SubscriptTypes, value: Sequence, in_place: bool = False
-    ) -> "IntegerList":
+    def set_slice(self, index: SubscriptTypes, value: Sequence, in_place: bool = False) -> IntegerList:
         """Calls :py:meth:`~biocutils.NamedList.NamedList.set_slice` after coercing ``value`` to integers."""
         return super().set_slice(index, _SubscriptCoercer(value), in_place=in_place)
 
-    def safe_insert(
-        self, index: Union[int, str], value: Any, in_place: bool = False
-    ) -> "IntegerList":
+    def safe_insert(self, index: Union[int, str], value: Any, in_place: bool = False) -> IntegerList:
         """Calls :py:meth:`~biocutils.NamedList.NamedList.safe_insert` after coercing ``value`` to a integer."""
         return super().safe_insert(index, _coerce_to_int(value), in_place=in_place)
 
-    def safe_append(self, value: Any, in_place: bool = False) -> "IntegerList":
+    def safe_append(self, value: Any, in_place: bool = False) -> IntegerList:
         """Calls :py:meth:`~biocutils.NamedList.NamedList.safe_append` after coercing ``value`` to a integer."""
         return super().safe_append(_coerce_to_int(value), in_place=in_place)
 
-    def safe_extend(self, other: Iterable, in_place: bool = True) -> "IntegerList":
+    def safe_extend(self, other: Iterable, in_place: bool = True) -> IntegerList:
         """Calls :py:meth:`~biocutils.NamedList.NamedList.safe_extend` after coercing elements of ``other`` to integers."""
-        return super().safe_extend(
-            (_coerce_to_int(y) for y in other), in_place=in_place
-        )
+        return super().safe_extend((_coerce_to_int(y) for y in other), in_place=in_place)

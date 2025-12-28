@@ -1,8 +1,10 @@
+from __future__ import annotations
+
+import warnings
 from copy import copy, deepcopy
 from typing import Optional, Sequence, Union
 
 import numpy
-import warnings
 
 from .assign_sequence import assign_sequence
 from .combine_sequences import combine_sequences
@@ -10,22 +12,20 @@ from .factorize import factorize
 from .is_list_of_type import is_list_of_type
 from .is_missing_scalar import is_missing_scalar
 from .match import match
-from .Names import Names, _combine_names, _name_to_position, _sanitize_names
+from .names import Names, _combine_names, _name_to_position, _sanitize_names
 from .normalize_subscript import (
     NormalizedSubscript,
     SubscriptTypes,
     normalize_subscript,
 )
 from .print_truncated import print_truncated_list
-from .StringList import StringList
+from .string_list import StringList
 from .subset_sequence import subset_sequence
 
 
 def _sanitize_codes(codes: Sequence[int], num_levels: int) -> numpy.ndarray:
     if not isinstance(codes, numpy.ndarray):
-        replacement = numpy.ndarray(
-            len(codes), dtype=numpy.min_scalar_type(-num_levels)
-        )  # get a signed type.
+        replacement = numpy.ndarray(len(codes), dtype=numpy.min_scalar_type(-num_levels))  # get a signed type.
         for i, x in enumerate(codes):
             if is_missing_scalar(x) or x < 0:
                 replacement[i] = -1
@@ -35,16 +35,12 @@ def _sanitize_codes(codes: Sequence[int], num_levels: int) -> numpy.ndarray:
     else:
         if len(codes.shape) != 1:
             raise ValueError("'codes' should be a 1-dimensional array")
-        if not numpy.issubdtype(
-            codes.dtype, numpy.signedinteger
-        ):  # force it to be signed.
+        if not numpy.issubdtype(codes.dtype, numpy.signedinteger):  # force it to be signed.
             codes = codes.astype(numpy.min_scalar_type(-num_levels))
 
     for x in codes:
         if x < -1 or x >= num_levels:
-            raise ValueError(
-                "all entries of 'codes' should refer to an entry of 'levels'"
-            )
+            raise ValueError("all entries of 'codes' should refer to an entry of 'levels'")
 
     return codes
 
@@ -67,7 +63,7 @@ def _sanitize_levels(levels: Sequence[str], check: bool = True) -> StringList:
 class FactorIterator:
     """Iterator for a :py:class:`~Factor` object."""
 
-    def __init__(self, parent: "Factor"):
+    def __init__(self, parent: Factor):
         """
         Args:
             parent: The parent :py:class:`~Factor` object.
@@ -75,7 +71,7 @@ class FactorIterator:
         self._parent = parent
         self._position = 0
 
-    def __iter__(self) -> "FactorIterator":
+    def __iter__(self) -> FactorIterator:
         """
         Returns:
             The iterator.
@@ -106,10 +102,10 @@ class Factor:
 
     def __init__(
         self,
-        codes: Sequence[int],
-        levels: Sequence[str],
+        codes: Union[numpy.ndarray, Sequence[int]],
+        levels: Union[StringList, Sequence[str]],
         ordered: bool = False,
-        names: Optional[Names] = None,
+        names: Optional[Union[Names, Sequence[str]]] = None,
         _validate: bool = True,
     ):
         """Initialize a Factor object.
@@ -149,7 +145,7 @@ class Factor:
     #####>>>> Simple getters <<<<#####
     ##################################
 
-    def _define_output(self, in_place: bool) -> "Factor":
+    def _define_output(self, in_place: bool) -> Factor:
         if in_place:
             return self
         else:
@@ -171,7 +167,7 @@ class Factor:
         """Alias for :py:meth:`~get_codes`."""
         return self.get_codes()
 
-    def set_codes(self, codes: Sequence[int], in_place: bool = False) -> "Factor":
+    def set_codes(self, codes: Sequence[int], in_place: bool = False) -> Factor:
         """
         Args:
             codes:
@@ -187,9 +183,7 @@ class Factor:
         """
         output = self._define_output(in_place)
         if len(codes) != len(self):
-            raise ValueError(
-                "length of 'codes' should be equal to that of the current object"
-            )
+            raise ValueError("length of 'codes' should be equal to that of the current object")
         output._codes = _sanitize_codes(codes, len(self._levels))
         return output
 
@@ -220,7 +214,7 @@ class Factor:
         """Alias for :py:meth:`~get_ordered`."""
         return self.get_ordered()
 
-    def set_ordered(self, ordered: bool, in_place: bool = False) -> "Factor":
+    def set_ordered(self, ordered: bool, in_place: bool = False) -> Factor:
         """
         Args:
             ordered:
@@ -293,12 +287,7 @@ class Factor:
         Returns:
             A stringified representation of this object.
         """
-        tmp = (
-            "Factor(codes="
-            + print_truncated_list(self._codes)
-            + ", levels="
-            + print_truncated_list(self._levels)
-        )
+        tmp = "Factor(codes=" + print_truncated_list(self._codes) + ", levels=" + print_truncated_list(self._levels)
         if self._ordered:
             tmp += ", ordered=True"
         if self._names:
@@ -311,42 +300,24 @@ class Factor:
         Returns:
             A pretty-printed representation of this object.
         """
-        message = (
-            "Factor of length "
-            + str(len(self._codes))
-            + " with "
-            + str(len(self._levels))
-            + " level"
-        )
+        message = "Factor of length " + str(len(self._codes)) + " with " + str(len(self._levels)) + " level"
         if len(self._levels) != 0:
             message += "s"
         message += "\n"
         message += (
             "values: "
-            + print_truncated_list(
-                self._codes, transform=lambda i: self._levels[i], include_brackets=False
-            )
+            + print_truncated_list(self._codes, transform=lambda i: self._levels[i], include_brackets=False)
             + "\n"
         )
         if self._names is not None:
             message += (
-                "names: "
-                + print_truncated_list(
-                    self._names, transform=lambda x: x, include_brackets=False
-                )
-                + "\n"
+                "names: " + print_truncated_list(self._names, transform=lambda x: x, include_brackets=False) + "\n"
             )
-        message += (
-            "levels: "
-            + print_truncated_list(
-                self._levels, transform=lambda x: x, include_brackets=False
-            )
-            + "\n"
-        )
+        message += "levels: " + print_truncated_list(self._levels, transform=lambda x: x, include_brackets=False) + "\n"
         message += "ordered: " + str(self._ordered)
         return message
 
-    def __eq__(self, other: "Factor"):
+    def __eq__(self, other: Factor):
         """
         Args:
             other: Another ``Factor``.
@@ -357,7 +328,12 @@ class Factor:
         """
         if not isinstance(other, Factor):
             return False
-        if len(self) != len(other) or self._levels != other._levels or self._names != other._names or self._ordered != other._ordered:
+        if (
+            len(self) != len(other)
+            or self._levels != other._levels
+            or self._names != other._names
+            or self._ordered != other._ordered
+        ):
             return False
         return (self._codes == other._codes).all()
 
@@ -384,7 +360,7 @@ class Factor:
             return None
         return self._levels[i]
 
-    def get_slice(self, index: SubscriptTypes) -> "Factor":
+    def get_slice(self, index: SubscriptTypes) -> Factor:
         """
         Args:
             index:
@@ -404,7 +380,7 @@ class Factor:
             output._names = subset_sequence(self._names, index)
         return output
 
-    def __getitem__(self, index: SubscriptTypes) -> Union[str, "Factor"]:
+    def __getitem__(self, index: SubscriptTypes) -> Union[str, Factor]:
         """
         If ``index`` is a scalar, this is an alias for :py:meth:`~get_value`.
 
@@ -416,9 +392,7 @@ class Factor:
         else:
             return self.get_slice(NormalizedSubscript(index))
 
-    def set_value(
-        self, index: Union[str, int], value: Union[str, None], in_place: bool = False
-    ) -> "Factor":
+    def set_value(self, index: Union[str, int], value: Union[str, None], in_place: bool = False) -> Factor:
         """
         Args:
             index:
@@ -450,14 +424,14 @@ class Factor:
             output._codes[index] = -1
             return output
 
-        for i, l in enumerate(output._levels):
-            if l == value:
+        for i, lev in enumerate(output._levels):
+            if lev == value:
                 output._codes[index] = i
                 return output
 
         raise IndexError("failed to find level '" + str(value) + "'")
 
-    def set_slice(self, index: SubscriptTypes, value: "Factor", in_place: bool = False):
+    def set_slice(self, index: SubscriptTypes, value: Factor, in_place: bool = False):
         """
         Replace items in the ``Factor`` list.  The ``index`` elements in the
         current object are replaced with the corresponding values in ``value``.
@@ -508,7 +482,7 @@ class Factor:
 
         return output
 
-    def __setitem__(self, index: SubscriptTypes, value: Union[str, "Factor"]):
+    def __setitem__(self, index: SubscriptTypes, value: Union[str, Factor]):
         """
         If ``index`` is a scalar, this is an alias for :py:meth:`~set_value`.
 
@@ -524,7 +498,7 @@ class Factor:
     #####>>>> Level setting <<<<#####
     #################################
 
-    def drop_unused_levels(self, in_place: bool = False) -> "Factor":
+    def drop_unused_levels(self, in_place: bool = False) -> Factor:
         """Drop unused levels.
 
         Args:
@@ -567,7 +541,7 @@ class Factor:
         self,
         levels: Sequence[str],
         in_place: bool = False,
-    ) -> "Factor":
+    ) -> Factor:
         """Replace the existing levels with a new list. The codes of the
         returned ``Factor`` are unchanged by this method and will index into
         the replacement ``levels``, so each element of the ``Factor`` may refer
@@ -614,12 +588,7 @@ class Factor:
         output._levels = new_levels
         return output
 
-    def set_levels(
-        self,
-        levels: Union[str, Sequence[str]],
-        remap: bool = True,
-        in_place: bool = False
-    ) -> "Factor":
+    def set_levels(self, levels: Union[str, Sequence[str]], remap: bool = True, in_place: bool = False) -> Factor:
         """
         Alias for :py:meth:`~remap_levels` if ``remap = True``, otherwise an
         alias for :py:meth:`~replace_levels`. The first alias is deprecated and
@@ -631,9 +600,7 @@ class Factor:
         else:
             return self.replace_levels(levels, in_place=in_place)
 
-    def remap_levels(
-        self, levels: Union[str, Sequence[str]], in_place: bool = False
-    ) -> "Factor":
+    def remap_levels(self, levels: Union[str, Sequence[str]], in_place: bool = False) -> Factor:
         """Remap codes to a replacement list of levels. Each entry of the
         remapped ``Factor`` will refer to the same string across the old and
         new levels, provided that string is present in both sets of levels.
@@ -679,9 +646,7 @@ class Factor:
                     lmapping[x] = len(new_levels)
                     new_levels.append(x)
             if levels not in lmapping:
-                raise ValueError(
-                    "string 'levels' should already be present among object levels"
-                )
+                raise ValueError("string 'levels' should already be present among object levels")
         else:
             new_levels = levels
             if not isinstance(new_levels, StringList):
@@ -712,7 +677,7 @@ class Factor:
     #####>>>> Copying <<<<#####
     ###########################
 
-    def __copy__(self) -> "Factor":
+    def __copy__(self) -> Factor:
         """
         Returns:
             A shallow copy of the ``Factor`` object.
@@ -725,7 +690,7 @@ class Factor:
             _validate=False,
         )
 
-    def __deepcopy__(self, memo) -> "Factor":
+    def __deepcopy__(self, memo) -> Factor:
         """
         Returns:
             A deep copy of the ``Factor`` object.
@@ -762,8 +727,8 @@ class Factor:
         sort_levels: bool = True,
         ordered: bool = False,
         names: Optional[Sequence[str]] = None,
-        **kwargs
-    ) -> "Factor":
+        **kwargs,
+    ) -> Factor:
         """Convert a sequence of hashable values into a factor.
 
         Args:
@@ -798,6 +763,60 @@ class Factor:
         """
         levels, indices = factorize(x, levels=levels, sort_levels=sort_levels, **kwargs)
         return Factor(indices, levels=levels, ordered=ordered, names=names)
+
+    ################################
+    #####>>>> List methods <<<<#####
+    ################################
+
+    def as_list(self) -> list:
+        """
+        Returns:
+            List of strings corresponding to the factor elements.
+            Missing values are represented as None.
+        """
+        return [self._levels[c] if c >= 0 else None for c in self._codes]
+
+    def safe_delete(self, index: Union[int, str, slice], in_place: bool = False) -> Factor:
+        """
+        Args:
+            index:
+                Integer index or slice containing position(s) to delete.
+                Alternatively, the name of the value to delete (the first
+                occurrence of the name is used).
+
+            in_place:
+                Whether to modify the current object in place.
+
+        Returns:
+            A ``Factor`` where the item at ``index`` is removed. This is a
+            new object if ``in_place = False``, otherwise it is a reference to
+            the current object.
+        """
+        if in_place:
+            output = self
+        else:
+            output = copy(self)
+            output._codes = copy(self._codes)
+            if output._names is not None:
+                output._names = output._names.copy()
+
+        if isinstance(index, str):
+            index = _name_to_position(output._names, index)
+
+        output._codes = numpy.delete(output._codes, index)
+
+        if output._names is not None:
+            output._names.delete(index)
+
+        return output
+
+    def delete(self, index: Union[int, str, slice]):
+        """Alias for :py:meth:`~safe_delete` with ``in_place = True``."""
+        self.safe_delete(index, in_place=True)
+
+    def __delitem__(self, index: Union[int, str, slice]):
+        """Alias for :py:meth:`~delete`."""
+        self.delete(index)
 
 
 @subset_sequence.register
@@ -841,9 +860,7 @@ def _combine_factors(*x: Factor):
                     new_levels.append(y)
                 mapping.append(all_levels_map[y])
 
-            curout = numpy.ndarray(
-                len(f), dtype=numpy.min_scalar_type(-len(new_levels))
-            )
+            curout = numpy.ndarray(len(f), dtype=numpy.min_scalar_type(-len(new_levels)))
             for i, j in enumerate(f._codes):
                 if j < 0:
                     curout[i] = j

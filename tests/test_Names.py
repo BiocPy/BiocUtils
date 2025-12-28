@@ -185,7 +185,7 @@ def test_Names_generics():
     sub = biocutils.subset_sequence(x, [0,3,2,1])
     assert isinstance(sub, Names)
     assert sub.as_list() == ["1", "4", "3", "2"]
-    
+
     y = ["a", "b", "c", "d"]
     com = biocutils.combine_sequences(x, y)
     assert isinstance(com, Names)
@@ -196,3 +196,64 @@ def test_Names_generics():
     assert isinstance(ass, Names)
     assert ass.as_list() == ["1", "b", "c", "4"]
 
+def test_Names_safe_delete():
+    x = Names(["A", "B", "C", "D"])
+
+    y = x.safe_delete(1)
+    assert y.as_list() == ["A", "C", "D"]
+    assert y.map("B") == -1
+    assert y.map("C") == 1
+    assert x.as_list() == ["A", "B", "C", "D"]
+
+    y = x.safe_delete(slice(0, 2))
+    assert y.as_list() == ["C", "D"]
+    assert y.map("A") == -1
+    assert y.map("C") == 0
+
+
+def test_Names_delete():
+    x = Names(["A", "B", "C", "D"])
+
+    x.delete(2)
+    assert x.as_list() == ["A", "B", "D"]
+    assert x.map("C") == -1
+    assert x.map("D") == 2
+
+    x.delete(0)
+    assert x.as_list() == ["B", "D"]
+    assert x.map("A") == -1
+    assert x.map("B") == 0
+
+
+def test_Names_delitem():
+    x = Names(["1", "2", "3", "4"])
+
+    del x[1]
+    assert x.as_list() == ["1", "3", "4"]
+    assert x.map("2") == -1
+    assert x.map("3") == 1
+
+    del x[0:2]
+    assert x.as_list() == ["4"]
+    assert x.map("1") == -1
+    assert x.map("4") == 0
+
+def test_Names_contains():
+    x = Names(["A", "B", "C"])
+    assert "A" in x
+    assert "B" in x
+    assert "Z" not in x
+
+    # Works with duplicates
+    y = Names(["A", "A", "B"])
+    assert "A" in y
+
+def test_Names_is_unique():
+    x = Names(["A", "B", "C"])
+    assert x.is_unique
+
+    y = Names(["A", "B", "A"])
+    assert not y.is_unique
+
+    empty = Names([])
+    assert empty.is_unique

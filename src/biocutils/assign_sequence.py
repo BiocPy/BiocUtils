@@ -41,18 +41,14 @@ def _assign_sequence_list(x: list, indices: Sequence[int], replacement: Any) -> 
 
 
 @assign_sequence.register
-def _assign_sequence_numpy(
-    x: numpy.ndarray, indices: Sequence[int], replacement: Any
-) -> numpy.ndarray:
+def _assign_sequence_numpy(x: numpy.ndarray, indices: Sequence[int], replacement: Any) -> numpy.ndarray:
     output = numpy.copy(x)
     output[indices] = replacement
     return output
 
 
 @assign_sequence.register
-def _assign_sequence_range(
-    x: range, indices: Sequence[int], replacement: Any
-) -> Union[range, list]:
+def _assign_sequence_range(x: range, indices: Sequence[int], replacement: Any) -> Union[range, list]:
     if (
         isinstance(replacement, range)
         and isinstance(indices, range)

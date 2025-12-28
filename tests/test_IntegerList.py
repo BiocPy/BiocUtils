@@ -44,7 +44,7 @@ def test_IntegerList_setitem():
     x = IntegerList([1,2,3,4])
     x[0] = None
     assert x.as_list() == [None, 2, 3, 4]
-    x[0] = 12345 
+    x[0] = 12345
     assert x.as_list() == [12345, 2, 3, 4]
 
     x[1:3] = [10, 20]

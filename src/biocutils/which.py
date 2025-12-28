@@ -1,10 +1,11 @@
 from typing import Optional, Sequence
+
 import numpy
 
 
 def which(
     x: Sequence,
-    dtype: Optional[numpy.ndarray] = None,
+    dtype: Optional[numpy.dtype] = None,
 ) -> numpy.ndarray:
     """Report the indices of all elements of ``x`` that are truthy.
 
@@ -22,7 +23,7 @@ def which(
     """
     if isinstance(x, numpy.ndarray):
         found = numpy.where(x)[0]
-        if not dtype is None:
+        if dtype is not None:
             found = found.astype(dtype=dtype, copy=False, order="A")
         return found
 

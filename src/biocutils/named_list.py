@@ -1,9 +1,11 @@
+from __future__ import annotations
+
 from copy import deepcopy
-from typing import Any, Dict, Iterable, Optional, Sequence, Union
+from typing import Any, Dict, Iterable, Optional, Sequence, Tuple, Union
 
 from .assign_sequence import assign_sequence
 from .combine_sequences import combine_sequences
-from .Names import Names, _name_to_position, _sanitize_names
+from .names import Names, _name_to_position, _sanitize_names
 from .normalize_subscript import (
     NormalizedSubscript,
     SubscriptTypes,
@@ -21,7 +23,7 @@ class NamedList:
 
     def __init__(
         self,
-        data: Optional[Iterable] = None,
+        data: Optional[Sequence] = None,
         names: Optional[Names] = None,
         _validate: bool = True,
     ):
@@ -39,6 +41,9 @@ class NamedList:
             _validate:
                 Internal use only.
         """
+        if isinstance(data, dict):
+            raise TypeError("'data' is a dictionary, use 'NamedList.from_dict' instead.")
+
         if _validate:
             if data is None:
                 data = []
@@ -46,7 +51,9 @@ class NamedList:
                 data = data._data
             elif not isinstance(data, list):
                 data = list(data)
+
             names = _sanitize_names(names, len(data))
+
         self._data = data
         self._names = names
 
@@ -86,18 +93,11 @@ class NamedList:
             names if any exist.
         """
         if self._names is not None:
-            return (
-                "["
-                + ", ".join(
-                    repr(self._names[i]) + "=" + repr(x)
-                    for i, x in enumerate(self._data)
-                )
-                + "]"
-            )
+            return "[" + ", ".join(repr(self._names[i]) + "=" + repr(x) for i, x in enumerate(self._data)) + "]"
         else:
             return repr(self._data)
 
-    def __eq__(self, other: "NamedList") -> bool:
+    def __eq__(self, other: NamedList) -> bool:
         """
         Args:
             other: Another ``NamedList``.
@@ -114,7 +114,7 @@ class NamedList:
     #####>>>> Get/set names <<<<#####
     #################################
 
-    def get_names(self) -> Names:
+    def get_names(self) -> Optional[Names]:
         """
         Returns:
             Names for the list elements.
@@ -125,14 +125,14 @@ class NamedList:
         return self._names
 
     @property
-    def names(self) -> Names:
+    def names(self) -> Optional[Names]:
         """Alias for :py:meth:`~get_names`."""
         return self.get_names()
 
     def _shallow_copy(self):
         return type(self)(self._data, self._names, _validate=False)
 
-    def set_names(self, names: Optional[Names], in_place: bool = False) -> "NamedList":
+    def set_names(self, names: Optional[Names], in_place: bool = False) -> NamedList:
         """
         Args:
             names:
@@ -153,12 +153,27 @@ class NamedList:
         output._names = _sanitize_names(names, len(self))
         return output
 
+    def get_name(self, index: int) -> Optional[str]:
+        """Get name at an index.
+
+        Args:
+            index:
+                Integer index of the element.
+        Returns:
+            Names for the list elements.
+        """
+        if self._names is None:
+            return None
+
+        return self._names.get_value(index)
+
     #################################
     #####>>>> Get/set items <<<<#####
     #################################
 
     def get_value(self, index: Union[str, int]) -> Any:
-        """
+        """Get value at an index.
+
         Args:
             index:
                 Integer index of the element to obtain. Alternatively, a string
@@ -172,7 +187,7 @@ class NamedList:
             index = _name_to_position(self._names, index)
         return self._data[index]
 
-    def get_slice(self, index: SubscriptTypes) -> "NamedList":
+    def get_slice(self, index: SubscriptTypes) -> NamedList:
         """
         Args:
             index:
@@ -192,7 +207,7 @@ class NamedList:
             outnames = subset_sequence(self._names, index)
         return type(self)(outdata, outnames, _validate=False)
 
-    def __getitem__(self, index: SubscriptTypes) -> Union["NamedList", Any]:
+    def __getitem__(self, index: SubscriptTypes) -> Union[NamedList, Any]:
         """
         If ``index`` is a scalar, this is an alias for :py:meth:`~get_value`.
 
@@ -204,9 +219,7 @@ class NamedList:
         else:
             return self.get_slice(NormalizedSubscript(index))
 
-    def set_value(
-        self, index: Union[str, int], value: Any, in_place: bool = False
-    ) -> "NamedList":
+    def set_value(self, index: Union[str, int], value: Any, in_place: bool = False) -> NamedList:
         """
         Args:
             index:
@@ -253,9 +266,7 @@ class NamedList:
 
         return output
 
-    def set_slice(
-        self, index: SubscriptTypes, value: Sequence, in_place: bool = False
-    ) -> "NamedList":
+    def set_slice(self, index: SubscriptTypes, value: Sequence, in_place: bool = False) -> NamedList:
         """
         Args:
             index:
@@ -318,15 +329,13 @@ class NamedList:
     #####>>>> List methods <<<<#####
     ################################
 
-    def _define_output(self, in_place: bool) -> "NamedList":
+    def _define_output(self, in_place: bool) -> NamedList:
         if in_place:
             return self
         else:
             return self.copy()
 
-    def safe_insert(
-        self, index: Union[int, str], value: Any, in_place: bool = False
-    ) -> "NamedList":
+    def safe_insert(self, index: Union[int, str], value: Any, in_place: bool = False) -> NamedList:
         """
         Args:
             index:
@@ -358,7 +367,7 @@ class NamedList:
         """Alias for :py:meth:`~safe_insert` with ``in_place = True``."""
         self.safe_insert(index, value, in_place=True)
 
-    def safe_append(self, value: Any, in_place: bool = False) -> "NamedList":
+    def safe_append(self, value: Any, in_place: bool = False) -> NamedList:
         """
         Args:
             value:
@@ -383,7 +392,7 @@ class NamedList:
         """Alias for :py:meth:`~safe_append` with ``in_place = True``."""
         self.safe_append(value, in_place=True)
 
-    def safe_extend(self, other: Iterable, in_place: bool = False) -> "NamedList":
+    def safe_extend(self, other: Iterable, in_place: bool = False) -> NamedList:
         """
         Args:
             other:
@@ -416,7 +425,7 @@ class NamedList:
         """Alias for :py:meth:`~safe_extend` with ``in_place = True``."""
         self.safe_extend(other, in_place=True)
 
-    def __add__(self, other: list) -> "NamedList":
+    def __add__(self, other: list) -> NamedList:
         """Alias for :py:meth:`~safe_extend`."""
         return self.safe_extend(other)
 
@@ -426,11 +435,100 @@ class NamedList:
         self.extend(other)
         return self
 
+    def safe_delete(self, index: Union[int, str, slice], in_place: bool = False) -> NamedList:
+        """
+        Args:
+            index:
+                An integer index or slice containing position(s) to delete.
+                Alternatively, the name of the value to delete (the first
+                occurrence of the name is used).
+
+            in_place:
+                Whether to modify the current object in place.
+
+        Returns:
+            A ``NamedList`` where the item at ``index`` is removed. This is a
+            new object if ``in_place = False``, otherwise it is a reference to
+            the current object.
+        """
+        if in_place:
+            output = self
+        else:
+            output = self._shallow_copy()
+            output._data = output._data[:]  # Shallow copy of the list
+            if output._names is not None:
+                output._names = output._names.copy()
+
+        if isinstance(index, str):
+            index = _name_to_position(self._names, index)
+
+        del output._data[index]
+        if output._names is not None:
+            output._names.delete(index)
+
+        return output
+
+    def delete(self, index: Union[int, str, slice]):
+        """Alias for :py:meth:`~safe_delete` with ``in_place = True``."""
+        self.safe_delete(index, in_place=True)
+
+    def __delitem__(self, index: Union[int, str, slice]):
+        """Alias for :py:meth:`~delete`."""
+        self.delete(index)
+
+    #####################################
+    #####>>>> dict like methods <<<<#####
+    #####################################
+
+    def keys(self) -> Iterable[str]:
+        """
+        Returns:
+            Iterator over the names of the list elements.
+        """
+        if self._names is None:
+            return iter([])
+        return iter(self._names)
+
+    def values(self) -> Iterable[Any]:
+        """
+        Returns:
+            Iterator over the values of the list elements.
+        """
+        return iter(self._data)
+
+    def items(self) -> Iterable[Tuple[str, Any]]:
+        """
+        Returns:
+            Iterator over (name, value) pairs.
+            If names are missing, keys are returned as stringified indices.
+        """
+        if self._names is not None:
+            return zip(self._names, self._data)
+        else:
+            return zip((str(i) for i in range(len(self))), self._data)
+
+    def get(self, key: Union[str, int], default: Any = None) -> Any:
+        """
+        Args:
+            key:
+                Name or index of the element.
+
+            default:
+                Value to return if ``key`` is not found.
+
+        Returns:
+            Value at ``key`` or ``default``.
+        """
+        try:
+            return self.get_value(key)
+        except (KeyError, IndexError):
+            return default
+
     ################################
     #####>>>> Copy methods <<<<#####
     ################################
 
-    def copy(self) -> "NamedList":
+    def copy(self) -> NamedList:
         """
         Returns:
             A shallow copy of a ``NamedList`` with the same contents.  This
@@ -443,11 +541,11 @@ class NamedList:
             newnames = newnames.copy()
         return type(self)(self._data.copy(), names=newnames, _validate=False)
 
-    def __copy__(self) -> "NamedList":
+    def __copy__(self) -> NamedList:
         """Alias for :py:meth:`~copy`."""
         return self.copy()
 
-    def __deepcopy__(self, memo=None, _nil=[]) -> "NamedList":
+    def __deepcopy__(self, memo=None, _nil=[]) -> NamedList:
         """
         Args:
             memo:
@@ -492,28 +590,28 @@ class NamedList:
                 output[n] = self[i]
         return output
 
-    @staticmethod
-    def from_list(x: list) -> "NamedList":
+    @classmethod
+    def from_list(cls, x: list) -> NamedList:
         """
         Args:
             x: List of data elements.
 
         Returns:
-            A ``NamedList`` instance with the contents of ``x`` and no names.
+            A instance with the contents of ``x`` and no names.
         """
-        return NamedList(x)
+        return cls(x)
 
-    @staticmethod
-    def from_dict(x: dict) -> "NamedList":
+    @classmethod
+    def from_dict(cls, x: dict) -> NamedList:
         """
         Args:
             x: Dictionary where keys are strings (or can be coerced to them).
 
         Returns:
-            A ``NamedList`` instance where the list elements are the values of
+            A instance where the list elements are the values of
             ``x`` and the names are the stringified keys.
         """
-        return NamedList(list(x.values()), names=Names(str(y) for y in x.keys()))
+        return cls(list(x.values()), names=Names(str(y) for y in x.keys()))
 
 
 @subset_sequence.register
@@ -530,9 +628,7 @@ def _combine_sequences_NamedList(*x: NamedList) -> NamedList:
 
 
 @assign_sequence.register
-def _assign_sequence_NamedList(
-    x: NamedList, indices: Sequence[int], other: Sequence
-) -> NamedList:
+def _assign_sequence_NamedList(x: NamedList, indices: Sequence[int], other: Sequence) -> NamedList:
     if isinstance(other, NamedList):
         # Do NOT set the names if 'other' is a NamedList. Names don't change
         # during assignment/setting operations, as a matter of policy. This is
@@ -541,6 +637,4 @@ def _assign_sequence_NamedList(
         # of names, and it would be weird for the same sequence of names to
         # suddently become an invalid indexing vector after an assignment.
         other = other._data
-    return type(x)(
-        assign_sequence(x._data, NormalizedSubscript(indices), other), names=x._names
-    )
+    return type(x)(assign_sequence(x._data, NormalizedSubscript(indices), other), names=x._names)

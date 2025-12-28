@@ -4,12 +4,7 @@ import numpy
 
 
 def _raise_int(idx: int, length):
-    raise IndexError(
-        "subscript ("
-        + str(idx)
-        + ") out of range for vector-like object of length "
-        + str(length)
-    )
+    raise IndexError("subscript (" + str(idx) + ") out of range for vector-like object of length " + str(length))
 
 
 def _is_scalar_bool(sub):
@@ -23,8 +18,9 @@ class NormalizedSubscript:
     such that :py:func:`~normalize_subscript` is just a no-op.
     """
 
-    def __init__(self, subscript: Sequence[int]):
-        """
+    def __init__(self, subscript: Sequence[int]) -> None:
+        """Initialize a NormalizedSubscript.
+
         Args:
             subscript:
                 Sequence of integers for a normalized subscript.
@@ -40,11 +36,11 @@ class NormalizedSubscript:
         return self._subscript
 
     def __getitem__(self, index: Any) -> Any:
-        """
+        """Get an item from the subscript.
+
         Args:
-            index:
-                Any argument accepted by the ``__getitem__`` method of the
-                :py:attr:`~subscript`.
+            index: Any argument accepted by the ``__getitem__`` method of the
+                subscript.
 
         Returns:
             The same return value as the ``__getitem__`` method of the
@@ -53,7 +49,8 @@ class NormalizedSubscript:
         return self._subscript[index]
 
     def __len__(self) -> int:
-        """
+        """Get the length of the subscript.
+
         Returns:
             Length of the subscript.
         """
@@ -68,8 +65,9 @@ def normalize_subscript(
     length: int,
     names: Optional[Sequence[str]] = None,
     non_negative_only: bool = True,
-) -> Tuple:
-    """
+) -> Tuple[Sequence[int], bool]:
+    """Normalize a subscript into a sequence of integer indices.
+
     Normalize a subscript for ``__getitem__`` or friends into a sequence of
     integer indices, for consistent downstream use.
 
@@ -101,7 +99,7 @@ def normalize_subscript(
         names:
             List of names for each entry in the object. If not None, this
             should have length equal to ``length``. Some optimizations
-            are possible if this is a :py:class:`~Names.Names` object.
+            are possible if this is a :py:class:`~Names.names` object.
 
         non_negative_only:
             Whether negative indices must be converted into non-negative
@@ -130,13 +128,9 @@ def normalize_subscript(
 
     if isinstance(sub, str):
         if names is None:
-            raise IndexError(
-                "failed to find subscript '"
-                + sub
-                + "' for vector-like object with no names"
-            )
+            raise IndexError("failed to find subscript '" + sub + "' for vector-like object with no names")
         i = -1
-        from .Names import Names
+        from .names import Names
 
         if isinstance(names, Names):
             i = names.map(sub)
@@ -195,7 +189,7 @@ def normalize_subscript(
     output = []
     has_strings = set()
     string_positions = []
-    from .Names import Names
+    from .names import Names
 
     are_names_indexed = isinstance(names, Names)
 
@@ -224,9 +218,7 @@ def normalize_subscript(
 
     if len(has_strings):
         if names is None:
-            raise IndexError(
-                "cannot find string subscripts for vector-like object with no names"
-            )
+            raise IndexError("cannot find string subscripts for vector-like object with no names")
 
         mapping = {}
         for i, y in enumerate(names):

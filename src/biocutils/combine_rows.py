@@ -19,7 +19,7 @@ __license__ = "MIT"
 
 
 @singledispatch
-def combine_rows(*x: Any):
+def combine_rows(*x: Any) -> Any:
     """Combine n-dimensional objects along their first dimension.
 
     If all elements are :py:class:`~numpy.ndarray`, we combine them using
@@ -40,9 +40,7 @@ def combine_rows(*x: Any):
     Returns:
         Combined object, typically the same type as the first entry of ``x``.
     """
-    raise NotImplementedError(
-        "no `combine_rows` method implemented for '" + type(x[0]).__name__ + "' objects"
-    )
+    raise NotImplementedError("no `combine_rows` method implemented for '" + type(x[0]).__name__ + "' objects")
 
 
 @combine_rows.register(numpy.ndarray)
@@ -69,7 +67,7 @@ if is_package_installed("scipy"):
         return numpy.concatenate(x)
 
     try:
-        combine_rows.register(sp.sparray, _combine_rows_sparse_arrays)
+        combine_rows.register(sp.spmatrix, _combine_rows_sparse_matrices)
     except Exception:
         pass
 
@@ -77,14 +75,14 @@ if is_package_installed("scipy"):
         _check_array_dimensions(x, 0)
         if is_list_of_type(x, sp.sparray):
             combined = sp.vstack(x)
-            return _coerce_sparse_array(first, combined, sp)
+            return _coerce_sparse_array(x[0], combined, sp)
 
         warn("not all elements are SciPy sparse arrays")
         x = [convert_to_dense(y) for y in x]
         return numpy.concatenate(x)
 
     try:
-        combine_rows.register(sp.spmatrix, _combine_rows_sparse_matrices)
+        combine_rows.register(sp.sparray, _combine_rows_sparse_arrays)
     except Exception:
         pass
 

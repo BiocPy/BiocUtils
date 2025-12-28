@@ -1,16 +1,17 @@
 from typing import Sequence
 
 
-def build_reverse_index(obj: Sequence[str]):
+def build_reverse_index(obj: Sequence[str]) -> dict:
     """Build a reverse index by name, for fast lookup operations.
 
-    Only contains the first occurence of a term.
+    Only contains the first occurrence of a term.
 
     Args:
-        obj: List of names.
+        obj:
+            List of names.
 
     Returns:
-        A map of keys and their index positions.
+        A dictionary mapping names to their index positions.
     """
     revmap = {}
     for i, n in enumerate(obj):

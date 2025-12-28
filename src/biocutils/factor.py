@@ -424,8 +424,8 @@ class Factor:
             output._codes[index] = -1
             return output
 
-        for i, l in enumerate(output._levels):
-            if l == value:
+        for i, lev in enumerate(output._levels):
+            if lev == value:
                 output._codes[index] = i
                 return output
 

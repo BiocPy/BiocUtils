@@ -30,6 +30,6 @@ def show_as_cell(x: Any, indices: Sequence[int]) -> List[str]:
             if nl >= 0:
                 candidate = candidate[:nl] + "..."
             output.append(candidate)
-        except:
+        except Exception as _:
             output.append("####")
     return output

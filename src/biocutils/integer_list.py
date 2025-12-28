@@ -12,7 +12,7 @@ def _coerce_to_int(x: Any):
         return None
     try:
         return int(x)
-    except:
+    except Exception as _:
         return None
 
 

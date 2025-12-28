@@ -12,7 +12,7 @@ def _coerce_to_float(x: Any):
         return None
     try:
         return float(x)
-    except:
+    except Exception as _:
         return None
 
 

@@ -312,3 +312,21 @@ def test_NamedList_delitem():
     
     with pytest.raises(IndexError):
         del x[10]
+
+def test_NamedList_dict_methods():
+    x = NamedList([1, 2, 3], names=["A", "B", "C"])
+
+    assert list(x.keys()) == ["A", "B", "C"]
+    assert list(x.values()) == [1, 2, 3]
+    assert list(x.items()) == [("A", 1), ("B", 2), ("C", 3)]
+    
+    assert x.get("A") == 1
+    assert x.get("C") == 3
+    assert x.get("Missing") is None
+    assert x.get("Missing", 100) == 100
+    assert x.get(1) == 2  # Integer index access via get
+
+    y = NamedList([10, 20])
+    assert list(y.keys()) == []
+    assert list(y.values()) == [10, 20]
+    assert list(y.items()) == [("0", 10), ("1", 20)]

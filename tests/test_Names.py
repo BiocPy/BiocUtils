@@ -237,3 +237,13 @@ def test_Names_delitem():
     assert x.as_list() == ["4"]
     assert x.map("1") == -1
     assert x.map("4") == 0
+
+def test_Names_contains():
+    x = Names(["A", "B", "C"])
+    assert "A" in x
+    assert "B" in x
+    assert "Z" not in x
+    
+    # Works with duplicates
+    y = Names(["A", "A", "B"])
+    assert "A" in y

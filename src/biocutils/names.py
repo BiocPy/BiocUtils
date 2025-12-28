@@ -121,6 +121,17 @@ class Names:
         else:
             return -1
 
+    def __contains__(self, name: str) -> bool:
+        """
+        Args:
+            name:
+                Name to check.
+
+        Returns:
+            True if ``name`` exists, otherwise False.
+        """
+        return self.map(name) >= 0
+
     #################################
     #####>>>> Get/set items <<<<#####
     #################################

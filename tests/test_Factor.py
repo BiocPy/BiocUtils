@@ -339,3 +339,54 @@ def test_Factor_init_from_list():
     assert isinstance(f1, Factor)
     assert len(f1) == 5
     assert len(f1.get_levels()) == 3
+
+def test_Factor_as_list():
+    f = Factor([0, 1, -1, 0], levels=["A", "B"])
+    assert f.as_list() == ["A", "B", None, "A"]
+    
+    empty = Factor([], levels=[])
+    assert empty.as_list() == []
+
+
+def test_Factor_safe_delete():
+    f = Factor([0, 1, 2, 0], levels=["A", "B", "C"], names=["x", "y", "z", "w"])
+
+    y = f.safe_delete(1)
+    assert y.as_list() == ["A", "C", "A"]
+    assert y.get_names().as_list() == ["x", "z", "w"]
+    assert f.as_list() == ["A", "B", "C", "A"]
+
+    y = f.safe_delete("y")
+    assert y.as_list() == ["A", "C", "A"]
+    assert y.get_names().as_list() == ["x", "z", "w"]
+
+    y = f.safe_delete(slice(1, 3))
+    assert y.as_list() == ["A", "A"]
+    assert y.get_names().as_list() == ["x", "w"]
+
+
+def test_Factor_delete():
+    f = Factor([0, 1, 2], levels=["A", "B", "C"], names=["x", "y", "z"])
+    
+    f.delete(1)
+    assert f.as_list() == ["A", "C"]
+    assert f.get_names().as_list() == ["x", "z"]
+
+    f.delete("z")
+    assert f.as_list() == ["A"]
+    assert f.get_names().as_list() == ["x"]
+
+
+def test_Factor_delitem():
+    f = Factor([0, 1, 2, 0], levels=["A", "B", "C"], names=["x", "y", "z", "w"])
+    
+    del f["y"]
+    assert f.as_list() == ["A", "C", "A"]
+    assert f.get_names().as_list() == ["x", "z", "w"]
+    
+    del f[0]
+    assert f.as_list() == ["C", "A"]
+    assert f.get_names().as_list() == ["z", "w"]
+    
+    del f[:]
+    assert len(f) == 0

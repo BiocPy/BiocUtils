@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from copy import deepcopy
-from typing import Any, Dict, Iterable, Optional, Sequence, Union
+from typing import Any, Dict, Iterable, Optional, Sequence, Tuple, Union
 
 from .assign_sequence import assign_sequence
 from .combine_sequences import combine_sequences
@@ -475,6 +475,54 @@ class NamedList:
     def __delitem__(self, index: Union[int, str, slice]):
         """Alias for :py:meth:`~delete`."""
         self.delete(index)
+
+    #####################################
+    #####>>>> dict like methods <<<<#####
+    #####################################
+
+    def keys(self) -> Iterable[str]:
+        """
+        Returns:
+            Iterator over the names of the list elements.
+        """
+        if self._names is None:
+            return iter([])
+        return iter(self._names)
+
+    def values(self) -> Iterable[Any]:
+        """
+        Returns:
+            Iterator over the values of the list elements.
+        """
+        return iter(self._data)
+
+    def items(self) -> Iterable[Tuple[str, Any]]:
+        """
+        Returns:
+            Iterator over (name, value) pairs.
+            If names are missing, keys are returned as stringified indices.
+        """
+        if self._names is not None:
+            return zip(self._names, self._data)
+        else:
+            return zip((str(i) for i in range(len(self))), self._data)
+
+    def get(self, key: Union[str, int], default: Any = None) -> Any:
+        """
+        Args:
+            key:
+                Name or index of the element.
+
+            default:
+                Value to return if ``key`` is not found.
+
+        Returns:
+            Value at ``key`` or ``default``.
+        """
+        try:
+            return self.get_value(key)
+        except (KeyError, IndexError):
+            return default
 
     ################################
     #####>>>> Copy methods <<<<#####

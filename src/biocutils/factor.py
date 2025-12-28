@@ -764,6 +764,60 @@ class Factor:
         levels, indices = factorize(x, levels=levels, sort_levels=sort_levels, **kwargs)
         return Factor(indices, levels=levels, ordered=ordered, names=names)
 
+    ################################
+    #####>>>> List methods <<<<#####
+    ################################
+
+    def as_list(self) -> list:
+        """
+        Returns:
+            List of strings corresponding to the factor elements.
+            Missing values are represented as None.
+        """
+        return [self._levels[c] if c >= 0 else None for c in self._codes]
+
+    def safe_delete(self, index: Union[int, str, slice], in_place: bool = False) -> Factor:
+        """
+        Args:
+            index:
+                Integer index or slice containing position(s) to delete.
+                Alternatively, the name of the value to delete (the first
+                occurrence of the name is used).
+
+            in_place:
+                Whether to modify the current object in place.
+
+        Returns:
+            A ``Factor`` where the item at ``index`` is removed. This is a
+            new object if ``in_place = False``, otherwise it is a reference to
+            the current object.
+        """
+        if in_place:
+            output = self
+        else:
+            output = copy(self)
+            output._codes = copy(self._codes)
+            if output._names is not None:
+                output._names = output._names.copy()
+
+        if isinstance(index, str):
+            index = _name_to_position(output._names, index)
+
+        output._codes = numpy.delete(output._codes, index)
+
+        if output._names is not None:
+            output._names.delete(index)
+
+        return output
+
+    def delete(self, index: Union[int, str, slice]):
+        """Alias for :py:meth:`~safe_delete` with ``in_place = True``."""
+        self.safe_delete(index, in_place=True)
+
+    def __delitem__(self, index: Union[int, str, slice]):
+        """Alias for :py:meth:`~delete`."""
+        self.delete(index)
+
 
 @subset_sequence.register
 def _subset_sequence_Factor(x: Factor, indices: Sequence[int]) -> Factor:

@@ -309,7 +309,7 @@ def test_NamedList_delitem():
 
     with pytest.raises(KeyError):
         del x["Missing"]
-    
+
     with pytest.raises(IndexError):
         del x[10]
 

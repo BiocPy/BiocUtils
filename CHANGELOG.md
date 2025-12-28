@@ -1,8 +1,16 @@
 # Changelog
 
-## Version 0.3.0
+## Version 0.3.0 - 0.3.1
 
 - Provide a base `BiocObject` class similar to the `Annotated` class in Bioconductor. The class provides `metadata` slot, accessors and validation functions.
+- Renaming code files to follow pep guidelines
+- Update Github actions and workflow to the new biocsetup versions
+- Changes to improve `NamedList`, `Names` classes
+  - get name at index
+  - delete method for namedlist/names
+  - add is_unique
+  - add lint errors
+- linting documentation, typehints etc
 
 ## Version 0.2.3
 

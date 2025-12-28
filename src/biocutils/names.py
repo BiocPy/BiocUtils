@@ -398,6 +398,15 @@ class Names:
             A deep copy of this ``Names`` object with the same contents.
         """
         return type(self)(deepcopy(self._names, memo, _nil), _validate=False)
+    
+    @property
+    def is_unique(self) -> bool:
+        """
+        Returns:
+            True if all names are unique, otherwise False.
+        """
+        self._populate_reverse_index()
+        return len(self._reverse) == len(self._names)
 
 
 @subset_sequence.register

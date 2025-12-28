@@ -343,7 +343,7 @@ def test_Factor_init_from_list():
 def test_Factor_as_list():
     f = Factor([0, 1, -1, 0], levels=["A", "B"])
     assert f.as_list() == ["A", "B", None, "A"]
-    
+
     empty = Factor([], levels=[])
     assert empty.as_list() == []
 
@@ -367,7 +367,7 @@ def test_Factor_safe_delete():
 
 def test_Factor_delete():
     f = Factor([0, 1, 2], levels=["A", "B", "C"], names=["x", "y", "z"])
-    
+
     f.delete(1)
     assert f.as_list() == ["A", "C"]
     assert f.get_names().as_list() == ["x", "z"]
@@ -379,14 +379,14 @@ def test_Factor_delete():
 
 def test_Factor_delitem():
     f = Factor([0, 1, 2, 0], levels=["A", "B", "C"], names=["x", "y", "z", "w"])
-    
+
     del f["y"]
     assert f.as_list() == ["A", "C", "A"]
     assert f.get_names().as_list() == ["x", "z", "w"]
-    
+
     del f[0]
     assert f.as_list() == ["C", "A"]
     assert f.get_names().as_list() == ["z", "w"]
-    
+
     del f[:]
     assert len(f) == 0

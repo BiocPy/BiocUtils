@@ -319,7 +319,7 @@ def test_NamedList_dict_methods():
     assert list(x.keys()) == ["A", "B", "C"]
     assert list(x.values()) == [1, 2, 3]
     assert list(x.items()) == [("A", 1), ("B", 2), ("C", 3)]
-    
+
     assert x.get("A") == 1
     assert x.get("C") == 3
     assert x.get("Missing") is None

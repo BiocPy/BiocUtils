@@ -243,7 +243,7 @@ def test_Names_contains():
     assert "A" in x
     assert "B" in x
     assert "Z" not in x
-    
+
     # Works with duplicates
     y = Names(["A", "A", "B"])
     assert "A" in y
@@ -251,9 +251,9 @@ def test_Names_contains():
 def test_Names_is_unique():
     x = Names(["A", "B", "C"])
     assert x.is_unique
-    
+
     y = Names(["A", "B", "A"])
     assert not y.is_unique
-    
+
     empty = Names([])
     assert empty.is_unique

@@ -398,7 +398,7 @@ class Names:
             A deep copy of this ``Names`` object with the same contents.
         """
         return type(self)(deepcopy(self._names, memo, _nil), _validate=False)
-    
+
     @property
     def is_unique(self) -> bool:
         """

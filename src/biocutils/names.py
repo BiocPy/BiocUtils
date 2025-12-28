@@ -328,6 +328,35 @@ class Names:
         self.extend(other)
         return self
 
+    def safe_delete(self, index: Union[int, slice], in_place: bool = False) -> Names:
+        """
+        Args:
+            index:
+                Position(s) of the name(s) to delete.
+
+            in_place:
+                Whether to perform this deletion in-place.
+
+        Returns:
+            A ``Names`` object with the deleted name(s). This is a new object
+            if ``in_place = False``, otherwise it is a reference to the current
+            object.
+        """
+        output = self._define_output(in_place)
+        if in_place:
+            output._wipe_reverse_index()
+
+        del output._names[index]
+        return output
+
+    def delete(self, index: Union[int, slice]):
+        """Alias for :py:attr:`~safe_delete` with ``in_place = True``."""
+        self.safe_delete(index, in_place=True)
+
+    def __delitem__(self, index: Union[int, slice]):
+        """Alias for :py:attr:`~delete`."""
+        self.delete(index)
+
     ################################
     #####>>>> Copy methods <<<<#####
     ################################

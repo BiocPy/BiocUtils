@@ -257,3 +257,58 @@ def test_NamedList_generics():
     y = biocutils.assign_sequence(x, [1, 3], NamedList([ 20, 40 ], names=["b", "d" ]))
     assert y.as_list() == [ 1, 20, 3, 40 ]
     assert y.get_names().as_list() == [ "A", "B", "C", "D" ] # doesn't set the names, as per policy.
+
+def test_NamedList_safe_delete():
+    x = NamedList([1, 2, 3, 4], names=["A", "B", "C", "D"])
+
+    y = x.safe_delete(1)
+    assert y.as_list() == [1, 3, 4]
+    assert y.get_names().as_list() == ["A", "C", "D"]
+    assert x.as_list() == [1, 2, 3, 4]
+
+    y = x.safe_delete("C")
+    assert y.as_list() == [1, 2, 4]
+    assert y.get_names().as_list() == ["A", "B", "D"]
+
+    y = x.safe_delete(slice(1, 3))
+    assert y.as_list() == [1, 4]
+    assert y.get_names().as_list() == ["A", "D"]
+
+    y = x.safe_delete(-1)
+    assert y.as_list() == [1, 2, 3]
+    assert y.get_names().as_list() == ["A", "B", "C"]
+
+
+def test_NamedList_delete():
+    x = NamedList([1, 2, 3, 4], names=["A", "B", "C", "D"])
+
+    x.delete(0)
+    assert x.as_list() == [2, 3, 4]
+    assert x.get_names().as_list() == ["B", "C", "D"]
+
+    x.delete("D")
+    assert x.as_list() == [2, 3]
+    assert x.get_names().as_list() == ["B", "C"]
+
+
+def test_NamedList_delitem():
+    x = NamedList([1, 2, 3, 4], names=["A", "B", "C", "D"])
+
+    del x[1]
+    assert x.as_list() == [1, 3, 4]
+    assert x.get_names().as_list() == ["A", "C", "D"]
+
+    del x["A"]
+    assert x.as_list() == [3, 4]
+    assert x.get_names().as_list() == ["C", "D"]
+
+    x = NamedList([1, 2, 3, 4], names=["A", "B", "C", "D"])
+    del x[0:2]
+    assert x.as_list() == [3, 4]
+    assert x.get_names().as_list() == ["C", "D"]
+
+    with pytest.raises(KeyError):
+        del x["Missing"]
+    
+    with pytest.raises(IndexError):
+        del x[10]

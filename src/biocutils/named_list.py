@@ -435,6 +435,47 @@ class NamedList:
         self.extend(other)
         return self
 
+    def safe_delete(self, index: Union[int, str, slice], in_place: bool = False) -> NamedList:
+        """
+        Args:
+            index:
+                An integer index or slice containing position(s) to delete.
+                Alternatively, the name of the value to delete (the first
+                occurrence of the name is used).
+
+            in_place:
+                Whether to modify the current object in place.
+
+        Returns:
+            A ``NamedList`` where the item at ``index`` is removed. This is a
+            new object if ``in_place = False``, otherwise it is a reference to
+            the current object.
+        """
+        if in_place:
+            output = self
+        else:
+            output = self._shallow_copy()
+            output._data = output._data[:]  # Shallow copy of the list
+            if output._names is not None:
+                output._names = output._names.copy()
+
+        if isinstance(index, str):
+            index = _name_to_position(self._names, index)
+
+        del output._data[index]
+        if output._names is not None:
+            output._names.delete(index)
+
+        return output
+
+    def delete(self, index: Union[int, str, slice]):
+        """Alias for :py:meth:`~safe_delete` with ``in_place = True``."""
+        self.safe_delete(index, in_place=True)
+
+    def __delitem__(self, index: Union[int, str, slice]):
+        """Alias for :py:meth:`~delete`."""
+        self.delete(index)
+
     ################################
     #####>>>> Copy methods <<<<#####
     ################################

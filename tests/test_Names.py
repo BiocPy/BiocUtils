@@ -195,3 +195,45 @@ def test_Names_generics():
     ass = biocutils.assign_sequence(x, range(1, 3), y)
     assert isinstance(ass, Names)
     assert ass.as_list() == ["1", "b", "c", "4"]
+
+def test_Names_safe_delete():
+    x = Names(["A", "B", "C", "D"])
+
+    y = x.safe_delete(1)
+    assert y.as_list() == ["A", "C", "D"]
+    assert y.map("B") == -1
+    assert y.map("C") == 1
+    assert x.as_list() == ["A", "B", "C", "D"]
+
+    y = x.safe_delete(slice(0, 2))
+    assert y.as_list() == ["C", "D"]
+    assert y.map("A") == -1
+    assert y.map("C") == 0
+
+
+def test_Names_delete():
+    x = Names(["A", "B", "C", "D"])
+
+    x.delete(2)
+    assert x.as_list() == ["A", "B", "D"]
+    assert x.map("C") == -1
+    assert x.map("D") == 2
+
+    x.delete(0)
+    assert x.as_list() == ["B", "D"]
+    assert x.map("A") == -1
+    assert x.map("B") == 0
+
+
+def test_Names_delitem():
+    x = Names(["1", "2", "3", "4"])
+
+    del x[1]
+    assert x.as_list() == ["1", "3", "4"]
+    assert x.map("2") == -1
+    assert x.map("3") == 1
+
+    del x[0:2]
+    assert x.as_list() == ["4"]
+    assert x.map("1") == -1
+    assert x.map("4") == 0

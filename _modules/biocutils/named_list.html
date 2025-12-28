@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html"><link rel="search" title="Search" href="../../search.html">
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2025.12.19 -->
-        <title>biocutils.named_list - biocutils 0.3.1.dev0 documentation</title>
+        <title>biocutils.named_list - biocutils 0.3.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
@@ -161,7 +161,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">biocutils 0.3.1.dev0 documentation</div></a>
+      <a href="../../index.html"><div class="brand">biocutils 0.3.1 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -182,7 +182,7 @@
       
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
   
-  <span class="sidebar-brand-text">biocutils 0.3.1.dev0 documentation</span>
+  <span class="sidebar-brand-text">biocutils 0.3.1 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -236,7 +236,7 @@
 <span></span><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">copy</span><span class="w"> </span><span class="kn">import</span> <span class="n">deepcopy</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">.assign_sequence</span><span class="w"> </span><span class="kn">import</span> <span class="n">assign_sequence</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">.combine_sequences</span><span class="w"> </span><span class="kn">import</span> <span class="n">combine_sequences</span>
@@ -408,6 +408,23 @@
         <span class="k">return</span> <span class="n">output</span></div>
 
 
+<div class="viewcode-block" id="NamedList.get_name">
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.named_list.NamedList.get_name">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get name at an index.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            index:</span>
+<span class="sd">                Integer index of the element.</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Names for the list elements.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_names</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_names</span><span class="o">.</span><span class="n">get_value</span><span class="p">(</span><span class="n">index</span><span class="p">)</span></div>
+
+
     <span class="c1">#################################</span>
     <span class="c1">#####&gt;&gt;&gt;&gt; Get/set items &lt;&lt;&lt;&lt;#####</span>
     <span class="c1">#################################</span>
@@ -415,7 +432,8 @@
 <div class="viewcode-block" id="NamedList.get_value">
 <a class="viewcode-back" href="../../api/biocutils.html#biocutils.named_list.NamedList.get_value">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get value at an index.</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            index:</span>
 <span class="sd">                Integer index of the element to obtain. Alternatively, a string</span>
@@ -717,6 +735,116 @@
         <span class="k">return</span> <span class="bp">self</span></div>
 
 
+<div class="viewcode-block" id="NamedList.safe_delete">
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.named_list.NamedList.safe_delete">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">safe_delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">slice</span><span class="p">],</span> <span class="n">in_place</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NamedList</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Args:</span>
+<span class="sd">            index:</span>
+<span class="sd">                An integer index or slice containing position(s) to delete.</span>
+<span class="sd">                Alternatively, the name of the value to delete (the first</span>
+<span class="sd">                occurrence of the name is used).</span>
+
+<span class="sd">            in_place:</span>
+<span class="sd">                Whether to modify the current object in place.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A ``NamedList`` where the item at ``index`` is removed. This is a</span>
+<span class="sd">            new object if ``in_place = False``, otherwise it is a reference to</span>
+<span class="sd">            the current object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">in_place</span><span class="p">:</span>
+            <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_shallow_copy</span><span class="p">()</span>
+            <span class="n">output</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="n">output</span><span class="o">.</span><span class="n">_data</span><span class="p">[:]</span>  <span class="c1"># Shallow copy of the list</span>
+            <span class="k">if</span> <span class="n">output</span><span class="o">.</span><span class="n">_names</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">output</span><span class="o">.</span><span class="n">_names</span> <span class="o">=</span> <span class="n">output</span><span class="o">.</span><span class="n">_names</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="n">_name_to_position</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_names</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span>
+
+        <span class="k">del</span> <span class="n">output</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">output</span><span class="o">.</span><span class="n">_names</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">output</span><span class="o">.</span><span class="n">_names</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">output</span></div>
+
+
+<div class="viewcode-block" id="NamedList.delete">
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.named_list.NamedList.delete">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">slice</span><span class="p">]):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Alias for :py:meth:`~safe_delete` with ``in_place = True``.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">safe_delete</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">in_place</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="NamedList.__delitem__">
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.named_list.NamedList.__delitem__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__delitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">slice</span><span class="p">]):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Alias for :py:meth:`~delete`.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">index</span><span class="p">)</span></div>
+
+
+    <span class="c1">#####################################</span>
+    <span class="c1">#####&gt;&gt;&gt;&gt; dict like methods &lt;&lt;&lt;&lt;#####</span>
+    <span class="c1">#####################################</span>
+
+<div class="viewcode-block" id="NamedList.keys">
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.named_list.NamedList.keys">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">keys</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Iterator over the names of the list elements.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_names</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">iter</span><span class="p">([])</span>
+        <span class="k">return</span> <span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_names</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="NamedList.values">
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.named_list.NamedList.values">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">values</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Iterator over the values of the list elements.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="NamedList.items">
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.named_list.NamedList.items">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">items</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Iterator over (name, value) pairs.</span>
+<span class="sd">            If names are missing, keys are returned as stringified indices.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_names</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_names</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">zip</span><span class="p">((</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">))),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="NamedList.get">
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.named_list.NamedList.get">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="n">default</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Args:</span>
+<span class="sd">            key:</span>
+<span class="sd">                Name or index of the element.</span>
+
+<span class="sd">            default:</span>
+<span class="sd">                Value to return if ``key`` is not found.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Value at ``key`` or ``default``.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_value</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">KeyError</span><span class="p">,</span> <span class="ne">IndexError</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">default</span></div>
+
+
     <span class="c1">################################</span>
     <span class="c1">#####&gt;&gt;&gt;&gt; Copy methods &lt;&lt;&lt;&lt;#####</span>
     <span class="c1">################################</span>
@@ -885,7 +1013,7 @@
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=f0846db4"></script>
+</div><script src="../../_static/documentation_options.js?v=4621528c"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/furo.js?v=46bd48cc"></script>

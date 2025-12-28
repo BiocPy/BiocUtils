@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="prev" title="biocutils" href="modules.html">
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2025.12.19 -->
-        <title>biocutils package - biocutils 0.3.1.dev0 documentation</title>
+        <title>biocutils package - biocutils 0.3.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
@@ -162,7 +162,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">biocutils 0.3.1.dev0 documentation</div></a>
+      <a href="../index.html"><div class="brand">biocutils 0.3.1 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -183,7 +183,7 @@
       
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
   
-  <span class="sidebar-brand-text">biocutils 0.3.1.dev0 documentation</span>
+  <span class="sidebar-brand-text">biocutils 0.3.1 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -676,6 +676,12 @@ easier numerical analysis.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="biocutils.factor.Factor.__delitem__">
+<span class="sig-name descname"><span class="pre">__delitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/factor.html#Factor.__delitem__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.factor.Factor.__delitem__" title="Link to this definition">¶</a></dt>
+<dd><p>Alias for <a class="reference internal" href="#biocutils.factor.Factor.delete" title="biocutils.factor.Factor.delete"><code class="xref py py-meth docutils literal notranslate"><span class="pre">delete()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="biocutils.factor.Factor.__eq__">
 <span class="sig-name descname"><span class="pre">__eq__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/factor.html#Factor.__eq__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.factor.Factor.__eq__" title="Link to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
@@ -753,10 +759,30 @@ report the corresponding level (or None).</p>
 <p>If <code class="docutils literal notranslate"><span class="pre">index</span></code> is a sequence, this is an alias for <a class="reference internal" href="#biocutils.factor.Factor.set_slice" title="biocutils.factor.Factor.set_slice"><code class="xref py py-meth docutils literal notranslate"><span class="pre">set_slice()</span></code></a>.</p>
 </dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="biocutils.factor.Factor.as_list">
+<span class="sig-name descname"><span class="pre">as_list</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/factor.html#Factor.as_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.factor.Factor.as_list" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#list" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a></span></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of strings corresponding to the factor elements.
+Missing values are represented as None.</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py property">
 <dt class="sig sig-object py" id="biocutils.factor.Factor.codes">
 <em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">codes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">ndarray</span></a></em><a class="headerlink" href="#biocutils.factor.Factor.codes" title="Link to this definition">¶</a></dt>
 <dd><p>Alias for <a class="reference internal" href="#biocutils.factor.Factor.get_codes" title="biocutils.factor.Factor.get_codes"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_codes()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="biocutils.factor.Factor.delete">
+<span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/factor.html#Factor.delete"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.factor.Factor.delete" title="Link to this definition">¶</a></dt>
+<dd><p>Alias for <a class="reference internal" href="#biocutils.factor.Factor.safe_delete" title="biocutils.factor.Factor.safe_delete"><code class="xref py py-meth docutils literal notranslate"><span class="pre">safe_delete()</span></code></a> with <code class="docutils literal notranslate"><span class="pre">in_place</span> <span class="pre">=</span> <span class="pre">True</span></code>.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -996,6 +1022,29 @@ are unchanged and may refer to different strings.</p>
 <p>If <code class="docutils literal notranslate"><span class="pre">in_place</span> <span class="pre">=</span> <span class="pre">True</span></code>, the levels are replaced in the current
 object, and a reference to the current object is returned.</p>
 </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="biocutils.factor.Factor.safe_delete">
+<span class="sig-name descname"><span class="pre">safe_delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_place</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/factor.html#Factor.safe_delete"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.factor.Factor.safe_delete" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>index</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.12/library/typing.html#typing.Union" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code></a>[<a class="reference external" href="https://docs.python.org/3.12/library/functions.html#int" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>, <a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3.12/library/functions.html#slice" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">slice</span></code></a>]</span>) – Integer index or slice containing position(s) to delete.
+Alternatively, the name of the value to delete (the first
+occurrence of the name is used).</p></li>
+<li><p><strong>in_place</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.12/library/functions.html#bool" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span>) – Whether to modify the current object in place.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#biocutils.factor.Factor" title="biocutils.factor.Factor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Factor</span></code></a></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A <code class="docutils literal notranslate"><span class="pre">Factor</span></code> where the item at <code class="docutils literal notranslate"><span class="pre">index</span></code> is removed. This is a
+new object if <code class="docutils literal notranslate"><span class="pre">in_place</span> <span class="pre">=</span> <span class="pre">False</span></code>, otherwise it is a reference to
+the current object.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1592,6 +1641,12 @@ be indexed by position or slices (list) but also by name (dictionary).</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="biocutils.named_list.NamedList.__delitem__">
+<span class="sig-name descname"><span class="pre">__delitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/named_list.html#NamedList.__delitem__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.named_list.NamedList.__delitem__" title="Link to this definition">¶</a></dt>
+<dd><p>Alias for <a class="reference internal" href="#biocutils.named_list.NamedList.delete" title="biocutils.named_list.NamedList.delete"><code class="xref py py-meth docutils literal notranslate"><span class="pre">delete()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="biocutils.named_list.NamedList.__eq__">
 <span class="sig-name descname"><span class="pre">__eq__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/named_list.html#NamedList.__eq__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.named_list.NamedList.__eq__" title="Link to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
@@ -1734,6 +1789,12 @@ object will not change the original object.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="biocutils.named_list.NamedList.delete">
+<span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/named_list.html#NamedList.delete"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.named_list.NamedList.delete" title="Link to this definition">¶</a></dt>
+<dd><p>Alias for <a class="reference internal" href="#biocutils.named_list.NamedList.safe_delete" title="biocutils.named_list.NamedList.safe_delete"><code class="xref py py-meth docutils literal notranslate"><span class="pre">safe_delete()</span></code></a> with <code class="docutils literal notranslate"><span class="pre">in_place</span> <span class="pre">=</span> <span class="pre">True</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="biocutils.named_list.NamedList.extend">
 <span class="sig-name descname"><span class="pre">extend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/named_list.html#NamedList.extend"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.named_list.NamedList.extend" title="Link to this definition">¶</a></dt>
 <dd><p>Alias for <a class="reference internal" href="#biocutils.named_list.NamedList.safe_extend" title="biocutils.named_list.NamedList.safe_extend"><code class="xref py py-meth docutils literal notranslate"><span class="pre">safe_extend()</span></code></a> with <code class="docutils literal notranslate"><span class="pre">in_place</span> <span class="pre">=</span> <span class="pre">True</span></code>.</p>
@@ -1768,6 +1829,42 @@ object will not change the original object.</p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>A instance with the contents of <code class="docutils literal notranslate"><span class="pre">x</span></code> and no names.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="biocutils.named_list.NamedList.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/named_list.html#NamedList.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.named_list.NamedList.get" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.12/library/typing.html#typing.Union" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code></a>[<a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3.12/library/functions.html#int" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>]</span>) – Name or index of the element.</p></li>
+<li><p><strong>default</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.12/library/typing.html#typing.Any" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a></span>) – Value to return if <code class="docutils literal notranslate"><span class="pre">key</span></code> is not found.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.12/library/typing.html#typing.Any" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Value at <code class="docutils literal notranslate"><span class="pre">key</span></code> or <code class="docutils literal notranslate"><span class="pre">default</span></code>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="biocutils.named_list.NamedList.get_name">
+<span class="sig-name descname"><span class="pre">get_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/named_list.html#NamedList.get_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.named_list.NamedList.get_name" title="Link to this definition">¶</a></dt>
+<dd><p>Get name at an index.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>index</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.12/library/functions.html#int" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a></span>) – Integer index of the element.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.12/library/typing.html#typing.Optional" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Names for the list elements.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1811,7 +1908,8 @@ present. Scalars are treated as length-1 sequences.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="biocutils.named_list.NamedList.get_value">
 <span class="sig-name descname"><span class="pre">get_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/named_list.html#NamedList.get_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.named_list.NamedList.get_value" title="Link to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Get value at an index.</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>index</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.12/library/typing.html#typing.Union" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code></a>[<a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3.12/library/functions.html#int" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>]</span>) – Integer index of the element to obtain. Alternatively, a string
 containing the name of the element, using the first occurrence
@@ -1830,6 +1928,33 @@ if duplicate names are present.</p>
 <dt class="sig sig-object py" id="biocutils.named_list.NamedList.insert">
 <span class="sig-name descname"><span class="pre">insert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/named_list.html#NamedList.insert"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.named_list.NamedList.insert" title="Link to this definition">¶</a></dt>
 <dd><p>Alias for <a class="reference internal" href="#biocutils.named_list.NamedList.safe_insert" title="biocutils.named_list.NamedList.safe_insert"><code class="xref py py-meth docutils literal notranslate"><span class="pre">safe_insert()</span></code></a> with <code class="docutils literal notranslate"><span class="pre">in_place</span> <span class="pre">=</span> <span class="pre">True</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="biocutils.named_list.NamedList.items">
+<span class="sig-name descname"><span class="pre">items</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/named_list.html#NamedList.items"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.named_list.NamedList.items" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.12/library/typing.html#typing.Iterable" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Iterable</span></code></a>[<a class="reference external" href="https://docs.python.org/3.12/library/typing.html#typing.Tuple" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a>[<a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3.12/library/typing.html#typing.Any" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>]]</span></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Iterator over (name, value) pairs.
+If names are missing, keys are returned as stringified indices.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="biocutils.named_list.NamedList.keys">
+<span class="sig-name descname"><span class="pre">keys</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/named_list.html#NamedList.keys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.named_list.NamedList.keys" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.12/library/typing.html#typing.Iterable" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Iterable</span></code></a>[<a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</span></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Iterator over the names of the list elements.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py property">
@@ -1856,6 +1981,29 @@ if duplicate names are present.</p>
 <span class="pre">=</span> <span class="pre">False</span></code>, this is a new object, otherwise it is a reference to the
 current object. If names are present in the current object, the
 newly added element has its name set to an empty string.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="biocutils.named_list.NamedList.safe_delete">
+<span class="sig-name descname"><span class="pre">safe_delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_place</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/named_list.html#NamedList.safe_delete"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.named_list.NamedList.safe_delete" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>index</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.12/library/typing.html#typing.Union" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code></a>[<a class="reference external" href="https://docs.python.org/3.12/library/functions.html#int" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>, <a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3.12/library/functions.html#slice" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">slice</span></code></a>]</span>) – An integer index or slice containing position(s) to delete.
+Alternatively, the name of the value to delete (the first
+occurrence of the name is used).</p></li>
+<li><p><strong>in_place</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.12/library/functions.html#bool" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span>) – Whether to modify the current object in place.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#biocutils.named_list.NamedList" title="biocutils.named_list.NamedList"><code class="xref py py-class docutils literal notranslate"><span class="pre">NamedList</span></code></a></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A <code class="docutils literal notranslate"><span class="pre">NamedList</span></code> where the item at <code class="docutils literal notranslate"><span class="pre">index</span></code> is removed. This is a
+new object if <code class="docutils literal notranslate"><span class="pre">in_place</span> <span class="pre">=</span> <span class="pre">False</span></code>, otherwise it is a reference to
+the current object.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1991,6 +2139,19 @@ object, <code class="docutils literal notranslate"><span class="pre">value</span
 </dl>
 </dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="biocutils.named_list.NamedList.values">
+<span class="sig-name descname"><span class="pre">values</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/named_list.html#NamedList.values"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.named_list.NamedList.values" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.12/library/typing.html#typing.Iterable" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Iterable</span></code></a>[<a class="reference external" href="https://docs.python.org/3.12/library/typing.html#typing.Any" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>]</span></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Iterator over the values of the list elements.</p>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 </section>
@@ -2012,6 +2173,22 @@ such that callers can get or set elements by name instead of position.</p>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A new <code class="docutils literal notranslate"><span class="pre">Names</span></code> containing the combined contents
 of the current object and <code class="docutils literal notranslate"><span class="pre">other</span></code>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="biocutils.names.Names.__contains__">
+<span class="sig-name descname"><span class="pre">__contains__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/names.html#Names.__contains__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.names.Names.__contains__" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>name</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span>) – Name to check.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.12/library/functions.html#bool" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if <code class="docutils literal notranslate"><span class="pre">name</span></code> exists, otherwise False.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -2044,6 +2221,12 @@ of the current object and <code class="docutils literal notranslate"><span class
 <dd class="field-odd"><p>A deep copy of this <code class="docutils literal notranslate"><span class="pre">Names</span></code> object with the same contents.</p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="biocutils.names.Names.__delitem__">
+<span class="sig-name descname"><span class="pre">__delitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/names.html#Names.__delitem__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.names.Names.__delitem__" title="Link to this definition">¶</a></dt>
+<dd><p>Alias for <a class="reference internal" href="#biocutils.names.Names.delete" title="biocutils.names.Names.delete"><code class="xref py py-attr docutils literal notranslate"><span class="pre">delete</span></code></a>.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -2178,6 +2361,12 @@ on the new object will not change the original object.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="biocutils.names.Names.delete">
+<span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/names.html#Names.delete"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.names.Names.delete" title="Link to this definition">¶</a></dt>
+<dd><p>Alias for <a class="reference internal" href="#biocutils.names.Names.safe_delete" title="biocutils.names.Names.safe_delete"><code class="xref py py-attr docutils literal notranslate"><span class="pre">safe_delete</span></code></a> with <code class="docutils literal notranslate"><span class="pre">in_place</span> <span class="pre">=</span> <span class="pre">True</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="biocutils.names.Names.extend">
 <span class="sig-name descname"><span class="pre">extend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/names.html#Names.extend"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.names.Names.extend" title="Link to this definition">¶</a></dt>
 <dd><p>Alias for <a class="reference internal" href="#biocutils.names.Names.safe_extend" title="biocutils.names.Names.safe_extend"><code class="xref py py-attr docutils literal notranslate"><span class="pre">safe_extend</span></code></a> with <code class="docutils literal notranslate"><span class="pre">in_place</span> <span class="pre">=</span> <span class="pre">True</span></code>.</p>
@@ -2223,6 +2412,13 @@ for more details. Scalars are treated as length-1 sequences.</p>
 <dd><p>Alias for <a class="reference internal" href="#biocutils.names.Names.safe_insert" title="biocutils.names.Names.safe_insert"><code class="xref py py-attr docutils literal notranslate"><span class="pre">safe_insert</span></code></a> with <code class="docutils literal notranslate"><span class="pre">in_place</span> <span class="pre">=</span> <span class="pre">True</span></code>.</p>
 </dd></dl>
 
+<dl class="py property">
+<dt class="sig sig-object py" id="biocutils.names.Names.is_unique">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_unique</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.12/library/functions.html#bool" title="(in Python v3.12)"><span class="pre">bool</span></a></em><a class="headerlink" href="#biocutils.names.Names.is_unique" title="Link to this definition">¶</a></dt>
+<dd><p>Returns:
+True if all names are unique, otherwise False.</p>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="biocutils.names.Names.map">
 <span class="sig-name descname"><span class="pre">map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/names.html#Names.map"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.names.Names.map" title="Link to this definition">¶</a></dt>
@@ -2256,6 +2452,27 @@ or -1, if <code class="docutils literal notranslate"><span class="pre">name</spa
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>A <code class="docutils literal notranslate"><span class="pre">Names</span></code> object is returned with the added name. This may be a
 new object or a reference to the current object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="biocutils.names.Names.safe_delete">
+<span class="sig-name descname"><span class="pre">safe_delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_place</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/biocutils/names.html#Names.safe_delete"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biocutils.names.Names.safe_delete" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>index</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.12/library/typing.html#typing.Union" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code></a>[<a class="reference external" href="https://docs.python.org/3.12/library/functions.html#int" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>, <a class="reference external" href="https://docs.python.org/3.12/library/functions.html#slice" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">slice</span></code></a>]</span>) – Position(s) of the name(s) to delete.</p></li>
+<li><p><strong>in_place</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.12/library/functions.html#bool" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span>) – Whether to perform this deletion in-place.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#biocutils.names.Names" title="biocutils.names.Names"><code class="xref py py-class docutils literal notranslate"><span class="pre">Names</span></code></a></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A <code class="docutils literal notranslate"><span class="pre">Names</span></code> object with the deleted name(s). This is a new object
+if <code class="docutils literal notranslate"><span class="pre">in_place</span> <span class="pre">=</span> <span class="pre">False</span></code>, otherwise it is a reference to the current
+object.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -3079,6 +3296,7 @@ truthy entries. Indices are guaranteed to be unique and sorted.</p>
 <li><a class="reference internal" href="#biocutils.factor.Factor"><code class="docutils literal notranslate"><span class="pre">Factor</span></code></a><ul>
 <li><a class="reference internal" href="#biocutils.factor.Factor.__copy__"><code class="docutils literal notranslate"><span class="pre">Factor.__copy__()</span></code></a></li>
 <li><a class="reference internal" href="#biocutils.factor.Factor.__deepcopy__"><code class="docutils literal notranslate"><span class="pre">Factor.__deepcopy__()</span></code></a></li>
+<li><a class="reference internal" href="#biocutils.factor.Factor.__delitem__"><code class="docutils literal notranslate"><span class="pre">Factor.__delitem__()</span></code></a></li>
 <li><a class="reference internal" href="#biocutils.factor.Factor.__eq__"><code class="docutils literal notranslate"><span class="pre">Factor.__eq__()</span></code></a></li>
 <li><a class="reference internal" href="#biocutils.factor.Factor.__getitem__"><code class="docutils literal notranslate"><span class="pre">Factor.__getitem__()</span></code></a></li>
 <li><a class="reference internal" href="#biocutils.factor.Factor.__hash__"><code class="docutils literal notranslate"><span class="pre">Factor.__hash__</span></code></a></li>
@@ -3086,7 +3304,9 @@ truthy entries. Indices are guaranteed to be unique and sorted.</p>
 <li><a class="reference internal" href="#biocutils.factor.Factor.__len__"><code class="docutils literal notranslate"><span class="pre">Factor.__len__()</span></code></a></li>
 <li><a class="reference internal" href="#biocutils.factor.Factor.__repr__"><code class="docutils literal notranslate"><span class="pre">Factor.__repr__()</span></code></a></li>
 <li><a class="reference internal" href="#biocutils.factor.Factor.__setitem__"><code class="docutils literal notranslate"><span class="pre">Factor.__setitem__()</span></code></a></li>
+<li><a class="reference internal" href="#biocutils.factor.Factor.as_list"><code class="docutils literal notranslate"><span class="pre">Factor.as_list()</span></code></a></li>
 <li><a class="reference internal" href="#biocutils.factor.Factor.codes"><code class="docutils literal notranslate"><span class="pre">Factor.codes</span></code></a></li>
+<li><a class="reference internal" href="#biocutils.factor.Factor.delete"><code class="docutils literal notranslate"><span class="pre">Factor.delete()</span></code></a></li>
 <li><a class="reference internal" href="#biocutils.factor.Factor.drop_unused_levels"><code class="docutils literal notranslate"><span class="pre">Factor.drop_unused_levels()</span></code></a></li>
 <li><a class="reference internal" href="#biocutils.factor.Factor.from_sequence"><code class="docutils literal notranslate"><span class="pre">Factor.from_sequence()</span></code></a></li>
 <li><a class="reference internal" href="#biocutils.factor.Factor.get_codes"><code class="docutils literal notranslate"><span class="pre">Factor.get_codes()</span></code></a></li>
@@ -3100,6 +3320,7 @@ truthy entries. Indices are guaranteed to be unique and sorted.</p>
 <li><a class="reference internal" href="#biocutils.factor.Factor.ordered"><code class="docutils literal notranslate"><span class="pre">Factor.ordered</span></code></a></li>
 <li><a class="reference internal" href="#biocutils.factor.Factor.remap_levels"><code class="docutils literal notranslate"><span class="pre">Factor.remap_levels()</span></code></a></li>
 <li><a class="reference internal" href="#biocutils.factor.Factor.replace_levels"><code class="docutils literal notranslate"><span class="pre">Factor.replace_levels()</span></code></a></li>
+<li><a class="reference internal" href="#biocutils.factor.Factor.safe_delete"><code class="docutils literal notranslate"><span class="pre">Factor.safe_delete()</span></code></a></li>
 <li><a class="reference internal" href="#biocutils.factor.Factor.set_codes"><code class="docutils literal notranslate"><span class="pre">Factor.set_codes()</span></code></a></li>
 <li><a class="reference internal" href="#biocutils.factor.Factor.set_levels"><code class="docutils literal notranslate"><span class="pre">Factor.set_levels()</span></code></a></li>
 <li><a class="reference internal" href="#biocutils.factor.Factor.set_names"><code class="docutils literal notranslate"><span class="pre">Factor.set_names()</span></code></a></li>
@@ -3178,6 +3399,7 @@ truthy entries. Indices are guaranteed to be unique and sorted.</p>
 <li><a class="reference internal" href="#biocutils.named_list.NamedList.__annotations__"><code class="docutils literal notranslate"><span class="pre">NamedList.__annotations__</span></code></a></li>
 <li><a class="reference internal" href="#biocutils.named_list.NamedList.__copy__"><code class="docutils literal notranslate"><span class="pre">NamedList.__copy__()</span></code></a></li>
 <li><a class="reference internal" href="#biocutils.named_list.NamedList.__deepcopy__"><code class="docutils literal notranslate"><span class="pre">NamedList.__deepcopy__()</span></code></a></li>
+<li><a class="reference internal" href="#biocutils.named_list.NamedList.__delitem__"><code class="docutils literal notranslate"><span class="pre">NamedList.__delitem__()</span></code></a></li>
 <li><a class="reference internal" href="#biocutils.named_list.NamedList.__eq__"><code class="docutils literal notranslate"><span class="pre">NamedList.__eq__()</span></code></a></li>
 <li><a class="reference internal" href="#biocutils.named_list.NamedList.__getitem__"><code class="docutils literal notranslate"><span class="pre">NamedList.__getitem__()</span></code></a></li>
 <li><a class="reference internal" href="#biocutils.named_list.NamedList.__hash__"><code class="docutils literal notranslate"><span class="pre">NamedList.__hash__</span></code></a></li>
@@ -3190,20 +3412,27 @@ truthy entries. Indices are guaranteed to be unique and sorted.</p>
 <li><a class="reference internal" href="#biocutils.named_list.NamedList.as_dict"><code class="docutils literal notranslate"><span class="pre">NamedList.as_dict()</span></code></a></li>
 <li><a class="reference internal" href="#biocutils.named_list.NamedList.as_list"><code class="docutils literal notranslate"><span class="pre">NamedList.as_list()</span></code></a></li>
 <li><a class="reference internal" href="#biocutils.named_list.NamedList.copy"><code class="docutils literal notranslate"><span class="pre">NamedList.copy()</span></code></a></li>
+<li><a class="reference internal" href="#biocutils.named_list.NamedList.delete"><code class="docutils literal notranslate"><span class="pre">NamedList.delete()</span></code></a></li>
 <li><a class="reference internal" href="#biocutils.named_list.NamedList.extend"><code class="docutils literal notranslate"><span class="pre">NamedList.extend()</span></code></a></li>
 <li><a class="reference internal" href="#biocutils.named_list.NamedList.from_dict"><code class="docutils literal notranslate"><span class="pre">NamedList.from_dict()</span></code></a></li>
 <li><a class="reference internal" href="#biocutils.named_list.NamedList.from_list"><code class="docutils literal notranslate"><span class="pre">NamedList.from_list()</span></code></a></li>
+<li><a class="reference internal" href="#biocutils.named_list.NamedList.get"><code class="docutils literal notranslate"><span class="pre">NamedList.get()</span></code></a></li>
+<li><a class="reference internal" href="#biocutils.named_list.NamedList.get_name"><code class="docutils literal notranslate"><span class="pre">NamedList.get_name()</span></code></a></li>
 <li><a class="reference internal" href="#biocutils.named_list.NamedList.get_names"><code class="docutils literal notranslate"><span class="pre">NamedList.get_names()</span></code></a></li>
 <li><a class="reference internal" href="#biocutils.named_list.NamedList.get_slice"><code class="docutils literal notranslate"><span class="pre">NamedList.get_slice()</span></code></a></li>
 <li><a class="reference internal" href="#biocutils.named_list.NamedList.get_value"><code class="docutils literal notranslate"><span class="pre">NamedList.get_value()</span></code></a></li>
 <li><a class="reference internal" href="#biocutils.named_list.NamedList.insert"><code class="docutils literal notranslate"><span class="pre">NamedList.insert()</span></code></a></li>
+<li><a class="reference internal" href="#biocutils.named_list.NamedList.items"><code class="docutils literal notranslate"><span class="pre">NamedList.items()</span></code></a></li>
+<li><a class="reference internal" href="#biocutils.named_list.NamedList.keys"><code class="docutils literal notranslate"><span class="pre">NamedList.keys()</span></code></a></li>
 <li><a class="reference internal" href="#biocutils.named_list.NamedList.names"><code class="docutils literal notranslate"><span class="pre">NamedList.names</span></code></a></li>
 <li><a class="reference internal" href="#biocutils.named_list.NamedList.safe_append"><code class="docutils literal notranslate"><span class="pre">NamedList.safe_append()</span></code></a></li>
+<li><a class="reference internal" href="#biocutils.named_list.NamedList.safe_delete"><code class="docutils literal notranslate"><span class="pre">NamedList.safe_delete()</span></code></a></li>
 <li><a class="reference internal" href="#biocutils.named_list.NamedList.safe_extend"><code class="docutils literal notranslate"><span class="pre">NamedList.safe_extend()</span></code></a></li>
 <li><a class="reference internal" href="#biocutils.named_list.NamedList.safe_insert"><code class="docutils literal notranslate"><span class="pre">NamedList.safe_insert()</span></code></a></li>
 <li><a class="reference internal" href="#biocutils.named_list.NamedList.set_names"><code class="docutils literal notranslate"><span class="pre">NamedList.set_names()</span></code></a></li>
 <li><a class="reference internal" href="#biocutils.named_list.NamedList.set_slice"><code class="docutils literal notranslate"><span class="pre">NamedList.set_slice()</span></code></a></li>
 <li><a class="reference internal" href="#biocutils.named_list.NamedList.set_value"><code class="docutils literal notranslate"><span class="pre">NamedList.set_value()</span></code></a></li>
+<li><a class="reference internal" href="#biocutils.named_list.NamedList.values"><code class="docutils literal notranslate"><span class="pre">NamedList.values()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -3211,8 +3440,10 @@ truthy entries. Indices are guaranteed to be unique and sorted.</p>
 <li><a class="reference internal" href="#module-biocutils.names">biocutils.names module</a><ul>
 <li><a class="reference internal" href="#biocutils.names.Names"><code class="docutils literal notranslate"><span class="pre">Names</span></code></a><ul>
 <li><a class="reference internal" href="#biocutils.names.Names.__add__"><code class="docutils literal notranslate"><span class="pre">Names.__add__()</span></code></a></li>
+<li><a class="reference internal" href="#biocutils.names.Names.__contains__"><code class="docutils literal notranslate"><span class="pre">Names.__contains__()</span></code></a></li>
 <li><a class="reference internal" href="#biocutils.names.Names.__copy__"><code class="docutils literal notranslate"><span class="pre">Names.__copy__()</span></code></a></li>
 <li><a class="reference internal" href="#biocutils.names.Names.__deepcopy__"><code class="docutils literal notranslate"><span class="pre">Names.__deepcopy__()</span></code></a></li>
+<li><a class="reference internal" href="#biocutils.names.Names.__delitem__"><code class="docutils literal notranslate"><span class="pre">Names.__delitem__()</span></code></a></li>
 <li><a class="reference internal" href="#biocutils.names.Names.__eq__"><code class="docutils literal notranslate"><span class="pre">Names.__eq__()</span></code></a></li>
 <li><a class="reference internal" href="#biocutils.names.Names.__getitem__"><code class="docutils literal notranslate"><span class="pre">Names.__getitem__()</span></code></a></li>
 <li><a class="reference internal" href="#biocutils.names.Names.__hash__"><code class="docutils literal notranslate"><span class="pre">Names.__hash__</span></code></a></li>
@@ -3224,12 +3455,15 @@ truthy entries. Indices are guaranteed to be unique and sorted.</p>
 <li><a class="reference internal" href="#biocutils.names.Names.append"><code class="docutils literal notranslate"><span class="pre">Names.append()</span></code></a></li>
 <li><a class="reference internal" href="#biocutils.names.Names.as_list"><code class="docutils literal notranslate"><span class="pre">Names.as_list()</span></code></a></li>
 <li><a class="reference internal" href="#biocutils.names.Names.copy"><code class="docutils literal notranslate"><span class="pre">Names.copy()</span></code></a></li>
+<li><a class="reference internal" href="#biocutils.names.Names.delete"><code class="docutils literal notranslate"><span class="pre">Names.delete()</span></code></a></li>
 <li><a class="reference internal" href="#biocutils.names.Names.extend"><code class="docutils literal notranslate"><span class="pre">Names.extend()</span></code></a></li>
 <li><a class="reference internal" href="#biocutils.names.Names.get_slice"><code class="docutils literal notranslate"><span class="pre">Names.get_slice()</span></code></a></li>
 <li><a class="reference internal" href="#biocutils.names.Names.get_value"><code class="docutils literal notranslate"><span class="pre">Names.get_value()</span></code></a></li>
 <li><a class="reference internal" href="#biocutils.names.Names.insert"><code class="docutils literal notranslate"><span class="pre">Names.insert()</span></code></a></li>
+<li><a class="reference internal" href="#biocutils.names.Names.is_unique"><code class="docutils literal notranslate"><span class="pre">Names.is_unique</span></code></a></li>
 <li><a class="reference internal" href="#biocutils.names.Names.map"><code class="docutils literal notranslate"><span class="pre">Names.map()</span></code></a></li>
 <li><a class="reference internal" href="#biocutils.names.Names.safe_append"><code class="docutils literal notranslate"><span class="pre">Names.safe_append()</span></code></a></li>
+<li><a class="reference internal" href="#biocutils.names.Names.safe_delete"><code class="docutils literal notranslate"><span class="pre">Names.safe_delete()</span></code></a></li>
 <li><a class="reference internal" href="#biocutils.names.Names.safe_extend"><code class="docutils literal notranslate"><span class="pre">Names.safe_extend()</span></code></a></li>
 <li><a class="reference internal" href="#biocutils.names.Names.safe_insert"><code class="docutils literal notranslate"><span class="pre">Names.safe_insert()</span></code></a></li>
 <li><a class="reference internal" href="#biocutils.names.Names.set_slice"><code class="docutils literal notranslate"><span class="pre">Names.set_slice()</span></code></a></li>
@@ -3329,7 +3563,7 @@ truthy entries. Indices are guaranteed to be unique and sorted.</p>
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=f0846db4"></script>
+</div><script src="../_static/documentation_options.js?v=4621528c"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=46bd48cc"></script>

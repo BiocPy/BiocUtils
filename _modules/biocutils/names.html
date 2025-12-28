@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html"><link rel="search" title="Search" href="../../search.html">
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2025.12.19 -->
-        <title>biocutils.names - biocutils 0.3.1.dev0 documentation</title>
+        <title>biocutils.names - biocutils 0.3.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
@@ -161,7 +161,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">biocutils 0.3.1.dev0 documentation</div></a>
+      <a href="../../index.html"><div class="brand">biocutils 0.3.1 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -182,7 +182,7 @@
       
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
   
-  <span class="sidebar-brand-text">biocutils 0.3.1.dev0 documentation</span>
+  <span class="sidebar-brand-text">biocutils 0.3.1 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -374,6 +374,20 @@
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_reverse</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="o">-</span><span class="mi">1</span></div>
+
+
+<div class="viewcode-block" id="Names.__contains__">
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.names.Names.__contains__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Args:</span>
+<span class="sd">            name:</span>
+<span class="sd">                Name to check.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            True if ``name`` exists, otherwise False.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">0</span></div>
 
 
     <span class="c1">#################################</span>
@@ -625,6 +639,44 @@
         <span class="k">return</span> <span class="bp">self</span></div>
 
 
+<div class="viewcode-block" id="Names.safe_delete">
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.names.Names.safe_delete">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">safe_delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">slice</span><span class="p">],</span> <span class="n">in_place</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Names</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Args:</span>
+<span class="sd">            index:</span>
+<span class="sd">                Position(s) of the name(s) to delete.</span>
+
+<span class="sd">            in_place:</span>
+<span class="sd">                Whether to perform this deletion in-place.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A ``Names`` object with the deleted name(s). This is a new object</span>
+<span class="sd">            if ``in_place = False``, otherwise it is a reference to the current</span>
+<span class="sd">            object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_define_output</span><span class="p">(</span><span class="n">in_place</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">in_place</span><span class="p">:</span>
+            <span class="n">output</span><span class="o">.</span><span class="n">_wipe_reverse_index</span><span class="p">()</span>
+
+        <span class="k">del</span> <span class="n">output</span><span class="o">.</span><span class="n">_names</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">output</span></div>
+
+
+<div class="viewcode-block" id="Names.delete">
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.names.Names.delete">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">slice</span><span class="p">]):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Alias for :py:attr:`~safe_delete` with ``in_place = True``.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">safe_delete</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">in_place</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Names.__delitem__">
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.names.Names.__delitem__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__delitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">slice</span><span class="p">]):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Alias for :py:attr:`~delete`.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">index</span><span class="p">)</span></div>
+
+
     <span class="c1">################################</span>
     <span class="c1">#####&gt;&gt;&gt;&gt; Copy methods &lt;&lt;&lt;&lt;#####</span>
     <span class="c1">################################</span>
@@ -663,7 +715,16 @@
 <span class="sd">            A deep copy of this ``Names`` object with the same contents.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)(</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_names</span><span class="p">,</span> <span class="n">memo</span><span class="p">,</span> <span class="n">_nil</span><span class="p">),</span> <span class="n">_validate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
-</div>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">is_unique</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            True if all names are unique, otherwise False.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_populate_reverse_index</span><span class="p">()</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_reverse</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_names</span><span class="p">)</span></div>
 
 
 
@@ -764,7 +825,7 @@
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=f0846db4"></script>
+</div><script src="../../_static/documentation_options.js?v=4621528c"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/furo.js?v=46bd48cc"></script>

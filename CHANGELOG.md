@@ -1,6 +1,6 @@
 # Changelog
 
-## Version 0.3.0 - 0.3.1
+## Version 0.3.0 - 0.3.2
 
 - Provide a base `BiocObject` class similar to the `Annotated` class in Bioconductor. The class provides `metadata` slot, accessors and validation functions.
 - Renaming code files to follow pep guidelines

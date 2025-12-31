@@ -62,3 +62,4 @@ from .get_height import get_height
 from .is_high_dimensional import is_high_dimensional
 
 from .bioc_object import BiocObject
+from .table import table

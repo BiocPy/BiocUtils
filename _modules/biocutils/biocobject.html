@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html"><link rel="search" title="Search" href="../../search.html">
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2025.12.19 -->
-        <title>biocutils.bioc_object - biocutils 0.3.2 documentation</title>
+        <title>biocutils.biocobject - biocutils 0.3.3 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
@@ -161,7 +161,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">biocutils 0.3.2 documentation</div></a>
+      <a href="../../index.html"><div class="brand">biocutils 0.3.3 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -182,7 +182,7 @@
       
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
   
-  <span class="sidebar-brand-text">biocutils 0.3.2 documentation</span>
+  <span class="sidebar-brand-text">biocutils 0.3.3 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -232,14 +232,14 @@
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <h1>Source code for biocutils.bioc_object</h1><div class="highlight"><pre>
+          <h1>Source code for biocutils.biocobject</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">copy</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">warnings</span><span class="w"> </span><span class="kn">import</span> <span class="n">warn</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">.named_list</span><span class="w"> </span><span class="kn">import</span> <span class="n">NamedList</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.NamedList</span><span class="w"> </span><span class="kn">import</span> <span class="n">NamedList</span>
 
 <span class="n">__author__</span> <span class="o">=</span> <span class="s2">&quot;Jayaram Kancherla&quot;</span>
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="s2">&quot;jkanche&quot;</span>
@@ -247,7 +247,7 @@
 
 
 <div class="viewcode-block" id="sanitize_metadata">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.bioc_object.sanitize_metadata">[docs]</a>
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.biocobject.sanitize_metadata">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">sanitize_metadata</span><span class="p">(</span><span class="n">metadata</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NamedList</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Sanitize metadata input to a NamedList.&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">metadata</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -268,7 +268,7 @@
 
 
 <div class="viewcode-block" id="BiocObject">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.bioc_object.BiocObject">[docs]</a>
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.biocobject.BiocObject">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">BiocObject</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Base class for all BiocPy classes.</span>
 
@@ -298,7 +298,7 @@
             <span class="k">return</span> <span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
 <div class="viewcode-block" id="BiocObject.__repr__">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.bioc_object.BiocObject.__repr__">[docs]</a>
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.biocobject.BiocObject.__repr__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="n">class_name</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span>
         <span class="n">meta_len</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_metadata</span><span class="p">)</span>
@@ -328,14 +328,14 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">set_metadata</span><span class="p">(</span><span class="n">metadata</span><span class="o">=</span><span class="n">metadata</span><span class="p">,</span> <span class="n">in_place</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <div class="viewcode-block" id="BiocObject.get_metadata">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.bioc_object.BiocObject.get_metadata">[docs]</a>
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.biocobject.BiocObject.get_metadata">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NamedList</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Alias for :py:attr:`~metadata` getter.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">metadata</span></div>
 
 
 <div class="viewcode-block" id="BiocObject.set_metadata">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.bioc_object.BiocObject.set_metadata">[docs]</a>
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.biocobject.BiocObject.set_metadata">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">set_metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">metadata</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">NamedList</span><span class="p">]],</span> <span class="n">in_place</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BiocObject</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Set new metadata.</span>
 
@@ -391,7 +391,7 @@
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=71d9d8e6"></script>
+</div><script src="../../_static/documentation_options.js?v=d5a15cff"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/furo.js?v=46bd48cc"></script>

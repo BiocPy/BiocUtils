@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html"><link rel="search" title="Search" href="../../search.html">
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2025.12.19 -->
-        <title>biocutils.factor - biocutils 0.3.2 documentation</title>
+        <title>biocutils.Factor - biocutils 0.3.3 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
@@ -161,7 +161,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">biocutils 0.3.2 documentation</div></a>
+      <a href="../../index.html"><div class="brand">biocutils 0.3.3 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -182,7 +182,7 @@
       
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
   
-  <span class="sidebar-brand-text">biocutils 0.3.2 documentation</span>
+  <span class="sidebar-brand-text">biocutils 0.3.3 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -232,7 +232,7 @@
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <h1>Source code for biocutils.factor</h1><div class="highlight"><pre>
+          <h1>Source code for biocutils.Factor</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
@@ -247,14 +247,14 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">.is_list_of_type</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_list_of_type</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">.is_missing_scalar</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_missing_scalar</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">.match</span><span class="w"> </span><span class="kn">import</span> <span class="n">match</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">.names</span><span class="w"> </span><span class="kn">import</span> <span class="n">Names</span><span class="p">,</span> <span class="n">_combine_names</span><span class="p">,</span> <span class="n">_name_to_position</span><span class="p">,</span> <span class="n">_sanitize_names</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.Names</span><span class="w"> </span><span class="kn">import</span> <span class="n">Names</span><span class="p">,</span> <span class="n">_combine_names</span><span class="p">,</span> <span class="n">_name_to_position</span><span class="p">,</span> <span class="n">_sanitize_names</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">.normalize_subscript</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">NormalizedSubscript</span><span class="p">,</span>
     <span class="n">SubscriptTypes</span><span class="p">,</span>
     <span class="n">normalize_subscript</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">.print_truncated</span><span class="w"> </span><span class="kn">import</span> <span class="n">print_truncated_list</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">.string_list</span><span class="w"> </span><span class="kn">import</span> <span class="n">StringList</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.StringList</span><span class="w"> </span><span class="kn">import</span> <span class="n">StringList</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">.subset_sequence</span><span class="w"> </span><span class="kn">import</span> <span class="n">subset_sequence</span>
 
 
@@ -296,7 +296,7 @@
 
 
 <div class="viewcode-block" id="FactorIterator">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.factor.FactorIterator">[docs]</a>
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Factor.FactorIterator">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">FactorIterator</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Iterator for a :py:class:`~Factor` object.&quot;&quot;&quot;</span>
 
@@ -309,7 +309,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_position</span> <span class="o">=</span> <span class="mi">0</span>
 
 <div class="viewcode-block" id="FactorIterator.__iter__">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.factor.FactorIterator.__iter__">[docs]</a>
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Factor.FactorIterator.__iter__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FactorIterator</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns:</span>
@@ -319,7 +319,7 @@
 
 
 <div class="viewcode-block" id="FactorIterator.__next__">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.factor.FactorIterator.__next__">[docs]</a>
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Factor.FactorIterator.__next__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__next__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns:</span>
@@ -337,7 +337,7 @@
 
 
 <div class="viewcode-block" id="Factor">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.factor.Factor">[docs]</a>
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Factor.Factor">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Factor</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Factor class, equivalent to R&#39;s ``factor``.</span>
 
@@ -398,7 +398,7 @@
             <span class="k">return</span> <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Factor.get_codes">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.factor.Factor.get_codes">[docs]</a>
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Factor.Factor.get_codes">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_codes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns:</span>
@@ -417,7 +417,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_codes</span><span class="p">()</span>
 
 <div class="viewcode-block" id="Factor.set_codes">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.factor.Factor.set_codes">[docs]</a>
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Factor.Factor.set_codes">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">set_codes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">codes</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">in_place</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Factor</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
@@ -440,7 +440,7 @@
 
 
 <div class="viewcode-block" id="Factor.get_levels">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.factor.Factor.get_levels">[docs]</a>
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Factor.Factor.get_levels">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_levels</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">StringList</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns:</span>
@@ -458,7 +458,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_levels</span><span class="p">()</span>
 
 <div class="viewcode-block" id="Factor.get_ordered">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.factor.Factor.get_ordered">[docs]</a>
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Factor.Factor.get_ordered">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_ordered</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns:</span>
@@ -473,7 +473,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_ordered</span><span class="p">()</span>
 
 <div class="viewcode-block" id="Factor.set_ordered">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.factor.Factor.set_ordered">[docs]</a>
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Factor.Factor.set_ordered">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">set_ordered</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ordered</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">in_place</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Factor</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
@@ -493,7 +493,7 @@
 
 
 <div class="viewcode-block" id="Factor.get_names">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.factor.Factor.get_names">[docs]</a>
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Factor.Factor.get_names">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_names</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Names</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns:</span>
@@ -511,7 +511,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_names</span><span class="p">()</span>
 
 <div class="viewcode-block" id="Factor.set_names">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.factor.Factor.set_names">[docs]</a>
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Factor.Factor.set_names">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">set_names</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">names</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Names</span><span class="p">],</span> <span class="n">in_place</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;NamedList&quot;</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
@@ -535,7 +535,7 @@
     <span class="c1">#################################</span>
 
 <div class="viewcode-block" id="Factor.__len__">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.factor.Factor.__len__">[docs]</a>
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Factor.Factor.__len__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns:</span>
@@ -545,7 +545,7 @@
 
 
 <div class="viewcode-block" id="Factor.__iter__">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.factor.Factor.__iter__">[docs]</a>
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Factor.Factor.__iter__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FactorIterator</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns:</span>
@@ -556,7 +556,7 @@
 
 
 <div class="viewcode-block" id="Factor.__repr__">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.factor.Factor.__repr__">[docs]</a>
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Factor.Factor.__repr__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns:</span>
@@ -594,7 +594,7 @@
         <span class="k">return</span> <span class="n">message</span>
 
 <div class="viewcode-block" id="Factor.__eq__">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.factor.Factor.__eq__">[docs]</a>
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Factor.Factor.__eq__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Factor</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
@@ -621,7 +621,7 @@
     <span class="c1">###########################</span>
 
 <div class="viewcode-block" id="Factor.get_value">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.factor.Factor.get_value">[docs]</a>
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Factor.Factor.get_value">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
@@ -643,7 +643,7 @@
 
 
 <div class="viewcode-block" id="Factor.get_slice">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.factor.Factor.get_slice">[docs]</a>
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Factor.Factor.get_slice">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_slice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="n">SubscriptTypes</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Factor</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
@@ -666,7 +666,7 @@
 
 
 <div class="viewcode-block" id="Factor.__getitem__">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.factor.Factor.__getitem__">[docs]</a>
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Factor.Factor.__getitem__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="n">SubscriptTypes</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Factor</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        If ``index`` is a scalar, this is an alias for :py:meth:`~get_value`.</span>
@@ -681,7 +681,7 @@
 
 
 <div class="viewcode-block" id="Factor.set_value">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.factor.Factor.set_value">[docs]</a>
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Factor.Factor.set_value">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">set_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="n">value</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span> <span class="n">in_place</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Factor</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
@@ -723,7 +723,7 @@
 
 
 <div class="viewcode-block" id="Factor.set_slice">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.factor.Factor.set_slice">[docs]</a>
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Factor.Factor.set_slice">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">set_slice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="n">SubscriptTypes</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Factor</span><span class="p">,</span> <span class="n">in_place</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Replace items in the ``Factor`` list.  The ``index`` elements in the</span>
@@ -777,7 +777,7 @@
 
 
 <div class="viewcode-block" id="Factor.__setitem__">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.factor.Factor.__setitem__">[docs]</a>
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Factor.Factor.__setitem__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="n">SubscriptTypes</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Factor</span><span class="p">]):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        If ``index`` is a scalar, this is an alias for :py:meth:`~set_value`.</span>
@@ -796,7 +796,7 @@
     <span class="c1">#################################</span>
 
 <div class="viewcode-block" id="Factor.drop_unused_levels">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.factor.Factor.drop_unused_levels">[docs]</a>
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Factor.Factor.drop_unused_levels">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">drop_unused_levels</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">in_place</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Factor</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Drop unused levels.</span>
 
@@ -838,7 +838,7 @@
 
 
 <div class="viewcode-block" id="Factor.replace_levels">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.factor.Factor.replace_levels">[docs]</a>
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Factor.Factor.replace_levels">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">replace_levels</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">levels</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
@@ -892,7 +892,7 @@
 
 
 <div class="viewcode-block" id="Factor.set_levels">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.factor.Factor.set_levels">[docs]</a>
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Factor.Factor.set_levels">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">set_levels</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">levels</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]],</span> <span class="n">remap</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">in_place</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Factor</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Alias for :py:meth:`~remap_levels` if ``remap = True``, otherwise an</span>
@@ -907,7 +907,7 @@
 
 
 <div class="viewcode-block" id="Factor.remap_levels">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.factor.Factor.remap_levels">[docs]</a>
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Factor.Factor.remap_levels">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">remap_levels</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">levels</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]],</span> <span class="n">in_place</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Factor</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Remap codes to a replacement list of levels. Each entry of the</span>
 <span class="sd">        remapped ``Factor`` will refer to the same string across the old and</span>
@@ -987,7 +987,7 @@
     <span class="c1">###########################</span>
 
 <div class="viewcode-block" id="Factor.__copy__">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.factor.Factor.__copy__">[docs]</a>
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Factor.Factor.__copy__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">__copy__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Factor</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns:</span>
@@ -1003,7 +1003,7 @@
 
 
 <div class="viewcode-block" id="Factor.__deepcopy__">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.factor.Factor.__deepcopy__">[docs]</a>
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Factor.Factor.__deepcopy__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">__deepcopy__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">memo</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Factor</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns:</span>
@@ -1023,7 +1023,7 @@
     <span class="c1">#############################</span>
 
 <div class="viewcode-block" id="Factor.to_pandas">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.factor.Factor.to_pandas">[docs]</a>
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Factor.Factor.to_pandas">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">to_pandas</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Coerce to :py:class:`~pandas.Categorical` object.</span>
 
@@ -1039,7 +1039,7 @@
 
 
 <div class="viewcode-block" id="Factor.from_sequence">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.factor.Factor.from_sequence">[docs]</a>
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Factor.Factor.from_sequence">[docs]</a>
     <span class="nd">@staticmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">from_sequence</span><span class="p">(</span>
         <span class="n">x</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
@@ -1090,7 +1090,7 @@
     <span class="c1">################################</span>
 
 <div class="viewcode-block" id="Factor.as_list">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.factor.Factor.as_list">[docs]</a>
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Factor.Factor.as_list">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">as_list</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns:</span>
@@ -1101,7 +1101,7 @@
 
 
 <div class="viewcode-block" id="Factor.safe_delete">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.factor.Factor.safe_delete">[docs]</a>
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Factor.Factor.safe_delete">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">safe_delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">slice</span><span class="p">],</span> <span class="n">in_place</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Factor</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
@@ -1138,14 +1138,14 @@
 
 
 <div class="viewcode-block" id="Factor.delete">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.factor.Factor.delete">[docs]</a>
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Factor.Factor.delete">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">slice</span><span class="p">]):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Alias for :py:meth:`~safe_delete` with ``in_place = True``.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">safe_delete</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">in_place</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="Factor.__delitem__">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.factor.Factor.__delitem__">[docs]</a>
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Factor.Factor.__delitem__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__delitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">slice</span><span class="p">]):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Alias for :py:meth:`~delete`.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">index</span><span class="p">)</span></div>
@@ -1242,7 +1242,7 @@
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=71d9d8e6"></script>
+</div><script src="../../_static/documentation_options.js?v=d5a15cff"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/furo.js?v=46bd48cc"></script>

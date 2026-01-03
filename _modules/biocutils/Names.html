@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html"><link rel="search" title="Search" href="../../search.html">
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2025.12.19 -->
-        <title>biocutils.names - biocutils 0.3.2 documentation</title>
+        <title>biocutils.Names - biocutils 0.3.3 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
@@ -161,7 +161,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">biocutils 0.3.2 documentation</div></a>
+      <a href="../../index.html"><div class="brand">biocutils 0.3.3 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -182,7 +182,7 @@
       
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
   
-  <span class="sidebar-brand-text">biocutils 0.3.2 documentation</span>
+  <span class="sidebar-brand-text">biocutils 0.3.3 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -232,7 +232,7 @@
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <h1>Source code for biocutils.names</h1><div class="highlight"><pre>
+          <h1>Source code for biocutils.Names</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">copy</span><span class="w"> </span><span class="kn">import</span> <span class="n">deepcopy</span>
@@ -248,7 +248,7 @@
 
 
 <div class="viewcode-block" id="Names">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.names.Names">[docs]</a>
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Names.Names">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Names</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    List of strings containing names. Typically used to decorate sequences,</span>
@@ -294,7 +294,7 @@
     <span class="c1">###################################</span>
 
 <div class="viewcode-block" id="Names.__len__">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.names.Names.__len__">[docs]</a>
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Names.Names.__len__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns:</span>
@@ -304,7 +304,7 @@
 
 
 <div class="viewcode-block" id="Names.__iter__">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.names.Names.__iter__">[docs]</a>
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Names.Names.__iter__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;list_iterator&quot;</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns:</span>
@@ -314,7 +314,7 @@
 
 
 <div class="viewcode-block" id="Names.__repr__">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.names.Names.__repr__">[docs]</a>
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Names.Names.__repr__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns:</span>
@@ -331,7 +331,7 @@
         <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_names</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Names.__eq__">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.names.Names.__eq__">[docs]</a>
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Names.Names.__eq__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Names</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
@@ -346,7 +346,7 @@
 
 
 <div class="viewcode-block" id="Names.as_list">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.names.Names.as_list">[docs]</a>
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Names.Names.as_list">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">as_list</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns:</span>
@@ -359,7 +359,7 @@
 
 
 <div class="viewcode-block" id="Names.map">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.names.Names.map">[docs]</a>
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Names.Names.map">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">map</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
@@ -377,7 +377,7 @@
 
 
 <div class="viewcode-block" id="Names.__contains__">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.names.Names.__contains__">[docs]</a>
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Names.Names.__contains__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
@@ -395,7 +395,7 @@
     <span class="c1">#################################</span>
 
 <div class="viewcode-block" id="Names.get_value">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.names.Names.get_value">[docs]</a>
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Names.Names.get_value">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
@@ -408,7 +408,7 @@
 
 
 <div class="viewcode-block" id="Names.get_slice">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.names.Names.get_slice">[docs]</a>
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Names.Names.get_slice">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_slice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="n">SubscriptTypes</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Names</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
@@ -425,7 +425,7 @@
 
 
 <div class="viewcode-block" id="Names.__getitem__">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.names.Names.__getitem__">[docs]</a>
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Names.Names.__getitem__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="n">SubscriptTypes</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Names</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        If ``index`` is a scalar, this is an alias for :py:attr:`~get_value`.</span>
@@ -440,7 +440,7 @@
 
 
 <div class="viewcode-block" id="Names.set_value">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.names.Names.set_value">[docs]</a>
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Names.Names.set_value">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">set_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">in_place</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Names</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
@@ -464,7 +464,7 @@
 
 
 <div class="viewcode-block" id="Names.set_slice">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.names.Names.set_slice">[docs]</a>
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Names.Names.set_slice">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">set_slice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="n">SubscriptTypes</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">in_place</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Names</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
@@ -495,7 +495,7 @@
 
 
 <div class="viewcode-block" id="Names.__setitem__">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.names.Names.__setitem__">[docs]</a>
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Names.Names.__setitem__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="n">SubscriptTypes</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Any</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        If ``index`` is a scalar, this is an alias for :py:attr:`~set_value`</span>
@@ -522,7 +522,7 @@
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 
 <div class="viewcode-block" id="Names.safe_append">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.names.Names.safe_append">[docs]</a>
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Names.Names.safe_append">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">safe_append</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">in_place</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Names</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
@@ -543,14 +543,14 @@
 
 
 <div class="viewcode-block" id="Names.append">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.names.Names.append">[docs]</a>
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Names.Names.append">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">append</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Alias for :py:attr:`~safe_append` with ``in_place = True``.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">safe_append</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">in_place</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="Names.safe_insert">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.names.Names.safe_insert">[docs]</a>
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Names.Names.safe_insert">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">safe_insert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">in_place</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Names</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
@@ -571,14 +571,14 @@
 
 
 <div class="viewcode-block" id="Names.insert">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.names.Names.insert">[docs]</a>
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Names.Names.insert">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">insert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Alias for :py:attr:`~safe_insert` with ``in_place = True``.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">safe_insert</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">in_place</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="Names.safe_extend">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.names.Names.safe_extend">[docs]</a>
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Names.Names.safe_extend">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">safe_extend</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">in_place</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Names</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
@@ -605,14 +605,14 @@
 
 
 <div class="viewcode-block" id="Names.extend">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.names.Names.extend">[docs]</a>
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Names.Names.extend">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">extend</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Alias for :py:attr:`~safe_extend` with ``in_place = True``.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">safe_extend</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">in_place</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="Names.__add__">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.names.Names.__add__">[docs]</a>
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Names.Names.__add__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="nb">list</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
@@ -626,7 +626,7 @@
 
 
 <div class="viewcode-block" id="Names.__iadd__">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.names.Names.__iadd__">[docs]</a>
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Names.Names.__iadd__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__iadd__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="nb">list</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
@@ -640,7 +640,7 @@
 
 
 <div class="viewcode-block" id="Names.safe_delete">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.names.Names.safe_delete">[docs]</a>
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Names.Names.safe_delete">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">safe_delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">slice</span><span class="p">],</span> <span class="n">in_place</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Names</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
@@ -664,14 +664,14 @@
 
 
 <div class="viewcode-block" id="Names.delete">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.names.Names.delete">[docs]</a>
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Names.Names.delete">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">slice</span><span class="p">]):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Alias for :py:attr:`~safe_delete` with ``in_place = True``.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">safe_delete</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">in_place</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="Names.__delitem__">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.names.Names.__delitem__">[docs]</a>
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Names.Names.__delitem__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__delitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">slice</span><span class="p">]):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Alias for :py:attr:`~delete`.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">index</span><span class="p">)</span></div>
@@ -682,7 +682,7 @@
     <span class="c1">################################</span>
 
 <div class="viewcode-block" id="Names.copy">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.names.Names.copy">[docs]</a>
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Names.Names.copy">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Names</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns:</span>
@@ -694,14 +694,14 @@
 
 
 <div class="viewcode-block" id="Names.__copy__">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.names.Names.__copy__">[docs]</a>
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Names.Names.__copy__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">__copy__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Names</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Alias for :py:attr:`~copy`.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="Names.__deepcopy__">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.names.Names.__deepcopy__">[docs]</a>
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.Names.Names.__deepcopy__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">__deepcopy__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">memo</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">_nil</span><span class="o">=</span><span class="p">[])</span> <span class="o">-&gt;</span> <span class="n">Names</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
@@ -825,7 +825,7 @@
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=71d9d8e6"></script>
+</div><script src="../../_static/documentation_options.js?v=d5a15cff"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/furo.js?v=46bd48cc"></script>

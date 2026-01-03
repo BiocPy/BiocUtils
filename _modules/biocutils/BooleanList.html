@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html"><link rel="search" title="Search" href="../../search.html">
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2025.12.19 -->
-        <title>biocutils.boolean_list - biocutils 0.3.2 documentation</title>
+        <title>biocutils.BooleanList - biocutils 0.3.3 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
@@ -161,7 +161,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">biocutils 0.3.2 documentation</div></a>
+      <a href="../../index.html"><div class="brand">biocutils 0.3.3 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -182,7 +182,7 @@
       
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
   
-  <span class="sidebar-brand-text">biocutils 0.3.2 documentation</span>
+  <span class="sidebar-brand-text">biocutils 0.3.3 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -232,13 +232,13 @@
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <h1>Source code for biocutils.boolean_list</h1><div class="highlight"><pre>
+          <h1>Source code for biocutils.BooleanList</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Union</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">.named_list</span><span class="w"> </span><span class="kn">import</span> <span class="n">NamedList</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">.names</span><span class="w"> </span><span class="kn">import</span> <span class="n">Names</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.NamedList</span><span class="w"> </span><span class="kn">import</span> <span class="n">NamedList</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.Names</span><span class="w"> </span><span class="kn">import</span> <span class="n">Names</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">.normalize_subscript</span><span class="w"> </span><span class="kn">import</span> <span class="n">SubscriptTypes</span>
 
 
@@ -272,7 +272,7 @@
 
 
 <div class="viewcode-block" id="BooleanList">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.boolean_list.BooleanList">[docs]</a>
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.BooleanList.BooleanList">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">BooleanList</span><span class="p">(</span><span class="n">NamedList</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    List of booleans. This mimics a regular Python list except that anything</span>
@@ -314,35 +314,35 @@
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">names</span><span class="p">,</span> <span class="n">_validate</span><span class="o">=</span><span class="n">_validate</span><span class="p">)</span>
 
 <div class="viewcode-block" id="BooleanList.set_value">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.boolean_list.BooleanList.set_value">[docs]</a>
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.BooleanList.BooleanList.set_value">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">set_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">value</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">in_place</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BooleanList</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Calls :py:meth:`~biocutils.NamedList.NamedList.set_value` after coercing ``value`` to a boolean.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">set_value</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">_coerce_to_bool</span><span class="p">(</span><span class="n">value</span><span class="p">),</span> <span class="n">in_place</span><span class="o">=</span><span class="n">in_place</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="BooleanList.set_slice">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.boolean_list.BooleanList.set_slice">[docs]</a>
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.BooleanList.BooleanList.set_slice">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">set_slice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="n">SubscriptTypes</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">in_place</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BooleanList</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Calls :py:meth:`~biocutils.NamedList.NamedList.set_slice` after coercing ``value`` to booleans.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">set_slice</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">_SubscriptCoercer</span><span class="p">(</span><span class="n">value</span><span class="p">),</span> <span class="n">in_place</span><span class="o">=</span><span class="n">in_place</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="BooleanList.safe_insert">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.boolean_list.BooleanList.safe_insert">[docs]</a>
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.BooleanList.BooleanList.safe_insert">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">safe_insert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">value</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">in_place</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BooleanList</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Calls :py:meth:`~biocutils.NamedList.NamedList.safe_insert` after coercing ``value`` to a boolean.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">safe_insert</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">_coerce_to_bool</span><span class="p">(</span><span class="n">value</span><span class="p">),</span> <span class="n">in_place</span><span class="o">=</span><span class="n">in_place</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="BooleanList.safe_append">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.boolean_list.BooleanList.safe_append">[docs]</a>
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.BooleanList.BooleanList.safe_append">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">safe_append</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">in_place</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BooleanList</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Calls :py:meth:`~biocutils.NamedList.NamedList.safe_append` after coercing ``value`` to a boolean.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">safe_append</span><span class="p">(</span><span class="n">_coerce_to_bool</span><span class="p">(</span><span class="n">value</span><span class="p">),</span> <span class="n">in_place</span><span class="o">=</span><span class="n">in_place</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="BooleanList.safe_extend">
-<a class="viewcode-back" href="../../api/biocutils.html#biocutils.boolean_list.BooleanList.safe_extend">[docs]</a>
+<a class="viewcode-back" href="../../api/biocutils.html#biocutils.BooleanList.BooleanList.safe_extend">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">safe_extend</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">in_place</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BooleanList</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Calls :py:meth:`~biocutils.NamedList.NamedList.safe_extend` after coercing elements of ``other`` to booleans.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">safe_extend</span><span class="p">((</span><span class="n">_coerce_to_bool</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">other</span><span class="p">),</span> <span class="n">in_place</span><span class="o">=</span><span class="n">in_place</span><span class="p">)</span></div>
@@ -380,7 +380,7 @@
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=71d9d8e6"></script>
+</div><script src="../../_static/documentation_options.js?v=d5a15cff"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/furo.js?v=46bd48cc"></script>

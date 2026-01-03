@@ -1,7 +1,7 @@
 import pytest
 from copy import copy
-from biocutils.bioc_object import BiocObject
-from biocutils.named_list import NamedList
+from biocutils.biocobject import BiocObject
+from biocutils.NamedList import NamedList
 
 
 def test_init_empty():

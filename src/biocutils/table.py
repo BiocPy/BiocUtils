@@ -1,7 +1,7 @@
 from functools import singledispatch
 from typing import Sequence
 
-from .integer_list import IntegerList
+from .IntegerList import IntegerList
 
 
 @singledispatch

@@ -2,8 +2,8 @@ from __future__ import annotations
 
 from typing import Any, Iterable, Optional, Sequence, Union
 
-from .named_list import NamedList
-from .names import Names
+from .NamedList import NamedList
+from .Names import Names
 from .normalize_subscript import SubscriptTypes
 
 

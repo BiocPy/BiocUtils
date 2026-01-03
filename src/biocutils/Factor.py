@@ -12,14 +12,14 @@ from .factorize import factorize
 from .is_list_of_type import is_list_of_type
 from .is_missing_scalar import is_missing_scalar
 from .match import match
-from .names import Names, _combine_names, _name_to_position, _sanitize_names
+from .Names import Names, _combine_names, _name_to_position, _sanitize_names
 from .normalize_subscript import (
     NormalizedSubscript,
     SubscriptTypes,
     normalize_subscript,
 )
 from .print_truncated import print_truncated_list
-from .string_list import StringList
+from .StringList import StringList
 from .subset_sequence import subset_sequence
 
 

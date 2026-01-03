@@ -4,7 +4,7 @@ import copy
 from typing import Any, Dict, Optional, Union
 from warnings import warn
 
-from .named_list import NamedList
+from .NamedList import NamedList
 
 __author__ = "Jayaram Kancherla"
 __copyright__ = "jkanche"

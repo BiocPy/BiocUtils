@@ -130,7 +130,7 @@ def normalize_subscript(
         if names is None:
             raise IndexError("failed to find subscript '" + sub + "' for vector-like object with no names")
         i = -1
-        from .names import Names
+        from .Names import Names
 
         if isinstance(names, Names):
             i = names.map(sub)
@@ -189,7 +189,7 @@ def normalize_subscript(
     output = []
     has_strings = set()
     string_positions = []
-    from .names import Names
+    from .Names import Names
 
     are_names_indexed = isinstance(names, Names)
 

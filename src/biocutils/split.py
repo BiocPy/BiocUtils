@@ -82,7 +82,7 @@ def split(x: Any, f: Sequence, drop: bool = False, as_NamedList: bool = False) -
         raise ValueError("heights of 'x' and 'f' should be the same")
 
     collected = []
-    for l in levels:
+    for lev in levels:
         collected.append([])
     for i, j in enumerate(indices):
         collected[j].append(i)

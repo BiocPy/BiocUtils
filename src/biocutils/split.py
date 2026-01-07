@@ -25,7 +25,7 @@ def split(x: Any, f: Sequence, drop: bool = False, as_NamedList: bool = False) -
 
         drop:
             Whether to drop unused levels, if ``f`` is a ``Factor``.
-        
+
         as_NamedList:
             Whether to return the results as a :py:class:`~biocutils.NamedList.NamedList`.
             This automatically converts all groups into strings.
@@ -36,12 +36,37 @@ def split(x: Any, f: Sequence, drop: bool = False, as_NamedList: bool = False) -
 
     Examples:
         >>> import numpy
-        >>> x = numpy.random.rand(10)
-        >>> f = numpy.random.choice(["A", "B", "C"], 10)
+        >>> x = numpy.random.rand(
+        ...     10
+        ... )
+        >>> f = numpy.random.choice(
+        ...     ["A", "B", "C"],
+        ...     10,
+        ... )
         >>> import biocutils
-        >>> biocutils.split(x, f)
-        >>> biocutils.split(x, f, as_NamedList=True)
-        >>> biocutils.split(x, biocutils.Factor.from_sequence(f, ["X", "A", "Y", "B", "Z", "C"]), drop=False)
+        >>> biocutils.split(
+        ...     x, f
+        ... )
+        >>> biocutils.split(
+        ...     x,
+        ...     f,
+        ...     as_NamedList=True,
+        ... )
+        >>> biocutils.split(
+        ...     x,
+        ...     biocutils.Factor.from_sequence(
+        ...         f,
+        ...         [
+        ...             "X",
+        ...             "A",
+        ...             "Y",
+        ...             "B",
+        ...             "Z",
+        ...             "C",
+        ...         ],
+        ...     ),
+        ...     drop=False,
+        ... )
     """
 
     if isinstance(f, Factor):
@@ -54,7 +79,7 @@ def split(x: Any, f: Sequence, drop: bool = False, as_NamedList: bool = False) -
         indices = match(f, levels)
 
     if get_height(x) != get_height(f):
-        raise ValueError("heights of 'x' and 'f' should be the same") 
+        raise ValueError("heights of 'x' and 'f' should be the same")
 
     collected = []
     for l in levels:

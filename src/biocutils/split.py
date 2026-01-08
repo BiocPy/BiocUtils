@@ -16,7 +16,7 @@ def split(
     f: Sequence,
     skip: Union[set, Sequence] = [None, numpy.ma.masked],
     drop: bool = False,
-    as_NamedList: bool = False
+    as_NamedList: bool = False,
 ) -> Union[dict, NamedList]:
     """
     Split a sequence ``x`` into groups defined by a categorical factor ``f``.
@@ -95,7 +95,7 @@ def split(
                     levels.append(lev)
                     ix = len(reindex)
                 reindex.append(ix)
-            indices = [] 
+            indices = []
             for code in f.get_codes():
                 if code >= 0:
                     code = reindex[code]

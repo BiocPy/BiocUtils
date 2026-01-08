@@ -1,4 +1,7 @@
 from typing import Any, Sequence, Union
+from functools import singledispatch
+
+import numpy
 
 from .NamedList import NamedList
 from .Factor import Factor
@@ -7,7 +10,14 @@ from .subset import subset
 from .get_height import get_height
 
 
-def split(x: Any, f: Sequence, drop: bool = False, as_NamedList: bool = False) -> Union[dict, NamedList]:
+@singledispatch
+def split(
+    x: Any,
+    f: Sequence,
+    skip: Union[set, Sequence] = [None, numpy.ma.masked],
+    drop: bool = False,
+    as_NamedList: bool = False
+) -> Union[dict, NamedList]:
     """
     Split a sequence ``x`` into groups defined by a categorical factor ``f``.
 
@@ -22,6 +32,10 @@ def split(x: Any, f: Sequence, drop: bool = False, as_NamedList: bool = False) -
 
             The order of groups is defined by sorting all unique variables in ``f``.
             If a :py:class:`~biocutils.Factor.Factor` is provided, the order of groups is defined by the existing levels.
+
+        skip:
+            Values of ``f`` to be skipped.
+            The corresponding entries of ``x`` are also omitted from the output.
 
         drop:
             Whether to drop unused levels, if ``f`` is a ``Factor``.
@@ -72,10 +86,32 @@ def split(x: Any, f: Sequence, drop: bool = False, as_NamedList: bool = False) -
     if isinstance(f, Factor):
         if drop:
             f = f.drop_unused_levels()
-        levels = f.get_levels()
-        indices = f.get_codes()
+        if len(skip) > 0:
+            levels = []
+            reindex = []
+            for lev in f.get_levels():
+                ix = -1
+                if lev not in skip:
+                    levels.append(lev)
+                    ix = len(reindex)
+                reindex.append(ix)
+            indices = [] 
+            for code in f.get_codes():
+                if code >= 0:
+                    code = reindex[code]
+                indices.append(code)
+        else:
+            levels = f.get_levels()
+            indices = f.get_codes()
     else:
-        levels = sorted(list(set(f)))
+        if len(skip) > 0:
+            levels = set()
+            for y in f:
+                if y not in skip:
+                    levels.add(y)
+        else:
+            levels = set(f)
+        levels = sorted(list(levels))
         indices = match(f, levels)
 
     if get_height(x) != get_height(f):
@@ -85,7 +121,8 @@ def split(x: Any, f: Sequence, drop: bool = False, as_NamedList: bool = False) -
     for lev in levels:
         collected.append([])
     for i, j in enumerate(indices):
-        collected[j].append(i)
+        if j >= 0:
+            collected[j].append(i)
     for i, c in enumerate(collected):
         collected[i] = subset(x, c)
 

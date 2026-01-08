@@ -47,7 +47,7 @@ class MatchIndex:
 
         elif isinstance(targets, Factor):
             # Optimized method when both x and targets are factors.
-            target_index = [None] * (len(targets.get_levels()) + 1) # add 1 so that code = -1 still behaves correctly.
+            target_index = [None] * (len(targets.get_levels()) + 1)  # add 1 so that code = -1 still behaves correctly.
             first_tie = duplicate_method == "first" or duplicate_method == "any"
             for i, code in enumerate(targets.get_codes()):
                 if not first_tie or target_index[code] is None:
@@ -60,7 +60,7 @@ class MatchIndex:
                     if candidate is not None:
                         mapping[lev] = candidate
 
-            if None not in incomparables: 
+            if None not in incomparables:
                 # None matching to another None is still possible.
                 candidate = target_index[-1]
                 if candidate is not None:
@@ -115,7 +115,7 @@ class MatchIndex:
                     indices[i] = self._map[y]
 
         else:
-            x_index = [-1] * (len(x.get_levels()) + 1) # adding 1 so that code = -1 still works.
+            x_index = [-1] * (len(x.get_levels()) + 1)  # adding 1 so that code = -1 still works.
             for i, lev in enumerate(x.get_levels()):
                 if lev in self._map:
                     x_index[i] = self._map[lev]
@@ -219,7 +219,9 @@ def create_match_index(
         >>> fobj.match(fx)
     """
 
-    return MatchIndex(targets, duplicate_method=duplicate_method, incomparables=incomparables, dtype=dtype, fail_missing=fail_missing)
+    return MatchIndex(
+        targets, duplicate_method=duplicate_method, incomparables=incomparables, dtype=dtype, fail_missing=fail_missing
+    )
 
 
 @singledispatch
@@ -315,5 +317,7 @@ def match(
         ... )
     """
 
-    obj = create_match_index(targets, duplicate_method=duplicate_method, incomparables=incomparables, dtype=dtype, fail_missing=fail_missing)
+    obj = create_match_index(
+        targets, duplicate_method=duplicate_method, incomparables=incomparables, dtype=dtype, fail_missing=fail_missing
+    )
     return obj.match(x)

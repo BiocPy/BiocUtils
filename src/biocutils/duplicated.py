@@ -15,11 +15,11 @@ def duplicated(x: Any, incomparables: Union[set, Sequence] = set(), from_last: b
     Args:
         x:
             Object to be searched for duplicates.
-            This is usually a sequence that can be iterated over. 
+            This is usually a sequence that can be iterated over.
 
         incomparables:
             Values of ``x`` that cannot be compared.
-            Any value of ``x`` in ``incomparables`` will never be a duplicate. 
+            Any value of ``x`` in ``incomparables`` will never be a duplicate.
             Any object that has an ``__in__`` method can be used here.
 
         from_last:
@@ -32,10 +32,50 @@ def duplicated(x: Any, incomparables: Union[set, Sequence] = set(), from_last: b
 
     Examples:
         >>> import biocutils
-        >>> biocutils.duplicated([1,2,1,2,3,2])
-        >>> biocutils.duplicated([1,2,1,2,3,2], from_last=True)
-        >>> biocutils.duplicated([1,2,None,None,3,2])
-        >>> biocutils.duplicated([1,2,None,None,3,2], incomparables=set([None]))
+        >>> biocutils.duplicated(
+        ...     [
+        ...         1,
+        ...         2,
+        ...         1,
+        ...         2,
+        ...         3,
+        ...         2,
+        ...     ]
+        ... )
+        >>> biocutils.duplicated(
+        ...     [
+        ...         1,
+        ...         2,
+        ...         1,
+        ...         2,
+        ...         3,
+        ...         2,
+        ...     ],
+        ...     from_last=True,
+        ... )
+        >>> biocutils.duplicated(
+        ...     [
+        ...         1,
+        ...         2,
+        ...         None,
+        ...         None,
+        ...         3,
+        ...         2,
+        ...     ]
+        ... )
+        >>> biocutils.duplicated(
+        ...     [
+        ...         1,
+        ...         2,
+        ...         None,
+        ...         None,
+        ...         3,
+        ...         2,
+        ...     ],
+        ...     incomparables=set(
+        ...         [None]
+        ...     ),
+        ... )
     """
 
     available = set()
@@ -61,7 +101,9 @@ def duplicated(x: Any, incomparables: Union[set, Sequence] = set(), from_last: b
 
 
 @duplicated.register
-def _duplicated_Factor(x: Factor, incomparables: Union[set, Sequence] = set(), from_last: bool = False) -> numpy.ndarray:
+def _duplicated_Factor(
+    x: Factor, incomparables: Union[set, Sequence] = set(), from_last: bool = False
+) -> numpy.ndarray:
     present = []
     for lev in x.get_levels():
         if lev in incomparables:
@@ -76,6 +118,7 @@ def _duplicated_Factor(x: Factor, incomparables: Union[set, Sequence] = set(), f
         present.append(False)
 
     output = numpy.ndarray(len(x), dtype=numpy.bool_)
+
     def process(i, y):
         tmp = present[y]
         if tmp is None:
@@ -104,15 +147,15 @@ def unique(x: Any, incomparables: Union[set, Sequence] = set(), from_last: bool 
     Args:
         x:
             Object in which to find unique entries.
-            This is usually a sequence that can be iterated over. 
+            This is usually a sequence that can be iterated over.
 
         incomparables:
             Values of ``x`` that cannot be compared.
-            Any value of ``x`` in ``incomparables`` will never be a duplicate. 
+            Any value of ``x`` in ``incomparables`` will never be a duplicate.
             Any object that has an ``__in__`` method can be used here.
 
         from_last:
-            Whether to retain the last occurrence of each value in ``x``. 
+            Whether to retain the last occurrence of each value in ``x``.
             By default, the first occurrence is retained.
 
     Returns:
@@ -121,8 +164,38 @@ def unique(x: Any, incomparables: Union[set, Sequence] = set(), from_last: bool 
 
     Examples:
         >>> import biocutils
-        >>> biocutils.unique([1,2,1,2,3,2])
-        >>> biocutils.unique([1,2,None,None,3,2])
-        >>> biocutils.unique([1,2,None,None,3,2], incomparables=set([None]))
+        >>> biocutils.unique(
+        ...     [
+        ...         1,
+        ...         2,
+        ...         1,
+        ...         2,
+        ...         3,
+        ...         2,
+        ...     ]
+        ... )
+        >>> biocutils.unique(
+        ...     [
+        ...         1,
+        ...         2,
+        ...         None,
+        ...         None,
+        ...         3,
+        ...         2,
+        ...     ]
+        ... )
+        >>> biocutils.unique(
+        ...     [
+        ...         1,
+        ...         2,
+        ...         None,
+        ...         None,
+        ...         3,
+        ...         2,
+        ...     ],
+        ...     incomparables=set(
+        ...         [None]
+        ...     ),
+        ... )
     """
     return subset(x, numpy.where(numpy.logical_not(duplicated(x, incomparables=incomparables, from_last=from_last)))[0])

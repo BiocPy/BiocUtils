@@ -56,3 +56,7 @@ def test_split_Factor_none():
     assert list(frag.keys()) == ["A", "B"]
     assert (frag["A"] == x[0:15:3]).all()
     assert (frag["B"] == x[1:15:3]).all()
+
+    frag = biocutils.split(x, f, skip=set([None, "A"]))
+    assert list(frag.keys()) == ["B"]
+    assert (frag["B"] == x[1:15:3]).all()

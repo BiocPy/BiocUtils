@@ -92,8 +92,8 @@ def split(
             for lev in f.get_levels():
                 ix = -1
                 if lev not in skip:
+                    ix = len(levels)
                     levels.append(lev)
-                    ix = len(reindex)
                 reindex.append(ix)
             indices = []
             for code in f.get_codes():

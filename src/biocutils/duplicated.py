@@ -68,23 +68,31 @@ def _duplicated_Factor(x: Factor, incomparables: Union[set, Sequence] = set(), f
             present.append(None)
         else:
             present.append(False)
-    
+
+    # Handling codes of -1, i.e., None.
+    if None in incomparables:
+        present.append(None)
+    else:
+        present.append(False)
+
+    output = numpy.ndarray(len(x), dtype=numpy.bool_)
     def process(i, y):
-        tmp = present[i]
+        tmp = present[y]
         if tmp is None:
             output[i] = False
         elif tmp:
             output[i] = True
         else:
-            present[i] = True
+            present[y] = True
             output[i] = False
 
     if not from_last:
-        for i, y in enumerate(x):
+        for i, y in enumerate(x.get_codes()):
             process(i, y)
     else:
+        codes = x.get_codes()
         for i in range(len(x) - 1, -1, -1):
-            process(i, x[i])
+            process(i, codes[i])
 
     return output
 

@@ -38,6 +38,8 @@ class MatchIndex:
 
         if isinstance(targets, dict):
             # Back-compatible behavior.
+            import warnings
+            warnings.warn(DeprecationWarning("'map_to_index()' is deprecated, use 'create_match_index()' instead"))
             self._map = targets
 
         elif isinstance(targets, Factor):

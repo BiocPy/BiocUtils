@@ -105,7 +105,7 @@ def test_match_Factor_fail_missing():
     x = Factor.from_sequence(["A", "E", "B", "D", "E"])
     levels = Factor.from_sequence(["D", "C", "B", "A"])
 
-    mm = match(x, levels) 
+    mm = match(x, levels)
     assert list(mm) == [3, -1, 2, 0, -1]
 
     with pytest.raises(ValueError, match="cannot find"):

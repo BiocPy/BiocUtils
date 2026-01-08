@@ -1,4 +1,4 @@
-from typing import Any, Optional, Sequence, Union, Literal 
+from typing import Any, Optional, Literal
 from functools import singledispatch
 
 import numpy
@@ -8,7 +8,7 @@ from .is_missing_scalar import is_missing_scalar
 
 class MatchIndex:
     """
-    An index for matching one or more ``x`` against different ``targets``. 
+    An index for matching one or more ``x`` against different ``targets``.
     This is typically constructed by :py:func:`~create_match_index`.
     """
 
@@ -17,7 +17,7 @@ class MatchIndex:
         targets: Any,
         duplicate_method: Literal["first", "last", "any"] = "first",
         dtype: Optional[numpy.dtype] = None,
-        fail_missing: Optional[bool] = None
+        fail_missing: Optional[bool] = None,
     ):
         """
         Args:
@@ -43,7 +43,7 @@ class MatchIndex:
         elif isinstance(targets, Factor):
             # Optimized method when both x and targets are factors.
             target_index = [None] * len(targets.get_levels())
-            first_tie = (duplicate_method == "first" or duplicate_method == "any")
+            first_tie = duplicate_method == "first" or duplicate_method == "any"
             for i, code in enumerate(targets.get_codes()):
                 if code < 0:
                     continue
@@ -52,7 +52,7 @@ class MatchIndex:
 
             mapping = {}
             for i, lev in enumerate(targets.get_levels()):
-                candidate = target_index[i] 
+                candidate = target_index[i]
                 if candidate is not None:
                     mapping[lev] = candidate
             self._map = mapping
@@ -86,6 +86,7 @@ class MatchIndex:
         """
 
         from .Factor import Factor
+
         indices = numpy.zeros(len(x), dtype=self._dtype)
 
         if not isinstance(x, Factor):
@@ -134,7 +135,7 @@ def create_match_index(
     targets: Any,
     duplicate_method: Literal["first", "last", "any"] = "first",
     dtype: Optional[numpy.dtype] = None,
-    fail_missing: Optional[bool] = None
+    fail_missing: Optional[bool] = None,
 ) -> MatchIndex:
     """
     Create a index for matching an arbitrary sequence against ``targets``.
@@ -154,17 +155,56 @@ def create_match_index(
             Whether to raise an error if a value cannot be found in ``targets``, see :py:func:`~match` for details.
 
     Returns:
-        A ``MatchIndex``. 
+        A ``MatchIndex``.
         Other implementations of ``create_match_index()`` may return any object that has a ``match()`` method.
 
     Examples:
         >>> import biocutils
-        >>> mobj = biocutils.create_match_index(["A", "B", "C", "D"])
-        >>> mobj.match(["A", "B", "B", "C", "C", "D", "E"])
-        >>> 
-        >>> ft = biocutils.Factor.from_sequence(["a", "B", "c", "D", "e", "B", "D"])
-        >>> fobj = biocutils.create_match_index(ft)
-        >>> fx = biocutils.Factor.from_sequence(["A", "B", "B", "C", "C", "D", "E"])
+        >>> mobj = biocutils.create_match_index(
+        ...     [
+        ...         "A",
+        ...         "B",
+        ...         "C",
+        ...         "D",
+        ...     ]
+        ... )
+        >>> mobj.match(
+        ...     [
+        ...         "A",
+        ...         "B",
+        ...         "B",
+        ...         "C",
+        ...         "C",
+        ...         "D",
+        ...         "E",
+        ...     ]
+        ... )
+        >>>
+        >>> ft = biocutils.Factor.from_sequence(
+        ...     [
+        ...         "a",
+        ...         "B",
+        ...         "c",
+        ...         "D",
+        ...         "e",
+        ...         "B",
+        ...         "D",
+        ...     ]
+        ... )
+        >>> fobj = biocutils.create_match_index(
+        ...     ft
+        ... )
+        >>> fx = biocutils.Factor.from_sequence(
+        ...     [
+        ...         "A",
+        ...         "B",
+        ...         "B",
+        ...         "C",
+        ...         "C",
+        ...         "D",
+        ...         "E",
+        ...     ]
+        ... )
         >>> fobj.match(fx)
     """
 
@@ -181,7 +221,7 @@ def match(
 ) -> numpy.ndarray:
     """
     Find a matching value of each element of ``x`` in ``targets``.
-    Calling ``match(x, targets, ...)`` should be equivalent to ``create_match_index(targets, ...).match(x)``. 
+    Calling ``match(x, targets, ...)`` should be equivalent to ``create_match_index(targets, ...).match(x)``.
 
     Args:
         x:
@@ -211,11 +251,51 @@ def match(
 
     Examples:
         >>> import biocutils
-        >>> biocutils.match(["A", "B", "B", "C", "D", "D", "E"], ["A", "B", "C", "D"])
-        >>> 
-        >>> fx = biocutils.Factor.from_sequence(["A", "B", "B", "C", "C", "D", "E"])
-        >>> ft = biocutils.Factor.from_sequence(["a", "B", "c", "D", "e", "B", "D"])
-        >>> biocutils.match(fx, ft, duplicate_method="last")
+        >>> biocutils.match(
+        ...     [
+        ...         "A",
+        ...         "B",
+        ...         "B",
+        ...         "C",
+        ...         "D",
+        ...         "D",
+        ...         "E",
+        ...     ],
+        ...     [
+        ...         "A",
+        ...         "B",
+        ...         "C",
+        ...         "D",
+        ...     ],
+        ... )
+        >>>
+        >>> fx = biocutils.Factor.from_sequence(
+        ...     [
+        ...         "A",
+        ...         "B",
+        ...         "B",
+        ...         "C",
+        ...         "C",
+        ...         "D",
+        ...         "E",
+        ...     ]
+        ... )
+        >>> ft = biocutils.Factor.from_sequence(
+        ...     [
+        ...         "a",
+        ...         "B",
+        ...         "c",
+        ...         "D",
+        ...         "e",
+        ...         "B",
+        ...         "D",
+        ...     ]
+        ... )
+        >>> biocutils.match(
+        ...     fx,
+        ...     ft,
+        ...     duplicate_method="last",
+        ... )
     """
 
     obj = create_match_index(targets, duplicate_method=duplicate_method, dtype=dtype, fail_missing=fail_missing)

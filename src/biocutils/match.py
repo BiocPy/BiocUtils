@@ -1,9 +1,7 @@
-from typing import Any, Optional, Literal
+from typing import Any, Optional, Literal, Union, Sequence
 from functools import singledispatch
 
 import numpy
-
-from .is_missing_scalar import is_missing_scalar
 
 
 class MatchIndex:
@@ -16,6 +14,7 @@ class MatchIndex:
         self,
         targets: Any,
         duplicate_method: Literal["first", "last", "any"] = "first",
+        incomparables: Union[set, Sequence] = set(),
         dtype: Optional[numpy.dtype] = None,
         fail_missing: Optional[bool] = None,
     ):
@@ -26,6 +25,9 @@ class MatchIndex:
 
             duplicate_method:
                 How to handle duplicate entries in ``targets``, see :py:func:`~match` for details.
+
+            incomparables:
+                Values that cannot be compared, see :py:func:`~match` for details.
 
             dtype:
                 NumPy type of the output array, see :py:func:`~match` for details.
@@ -45,26 +47,32 @@ class MatchIndex:
 
         elif isinstance(targets, Factor):
             # Optimized method when both x and targets are factors.
-            target_index = [None] * len(targets.get_levels())
+            target_index = [None] * (len(targets.get_levels()) + 1) # add 1 so that code = -1 still behaves correctly.
             first_tie = duplicate_method == "first" or duplicate_method == "any"
             for i, code in enumerate(targets.get_codes()):
-                if code < 0:
-                    continue
                 if not first_tie or target_index[code] is None:
                     target_index[code] = i
 
             mapping = {}
             for i, lev in enumerate(targets.get_levels()):
-                candidate = target_index[i]
+                if lev not in incomparables:
+                    candidate = target_index[i]
+                    if candidate is not None:
+                        mapping[lev] = candidate
+
+            if None not in incomparables: 
+                # None matching to another None is still possible.
+                candidate = target_index[-1]
                 if candidate is not None:
-                    mapping[lev] = candidate
+                    mapping[None] = target_index[-1]
+
             self._map = mapping
 
         else:
             first_tie = duplicate_method == "first" or duplicate_method == "any"
             mapping = {}
             for i, val in enumerate(targets):
-                if not is_missing_scalar(val):
+                if val not in incomparables:
                     if not first_tie or val not in mapping:
                         mapping[val] = i
             self._map = mapping
@@ -107,28 +115,24 @@ class MatchIndex:
                     indices[i] = self._map[y]
 
         else:
-            x_index = [-1] * len(x.get_levels())
+            x_index = [-1] * (len(x.get_levels()) + 1) # adding 1 so that code = -1 still works.
             for i, lev in enumerate(x.get_levels()):
                 if lev in self._map:
-                    candidate = self._map[lev]
-                    if candidate is not None:
-                        x_index[i] = candidate
+                    x_index[i] = self._map[lev]
+
+            if None in self._map:
+                x_index[-1] = self._map[None]
 
             # Separate loops to reduce branching in the tight inner loop.
             if self._fail_missing:
                 for i, code in enumerate(x.get_codes()):
-                    candidate = -1
-                    if code >= 0:
-                        candidate = x_index[code]
+                    candidate = x_index[code]
                     if candidate < 0:
-                        raise ValueError("cannot find '" + x[i] + "' in 'targets'")
+                        raise ValueError("cannot find '" + str(x[i]) + "' in 'targets'")
                     indices[i] = candidate
             else:
                 for i, code in enumerate(x.get_codes()):
-                    if code >= 0:
-                        indices[i] = x_index[code]
-                    else:
-                        indices[i] = -1
+                    indices[i] = x_index[code]
 
         return indices
 
@@ -137,6 +141,7 @@ class MatchIndex:
 def create_match_index(
     targets: Any,
     duplicate_method: Literal["first", "last", "any"] = "first",
+    incomparables: Union[set, Sequence] = set(),
     dtype: Optional[numpy.dtype] = None,
     fail_missing: Optional[bool] = None,
 ) -> MatchIndex:
@@ -150,6 +155,9 @@ def create_match_index(
 
         duplicate_method:
             How to handle duplicate entries in ``targets``, see :py:func:`~match` for details.
+
+        incomparables:
+            Values that cannot be compared, see :py:func:`~match` for details.
 
         dtype:
             NumPy type of the output array, see :py:func:`~match` for details.
@@ -211,7 +219,7 @@ def create_match_index(
         >>> fobj.match(fx)
     """
 
-    return MatchIndex(targets, duplicate_method=duplicate_method, dtype=dtype, fail_missing=fail_missing)
+    return MatchIndex(targets, duplicate_method=duplicate_method, incomparables=incomparables, dtype=dtype, fail_missing=fail_missing)
 
 
 @singledispatch
@@ -219,6 +227,7 @@ def match(
     x: Any,
     targets: Any,
     duplicate_method: Literal["first", "last", "any"] = "first",
+    incomparables: Union[set, Sequence] = set(),
     dtype: Optional[numpy.dtype] = None,
     fail_missing: Optional[bool] = None,
 ) -> numpy.ndarray:
@@ -238,6 +247,11 @@ def match(
         duplicate_method:
             How to handle duplicate entries in ``targets``.
             Either the first, last or any occurrence of each target is reported.
+
+        incomparables:
+            Values of ``x`` or ``targets`` that cannot be compared.
+            No match will be reported for any value of ``x`` that is in ``incomparables``.
+            Any object that has an ``__in__`` method can be used here.
 
         dtype:
             NumPy type of the output array.
@@ -301,5 +315,5 @@ def match(
         ... )
     """
 
-    obj = create_match_index(targets, duplicate_method=duplicate_method, dtype=dtype, fail_missing=fail_missing)
+    obj = create_match_index(targets, duplicate_method=duplicate_method, incomparables=incomparables, dtype=dtype, fail_missing=fail_missing)
     return obj.match(x)

@@ -28,11 +28,19 @@ def test_match_duplicates():
 
 
 def test_match_none():
-    mm = match(["A", None, "B", "D", None, "A", "C", None, "B"], ["D", "C", "B", "A"])
+    x = ["A", None, "B", "D", None, "A", "C", None, "B"]
+    mm = match(x, ["D", "C", "B", "A"])
     assert list(mm) == [3, -1, 2, 0, -1, 3, 1, -1, 2]
 
-    mm = match(["A", "B", "D", "A", "C", "B"], ["D", None, "C", "B", None, "A"])
-    assert list(mm) == [5, 3, 0, 5, 2, 3]
+    lev = ["D", None, "C", "B", "A"]
+    mm = match(x, lev)
+    assert list(mm) == [4, 1, 3, 0, 1, 4, 2, 1, 3]
+
+    mm = match(x, lev, incomparables=set([None]))
+    assert list(mm) == [4, -1, 3, 0, -1, 4, 2, -1, 3]
+
+    with pytest.raises(match="cannot find"):
+        match(x, lev, incomparables=set([None]), fail_missing=True)
 
 
 def test_match_dtype():
@@ -94,11 +102,19 @@ def test_match_Factor_duplicates():
 
 
 def test_match_Factor_none():
-    mm = match(Factor.from_sequence(["A", None, "B", "D", None, "A", "C", None, "B"]), Factor.from_sequence(["D", "C", "B", "A"]))
+    x = Factor.from_sequence(["A", None, "B", "D", None, "A", "C", None, "B"])
+    mm = match(x, Factor.from_sequence(["D", "C", "B", "A"]))
     assert list(mm) == [3, -1, 2, 0, -1, 3, 1, -1, 2]
 
-    mm = match(Factor.from_sequence(["A", "B", "D", "A", "C", "B"]), Factor.from_sequence(["D", None, "C", "B", None, "A"]))
-    assert list(mm) == [5, 3, 0, 5, 2, 3]
+    lev = Factor.from_sequence(["D", None, "C", "B", "A"])
+    mm = match(x, lev)
+    assert list(mm) == [4, 1, 3, 0, 1, 4, 2, 1, 3]
+
+    mm = match(x, lev, incomparables=set([None]))
+    assert list(mm) == [4, -1, 3, 0, -1, 4, 2, -1, 3]
+
+    with pytest.raises(match="cannot find"):
+        match(x, lev, incomparables=set([None]), fail_missing=True)
 
 
 def test_match_Factor_fail_missing():

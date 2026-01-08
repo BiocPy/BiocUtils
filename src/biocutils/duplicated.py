@@ -1,8 +1,10 @@
 from typing import Any, Union, Sequence
+from functools import singledispatch
 
 import numpy
 
 from .Factor import Factor
+from .subset import subset
 
 
 @singledispatch
@@ -27,7 +29,15 @@ def duplicated(x: Any, incomparables: Union[set, Sequence] = set(), from_last: b
         NumPy array of length equal to that of ``x``,
         containing truthy values for only the first occurrence of each value of ``x``.
         If ``from_last = True``, truthy values are only reported for the last occurrence of each value of ``x``.
+
+    Examples:
+        >>> import biocutils
+        >>> biocutils.duplicated([1,2,1,2,3,2])
+        >>> biocutils.duplicated([1,2,1,2,3,2], from_last=True)
+        >>> biocutils.duplicated([1,2,None,None,3,2])
+        >>> biocutils.duplicated([1,2,None,None,3,2], incomparables=set([None]))
     """
+
     available = set()
     output = numpy.ndarray(len(x), dtype=numpy.bool_)
 
@@ -100,5 +110,11 @@ def unique(x: Any, incomparables: Union[set, Sequence] = set(), from_last: bool 
     Returns:
         An object containing unique values of ``x``.
         This is usually of the same class as ``x``.
+
+    Examples:
+        >>> import biocutils
+        >>> biocutils.unique([1,2,1,2,3,2])
+        >>> biocutils.unique([1,2,None,None,3,2])
+        >>> biocutils.unique([1,2,None,None,3,2], incomparables=set([None]))
     """
-    return subset(x, numpy.where(duplicated(x))[0])
+    return subset(x, numpy.where(numpy.logical_not(duplicated(x, incomparables=incomparables, from_last=from_last)))[0])

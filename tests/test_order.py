@@ -23,6 +23,9 @@ def test_order_simple():
     o = biocutils.order(["D", "B", None, "C", "A"])
     assert list(o) == [4, 1, 3, 0, 2]
 
+    o = biocutils.order(["D", "B", "C", "A"], force_last=[]) # for coverage purposes.
+    assert list(o) == [3, 1, 2, 0]
+
 
 def test_order_Factor():
     f = biocutils.Factor.from_sequence(["D", "B", "C", "A"])
@@ -30,6 +33,9 @@ def test_order_Factor():
     assert list(o) == [3, 1, 2, 0]
     o = biocutils.order(f, decreasing=True)
     assert list(o) == [0, 2, 1, 3]
+
+    o = biocutils.order(f, force_last=[]) # for coverage purposes.
+    assert list(o) == [3, 1, 2, 0]
 
     # Respects the level ordering.
     o = biocutils.order(biocutils.Factor.from_sequence(["D", "B", "C", "A"], ["D", "C", "B", "A"]))

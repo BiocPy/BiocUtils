@@ -12,7 +12,7 @@ def order(
     x: Any,
     force_last: Union[set, Sequence] = [None, numpy.ma.masked, numpy.nan],
     decreasing: bool = False,
-    dtype: Optional[numpy.dtype] = None
+    dtype: Optional[numpy.dtype] = None,
 ) -> numpy.ndarray:
     """
     Obtain an ordering of entries of ``x``.
@@ -42,27 +42,83 @@ def order(
     Examples:
         >>> import biocutils
         >>>
-        >>> x = [15,1,22,3,14]
-        >>> o = biocutils.order(x)
+        >>> x = [
+        ...     15,
+        ...     1,
+        ...     22,
+        ...     3,
+        ...     14,
+        ... ]
+        >>> o = biocutils.order(
+        ...     x
+        ... )
         >>> print(o)
-        >>> biocutils.subset(x, o)
-        >>> o = biocutils.order(x, decreasing=True)
+        >>> biocutils.subset(
+        ...     x, o
+        ... )
+        >>> o = biocutils.order(
+        ...     x,
+        ...     decreasing=True,
+        ... )
         >>> print(o)
-        >>> biocutils.subset(x, o)
+        >>> biocutils.subset(
+        ...     x, o
+        ... )
         >>>
-        >>> x = ["C", "B", None, "D", "D", None, "A"]
-        >>> o = biocutils.order(x)
+        >>> x = [
+        ...     "C",
+        ...     "B",
+        ...     None,
+        ...     "D",
+        ...     "D",
+        ...     None,
+        ...     "A",
+        ... ]
+        >>> o = biocutils.order(
+        ...     x
+        ... )
         >>> print(o)
-        >>> biocutils.subset(x, o)
-        >>> o = biocutils.order(x, force_last=set([None, "A"]))
+        >>> biocutils.subset(
+        ...     x, o
+        ... )
+        >>> o = biocutils.order(
+        ...     x,
+        ...     force_last=set(
+        ...         [None, "A"]
+        ...     ),
+        ... )
         >>> print(o)
-        >>> biocutils.subset(x, o)
+        >>> biocutils.subset(
+        ...     x, o
+        ... )
         >>>
         >>> # Factor ordering respects the ordering in the levels.
-        >>> x = biocutils.Factor.from_sequence(["C", "B", "D", "A", "C", "A", "D"], ["D", "C", "B", "A"])
-        >>> o = biocutils.order(x)
+        >>> x = biocutils.Factor.from_sequence(
+        ...     [
+        ...         "C",
+        ...         "B",
+        ...         "D",
+        ...         "A",
+        ...         "C",
+        ...         "A",
+        ...         "D",
+        ...     ],
+        ...     [
+        ...         "D",
+        ...         "C",
+        ...         "B",
+        ...         "A",
+        ...     ],
+        ... )
+        >>> o = biocutils.order(
+        ...     x
+        ... )
         >>> print(o)
-        >>> print(biocutils.subset(x, o))
+        >>> print(
+        ...     biocutils.subset(
+        ...         x, o
+        ...     )
+        ... )
     """
 
     collected = []
@@ -78,14 +134,15 @@ def order(
 
     def key(i):
         return x[i]
+
     collected.sort(key=key, reverse=decreasing)
 
     if dtype is None:
         dtype = numpy.min_scalar_type(len(x) - 1)
     output = numpy.ndarray(len(x), dtype=dtype)
-    output[:len(collected)] = collected
+    output[: len(collected)] = collected
     if len(forced) > 0:
-        output[len(collected):] = forced
+        output[len(collected) :] = forced
 
     return output
 
@@ -95,9 +152,8 @@ def _order_Factor(
     x: Factor,
     force_last: Union[set, Sequence] = set([None]),
     decreasing: bool = False,
-    dtype: Optional[numpy.dtype] = None
+    dtype: Optional[numpy.dtype] = None,
 ) -> numpy.ndarray:
-
     new_force_last = set()
     for i, lev in enumerate(x.get_levels()):
         if lev in force_last:
@@ -110,11 +166,7 @@ def _order_Factor(
 
 
 @singledispatch
-def sort(
-    x: Any,
-    force_last: Union[set, Sequence] = [None, numpy.ma.masked],
-    decreasing: bool = False
-) -> Any:
+def sort(x: Any, force_last: Union[set, Sequence] = [None, numpy.ma.masked], decreasing: bool = False) -> Any:
     """
     Sort an arbitrary iterable sequence.
 
@@ -137,9 +189,26 @@ def sort(
 
     Examples:
         >>> import biocutils
-        >>> biocutils.sort(range(20, 10, -1))
-        >>> biocutils.sort(["A", "B", None, "C", "D"], decreasing=True)
+        >>> biocutils.sort(
+        ...     range(
+        ...         20, 10, -1
+        ...     )
+        ... )
+        >>> biocutils.sort(
+        ...     [
+        ...         "A",
+        ...         "B",
+        ...         None,
+        ...         "C",
+        ...         "D",
+        ...     ],
+        ...     decreasing=True,
+        ... )
         >>> import numpy
-        >>> biocutils.sort(numpy.random.rand(10))
+        >>> biocutils.sort(
+        ...     numpy.random.rand(
+        ...         10
+        ...     )
+        ... )
     """
     return subset(x, order(x, force_last=force_last, decreasing=decreasing))

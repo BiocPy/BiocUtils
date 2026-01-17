@@ -15,13 +15,13 @@ def sanitize_metadata(metadata: Any) -> NamedList:
     """Sanitize metadata input to a NamedList."""
     if metadata is None:
         return NamedList()
-    
+
     if isinstance(metadata, NamedList):
         return metadata
-    
+
     if isinstance(metadata, dict):
         return NamedList.from_dict(metadata)
-    
+
     if isinstance(metadata, list):
         return NamedList.from_list(metadata)
 

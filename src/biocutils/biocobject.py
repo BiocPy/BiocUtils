@@ -15,10 +15,15 @@ def sanitize_metadata(metadata: Any) -> NamedList:
     """Sanitize metadata input to a NamedList."""
     if metadata is None:
         return NamedList()
+    
     if isinstance(metadata, NamedList):
         return metadata
+    
     if isinstance(metadata, dict):
         return NamedList.from_dict(metadata)
+    
+    if isinstance(metadata, list):
+        return NamedList.from_list(metadata)
 
     raise TypeError(f"`metadata` must be a dictionary or NamedList, provided {type(metadata).__name__}.")
 
@@ -45,10 +50,11 @@ class BiocObject:
             _validate:
                 Whether to validate the input. Defaults to True.
         """
+        _meta = sanitize_metadata(metadata)
         if _validate and metadata is not None:
-            _validate_metadata(metadata)
+            _validate_metadata(_meta)
 
-        self._metadata = sanitize_metadata(metadata)
+        self._metadata = _meta
 
     def _define_output(self, in_place: bool = False) -> BiocObject:
         """Internal utility to handle in-place vs copy-on-modify."""

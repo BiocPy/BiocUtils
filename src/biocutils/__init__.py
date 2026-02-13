@@ -63,3 +63,5 @@ from .is_high_dimensional import is_high_dimensional
 
 from .biocobject import BiocObject
 from .table import table
+
+from .order import order, sort

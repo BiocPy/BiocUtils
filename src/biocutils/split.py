@@ -1,13 +1,13 @@
-from typing import Any, Sequence, Union
 from functools import singledispatch
+from typing import Any, Sequence, Union
 
 import numpy
 
-from .NamedList import NamedList
 from .Factor import Factor
-from .match import match
-from .subset import subset
 from .get_height import get_height
+from .match import match
+from .NamedList import NamedList
+from .subset import subset
 
 
 @singledispatch

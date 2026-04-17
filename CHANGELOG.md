@@ -1,9 +1,14 @@
 # Changelog
 
-## Version 0.3.0 - 0.3.2
+## Version 0.4.0
+
+- Implemented R's `split()` utility to split a sequence by a grouping factor.
+- Turn `match()` into a generic for specialization by other BiocPy classes.
+- Implement `duplicated()` generic for simple sequences and Factors.
+
+## Version 0.3.0 - 0.3.4
 
 - Provide a base `BiocObject` class similar to the `Annotated` class in Bioconductor. The class provides `metadata` slot, accessors and validation functions.
-- Renaming code files to follow pep guidelines
 - Update Github actions and workflow to the new biocsetup versions
 - Changes to improve `NamedList`, `Names` classes
   - get name at index

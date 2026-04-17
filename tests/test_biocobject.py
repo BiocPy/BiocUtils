@@ -18,6 +18,14 @@ def test_init_with_dict():
     assert isinstance(obj.metadata, NamedList)
     assert len(obj.metadata) == 2
 
+def test_init_with_list():
+    """Test initialization with a list."""
+    meta = ["jkanche", 1]
+    obj = BiocObject(metadata=meta)
+
+    assert isinstance(obj.metadata, NamedList)
+    assert len(obj.metadata) == 2
+
 def test_init_validation():
     """Test that invalid metadata raises TypeError."""
     with pytest.raises(TypeError, match="must be a dictionary or NamedList"):

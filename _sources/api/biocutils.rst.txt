@@ -132,6 +132,14 @@ biocutils.convert\_to\_dense module
    :show-inheritance:
    :undoc-members:
 
+biocutils.duplicated module
+---------------------------
+
+.. automodule:: biocutils.duplicated
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
 biocutils.extract\_column\_names module
 ---------------------------------------
 
@@ -220,6 +228,14 @@ biocutils.normalize\_subscript module
    :show-inheritance:
    :undoc-members:
 
+biocutils.order module
+----------------------
+
+.. automodule:: biocutils.order
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
 biocutils.package\_utils module
 -------------------------------
 
@@ -272,6 +288,14 @@ biocutils.show\_as\_cell module
 -------------------------------
 
 .. automodule:: biocutils.show_as_cell
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+biocutils.split module
+----------------------
+
+.. automodule:: biocutils.split
    :members:
    :show-inheritance:
    :undoc-members:

@@ -3,6 +3,7 @@
 ## Version 0.4.0
 
 - Implemented R's `split()` utility to split a sequence by a grouping factor.
+- Turn `match()` into a generic for specialization by other BiocPy classes.
 
 ## Version 0.3.0 - 0.3.4
 

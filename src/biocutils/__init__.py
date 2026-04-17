@@ -28,7 +28,7 @@ from .intersect import intersect
 from .is_list_of_type import is_list_of_type
 from .is_missing_scalar import is_missing_scalar
 from .map_to_index import map_to_index
-from .match import match
+from .match import match, create_match_index, MatchIndex
 from .normalize_subscript import normalize_subscript, SubscriptTypes
 from .print_truncated import print_truncated, print_truncated_dict, print_truncated_list
 from .print_wrapped_table import create_floating_names, print_type, print_wrapped_table, truncate_strings

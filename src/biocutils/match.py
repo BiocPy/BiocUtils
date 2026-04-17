@@ -1,5 +1,5 @@
-from typing import Any, Optional, Literal, Union, Sequence
 from functools import singledispatch
+from typing import Any, Literal, Optional, Sequence, Union
 
 import numpy
 

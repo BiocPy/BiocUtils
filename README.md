@@ -28,6 +28,7 @@ that would otherwise have to implement these methods individually.
 
 ```python
 import biocutils
+
 biocutils.match(["A", "C", "E"], ["A", "B", "C", "D", "E"])
 ## [0, 2, 4]
 ```
@@ -36,6 +37,7 @@ biocutils.match(["A", "C", "E"], ["A", "B", "C", "D", "E"])
 
 ```python
 import biocutils
+
 biocutils.factorize(["A", "B", "B", "A", "C", "D", "C", "D"])
 ## (['A', 'B', 'C', 'D'], [0, 1, 1, 0, 2, 3, 2, 3])
 ```
@@ -44,6 +46,7 @@ biocutils.factorize(["A", "B", "B", "A", "C", "D", "C", "D"])
 
 ```python
 import biocutils
+
 biocutils.intersect(["A", "B", "C", "D"], ["D", "A", "E"])
 ## ['A', 'D']
 ```
@@ -52,6 +55,7 @@ biocutils.intersect(["A", "B", "C", "D"], ["D", "A", "E"])
 
 ```python
 import biocutils
+
 biocutils.union(["A", "B", "C", "D"], ["D", "A", "E"])
 ## ['A', 'B', 'C', 'D', 'E']
 ```
@@ -60,10 +64,12 @@ biocutils.union(["A", "B", "C", "D"], ["D", "A", "E"])
 
 ```python
 import biocutils
+
 biocutils.subset(["A", "B", "C", "D", "E"], [0, 2, 4])
 ## ['A', 'C', 'E']
 
 import numpy as np
+
 y = np.array([10, 20, 30, 40, 50])
 biocutils.subset(y, [0, 2, 4])
 ## array([10, 30, 50])
